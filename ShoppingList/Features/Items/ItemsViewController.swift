@@ -5,6 +5,7 @@ class ItemsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addNewItemTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var backgroundView: UIView!
     
     private var cancelButtonAnimations: CancelButtonAnimations!
 
@@ -20,19 +21,37 @@ class ItemsViewController: UIViewController {
         items.append("Food for dog")
         items.append("Vacuum cleaner")
     }
+
+    @IBAction func addItemTapped(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    @IBAction func basketTapped(_ sender: UIBarButtonItem) {
+        
+    }
     
     @IBAction func cancelTapped(_ sender: UIButton) {
         addNewItemTextField.text = ""
         addNewItemTextField.resignFirstResponder()
     }
-    
-    @IBAction func addItemTapped(_ sender: UIBarButtonItem) {
-        
-    }
 }
 
 // MARK - UITableViewDelegate
 extension ItemsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, sourceView, completionHandler) in
+            guard self != nil else { return }
+            
+            completionHandler(true)
+        }
+        editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        return UISwipeActionsConfiguration(actions: [editItemAction])
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, sourceView, completionHandler) in
             guard self != nil else { return }
@@ -48,14 +67,13 @@ extension ItemsViewController: UITableViewDelegate {
 
 // MARK: - UITableViewDataSource
 extension ItemsViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = items[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
+        cell.itemNameLabel.text = items[indexPath.row]
         return cell
     }
 }
@@ -76,9 +94,13 @@ extension ItemsViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         cancelButtonAnimations.show()
+        backgroundView.alpha = 0.5
+        //tableView.alpha = 0.5
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         cancelButtonAnimations.hide()
+        backgroundView.alpha = 0
+        //tableView.alpha = 1
     }
 }

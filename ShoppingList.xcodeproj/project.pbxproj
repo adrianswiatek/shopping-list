@@ -15,6 +15,7 @@
 		3A392E4D207A5A3D005857E5 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */; };
 		3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
 		3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
+		3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemTableViewCell.swift */; };
 		E5E415EADA71430253D04582 /* Pods_ShoppingListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */; };
 		F467B00E34EF72F27407A067 /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		3A392E4E207A5A3D005857E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A972EBE207A877D00963961 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonAnimations.swift; sourceTree = "<group>"; };
+		3A972EC3207A97B300963961 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		65FD02EE20E74D6FFBCB7B47 /* Pods-ShoppingListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingListTests/Pods-ShoppingListTests.release.xcconfig"; sourceTree = "<group>"; };
 		BDE64E5E42B865B8309C895D /* Pods-ShoppingList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingList/Pods-ShoppingList.debug.xcconfig"; sourceTree = "<group>"; };
 		D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +137,7 @@
 			children = (
 				3A972EC0207A89F600963961 /* Animations */,
 				3A392E39207A5A3C005857E5 /* ItemsViewController.swift */,
+				3A972EC3207A97B300963961 /* ItemTableViewCell.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			files = (
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
 				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
+				3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */,
 				3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */,
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
 			);
