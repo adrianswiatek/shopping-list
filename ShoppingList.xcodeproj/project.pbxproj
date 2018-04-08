@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E37207A5A3C005857E5 /* AppDelegate.swift */; };
-		3A392E3A207A5A3C005857E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E39207A5A3C005857E5 /* ViewController.swift */; };
+		3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E39207A5A3C005857E5 /* ItemsViewController.swift */; };
 		3A392E3D207A5A3C005857E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E3B207A5A3C005857E5 /* Main.storyboard */; };
 		3A392E3F207A5A3D005857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E3E207A5A3D005857E5 /* Assets.xcassets */; };
 		3A392E42207A5A3D005857E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E40207A5A3D005857E5 /* LaunchScreen.storyboard */; };
 		3A392E4D207A5A3D005857E5 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */; };
+		3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
+		3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
 		E5E415EADA71430253D04582 /* Pods_ShoppingListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */; };
 		F467B00E34EF72F27407A067 /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */; };
 /* End PBXBuildFile section */
@@ -31,7 +33,7 @@
 		2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A392E34207A5A3C005857E5 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A392E37207A5A3C005857E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3A392E39207A5A3C005857E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3A392E39207A5A3C005857E5 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		3A392E3C207A5A3C005857E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A392E3E207A5A3D005857E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A392E41207A5A3D005857E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -39,6 +41,8 @@
 		3A392E48207A5A3D005857E5 /* ShoppingListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoppingListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTests.swift; sourceTree = "<group>"; };
 		3A392E4E207A5A3D005857E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A972EBE207A877D00963961 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonAnimations.swift; sourceTree = "<group>"; };
 		65FD02EE20E74D6FFBCB7B47 /* Pods-ShoppingListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingListTests/Pods-ShoppingListTests.release.xcconfig"; sourceTree = "<group>"; };
 		BDE64E5E42B865B8309C895D /* Pods-ShoppingList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingList/Pods-ShoppingList.debug.xcconfig"; sourceTree = "<group>"; };
 		D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,12 +102,13 @@
 		3A392E36207A5A3C005857E5 /* ShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				3A972EBD207A877000963961 /* Extensions */,
+				3A972EB8207A5D3E00963961 /* Features */,
+				3A392E43207A5A3D005857E5 /* Info.plist */,
 				3A392E37207A5A3C005857E5 /* AppDelegate.swift */,
-				3A392E39207A5A3C005857E5 /* ViewController.swift */,
-				3A392E3B207A5A3C005857E5 /* Main.storyboard */,
 				3A392E3E207A5A3D005857E5 /* Assets.xcassets */,
 				3A392E40207A5A3D005857E5 /* LaunchScreen.storyboard */,
-				3A392E43207A5A3D005857E5 /* Info.plist */,
+				3A392E3B207A5A3C005857E5 /* Main.storyboard */,
 			);
 			path = ShoppingList;
 			sourceTree = "<group>";
@@ -115,6 +120,39 @@
 				3A392E4E207A5A3D005857E5 /* Info.plist */,
 			);
 			path = ShoppingListTests;
+			sourceTree = "<group>";
+		};
+		3A972EB8207A5D3E00963961 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				3A972EB9207A5D7300963961 /* Items */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		3A972EB9207A5D7300963961 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				3A972EC0207A89F600963961 /* Animations */,
+				3A392E39207A5A3C005857E5 /* ItemsViewController.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		3A972EBD207A877000963961 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3A972EBE207A877D00963961 /* UIViewExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3A972EC0207A89F600963961 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		81E50F8A70048237A2F2BD63 /* Pods */ = {
@@ -334,7 +372,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A392E3A207A5A3C005857E5 /* ViewController.swift in Sources */,
+				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
+				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
+				3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */,
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,7 +539,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -515,7 +558,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -532,7 +578,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingListTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -550,7 +600,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingListTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
