@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -95,11 +96,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="yYI-Vl-yGO">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="plain" systemItem="add" id="b93-cg-CBc">
-                            <connections>
-                                <action selector="addItemTapped:" destination="BYZ-38-t0r" id="Wcq-SP-faL"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem enabled="NO" style="plain" systemItem="add" id="b93-cg-CBc">
+                                <connections>
+                                    <action selector="addItemTapped:" destination="BYZ-38-t0r" id="Wcq-SP-faL"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="Basket" id="ngO-JY-c7s"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addNewItemTextField" destination="Umb-rn-NdL" id="8jc-Aa-IdU"/>
@@ -130,4 +134,7 @@
             <point key="canvasLocation" x="220" y="30"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Basket" width="24" height="24"/>
+    </resources>
 </document>
