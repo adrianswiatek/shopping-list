@@ -8,26 +8,22 @@ class ItemsViewController: UIViewController {
     @IBOutlet weak var backgroundView: UIView!
     
     private var cancelButtonAnimations: CancelButtonAnimations!
-
-    private var items = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         cancelButtonAnimations = CancelButtonAnimations(viewController: self)
-        
-        items.append("Bananas")
-        items.append("Newspaper")
-        items.append("Food for dog")
-        items.append("Vacuum cleaner")
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     @IBAction func addItemTapped(_ sender: UIBarButtonItem) {
-        
+        // Go to add new item scene
     }
     
     @IBAction func basketTapped(_ sender: UIBarButtonItem) {
-        
+        // Go to basket scene
     }
     
     @IBAction func cancelTapped(_ sender: UIButton) {
@@ -56,7 +52,7 @@ extension ItemsViewController: UITableViewDelegate {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, sourceView, completionHandler) in
             guard self != nil else { return }
             
-            self!.items.remove(at: indexPath.row)
+            Repository.remove(at: indexPath.row)
             self!.tableView.deleteRows(at: [indexPath], with: .automatic)
             completionHandler(true)
         }
@@ -68,12 +64,17 @@ extension ItemsViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension ItemsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return Repository.ItemsToBuy.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
-        cell.itemNameLabel.text = items[indexPath.row]
+        
+        if let item = Repository.ItemsToBuy.getItem(at: indexPath.row) {
+            cell.initialize(item: item, addToBasketDelegate: self)
+            cell.itemNameLabel.text = item.name
+        }
+        
         return cell
     }
 }
@@ -83,8 +84,8 @@ extension ItemsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text, text != "" else { return false }
 
-        items.insert(text, at: 0)
-        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        Repository.addNew(item: Item.toBuy(name: text))
+        tableView.insertRow(at: 0)
 
         textField.resignFirstResponder()
         textField.text = ""
@@ -95,12 +96,20 @@ extension ItemsViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         cancelButtonAnimations.show()
         backgroundView.alpha = 0.5
-        //tableView.alpha = 0.5
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         cancelButtonAnimations.hide()
         backgroundView.alpha = 0
-        //tableView.alpha = 1
+    }
+}
+
+// MARK: - AddToBasketDelegate
+extension ItemsViewController: AddToBasketDelegate {
+    func addItemToBasket(_ item: Item) {
+        guard let itemIndex = Repository.ItemsToBuy.getIndexOf(item) else { return }
+        
+        Repository.ItemsToBuy.moveItemToBasket(item)
+        tableView.deleteRow(at: itemIndex)
     }
 }

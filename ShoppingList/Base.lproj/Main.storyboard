@@ -43,7 +43,7 @@
                                 <rect key="frame" x="375" y="70" width="48" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="WYA-tM-i7R"/>
-                                    <constraint firstAttribute="width" constant="48" id="u5z-f0-ZoL"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="48" id="u5z-f0-ZoL"/>
                                 </constraints>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -130,7 +130,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="yYI-Vl-yGO">
                         <rightBarButtonItems>
-                            <barButtonItem enabled="NO" style="plain" systemItem="add" id="b93-cg-CBc">
+                            <barButtonItem enabled="NO" systemItem="add" id="b93-cg-CBc">
                                 <connections>
                                     <action selector="addItemTapped:" destination="BYZ-38-t0r" id="Wcq-SP-faL"/>
                                 </connections>
