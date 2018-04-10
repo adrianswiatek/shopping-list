@@ -27,10 +27,16 @@ class Repository {
         }
         
         public static func moveItemToBasket(_ item: Item) {
-            let itemToMove = remove(item: item)
+            let itemToMove = Repository.remove(item: item)
             if let itemInBasket = itemToMove?.getWithChanged(state: .inBasket) {
                 addNew(item: itemInBasket)
             }
+        }
+        
+        @discardableResult
+        public static func remove(at index: Int) -> Item? {
+            guard let item = getItem(at: index) else { return nil }
+            return Repository.remove(item: item)
         }
     }
 
@@ -43,11 +49,21 @@ class Repository {
             return items.filter { $0.state == .inBasket }
         }
         
+        public static func getItem(at index: Int) -> Item? {
+            return getAll()[index]
+        }
+        
         public static func moveItemFromBasket(_ item: Item) {
-            let itemToMove = remove(item: item)
+            let itemToMove = Repository.remove(item: item)
             if let itemInBasket = itemToMove?.getWithChanged(state: .toBuy) {
                 addNew(item: itemInBasket)
             }
+        }
+        
+        @discardableResult
+        public static func remove(at index: Int) -> Item? {
+            guard let item = getItem(at: index) else { return nil }
+            return Repository.remove(item: item)
         }
     }
     
@@ -60,11 +76,6 @@ class Repository {
         guard let index = items.index(where: { $0.id == item.id }) else {
             return nil
         }
-        return items.remove(at: index)
-    }
-    
-    @discardableResult
-    public static func remove(at index: Int) -> Item? {
         return items.remove(at: index)
     }
 }

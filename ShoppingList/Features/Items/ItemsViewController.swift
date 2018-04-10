@@ -16,6 +16,8 @@ class ItemsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Refresh repository
     }
     
     @IBAction func addItemTapped(_ sender: UIBarButtonItem) {
@@ -52,7 +54,7 @@ extension ItemsViewController: UITableViewDelegate {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, sourceView, completionHandler) in
             guard self != nil else { return }
             
-            Repository.remove(at: indexPath.row)
+            Repository.ItemsToBuy.remove(at: indexPath.row)
             self!.tableView.deleteRows(at: [indexPath], with: .automatic)
             completionHandler(true)
         }
