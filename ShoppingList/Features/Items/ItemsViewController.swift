@@ -16,7 +16,7 @@ class ItemsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        tableView.reloadData()
         // Refresh repository
     }
     
@@ -47,6 +47,7 @@ extension ItemsViewController: UITableViewDelegate {
             completionHandler(true)
         }
         editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        editItemAction.image = #imageLiteral(resourceName: "Edit")
         return UISwipeActionsConfiguration(actions: [editItemAction])
     }
     
@@ -54,11 +55,13 @@ extension ItemsViewController: UITableViewDelegate {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, sourceView, completionHandler) in
             guard self != nil else { return }
             
-            Repository.ItemsToBuy.remove(at: indexPath.row)
-            self!.tableView.deleteRows(at: [indexPath], with: .automatic)
+            let row = indexPath.row
+            Repository.ItemsToBuy.remove(at: row)
+            self!.tableView.deleteRow(at: row)
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        deleteItemAction.image = #imageLiteral(resourceName: "Trash")
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
     }
 }
@@ -73,7 +76,7 @@ extension ItemsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
         
         if let item = Repository.ItemsToBuy.getItem(at: indexPath.row) {
-            cell.initialize(item: item, addToBasketDelegate: self)
+            cell.initialize(item: item, delegate: self)
             cell.itemNameLabel.text = item.name
         }
         
@@ -112,6 +115,6 @@ extension ItemsViewController: AddToBasketDelegate {
         guard let itemIndex = Repository.ItemsToBuy.getIndexOf(item) else { return }
         
         Repository.ItemsToBuy.moveItemToBasket(item)
-        tableView.deleteRow(at: itemIndex)
+        tableView.deleteRow(at: itemIndex, with: .right)
     }
 }

@@ -53,10 +53,14 @@ class Repository {
             return getAll()[index]
         }
         
+        public static func getIndexOf(_ item: Item) -> Int? {
+            return getAll().index { $0.id == item.id }
+        }
+        
         public static func moveItemFromBasket(_ item: Item) {
             let itemToMove = Repository.remove(item: item)
-            if let itemInBasket = itemToMove?.getWithChanged(state: .toBuy) {
-                addNew(item: itemInBasket)
+            if let itemToBuy = itemToMove?.getWithChanged(state: .toBuy) {
+                addNew(item: itemToBuy)
             }
         }
         

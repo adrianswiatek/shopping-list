@@ -1,9 +1,5 @@
 import UIKit
 
-protocol AddToBasketDelegate: AnyObject {
-    func addItemToBasket(_ item: Item)
-}
-
 class ItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var itemNameLabel: UILabel!
@@ -11,26 +7,20 @@ class ItemTableViewCell: UITableViewCell {
     
     private var item: Item?
     
-    private weak var addToBasketDelegate: AddToBasketDelegate?
+    private weak var delegate: AddToBasketDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        addToBasketButton.layer.borderColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
-        addToBasketButton.layer.borderWidth = 1
-        addToBasketButton.layer.cornerRadius = 20
-        
-        addToBasketButton.setImage(#imageLiteral(resourceName: "AddToBasket").withRenderingMode(.alwaysTemplate), for: .normal)
-        addToBasketButton.tintColor = #colorLiteral(red: 0.4756349325, green: 0.4756467342, blue: 0.4756404161, alpha: 1)
+        addToBasketButton.setToItemButton(with: #imageLiteral(resourceName: "AddToBasket"))
     }
     
-    func initialize(item: Item, addToBasketDelegate: AddToBasketDelegate) {
+    func initialize(item: Item, delegate: AddToBasketDelegate) {
         self.item = item
-        self.addToBasketDelegate = addToBasketDelegate
+        self.delegate = delegate
     }
     
     @IBAction func addToBasketTapped(_ sender: UIButton) {
         guard let item = item else { return }
-        addToBasketDelegate?.addItemToBasket(item)
+        delegate?.addItemToBasket(item)
     }
 }

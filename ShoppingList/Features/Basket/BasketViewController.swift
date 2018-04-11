@@ -11,7 +11,7 @@ class BasketViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        tableView.reloadData()
         // Refresh repository
     }
 }
@@ -27,6 +27,7 @@ extension BasketViewController: UITableViewDelegate {
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        deleteItemAction.image = #imageLiteral(resourceName: "Trash")
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
     }
 }
@@ -39,8 +40,23 @@ extension BasketViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = Repository.ItemsInBasket.getItem(at: indexPath.row)?.name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! BasketTableViewCell
+        
+        if let item = Repository.ItemsInBasket.getItem(at: indexPath.row) {
+            cell.initialize(item: item, delegate: self)
+            cell.itemNameLabel.text = item.name
+        }
+        
         return cell
+    }
+}
+
+// MARK: - RemoveFromBasketDelegate
+extension BasketViewController: RemoveFromBasketDelegate {
+    func removeItemFromBasket(_ item: Item) {
+        guard let itemIndex = Repository.ItemsInBasket.getIndexOf(item) else { return }
+        
+        Repository.ItemsInBasket.moveItemFromBasket(item)
+        tableView.deleteRow(at: itemIndex, with: .left)
     }
 }
