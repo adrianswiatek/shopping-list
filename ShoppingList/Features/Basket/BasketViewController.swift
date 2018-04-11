@@ -13,13 +13,18 @@ class BasketViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-        refreshActionButton()
-        
+        refreshScene()
         // Refresh repository
     }
     
-    private func refreshActionButton() {
-        actionButtons.isEnabled = Repository.ItemsInBasket.any
+    private func refreshScene() {
+        if Repository.ItemsInBasket.any {
+            actionButtons.isEnabled = true
+            tableView.backgroundView = nil
+        } else {
+            actionButtons.isEnabled = false
+            tableView.setTextIfEmpty("Your basket is empty")
+        }
     }
     
     @IBAction func actionTapped(_ sender: UIBarButtonItem) {
@@ -29,7 +34,7 @@ class BasketViewController: UIViewController {
             let restoredItems = Repository.ItemsInBasket.restoreAll()
             let indicesOfRestoredItems = (0..<restoredItems.count).map { $0 }
             self!.tableView.deleteRows(at: indicesOfRestoredItems, with: .left)
-            self!.refreshActionButton()
+            self!.refreshScene()
         }
         
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [weak self] action in
@@ -38,7 +43,7 @@ class BasketViewController: UIViewController {
             let removedItems = Repository.ItemsInBasket.removeAll()
             let indicesOfRemovedItems = (0..<removedItems.count).map { $0 }
             self!.tableView.deleteRows(at: indicesOfRemovedItems)
-            self!.refreshActionButton()
+            self!.refreshScene()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -60,7 +65,7 @@ extension BasketViewController: UITableViewDelegate {
             
             Repository.ItemsInBasket.remove(at: indexPath.row)
             self!.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self!.refreshActionButton()
+            self!.refreshScene()
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
@@ -94,6 +99,6 @@ extension BasketViewController: RemoveFromBasketDelegate {
         
         Repository.ItemsInBasket.restoreItem(item)
         tableView.deleteRow(at: itemIndex, with: .left)
-        refreshActionButton()
+        refreshScene()
     }
 }

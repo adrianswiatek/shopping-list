@@ -10,6 +10,10 @@ class Repository {
     ]
     
     class ItemsToBuy {
+        static var any: Bool {
+            return count > 0
+        }
+        
         static var count: Int {
             return getAll().count
         }

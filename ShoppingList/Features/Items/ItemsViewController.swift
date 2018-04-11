@@ -18,7 +18,16 @@ class ItemsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        refreshScene()
         // Refresh repository
+    }
+    
+    private func refreshScene() {
+        if Repository.ItemsToBuy.any {
+            tableView.backgroundView = nil
+        } else {
+            tableView.setTextIfEmpty("Your shopping list is empty")
+        }
     }
     
     @IBAction func addItemTapped(_ sender: UIBarButtonItem) {
@@ -59,6 +68,7 @@ extension ItemsViewController: UITableViewDelegate {
             let row = indexPath.row
             Repository.ItemsToBuy.remove(at: row)
             self!.tableView.deleteRow(at: row)
+            self!.refreshScene()
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
@@ -92,6 +102,7 @@ extension ItemsViewController: UITextFieldDelegate {
 
         Repository.addNew(item: Item.toBuy(name: text))
         tableView.insertRow(at: 0)
+        refreshScene()
 
         textField.resignFirstResponder()
         textField.text = ""
@@ -117,5 +128,6 @@ extension ItemsViewController: AddToBasketDelegate {
         
         Repository.ItemsToBuy.moveItemToBasket(item)
         tableView.deleteRow(at: itemIndex, with: .right)
+        refreshScene()
     }
 }
