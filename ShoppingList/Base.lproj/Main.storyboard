@@ -147,6 +147,7 @@
                         <outlet property="addNewItemTextField" destination="Umb-rn-NdL" id="8jc-Aa-IdU"/>
                         <outlet property="backgroundView" destination="Ebm-Uq-b2m" id="yM3-vd-9d1"/>
                         <outlet property="cancelButton" destination="mzM-Fw-n8d" id="uJH-g2-Ctf"/>
+                        <outlet property="goToBasketBarButton" destination="ngO-JY-c7s" id="20b-LF-RxG"/>
                         <outlet property="tableView" destination="8rT-Zp-F3L" id="PUV-4a-VhB"/>
                     </connections>
                 </viewController>
@@ -163,7 +164,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="56" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NM0-EQ-eoT">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="qRe-Jk-25J" customClass="BasketTableViewCell" customModule="ShoppingList">
@@ -211,23 +212,38 @@
                                     <outlet property="delegate" destination="Hkd-AR-r9p" id="0Xn-vv-uWb"/>
                                 </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYu-d3-3Yz">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Gcu-Jj-LST"/>
+                                    <barButtonItem systemItem="action" id="nLn-it-3Aw">
+                                        <connections>
+                                            <action selector="actionTapped:" destination="Hkd-AR-r9p" id="qGK-t2-hPj"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NM0-EQ-eoT" firstAttribute="leading" secondItem="tRQ-SF-4xT" secondAttribute="leading" id="2D2-0C-h1D"/>
-                            <constraint firstItem="tRQ-SF-4xT" firstAttribute="bottom" secondItem="NM0-EQ-eoT" secondAttribute="bottom" id="2eY-FM-eac"/>
+                            <constraint firstItem="VYu-d3-3Yz" firstAttribute="leading" secondItem="tRQ-SF-4xT" secondAttribute="leading" id="Qzp-Iv-3V8"/>
                             <constraint firstItem="tRQ-SF-4xT" firstAttribute="trailing" secondItem="NM0-EQ-eoT" secondAttribute="trailing" id="Yid-pj-gpb"/>
+                            <constraint firstItem="VYu-d3-3Yz" firstAttribute="trailing" secondItem="tRQ-SF-4xT" secondAttribute="trailing" id="lgM-7Y-rbV"/>
                             <constraint firstItem="NM0-EQ-eoT" firstAttribute="top" secondItem="tRQ-SF-4xT" secondAttribute="top" id="mwM-Oe-yXl"/>
+                            <constraint firstItem="VYu-d3-3Yz" firstAttribute="bottom" secondItem="tRQ-SF-4xT" secondAttribute="bottom" id="vt3-e0-qGa"/>
+                            <constraint firstItem="VYu-d3-3Yz" firstAttribute="top" secondItem="NM0-EQ-eoT" secondAttribute="bottom" id="yEC-TZ-G2j"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tRQ-SF-4xT"/>
                     </view>
                     <connections>
+                        <outlet property="actionButtons" destination="nLn-it-3Aw" id="1wO-Xd-sFT"/>
                         <outlet property="tableView" destination="NM0-EQ-eoT" id="ijP-Hx-Hlw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jyl-rB-xxE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212" y="29"/>
+            <point key="canvasLocation" x="2212" y="28.335832083958024"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="agJ-y4-XbV">

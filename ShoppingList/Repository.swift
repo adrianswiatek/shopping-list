@@ -41,6 +41,10 @@ class Repository {
     }
 
     class ItemsInBasket {
+        static var any: Bool {
+            return count > 0
+        }
+        
         static var count: Int {
             return getAll().count
         }
@@ -57,17 +61,28 @@ class Repository {
             return getAll().index { $0.id == item.id }
         }
         
-        public static func moveItemFromBasket(_ item: Item) {
+        @discardableResult
+        public static func restoreItem(_ item: Item) -> Item? {
             let itemToMove = Repository.remove(item: item)
-            if let itemToBuy = itemToMove?.getWithChanged(state: .toBuy) {
-                addNew(item: itemToBuy)
-            }
+            guard let itemToBuy = itemToMove?.getWithChanged(state: .toBuy) else { return nil }
+            
+            addNew(item: itemToBuy)
+            return itemToBuy
+        }
+        
+        public static func restoreAll() -> [Item] {
+            return getAll().map { restoreItem($0); return $0 }
         }
         
         @discardableResult
         public static func remove(at index: Int) -> Item? {
             guard let item = getItem(at: index) else { return nil }
             return Repository.remove(item: item)
+        }
+        
+        @discardableResult
+        public static func removeAll() -> [Item] {
+            return getAll().compactMap { Repository.remove(item: $0) }
         }
     }
     

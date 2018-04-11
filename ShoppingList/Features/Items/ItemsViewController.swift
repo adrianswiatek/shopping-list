@@ -6,6 +6,7 @@ class ItemsViewController: UIViewController {
     @IBOutlet weak var addNewItemTextField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var goToBasketBarButton: UIBarButtonItem!
     
     private var cancelButtonAnimations: CancelButtonAnimations!
     
