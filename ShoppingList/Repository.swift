@@ -66,7 +66,7 @@ class Repository {
         }
         
         @discardableResult
-        public static func restoreItem(_ item: Item) -> Item? {
+        public static func restore(_ item: Item) -> Item? {
             let itemToMove = Repository.remove(item: item)
             guard let itemToBuy = itemToMove?.getWithChanged(state: .toBuy) else { return nil }
             
@@ -74,14 +74,25 @@ class Repository {
             return itemToBuy
         }
         
-        public static func restoreAll() -> [Item] {
-            return getAll().map { restoreItem($0); return $0 }
+        @discardableResult
+        public static func restoreItems(at indices: [Int]) -> [Item] {
+            return indices.compactMap { getItem(at: $0) }.compactMap { restore($0) }
         }
         
         @discardableResult
-        public static func remove(at index: Int) -> Item? {
+        public static func restoreAll() -> [Item] {
+            return getAll().map { restore($0); return $0 }
+        }
+        
+        @discardableResult
+        public static func removeItem(at index: Int) -> Item? {
             guard let item = getItem(at: index) else { return nil }
             return Repository.remove(item: item)
+        }
+
+        @discardableResult
+        public static func removeItems(at indices: [Int]) -> [Item] {
+            return indices.compactMap { getItem(at: $0) }.compactMap { remove(item: $0) }
         }
         
         @discardableResult

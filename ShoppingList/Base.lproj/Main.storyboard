@@ -163,7 +163,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="56" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NM0-EQ-eoT">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="56" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NM0-EQ-eoT">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -215,6 +215,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYu-d3-3Yz">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
+                                    <barButtonItem title="Edit" style="plain" id="crA-Nc-xVa">
+                                        <connections>
+                                            <action selector="editTapped:" destination="Hkd-AR-r9p" id="SSj-lX-kuE"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Gcu-Jj-LST"/>
                                     <barButtonItem systemItem="action" id="nLn-it-3Aw">
                                         <connections>
@@ -223,21 +228,45 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LmC-gF-d0B">
+                                <rect key="frame" x="0.0" y="667" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Delete" style="plain" id="n7n-vN-PRg">
+                                        <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="deleteTapped:" destination="Hkd-AR-r9p" id="RDc-fA-i88"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="tUW-mR-cKf"/>
+                                    <barButtonItem title="Restore" style="plain" id="UmV-oa-65k">
+                                        <connections>
+                                            <action selector="restoreTapped:" destination="Hkd-AR-r9p" id="c0W-wS-yoE"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NM0-EQ-eoT" firstAttribute="leading" secondItem="tRQ-SF-4xT" secondAttribute="leading" id="2D2-0C-h1D"/>
+                            <constraint firstItem="LmC-gF-d0B" firstAttribute="leading" secondItem="tRQ-SF-4xT" secondAttribute="leading" id="Ct4-QC-bKY"/>
                             <constraint firstItem="VYu-d3-3Yz" firstAttribute="leading" secondItem="tRQ-SF-4xT" secondAttribute="leading" id="Qzp-Iv-3V8"/>
+                            <constraint firstItem="LmC-gF-d0B" firstAttribute="trailing" secondItem="tRQ-SF-4xT" secondAttribute="trailing" id="REd-EU-bSD"/>
                             <constraint firstItem="tRQ-SF-4xT" firstAttribute="trailing" secondItem="NM0-EQ-eoT" secondAttribute="trailing" id="Yid-pj-gpb"/>
+                            <constraint firstItem="LmC-gF-d0B" firstAttribute="bottom" secondItem="tRQ-SF-4xT" secondAttribute="bottom" constant="44" identifier="BottomToolbarConstraint" id="aPc-Hj-uPc"/>
                             <constraint firstItem="VYu-d3-3Yz" firstAttribute="trailing" secondItem="tRQ-SF-4xT" secondAttribute="trailing" id="lgM-7Y-rbV"/>
                             <constraint firstItem="NM0-EQ-eoT" firstAttribute="top" secondItem="tRQ-SF-4xT" secondAttribute="top" id="mwM-Oe-yXl"/>
-                            <constraint firstItem="VYu-d3-3Yz" firstAttribute="bottom" secondItem="tRQ-SF-4xT" secondAttribute="bottom" id="vt3-e0-qGa"/>
+                            <constraint firstItem="LmC-gF-d0B" firstAttribute="top" secondItem="VYu-d3-3Yz" secondAttribute="bottom" id="wZC-KF-hhz"/>
                             <constraint firstItem="VYu-d3-3Yz" firstAttribute="top" secondItem="NM0-EQ-eoT" secondAttribute="bottom" id="yEC-TZ-G2j"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tRQ-SF-4xT"/>
                     </view>
                     <connections>
-                        <outlet property="actionButtons" destination="nLn-it-3Aw" id="1wO-Xd-sFT"/>
+                        <outlet property="actionButton" destination="nLn-it-3Aw" id="Q6t-VC-f3o"/>
+                        <outlet property="bottomToolbar" destination="LmC-gF-d0B" id="Yu3-P4-V0b"/>
+                        <outlet property="deleteButton" destination="n7n-vN-PRg" id="hJb-U6-hj8"/>
+                        <outlet property="editButton" destination="crA-Nc-xVa" id="Sme-Ri-fE5"/>
+                        <outlet property="restoreButton" destination="UmV-oa-65k" id="Lwb-j6-OYG"/>
                         <outlet property="tableView" destination="NM0-EQ-eoT" id="ijP-Hx-Hlw"/>
                     </connections>
                 </viewController>

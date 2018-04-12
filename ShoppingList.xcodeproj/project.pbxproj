@@ -17,6 +17,7 @@
 		3A392E3F207A5A3D005857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E3E207A5A3D005857E5 /* Assets.xcassets */; };
 		3A392E42207A5A3D005857E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E40207A5A3D005857E5 /* LaunchScreen.storyboard */; };
 		3A392E4D207A5A3D005857E5 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */; };
+		3A6100B020800AE300D27346 /* BottomToolbarAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6100AF20800AE300D27346 /* BottomToolbarAnimations.swift */; };
 		3A82DC4C207D4FFE006B3885 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4B207D4FFE006B3885 /* Repository.swift */; };
 		3A82DC4E207D5296006B3885 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4D207D5296006B3885 /* Item.swift */; };
 		3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4F207D52BC006B3885 /* ItemState.swift */; };
@@ -55,6 +56,7 @@
 		3A392E48207A5A3D005857E5 /* ShoppingListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoppingListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTests.swift; sourceTree = "<group>"; };
 		3A392E4E207A5A3D005857E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A6100AF20800AE300D27346 /* BottomToolbarAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomToolbarAnimations.swift; sourceTree = "<group>"; };
 		3A82DC4B207D4FFE006B3885 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3A82DC4D207D5296006B3885 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		3A82DC4F207D52BC006B3885 /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
@@ -144,6 +146,14 @@
 			path = ShoppingListTests;
 			sourceTree = "<group>";
 		};
+		3A6100AE20800AD000D27346 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				3A6100AF20800AE300D27346 /* BottomToolbarAnimations.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		3A82DC51207D52D8006B3885 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +166,7 @@
 		3A82DC54207D7524006B3885 /* Basket */ = {
 			isa = PBXGroup;
 			children = (
+				3A6100AE20800AD000D27346 /* Animations */,
 				3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */,
 				3A82DC55207D7539006B3885 /* BasketViewController.swift */,
 				3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */,
@@ -418,6 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A6100B020800AE300D27346 /* BottomToolbarAnimations.swift in Sources */,
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
