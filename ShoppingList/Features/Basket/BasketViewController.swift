@@ -2,29 +2,107 @@ import UIKit
 
 class BasketViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var actionButton: UIBarButtonItem!
-    @IBOutlet weak var editButton: UIBarButtonItem!
-    @IBOutlet weak var deleteButton: UIBarButtonItem!
-    @IBOutlet weak var restoreButton: UIBarButtonItem!
-    @IBOutlet weak var bottomToolbar: UIToolbar!
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.register(BasketTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
-    private var bottomToolbarAnimations: BottomToolbarAnimations!
+    lazy var editButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editList))
+    }()
+    
+    lazy var actionButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showActions))
+    }()
+    
+    lazy var regularToolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.setItems([
+            editButton,
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            actionButton,
+            ], animated: true)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        return toolbar
+    }()
+    
+    lazy var deleteButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "Trash"), style: .plain, target: self, action: #selector(deleteSelected))
+        button.isEnabled = false
+        return button
+    }()
+    
+    lazy var restoreButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "RemoveFromBasket"), style: .plain, target: self, action: #selector(restoreSelected))
+        button.isEnabled = false
+        return button
+    }()
+    
+    lazy var editToolbar: UIToolbar = {
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        fixedSpace.width = 16
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let cancelButton =
+            UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelListEditing))
+        cancelButton.style = .done
+        
+        let toolbar = UIToolbar()
+        toolbar.setItems([
+            cancelButton,
+            flexibleSpace,
+            deleteButton,
+            fixedSpace,
+            restoreButton,
+            ], animated: true)
+        toolbar.alpha = 0
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        return toolbar
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Basket"
-        bottomToolbarAnimations = BottomToolbarAnimations(viewController: self)
+        setupUserInterface()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
         refreshScene()
-        // Refresh repository
+        tableView.reloadData()
     }
     
-    private func refreshScene() {
+    private func setupUserInterface() {
+        title = "Basket"
+        view.backgroundColor = .white
+
+        view.addSubview(regularToolbar)
+        regularToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        regularToolbar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        regularToolbar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        regularToolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        view.addSubview(editToolbar)
+        editToolbar.bottomAnchor.constraint(equalTo: regularToolbar.bottomAnchor).isActive = true
+        editToolbar.leftAnchor.constraint(equalTo: regularToolbar.leftAnchor).isActive = true
+        editToolbar.rightAnchor.constraint(equalTo: regularToolbar.rightAnchor).isActive = true
+        editToolbar.heightAnchor.constraint(equalTo: regularToolbar.heightAnchor).isActive = true
+        
+        view.addSubview(tableView)
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: regularToolbar.topAnchor).isActive = true
+    }
+    
+    func refreshScene() {
         if Repository.ItemsInBasket.any {
             actionButton.isEnabled = true
             editButton.isEnabled = true
@@ -36,23 +114,19 @@ class BasketViewController: UIViewController {
         }
     }
     
-    @IBAction func actionTapped(_ sender: UIBarButtonItem) {
-        let restoreAllAction = UIAlertAction(title: "Restore all", style: .default) { [weak self] action in
-            guard self != nil else { return }
-            
+    @objc private func showActions(_ sender: UIBarButtonItem) {
+        let restoreAllAction = UIAlertAction(title: "Restore all", style: .default) { [unowned self] action in
             let restoredItems = Repository.ItemsInBasket.restoreAll()
             let indicesOfRestoredItems = (0..<restoredItems.count).map { $0 }
-            self!.tableView.deleteRows(at: indicesOfRestoredItems, with: .left)
-            self!.refreshScene()
+            self.tableView.deleteRows(at: indicesOfRestoredItems, with: .left)
+            self.refreshScene()
         }
         
-        let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [weak self] action in
-            guard self != nil else { return }
-            
+        let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
             let removedItems = Repository.ItemsInBasket.removeAll()
             let indicesOfRemovedItems = (0..<removedItems.count).map { $0 }
-            self!.tableView.deleteRows(at: indicesOfRemovedItems)
-            self!.refreshScene()
+            self.tableView.deleteRows(at: indicesOfRemovedItems)
+            self.refreshScene()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -65,15 +139,19 @@ class BasketViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    @IBAction func editTapped(_ sender: UIBarButtonItem) {
-        tableView.setEditing(!tableView.isEditing, animated: true)
-        editButton.title = tableView.isEditing ? "Cancel" : "Edit"
-        editButton.style = tableView.isEditing ? .done : .plain
-        
-        if !tableView.isEditing { bottomToolbarAnimations.hide() }
+    @objc private func editList() {
+        tableView.setEditing(true, animated: true)
+        regularToolbar.alpha = 0
+        editToolbar.alpha = 1
     }
     
-    @IBAction func deleteTapped(_ sender: UIBarButtonItem) {
+    @objc private func cancelListEditing() {
+        tableView.setEditing(false, animated: true)
+        regularToolbar.alpha = 1
+        editToolbar.alpha = 0
+    }
+    
+    @objc private func deleteSelected() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         let selectedRows = selectedIndexPaths.map { $0.row }
@@ -81,67 +159,11 @@ class BasketViewController: UIViewController {
         tableView.deleteRows(at: selectedRows)
     }
     
-    @IBAction func restoreTapped(_ sender: UIBarButtonItem) {
+    @objc private func restoreSelected() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         let selectedRows = selectedIndexPaths.map { $0.row }
         Repository.ItemsInBasket.restoreItems(at: selectedRows)
         tableView.deleteRows(at: selectedRows, with: .left)
-    }
-}
-
-// MARK: - UITextFieldDelegate
-extension BasketViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, sourceView, completionHandler) in
-            guard self != nil else { return }
-            
-            Repository.ItemsInBasket.removeItem(at: indexPath.row)
-            self!.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self!.refreshScene()
-            completionHandler(true)
-        }
-        deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        deleteItemAction.image = #imageLiteral(resourceName: "Trash")
-        return UISwipeActionsConfiguration(actions: [deleteItemAction])
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let moreThanOneSelected = (tableView.indexPathsForSelectedRows?.count ?? 0) > 1
-        if !moreThanOneSelected { bottomToolbarAnimations.show() }
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let anySelected = tableView.indexPathsForSelectedRows != nil
-        if !anySelected { bottomToolbarAnimations.hide() }
-    }
-}
-
-// MARK: - UITextFieldDataSource
-extension BasketViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Repository.ItemsInBasket.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! BasketTableViewCell
-        
-        if let item = Repository.ItemsInBasket.getItem(at: indexPath.row) {
-            cell.initialize(item: item, delegate: self)
-            cell.itemNameLabel.text = item.name
-        }
-        
-        return cell
-    }
-}
-
-// MARK: - RemoveFromBasketDelegate
-extension BasketViewController: RemoveFromBasketDelegate {
-    func removeItemFromBasket(_ item: Item) {
-        guard let itemIndex = Repository.ItemsInBasket.getIndexOf(item) else { return }
-        
-        Repository.ItemsInBasket.restore(item)
-        tableView.deleteRow(at: itemIndex, with: .left)
-        refreshScene()
     }
 }

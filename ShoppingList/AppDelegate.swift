@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  ShoppingList
-//
-//  Created by Adrian Świątek on 08.04.2018.
-//  Copyright © 2018 Adrian Świątek. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
@@ -14,7 +6,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = .white
+        
+        let itemsViewController = ItemsViewController()
+        let navigationController = UINavigationController(rootViewController: itemsViewController)
+        
+        window = UIWindow()
+        window?.makeKeyAndVisible()
+        window?.rootViewController = navigationController
+        
         return true
     }
 

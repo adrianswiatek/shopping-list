@@ -1,133 +1,68 @@
 import UIKit
 
-class ItemsViewController: UIViewController {
+class ItemsViewController: UITableViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addNewItemTextField: UITextField!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var goToBasketBarButton: UIBarButtonItem!
+    lazy var addItemTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Add new item..."
+        textField.clearButtonMode = .always
+        textField.returnKeyType = .done
+        textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
     
-    private var cancelButtonAnimations: CancelButtonAnimations!
+    lazy var cancelAddingItemButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Cancel", for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0.4117647059, blue: 0.8509803922, alpha: 1), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(cancelAddingItem), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
+    var cancelButtonAnimations: CancelButtonAnimations!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUserInterface()
         cancelButtonAnimations = CancelButtonAnimations(viewController: self)
+        
+        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
         refreshScene()
-        // Refresh repository
     }
     
-    private func refreshScene() {
+    private func setupUserInterface() {
+        view.backgroundColor = .white
+        
+        navigationItem.rightBarButtonItem =
+            UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
+        
+        tableView.separatorStyle = .none
+    }
+    
+    @objc private func goToBasketScene() {
+        let basketViewController = BasketViewController()
+        navigationController?.pushViewController(basketViewController, animated: true)
+    }
+    
+    @objc private func cancelAddingItem() {
+        addItemTextField.text = ""
+        addItemTextField.resignFirstResponder()
+    }
+    
+    func refreshScene() {
         if Repository.ItemsToBuy.any {
             tableView.backgroundView = nil
         } else {
             tableView.setTextIfEmpty("Your shopping list is empty")
         }
-    }
-    
-    @IBAction func addItemTapped(_ sender: UIBarButtonItem) {
-        // Go to add new item scene
-    }
-    
-    @IBAction func basketTapped(_ sender: UIBarButtonItem) {
-        // Go to basket scene
-    }
-    
-    @IBAction func cancelTapped(_ sender: UIButton) {
-        addNewItemTextField.text = ""
-        addNewItemTextField.resignFirstResponder()
-    }
-}
-
-// MARK - UITableViewDelegate
-extension ItemsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] (action, sourceView, completionHandler) in
-            guard self != nil else { return }
-            
-            completionHandler(true)
-        }
-        editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        editItemAction.image = #imageLiteral(resourceName: "Edit")
-        return UISwipeActionsConfiguration(actions: [editItemAction])
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, sourceView, completionHandler) in
-            guard self != nil else { return }
-            
-            let row = indexPath.row
-            Repository.ItemsToBuy.remove(at: row)
-            self!.tableView.deleteRow(at: row)
-            self!.refreshScene()
-            completionHandler(true)
-        }
-        deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        deleteItemAction.image = #imageLiteral(resourceName: "Trash")
-        return UISwipeActionsConfiguration(actions: [deleteItemAction])
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension ItemsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Repository.ItemsToBuy.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
-        
-        if let item = Repository.ItemsToBuy.getItem(at: indexPath.row) {
-            cell.initialize(item: item, delegate: self)
-            cell.itemNameLabel.text = item.name
-        }
-        
-        return cell
-    }
-}
-
-// MARK: - UITextFieldDelegate
-extension ItemsViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text, text != "" else { return false }
-
-        Repository.addNew(item: Item.toBuy(name: text))
-        tableView.insertRow(at: 0)
-        refreshScene()
-
-        textField.resignFirstResponder()
-        textField.text = ""
-        
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        cancelButtonAnimations.show()
-        backgroundView.alpha = 0.5
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        cancelButtonAnimations.hide()
-        backgroundView.alpha = 0
-    }
-}
-
-// MARK: - AddToBasketDelegate
-extension ItemsViewController: AddToBasketDelegate {
-    func addItemToBasket(_ item: Item) {
-        guard let itemIndex = Repository.ItemsToBuy.getIndexOf(item) else { return }
-        
-        Repository.ItemsToBuy.moveItemToBasket(item)
-        tableView.deleteRow(at: itemIndex, with: .right)
-        refreshScene()
     }
 }

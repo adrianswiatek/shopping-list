@@ -9,14 +9,13 @@ class CancelButtonAnimations {
     
     init(viewController: ItemsViewController) {
         self.viewController = viewController
-        self.button = viewController.cancelButton
-        self.constraint = button.findConstraintWith(identifier: "CancelButtonTrailingConstraint")
+        self.button = viewController.cancelAddingItemButton
     }
     
     func show() {
-        constraint?.constant = 16
+        getConstraint()?.constant = -12
         UIView.animate(
-            withDuration: 1,
+            withDuration: 0.75,
             delay: 0,
             usingSpringWithDamping: 0.5,
             initialSpringVelocity: 0,
@@ -25,7 +24,11 @@ class CancelButtonAnimations {
     }
     
     func hide() {
-        constraint?.constant = -button.frame.width
+        getConstraint()?.constant = 48
         UIView.animate(withDuration: 0.25) { [weak self] in self?.viewController.view.layoutIfNeeded() }
+    }
+    
+    private func getConstraint() -> NSLayoutConstraint? {
+        return button.findConstraintWith(identifier: "CancelButtonTrailingConstraint")
     }
 }
