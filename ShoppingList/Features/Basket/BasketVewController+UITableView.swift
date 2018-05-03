@@ -21,7 +21,7 @@ extension BasketViewController: UITableViewDelegate {
         setToolbarButtonsEditability(with: tableView)
     }
 
-    private func setToolbarButtonsEditability(with tableView: UITableView) {
+    func setToolbarButtonsEditability(with tableView: UITableView) {
         let anySelected = tableView.indexPathsForSelectedRows != nil
         restoreButton.isEnabled = anySelected
         deleteButton.isEnabled = anySelected

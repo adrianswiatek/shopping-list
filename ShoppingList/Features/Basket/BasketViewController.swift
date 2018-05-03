@@ -56,13 +56,7 @@ class BasketViewController: UIViewController {
         cancelButton.style = .done
         
         let toolbar = UIToolbar()
-        toolbar.setItems([
-            cancelButton,
-            flexibleSpace,
-            deleteButton,
-            fixedSpace,
-            restoreButton,
-            ], animated: true)
+        toolbar.setItems([cancelButton, flexibleSpace, deleteButton, fixedSpace, restoreButton], animated: true)
         toolbar.alpha = 0
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
@@ -157,6 +151,8 @@ class BasketViewController: UIViewController {
         let selectedRows = selectedIndexPaths.map { $0.row }
         Repository.ItemsInBasket.removeItems(at: selectedRows)
         tableView.deleteRows(at: selectedRows)
+        
+        setToolbarButtonsEditability(with: tableView)
     }
     
     @objc private func restoreSelected() {
@@ -165,5 +161,7 @@ class BasketViewController: UIViewController {
         let selectedRows = selectedIndexPaths.map { $0.row }
         Repository.ItemsInBasket.restoreItems(at: selectedRows)
         tableView.deleteRows(at: selectedRows, with: .left)
+        
+        setToolbarButtonsEditability(with: tableView)
     }
 }
