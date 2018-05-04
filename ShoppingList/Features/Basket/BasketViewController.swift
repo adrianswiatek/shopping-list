@@ -62,6 +62,8 @@ class BasketViewController: UIViewController {
         return toolbar
     }()
     
+    var items = [Item]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUserInterface()
@@ -69,8 +71,13 @@ class BasketViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchItems()
         refreshScene()
         tableView.reloadData()
+    }
+    
+    private func fetchItems() {
+        items = Repository.shared.getItemsWith(state: .inBasket)
     }
     
     private func setupUserInterface() {
@@ -97,7 +104,7 @@ class BasketViewController: UIViewController {
     }
     
     func refreshScene() {
-        if Repository.ItemsInBasket.any {
+        if items.count > 0 {
             actionButton.isEnabled = true
             editButton.isEnabled = true
             tableView.backgroundView = nil
@@ -110,15 +117,21 @@ class BasketViewController: UIViewController {
     
     @objc private func showActions(_ sender: UIBarButtonItem) {
         let restoreAllAction = UIAlertAction(title: "Restore all", style: .default) { [unowned self] action in
-            let restoredItems = Repository.ItemsInBasket.restoreAll()
-            let indicesOfRestoredItems = (0..<restoredItems.count).map { $0 }
+            Repository.shared.updateState(of: self.items, to: .toBuy)
+            
+            let indicesOfRestoredItems = (0..<self.items.count).map { $0 }
+            self.items.removeAll()
+            
             self.tableView.deleteRows(at: indicesOfRestoredItems, with: .left)
             self.refreshScene()
         }
         
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
-            let removedItems = Repository.ItemsInBasket.removeAll()
-            let indicesOfRemovedItems = (0..<removedItems.count).map { $0 }
+            Repository.shared.remove(self.items)
+            
+            let indicesOfRemovedItems = (0..<self.items.count).map { $0 }
+            self.items.removeAll()
+
             self.tableView.deleteRows(at: indicesOfRemovedItems)
             self.refreshScene()
         }
@@ -149,7 +162,13 @@ class BasketViewController: UIViewController {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         let selectedRows = selectedIndexPaths.map { $0.row }
-        Repository.ItemsInBasket.removeItems(at: selectedRows)
+        var selectedItems = [Item]()
+        
+        for selectedRow in selectedRows {
+            selectedItems.append(items.remove(at: selectedRow))
+        }
+        
+        Repository.shared.remove(selectedItems)
         tableView.deleteRows(at: selectedRows)
         
         setToolbarButtonsEditability(with: tableView)
@@ -159,7 +178,13 @@ class BasketViewController: UIViewController {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         let selectedRows = selectedIndexPaths.map { $0.row }
-        Repository.ItemsInBasket.restoreItems(at: selectedRows)
+        var selectedItems = [Item]()
+        
+        for selectedRow in selectedRows {
+            selectedItems.append(items.remove(at: selectedRow))
+        }
+        
+        Repository.shared.updateState(of: selectedItems, to: .toBuy)
         tableView.deleteRows(at: selectedRows, with: .left)
         
         setToolbarButtonsEditability(with: tableView)

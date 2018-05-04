@@ -1,9 +1,12 @@
 extension ItemsViewController: AddToBasketDelegate {
     func addItemToBasket(_ item: Item) {
-        guard let itemIndex = Repository.ItemsToBuy.getIndexOf(item) else { return }
+        guard let index = items.index(where: { $0.id == item.id }) else { return }
         
-        Repository.ItemsToBuy.moveItemToBasket(item)
-        tableView.deleteRow(at: itemIndex, with: .right)
+        items.remove(at: index)
+        tableView.deleteRow(at: index, with: .right)
+        
+        Repository.shared.updateState(of: item, to: .inBasket)
+        
         refreshScene()
     }
 }

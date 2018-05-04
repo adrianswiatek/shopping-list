@@ -22,6 +22,9 @@ class ItemsViewController: UITableViewController {
         return button
     }()
     
+    var items = [Item]()
+    var categoryNames = [String]()
+    
     var cancelButtonAnimations: CancelButtonAnimations!
 
     override func viewDidLoad() {
@@ -35,8 +38,16 @@ class ItemsViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        fetchItems()
         tableView.reloadData()
+        
         refreshScene()
+    }
+    
+    func fetchItems() {
+        items = Repository.shared.getItemsWith(state: .toBuy)
+        categoryNames = items.map { $0.getCategoryName() }.sorted()
     }
     
     private func setupUserInterface() {
@@ -59,7 +70,7 @@ class ItemsViewController: UITableViewController {
     }
     
     func refreshScene() {
-        if Repository.ItemsToBuy.any {
+        if items.count > 0 {
             tableView.backgroundView = nil
         } else {
             tableView.setTextIfEmpty("Your shopping list is empty")

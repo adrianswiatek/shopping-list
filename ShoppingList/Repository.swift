@@ -2,114 +2,57 @@ import Foundation
 
 class Repository {
     
-    private static var items = [
-        Item.toBuy(name: "bananas"),
-        Item.toBuy(name: "newspaper"),
-        Item.toBuy(name: "food for dog"),
-        Item.toBuy(name: "vacuum cleaner")
-    ]
+    static let shared = Repository()
     
-    class ItemsToBuy {
-        static var any: Bool {
-            return count > 0
-        }
+    private var items = [Item]()
+    
+    private init() {
+        let fruitsCategory = Category.new(name: "Fruits")
+        items.append(Item.toBuy(name: "Avocado", category: fruitsCategory))
+        items.append(Item.toBuy(name: "Bananas", category: fruitsCategory))
+        items.append(Item.toBuy(name: "Blackberries", category: fruitsCategory))
+        items.append(Item.toBuy(name: "Apples", category: fruitsCategory))
         
-        static var count: Int {
-            return getAll().count
-        }
-
-        public static func getAll() -> [Item] {
-            return items.filter { $0.state == .toBuy }
-        }
+        let dairyCategory = Category.new(name: "Dairy")
+        items.append(Item.toBuy(name: "Milk", category: dairyCategory))
+        items.append(Item.toBuy(name: "Yogurt", category: dairyCategory))
         
-        public static func getItem(at index: Int) -> Item? {
-            return getAll()[index]
-        }
-        
-        public static func getIndexOf(_ item: Item) -> Int? {
-            return getAll().index { $0.id == item.id }
-        }
-        
-        public static func moveItemToBasket(_ item: Item) {
-            let itemToMove = Repository.remove(item: item)
-            if let itemInBasket = itemToMove?.getWithChanged(state: .inBasket) {
-                addNew(item: itemInBasket)
-            }
-        }
-        
-        @discardableResult
-        public static func remove(at index: Int) -> Item? {
-            guard let item = getItem(at: index) else { return nil }
-            return Repository.remove(item: item)
-        }
+        let vegetablesCategory = Category.new(name: "Vegetables")
+        items.append(Item.toBuy(name: "Carrots", category: vegetablesCategory))
+        items.append(Item.toBuy(name: "Spinach", category: vegetablesCategory))
+        items.append(Item.toBuy(name: "Kale", category: vegetablesCategory))
     }
 
-    class ItemsInBasket {
-        static var any: Bool {
-            return count > 0
-        }
-        
-        static var count: Int {
-            return getAll().count
-        }
-        
-        public static func getAll() -> [Item] {
-            return items.filter { $0.state == .inBasket }
-        }
-        
-        public static func getItem(at index: Int) -> Item? {
-            return getAll()[index]
-        }
-        
-        public static func getIndexOf(_ item: Item) -> Int? {
-            return getAll().index { $0.id == item.id }
-        }
-        
-        @discardableResult
-        public static func restore(_ item: Item) -> Item? {
-            let itemToMove = Repository.remove(item: item)
-            guard let itemToBuy = itemToMove?.getWithChanged(state: .toBuy) else { return nil }
-            
-            addNew(item: itemToBuy)
-            return itemToBuy
-        }
-        
-        @discardableResult
-        public static func restoreItems(at indices: [Int]) -> [Item] {
-            return indices.compactMap { getItem(at: $0) }.compactMap { restore($0) }
-        }
-        
-        @discardableResult
-        public static func restoreAll() -> [Item] {
-            return getAll().map { restore($0); return $0 }
-        }
-        
-        @discardableResult
-        public static func removeItem(at index: Int) -> Item? {
-            guard let item = getItem(at: index) else { return nil }
-            return Repository.remove(item: item)
-        }
-
-        @discardableResult
-        public static func removeItems(at indices: [Int]) -> [Item] {
-            return indices.compactMap { getItem(at: $0) }.compactMap { remove(item: $0) }
-        }
-        
-        @discardableResult
-        public static func removeAll() -> [Item] {
-            return getAll().compactMap { Repository.remove(item: $0) }
-        }
+    func getItemsWith(state: ItemState) -> [Item] {
+        return items.filter { $0.state == state }
     }
     
-    public static func addNew(item: Item) {
+    func add(_ item: Item) {
         items.insert(item, at: 0)
     }
     
-    @discardableResult
-    public static func remove(item: Item) -> Item? {
-        guard let index = items.index(where: { $0.id == item.id }) else {
-            return nil
+    func remove(_ items: [Item]) {
+        for item in items {
+            remove(item)
         }
-        return items.remove(at: index)
+    }
+    
+    func remove(_ item: Item) {
+        if let index = self.items.index(where: { $0.id == item.id }) {
+            self.items.remove(at: index)
+        }
+    }
+    
+    func updateState(of items: [Item], to state: ItemState) {
+        for item in items {
+            updateState(of: item, to: state)
+        }
+    }
+    
+    func updateState(of item: Item, to state: ItemState) {
+        if let index = self.items.index(where: { $0.id == item.id }) {
+            self.items.remove(at: index)
+            self.items.insert(item.getWithChanged(state: state), at: 0)
+        }
     }
 }

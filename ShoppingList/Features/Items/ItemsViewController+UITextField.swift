@@ -4,8 +4,12 @@ extension ItemsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text, text != "" else { return false }
         
-        Repository.addNew(item: Item.toBuy(name: text))
+        let item = Item.toBuy(name: text)
+        items.insert(item, at: 0)
         tableView.insertRow(at: 0)
+        
+        Repository.shared.add(item)
+        
         refreshScene()
         
         textField.resignFirstResponder()

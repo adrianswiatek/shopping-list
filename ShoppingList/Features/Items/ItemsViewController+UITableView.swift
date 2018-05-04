@@ -16,9 +16,11 @@ extension ItemsViewController {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
-            let row = indexPath.row
-            Repository.ItemsToBuy.remove(at: row)
-            self.tableView.deleteRow(at: row)
+            let item = self.items.remove(at: indexPath.row)
+            self.tableView.deleteRow(at: indexPath.row)
+            
+            Repository.shared.remove(item)
+            
             self.refreshScene()
             completionHandler(true)
         }
@@ -67,17 +69,15 @@ extension ItemsViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Repository.ItemsToBuy.count
+        return items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
         
-        if let item = Repository.ItemsToBuy.getItem(at: indexPath.row) {
-            cell.item = item
-        }
-        
+        cell.item = items[indexPath.row]
         cell.delegate = self
+        
         return cell
     }
 }

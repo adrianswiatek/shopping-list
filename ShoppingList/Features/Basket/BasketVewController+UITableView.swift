@@ -3,8 +3,12 @@ import UIKit
 extension BasketViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
-            Repository.ItemsInBasket.removeItem(at: indexPath.row)
+            
+            let item = self.items.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            Repository.shared.remove(item)
+            
             self.refreshScene()
             completionHandler(true)
         }
@@ -34,17 +38,15 @@ extension BasketViewController: UITableViewDelegate {
 
 extension BasketViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Repository.ItemsInBasket.count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! BasketTableViewCell
         
-        if let item = Repository.ItemsInBasket.getItem(at: indexPath.row) {
-            cell.item = item
-        }
-        
+        cell.item = items[indexPath.row]
         cell.delegate = self
+        
         return cell
     }
 }
