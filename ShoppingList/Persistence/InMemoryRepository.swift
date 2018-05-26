@@ -1,12 +1,10 @@
 import Foundation
 
-class Repository {
-    
-    static let shared = Repository()
+class InMemoryRepository: RepositoryProtocol {
     
     private var items = [Item]()
     
-    private init() {
+    init() {
         let fruitsCategory = Category.new(name: "Fruits")
         items.append(Item.toBuy(name: "Avocado", category: fruitsCategory))
         items.append(Item.toBuy(name: "Bananas", category: fruitsCategory))
@@ -55,4 +53,6 @@ class Repository {
             self.items.insert(item.getWithChanged(state: state), at: 0)
         }
     }
+    
+    func save() {}
 }

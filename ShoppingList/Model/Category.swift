@@ -13,3 +13,9 @@ struct Category {
         return Category(id: UUID(), name: name)
     }
 }
+
+extension Category {
+    func getWithChanged(name: String) -> Category {
+        return Category(id: self.id, name: name)
+    }
+}
