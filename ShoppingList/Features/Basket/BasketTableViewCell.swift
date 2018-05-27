@@ -21,7 +21,7 @@ class BasketTableViewCell: UITableViewCell {
     }()
     
     private lazy var removeFromBasketButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setListItemButton(with: #imageLiteral(resourceName: "RemoveFromBasket"))
         button.addTarget(self, action: #selector(removeFromBasket), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false

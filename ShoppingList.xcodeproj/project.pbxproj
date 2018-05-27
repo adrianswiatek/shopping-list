@@ -24,6 +24,8 @@
 		3A69E40E20B9ECE7004D122E /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */; };
 		3A69E41220B9EFD0004D122E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41120B9EFD0004D122E /* Repository.swift */; };
 		3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41320B9F158004D122E /* RepositoryProtocol.swift */; };
+		3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */; };
+		3A69E41D20BA1C37004D122E /* ItemEntityMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41C20BA1C37004D122E /* ItemEntityMapper.swift */; };
 		3A82DC4E207D5296006B3885 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4D207D5296006B3885 /* Item.swift */; };
 		3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4F207D52BC006B3885 /* ItemState.swift */; };
 		3A82DC53207D6616006B3885 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */; };
@@ -70,6 +72,8 @@
 		3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		3A69E41120B9EFD0004D122E /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3A69E41320B9F158004D122E /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
+		3A69E41620BA01AF004D122E /* ShoppingList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShoppingList.xcdatamodel; sourceTree = "<group>"; };
+		3A69E41C20BA1C37004D122E /* ItemEntityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEntityMapper.swift; sourceTree = "<group>"; };
 		3A82DC4D207D5296006B3885 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		3A82DC4F207D52BC006B3885 /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
@@ -162,12 +166,30 @@
 		3A69E40C20B9ECB0004D122E /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */,
+				3A69E41820BA01BC004D122E /* CoreData */,
 				3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */,
 				3A69E41120B9EFD0004D122E /* Repository.swift */,
 				3A69E41320B9F158004D122E /* RepositoryProtocol.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		3A69E41820BA01BC004D122E /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3A69E41B20BA1C26004D122E /* Mappers */,
+				3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */,
+				3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3A69E41B20BA1C26004D122E /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				3A69E41C20BA1C37004D122E /* ItemEntityMapper.swift */,
+			);
+			path = Mappers;
 			sourceTree = "<group>";
 		};
 		3A82DC51207D52D8006B3885 /* Model */ = {
@@ -460,6 +482,7 @@
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,
 				3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasket.swift in Sources */,
 				3A82DC53207D6616006B3885 /* UITableViewExtensions.swift in Sources */,
+				3A69E41D20BA1C37004D122E /* ItemEntityMapper.swift in Sources */,
 				3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */,
 				3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */,
 				3A9EAF42209BBA4900B4A39D /* Category.swift in Sources */,
@@ -470,6 +493,7 @@
 				3A20012B2097CBBE0015111F /* ItemsViewController+UITableView.swift in Sources */,
 				3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */,
 				3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */,
+				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
 				3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */,
 				3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */,
 			);
@@ -732,6 +756,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3A69E41620BA01AF004D122E /* ShoppingList.xcdatamodel */,
+			);
+			currentVersion = 3A69E41620BA01AF004D122E /* ShoppingList.xcdatamodel */;
+			path = ShoppingList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3A392E2C207A5A3C005857E5 /* Project object */;
 }

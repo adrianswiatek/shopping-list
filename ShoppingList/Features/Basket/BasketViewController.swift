@@ -109,6 +109,8 @@ class BasketViewController: UIViewController {
             editButton.isEnabled = true
             tableView.backgroundView = nil
         } else {
+            editToolbar.alpha = 0
+            regularToolbar.alpha = 1
             actionButton.isEnabled = false
             editButton.isEnabled = false
             tableView.setTextIfEmpty("Your basket is empty")

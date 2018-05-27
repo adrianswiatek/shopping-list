@@ -6,7 +6,7 @@ struct Item {
     let state: ItemState
     let category: Category?
     
-    private init(id: UUID, name: String, state: ItemState, category: Category?) {
+    init(id: UUID, name: String, state: ItemState, category: Category?) {
         self.id = id
         self.name = name
         self.state = state
@@ -24,9 +24,7 @@ struct Item {
             return "Default"
         }
     }
-}
-
-extension Item {
+    
     func getWithChanged(state: ItemState) -> Item {
         return Item(id: self.id, name: self.name, state: state, category: self.category)
     }
