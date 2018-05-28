@@ -1,6 +1,18 @@
 import UIKit
 
-class ItemsViewController: UITableViewController {
+class ItemsViewController: UIViewController {
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     lazy var addItemTextField: UITextField = {
         let textField = UITextField()
@@ -22,6 +34,25 @@ class ItemsViewController: UITableViewController {
         return button
     }()
     
+    lazy var editButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editList))
+    }()
+    
+    lazy var actionButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showActions))
+    }()
+    
+    lazy var regularToolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.setItems([
+            editButton,
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            actionButton,
+            ], animated: true)
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        return toolbar
+    }()
+    
     var items = [Item]()
     var categoryNames = [String]()
     
@@ -32,8 +63,6 @@ class ItemsViewController: UITableViewController {
         
         setupUserInterface()
         cancelButtonAnimations = CancelButtonAnimations(viewController: self)
-        
-        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,8 +84,26 @@ class ItemsViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem =
             UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
+
+        view.addSubview(regularToolbar)
+        regularToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        regularToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        regularToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        regularToolbar.heightAnchor.constraint(equalToConstant: 50)
         
-        tableView.separatorStyle = .none
+        view.addSubview(tableView)
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: regularToolbar.topAnchor).isActive = true
+    }
+    
+    @objc private func editList() {
+        
+    }
+    
+    @objc private func showActions() {
+        
     }
     
     @objc private func goToBasketScene() {

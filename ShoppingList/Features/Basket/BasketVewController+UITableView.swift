@@ -23,12 +23,6 @@ extension BasketViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         setToolbarButtonsEditability(with: tableView)
     }
-
-    func setToolbarButtonsEditability(with tableView: UITableView) {
-        let anySelected = tableView.indexPathsForSelectedRows != nil
-        restoreButton.isEnabled = anySelected
-        deleteButton.isEnabled = anySelected
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50

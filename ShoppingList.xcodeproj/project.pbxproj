@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A0BD18F20BB647800F15DB9 /* BasketToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BD18E20BB647800F15DB9 /* BasketToolbarController.swift */; };
+		3A0BD19220BB680100F15DB9 /* BasketToolbarRegular.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BD19120BB680100F15DB9 /* BasketToolbarRegular.swift */; };
+		3A0BD19420BB680B00F15DB9 /* BasketToolbarEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0BD19320BB680B00F15DB9 /* BasketToolbarEdit.swift */; };
 		3A13566D207E94D8006A7414 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */; };
 		3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */; };
 		3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */; };
@@ -21,6 +24,9 @@
 		3A392E3F207A5A3D005857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E3E207A5A3D005857E5 /* Assets.xcassets */; };
 		3A392E42207A5A3D005857E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E40207A5A3D005857E5 /* LaunchScreen.storyboard */; };
 		3A392E4D207A5A3D005857E5 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */; };
+		3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251C20BBD8090095D66A /* BasketToolbar.swift */; };
+		3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */; };
+		3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */; };
 		3A69E40E20B9ECE7004D122E /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */; };
 		3A69E41220B9EFD0004D122E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41120B9EFD0004D122E /* Repository.swift */; };
 		3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41320B9F158004D122E /* RepositoryProtocol.swift */; };
@@ -51,6 +57,9 @@
 
 /* Begin PBXFileReference section */
 		2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A0BD18E20BB647800F15DB9 /* BasketToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarController.swift; sourceTree = "<group>"; };
+		3A0BD19120BB680100F15DB9 /* BasketToolbarRegular.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarRegular.swift; sourceTree = "<group>"; };
+		3A0BD19320BB680B00F15DB9 /* BasketToolbarEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarEdit.swift; sourceTree = "<group>"; };
 		3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
 		3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFromBasketDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +78,9 @@
 		3A392E48207A5A3D005857E5 /* ShoppingListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoppingListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTests.swift; sourceTree = "<group>"; };
 		3A392E4E207A5A3D005857E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A54251C20BBD8090095D66A /* BasketToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbar.swift; sourceTree = "<group>"; };
+		3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+BasketToolbarDelegate.swift"; sourceTree = "<group>"; };
+		3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarDelegate.swift; sourceTree = "<group>"; };
 		3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		3A69E41120B9EFD0004D122E /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3A69E41320B9F158004D122E /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -117,6 +129,18 @@
 				D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A0BD19020BB67DD00F15DB9 /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				3A54251C20BBD8090095D66A /* BasketToolbar.swift */,
+				3A0BD18E20BB647800F15DB9 /* BasketToolbarController.swift */,
+				3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */,
+				3A0BD19320BB680B00F15DB9 /* BasketToolbarEdit.swift */,
+				3A0BD19120BB680100F15DB9 /* BasketToolbarRegular.swift */,
+			);
+			path = Toolbar;
 			sourceTree = "<group>";
 		};
 		3A392E2B207A5A3C005857E5 = {
@@ -205,11 +229,13 @@
 		3A82DC54207D7524006B3885 /* Basket */ = {
 			isa = PBXGroup;
 			children = (
+				3A0BD19020BB67DD00F15DB9 /* Toolbar */,
 				3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */,
+				3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */,
 				3A82DC55207D7539006B3885 /* BasketViewController.swift */,
 				3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */,
-				3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */,
 				3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */,
+				3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -474,10 +500,14 @@
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
+				3A0BD18F20BB647800F15DB9 /* BasketToolbarController.swift in Sources */,
+				3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */,
 				3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */,
+				3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */,
 				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
 				3A20012F2097CEC50015111F /* ItemsViewController+UITextField.swift in Sources */,
 				3A69E41220B9EFD0004D122E /* Repository.swift in Sources */,
+				3A0BD19220BB680100F15DB9 /* BasketToolbarRegular.swift in Sources */,
 				3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */,
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,
 				3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasket.swift in Sources */,
@@ -494,7 +524,9 @@
 				3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */,
 				3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */,
 				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
+				3A0BD19420BB680B00F15DB9 /* BasketToolbarEdit.swift in Sources */,
 				3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */,
+				3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */,
 				3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
