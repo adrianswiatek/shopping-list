@@ -34,21 +34,9 @@ class ItemsViewController: UIViewController {
         return button
     }()
     
-    lazy var editButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editList))
-    }()
-    
-    lazy var actionButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showActions))
-    }()
-    
-    lazy var regularToolbar: UIToolbar = {
-        let toolbar = UIToolbar()
-        toolbar.setItems([
-            editButton,
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            actionButton,
-            ], animated: true)
+    lazy var toolbar: ItemsToolbar = {
+        let toolbar = ItemsToolbar(viewController: self)
+        toolbar.delegate = self
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
@@ -85,25 +73,17 @@ class ItemsViewController: UIViewController {
         navigationItem.rightBarButtonItem =
             UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
 
-        view.addSubview(regularToolbar)
-        regularToolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        regularToolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        regularToolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        regularToolbar.heightAnchor.constraint(equalToConstant: 50)
+        view.addSubview(toolbar)
+        toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        toolbar.heightAnchor.constraint(equalToConstant: 50)
         
         view.addSubview(tableView)
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: regularToolbar.topAnchor).isActive = true
-    }
-    
-    @objc private func editList() {
-        
-    }
-    
-    @objc private func showActions() {
-        
+        tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
     }
     
     @objc private func goToBasketScene() {
@@ -117,10 +97,18 @@ class ItemsViewController: UIViewController {
     }
     
     func refreshScene() {
-        if items.count > 0 {
-            tableView.backgroundView = nil
-        } else {
-            tableView.setTextIfEmpty("Your shopping list is empty")
-        }
+        items.count > 0 ? setSceneAsEditable() : setSceneAsNotEditable()
+    }
+    
+    private func setSceneAsEditable() {
+        toolbar.setRegularMode()
+        toolbar.setButtonsAs(enabled: true)
+        tableView.backgroundView = nil
+    }
+    
+    private func setSceneAsNotEditable() {
+        toolbar.setRegularMode()
+        toolbar.setButtonsAs(enabled: false)
+        tableView.setTextIfEmpty("Your shopping list is empty")
     }
 }

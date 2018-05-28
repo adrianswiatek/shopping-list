@@ -71,9 +71,4 @@ class BasketViewController: UIViewController {
         toolbar.setButtonsAs(enabled: false)
         tableView.setTextIfEmpty("Your basket is empty")
     }
-
-    func setToolbarButtonsEditability(with tableView: UITableView) {
-        let anySelected = tableView.indexPathsForSelectedRows != nil
-        toolbar.setButtonsAs(enabled: anySelected)
-    }
 }

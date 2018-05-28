@@ -17,11 +17,11 @@ extension BasketViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        setToolbarButtonsEditability(with: tableView)
+        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        setToolbarButtonsEditability(with: tableView)
+        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

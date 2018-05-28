@@ -35,23 +35,23 @@ class ItemTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUI()
+        setupUserInterface()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI() {
-        addSubview(addToBasketButton)
-        addToBasketButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        addToBasketButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
+    private func setupUserInterface() {
+        contentView.addSubview(addToBasketButton)
+        addToBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        addToBasketButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16).isActive = true
         addToBasketButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         addToBasketButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
-        addSubview(itemNameLabel)
-        itemNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        contentView.addSubview(itemNameLabel)
+        itemNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         itemNameLabel.rightAnchor.constraint(equalTo: addToBasketButton.leftAnchor, constant: 16).isActive = true
-        itemNameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
+        itemNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
     }
 }

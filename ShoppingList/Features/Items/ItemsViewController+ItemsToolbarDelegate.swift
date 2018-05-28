@@ -1,21 +1,21 @@
 import UIKit
 
-extension BasketViewController: BasketToolbarDelegate {
+extension ItemsViewController: ItemsToolbarDelegate {
     func editButtonDidTap() {
         toolbar.setEditMode()
         tableView.setEditing(true, animated: true)
     }
     
     func actionButtonDidTap() {
-        let restoreAllAction = UIAlertAction(title: "Restore all", style: .default) { [unowned self] action in
-            let itemsToRestore = self.items
+        let moveAllToBasketAction = UIAlertAction(title: "Move all to basket", style: .default) { [unowned self] action in
+            let itemsToMove = self.items
             
             self.items.removeAll()
             
-            let indicesOfRestoredItems = (0..<itemsToRestore.count).map { $0 }
-            self.tableView.deleteRows(at: indicesOfRestoredItems, with: .left)
+            let indicesOfMovedItems = (0..<itemsToMove.count).map { $0 }
+            self.tableView.deleteRows(at: indicesOfMovedItems, with: .right)
             
-            Repository.shared.updateState(of: itemsToRestore, to: .toBuy)
+            Repository.shared.updateState(of: itemsToMove, to: .inBasket)
             
             self.refreshScene()
         }
@@ -36,7 +36,7 @@ extension BasketViewController: BasketToolbarDelegate {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(restoreAllAction)
+        alertController.addAction(moveAllToBasketAction)
         alertController.addAction(deleteAllAction)
         alertController.addAction(cancelAction)
         
@@ -55,14 +55,14 @@ extension BasketViewController: BasketToolbarDelegate {
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
     
-    func restoreAllButtonDidTap() {
+    func moveAllToBasketButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
         let selectedRows = selectedIndexPaths.map { $0.row }
         let selectedItems = selectedRows.map { items.remove(at: $0) }
         
-        tableView.deleteRows(at: selectedRows, with: .left)
-        Repository.shared.updateState(of: selectedItems, to: .toBuy)
+        tableView.deleteRows(at: selectedRows, with: .right)
+        Repository.shared.updateState(of: selectedItems, to: .inBasket)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }

@@ -1,10 +1,6 @@
 import UIKit
 
-extension ItemsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
+extension ItemsViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editItemAction = UIContextualAction(style: .normal, title: "Edit") { (action, sourceView, completionHandler) in
             completionHandler(true)
@@ -58,6 +54,14 @@ extension ItemsViewController: UITableViewDelegate {
         addItemTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

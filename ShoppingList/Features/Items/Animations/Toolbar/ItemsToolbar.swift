@@ -1,8 +1,8 @@
 import UIKit
 
-class BasketToolbar: UIView {
-
-    var delegate: BasketToolbarDelegate?
+class ItemsToolbar: UIView {
+    
+    var delegate: ItemsToolbarDelegate?
     
     // MARK:- Regular toolbar
     
@@ -27,7 +27,7 @@ class BasketToolbar: UIView {
         toolbar.setItems([
             editButton,
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            actionButton,
+            actionButton
             ], animated: true)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
@@ -49,18 +49,18 @@ class BasketToolbar: UIView {
         delegate?.deleteAllButtonDidTap()
     }
     
-    private lazy var restoreAllButton: UIBarButtonItem = {
+    private lazy var moveAllToBasketButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
-            image: #imageLiteral(resourceName: "RemoveFromBasket"),
+            image: #imageLiteral(resourceName: "Basket"),
             style: .plain,
             target: self,
-            action: #selector(restoreAllButtonHandler))
+            action: #selector(moveAllToBasketButtonHandler))
         button.isEnabled = false
         return button
     }()
     
-    @objc private func restoreAllButtonHandler() {
-        delegate?.restoreAllButtonDidTap()
+    @objc private func moveAllToBasketButtonHandler() {
+        delegate?.moveAllToBasketButtonDidTap()
     }
     
     private lazy var editToolbar: UIToolbar = {
@@ -79,7 +79,9 @@ class BasketToolbar: UIView {
         cancelButton.style = .done
         
         let toolbar = UIToolbar()
-        toolbar.setItems([cancelButton, flexibleSpace, deleteAllButton, fixedSpace, restoreAllButton], animated: true)
+        toolbar.setItems(
+            [cancelButton, flexibleSpace, deleteAllButton, fixedSpace, moveAllToBasketButton],
+            animated: true)
         toolbar.alpha = 0
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
@@ -120,14 +122,14 @@ class BasketToolbar: UIView {
         regularToolbar.alpha = 1
         editToolbar.alpha = 0
         deleteAllButton.isEnabled = false
-        restoreAllButton.isEnabled = false
+        moveAllToBasketButton.isEnabled = false
     }
     
     func setEditMode() {
         regularToolbar.alpha = 0
         editToolbar.alpha = 1
         deleteAllButton.isEnabled = false
-        restoreAllButton.isEnabled = false
+        moveAllToBasketButton.isEnabled = false
     }
     
     func setButtonsAs(enabled: Bool) {
@@ -137,7 +139,7 @@ class BasketToolbar: UIView {
             actionButton.isEnabled = enabled
         } else {
             deleteAllButton.isEnabled = enabled
-            restoreAllButton.isEnabled = enabled
+            moveAllToBasketButton.isEnabled = enabled
         }
     }
 }
