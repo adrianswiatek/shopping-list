@@ -25,37 +25,6 @@ extension ItemsViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = .white
-        
-        view.addSubview(cancelAddingItemButton)
-        cancelAddingItemButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        cancelAddingItemButton.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        cancelAddingItemButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let cancelButtonTrailingConstraint =
-            NSLayoutConstraint(
-            item: cancelAddingItemButton,
-            attribute: .trailing,
-            relatedBy: .equal,
-            toItem: view,
-            attribute: .trailing,
-            multiplier: 1,
-            constant: 48)
-        
-        cancelButtonTrailingConstraint.identifier = "CancelButtonTrailingConstraint"
-        cancelButtonTrailingConstraint.isActive = true
-        
-        view.addSubview(addItemTextField)
-        addItemTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        addItemTextField.rightAnchor.constraint(equalTo: cancelAddingItemButton.leftAnchor).isActive = true
-        addItemTextField.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        addItemTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
-        
-        return view
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
@@ -63,11 +32,7 @@ extension ItemsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }

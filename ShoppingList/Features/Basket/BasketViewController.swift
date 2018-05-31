@@ -6,9 +6,10 @@ class BasketViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
         tableView.allowsSelection = false
         tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.tableFooterView = UIView()
         tableView.register(BasketTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView

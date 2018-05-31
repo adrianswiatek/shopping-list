@@ -5,7 +5,8 @@ class Repository: RepositoryProtocol {
     private let repository: RepositoryProtocol
     
     private init() {
-        repository = CoreDataRepository()
+//        repository = CoreDataRepository()
+        repository = InMemoryRepository()
     }
     
     func getItemsWith(state: ItemState) -> [Item] {

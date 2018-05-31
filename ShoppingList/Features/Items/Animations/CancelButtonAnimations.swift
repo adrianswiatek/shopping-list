@@ -2,14 +2,14 @@ import UIKit
 
 class CancelButtonAnimations {
     
-    private weak var viewController: ItemsViewController!
-    private weak var button: UIButton!
+    private var viewController: UIViewController
+    private var button: UIButton
     
     private var constraint: NSLayoutConstraint?
     
-    init(viewController: ItemsViewController) {
+    init(viewController: UIViewController, button: UIButton) {
         self.viewController = viewController
-        self.button = viewController.cancelAddingItemButton
+        self.button = button
     }
     
     func show() {
