@@ -29,12 +29,11 @@ class ItemsViewController: UIViewController {
         return toolbar
     }()
     
-    var items = [Item]()
+    var items = [[Item]]()
     var categoryNames = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUserInterface()
     }
     
@@ -48,8 +47,16 @@ class ItemsViewController: UIViewController {
     }
     
     func fetchItems() {
-        items = Repository.shared.getItemsWith(state: .toBuy)
-        categoryNames = items.map { $0.getCategoryName() }.sorted()
+        let allItems = Repository.shared.getItemsWith(state: .toBuy)
+        var items = [[Item]]()
+        self.categoryNames = Set(allItems.map { $0.getCategoryName() }).sorted()
+        
+        for categoryName in categoryNames {
+            let itemsInCategory = allItems.filter { $0.getCategoryName() == categoryName }
+            items.append(itemsInCategory)
+        }
+        
+        self.items = items
     }
     
     private func setupUserInterface() {
@@ -82,8 +89,13 @@ class ItemsViewController: UIViewController {
         navigationController?.pushViewController(basketViewController, animated: true)
     }
     
-    func refreshScene() {
-        items.count > 0 ? setSceneAsEditable() : setSceneAsNotEditable()
+    func refreshScene(after: Double = 0) {
+        items.count > 0 ? self.setSceneAsEditable() : self.setSceneAsNotEditable()
+        tableView.setEditing(false, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + after) { [unowned self] in
+            self.clearCategoriesIfNeeded()
+        }
     }
     
     private func setSceneAsEditable() {
@@ -96,5 +108,21 @@ class ItemsViewController: UIViewController {
         toolbar.setRegularMode()
         toolbar.setButtonsAs(enabled: false)
         tableView.setTextIfEmpty("Your shopping list is empty")
+    }
+    
+    private func clearCategoriesIfNeeded() {
+        if items.count == 0 {
+            let range = 0..<categoryNames.count
+            categoryNames.removeAll()
+            tableView.deleteSections(IndexSet(range), with: .middle)
+        } else {
+            for (index, itemsInCategory) in items.enumerated().sorted(by: { $0.offset > $1.offset }) {
+                if itemsInCategory.count == 0 {
+                    items.remove(at: index)
+                    categoryNames.remove(at: index)
+                    tableView.deleteSections(IndexSet(integer: index), with: .middle)
+                }
+            }
+        }
     }
 }

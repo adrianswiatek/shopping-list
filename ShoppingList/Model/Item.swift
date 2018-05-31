@@ -21,7 +21,7 @@ struct Item {
         if let category = category {
             return category.name
         } else {
-            return "Default"
+            return "Other"
         }
     }
     

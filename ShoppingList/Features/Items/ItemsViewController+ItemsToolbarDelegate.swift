@@ -10,12 +10,18 @@ extension ItemsViewController: ItemsToolbarDelegate {
         let moveAllToBasketAction = UIAlertAction(title: "Move all to basket", style: .default) { [unowned self] action in
             let itemsToMove = self.items
             
+            var indexPaths = [IndexPath]()
+            let sectionNumbers = 0..<self.categoryNames.count
+            for sectionNumber in sectionNumbers {
+                let rowNumbers = 0..<self.items[sectionNumber].count
+                for rowNumber in rowNumbers {
+                    indexPaths.append(IndexPath(row: rowNumber, section: sectionNumber))
+                }
+            }
+            
             self.items.removeAll()
-            
-            let indicesOfMovedItems = (0..<itemsToMove.count).map { $0 }
-            self.tableView.deleteRows(at: indicesOfMovedItems, with: .right)
-            
-            Repository.shared.updateState(of: itemsToMove, to: .inBasket)
+            self.tableView.deleteRows(at: indexPaths, with: .right)
+            Repository.shared.updateState(of: itemsToMove.flatMap { $0 }, to: .inBasket)
             
             self.refreshScene()
         }
@@ -23,12 +29,18 @@ extension ItemsViewController: ItemsToolbarDelegate {
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
             let itemsToDelete = self.items
             
+            var indexPaths = [IndexPath]()
+            let sectionNumbers = 0..<self.categoryNames.count
+            for sectionNumber in sectionNumbers {
+                let rowNumbers = 0..<self.items[sectionNumber].count
+                for rowNumber in rowNumbers {
+                    indexPaths.append(IndexPath(row: rowNumber, section: sectionNumber))
+                }
+            }
+            
             self.items.removeAll()
-            
-            let indicesOfRemovedItems = (0..<itemsToDelete.count).map { $0 }
-            self.tableView.deleteRows(at: indicesOfRemovedItems)
-            
-            Repository.shared.remove(itemsToDelete)
+            self.tableView.deleteRows(at: indexPaths, with: .automatic)
+            Repository.shared.remove(itemsToDelete.flatMap { $0 })
             
             self.refreshScene()
         }
@@ -46,25 +58,27 @@ extension ItemsViewController: ItemsToolbarDelegate {
     func deleteAllButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
-        let selectedRows = selectedIndexPaths.map { $0.row }
-        let selectedItems = selectedRows.map { items.remove(at: $0) }
-        
-        tableView.deleteRows(at: selectedRows)
+        let selectedItems = selectedIndexPaths.map { self.items[$0.section].remove(at: $0.row) }
+        tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
         Repository.shared.remove(selectedItems)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
+        
+        self.refreshScene()
     }
     
     func moveAllToBasketButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
-        let selectedRows = selectedIndexPaths.map { $0.row }
-        let selectedItems = selectedRows.map { items.remove(at: $0) }
-        
-        tableView.deleteRows(at: selectedRows, with: .right)
+        let selectedItems = selectedIndexPaths
+            .sorted { $0 > $1 }
+            .map { self.items[$0.section].remove(at: $0.row) }
+        tableView.deleteRows(at: selectedIndexPaths, with: .right)
         Repository.shared.updateState(of: selectedItems, to: .inBasket)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
+        
+        self.refreshScene()
     }
     
     func cancelButtonDidTap() {

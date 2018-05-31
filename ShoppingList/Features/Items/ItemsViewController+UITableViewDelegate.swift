@@ -12,17 +12,20 @@ extension ItemsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
-            let item = self.items.remove(at: indexPath.row)
-            self.tableView.deleteRow(at: indexPath.row)
-            
+            let item = self.items[indexPath.section].remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
             Repository.shared.remove(item)
             
-            self.refreshScene()
+            self.refreshScene(after: 0.5)
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         deleteItemAction.image = #imageLiteral(resourceName: "Trash")
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return categoryNames[section]
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -35,20 +38,5 @@ extension ItemsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
-    }
-}
-
-extension ItemsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
-        
-        cell.item = items[indexPath.row]
-        cell.delegate = self
-        
-        return cell
     }
 }

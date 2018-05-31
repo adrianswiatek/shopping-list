@@ -11,7 +11,7 @@
 		3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */; };
 		3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */; };
 		3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */; };
-		3A20012B2097CBBE0015111F /* ItemsViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */; };
+		3A20012B2097CBBE0015111F /* ItemsViewController+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20012A2097CBBE0015111F /* ItemsViewController+UITableViewDelegate.swift */; };
 		3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasket.swift */; };
 		3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */; };
 		3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */; };
@@ -40,6 +40,7 @@
 		3AC6211D20C0542A00A16F0E /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211C20C0542A00A16F0E /* AddItemView.swift */; };
 		3AC6211F20C0570100A16F0E /* ItemsViewController+AddItemViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211E20C0570100A16F0E /* ItemsViewController+AddItemViewDelegate.swift */; };
 		3AC6212120C0575900A16F0E /* AddItemViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6212020C0575900A16F0E /* AddItemViewDelegate.swift */; };
+		3AC6212320C05D7800A16F0E /* ItemsViewController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6212220C05D7800A16F0E /* ItemsViewController+UITableViewDataSource.swift */; };
 		3AEDFEF020BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */; };
 		3AEDFEF220BC9F980002B6F7 /* ItemsToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */; };
 		3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */; };
@@ -63,7 +64,7 @@
 		3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFromBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
-		3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+UITableView.swift"; sourceTree = "<group>"; };
+		3A20012A2097CBBE0015111F /* ItemsViewController+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+AddToBasket.swift"; sourceTree = "<group>"; };
 		3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketVewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+RemoveFromBasket.swift"; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		3AC6211C20C0542A00A16F0E /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
 		3AC6211E20C0570100A16F0E /* ItemsViewController+AddItemViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+AddItemViewDelegate.swift"; sourceTree = "<group>"; };
 		3AC6212020C0575900A16F0E /* AddItemViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewDelegate.swift; sourceTree = "<group>"; };
+		3AC6212220C05D7800A16F0E /* ItemsViewController+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
 		3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+ItemsToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbar.swift; sourceTree = "<group>"; };
 		3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbarDelegate.swift; sourceTree = "<group>"; };
@@ -258,11 +260,12 @@
 				3AEDFEE820BC9D370002B6F7 /* Toolbar */,
 				3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */,
 				3A392E39207A5A3C005857E5 /* ItemsViewController.swift */,
+				3AC6211E20C0570100A16F0E /* ItemsViewController+AddItemViewDelegate.swift */,
 				3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasket.swift */,
 				3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */,
-				3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */,
+				3AC6212220C05D7800A16F0E /* ItemsViewController+UITableViewDataSource.swift */,
+				3A20012A2097CBBE0015111F /* ItemsViewController+UITableViewDelegate.swift */,
 				3A972EC3207A97B300963961 /* ItemTableViewCell.swift */,
-				3AC6211E20C0570100A16F0E /* ItemsViewController+AddItemViewDelegate.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AC6212320C05D7800A16F0E /* ItemsViewController+UITableViewDataSource.swift in Sources */,
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
@@ -544,7 +548,7 @@
 				3AEDFEF020BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift in Sources */,
 				3A13566D207E94D8006A7414 /* BasketTableViewCell.swift in Sources */,
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
-				3A20012B2097CBBE0015111F /* ItemsViewController+UITableView.swift in Sources */,
+				3A20012B2097CBBE0015111F /* ItemsViewController+UITableViewDelegate.swift in Sources */,
 				3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */,
 				3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */,
 				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,

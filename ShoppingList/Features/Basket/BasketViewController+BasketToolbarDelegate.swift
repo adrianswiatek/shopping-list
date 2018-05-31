@@ -12,8 +12,8 @@ extension BasketViewController: BasketToolbarDelegate {
             
             self.items.removeAll()
             
-            let indicesOfRestoredItems = (0..<itemsToRestore.count).map { $0 }
-            self.tableView.deleteRows(at: indicesOfRestoredItems, with: .left)
+            let indexPathsOfRestoredItems = (0..<itemsToRestore.count).map { IndexPath(row: $0, section: 0) }
+            self.tableView.deleteRows(at: indexPathsOfRestoredItems, with: .left)
             
             Repository.shared.updateState(of: itemsToRestore, to: .toBuy)
             
@@ -25,8 +25,8 @@ extension BasketViewController: BasketToolbarDelegate {
             
             self.items.removeAll()
             
-            let indicesOfRemovedItems = (0..<itemsToDelete.count).map { $0 }
-            self.tableView.deleteRows(at: indicesOfRemovedItems)
+            let indexPathsOfDeletedItems = (0..<itemsToDelete.count).map { IndexPath(row: $0, section: 0) }
+            self.tableView.deleteRows(at: indexPathsOfDeletedItems, with: .automatic)
             
             Repository.shared.remove(itemsToDelete)
             
@@ -46,10 +46,8 @@ extension BasketViewController: BasketToolbarDelegate {
     func deleteAllButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
-        let selectedRows = selectedIndexPaths.map { $0.row }
-        let selectedItems = selectedRows.map { items.remove(at: $0) }
-        
-        tableView.deleteRows(at: selectedRows)
+        let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
+        tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
         Repository.shared.remove(selectedItems)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
@@ -58,10 +56,8 @@ extension BasketViewController: BasketToolbarDelegate {
     func restoreAllButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
-        let selectedRows = selectedIndexPaths.map { $0.row }
-        let selectedItems = selectedRows.map { items.remove(at: $0) }
-        
-        tableView.deleteRows(at: selectedRows, with: .left)
+        let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
+        tableView.deleteRows(at: selectedIndexPaths, with: .left)
         Repository.shared.updateState(of: selectedItems, to: .toBuy)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
