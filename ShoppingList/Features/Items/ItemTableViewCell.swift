@@ -23,7 +23,7 @@ class ItemTableViewCell: UITableViewCell {
     private lazy var addToBasketButton: UIButton = {
         let button = UIButton(type: .infoLight)
         button.setListItemButton(with: #imageLiteral(resourceName: "Basket"))
-        button.addTarget(self, action: #selector(addToBasket), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addToBasket), for: UIControl.Event.touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -33,7 +33,7 @@ class ItemTableViewCell: UITableViewCell {
         delegate?.addItemToBasket(item)
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUserInterface()
     }

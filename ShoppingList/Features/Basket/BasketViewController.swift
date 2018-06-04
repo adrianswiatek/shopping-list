@@ -6,8 +6,11 @@ class BasketViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tableView.separatorStyle = .singleLine
         tableView.allowsSelection = false
+        tableView.dragInteractionEnabled = true
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.tableFooterView = UIView()
         tableView.register(BasketTableViewCell.self, forCellReuseIdentifier: "Cell")

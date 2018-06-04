@@ -16,10 +16,10 @@ class AddItemView: UIView, UITextFieldDelegate {
     
     private lazy var cancelAddingItemButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Cancel", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0, green: 0.4117647059, blue: 0.8509803922, alpha: 1), for: .normal)
+        button.setTitle("Cancel", for: UIControl.State.normal)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0.4117647059, blue: 0.8509803922, alpha: 1), for: UIControl.State.normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(cancelAddingItem), for: .touchUpInside)
+        button.addTarget(self, action: #selector(cancelAddingItem), for: UIControl.Event.touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

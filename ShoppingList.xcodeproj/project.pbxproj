@@ -374,9 +374,11 @@
 				TargetAttributes = {
 					3A392E33207A5A3C005857E5 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 					};
 					3A392E47207A5A3D005857E5 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 						TestTargetID = 3A392E33207A5A3C005857E5;
 					};
 				};
@@ -718,7 +720,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -737,7 +739,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -758,7 +760,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingList.app/ShoppingList";
 			};
@@ -780,7 +782,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingList.app/ShoppingList";
 			};
