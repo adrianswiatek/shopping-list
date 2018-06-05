@@ -17,22 +17,44 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func getItemsWith(state: ItemState) -> [Item] {
-        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "state == %@", state.rawValue.description)
-    
+        let itemsRequest: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        itemsRequest.predicate = NSPredicate(format: "state == %@", state.rawValue.description)
+        
+        let itemsOrdersRequest: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
+        itemsOrdersRequest.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)
+        
         do {
-            let entities = try context.fetch(request)
-            return entities.map { $0.map() }
+            let itemsEntities = try context.fetch(itemsRequest)
+            let unorderedItems = itemsEntities.map { $0.map() }
+            var orderedItemsIds = [UUID]()
+            
+            let itemsOrdersEntities = try context.fetch(itemsOrdersRequest)
+            if let itemsOrderEntity = itemsOrdersEntities.first {
+                let itemsOrder = itemsOrderEntity.map()
+                orderedItemsIds = itemsOrder.itemsIds
+            }
+            
+            return getItemsInOrder(items: unorderedItems, orderedItemsIds: orderedItemsIds)
         } catch {
             fatalError("Unable to fetch Items: \(error)")
         }
     }
     
+    private func getItemsInOrder(items: [Item], orderedItemsIds: [UUID]) -> [Item] {
+        var unorderedItems = items
+        var result = [Item]()
+        
+        for itemId in orderedItemsIds {
+            guard let itemIndex = unorderedItems.index(where: { $0.id == itemId }) else { continue }
+            result.append(unorderedItems.remove(at: itemIndex))
+        }
+        
+        unorderedItems.forEach { result.append($0) }
+        return result
+    }
+    
     func add(_ item: Item) {
-        let itemEntity = ItemEntity(context: context)
-        itemEntity.id = item.id
-        itemEntity.name = item.name
-        itemEntity.state = Int32(item.state.rawValue)
+        _ = item.map(context: context)
         save()
     }
     
@@ -71,7 +93,7 @@ class CoreDataRepository: RepositoryProtocol {
             entities.forEach { $0.state = Int32(state.rawValue)}
             save()
         } catch {
-            fatalError("Unable to update Item: \(error)")
+            fatalError("Unable to update state of Item: \(error)")
         }
     }
     
@@ -85,12 +107,26 @@ class CoreDataRepository: RepositoryProtocol {
             entity.state = Int32(state.rawValue)
             save()
         } catch {
-            fatalError("Unable to update Item: \(error)")
+            fatalError("Unable to update state of Item: \(error)")
         }
     }
 
     func setItemsOrder(_ items: [Item], forState state: ItemState) {
-        fatalError("Not implemented")
+        let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)
+        
+        do {
+            let entities = try context.fetch(request)
+            if let entity = entities.first {
+                context.delete(entity)
+            }
+            
+            let itemsOrder = ItemsOrder(state, items)
+            _ = itemsOrder.map(context: context)
+            save()
+        } catch {
+            fatalError("Unable to fetch ItemsOrder: \(error)")
+        }
     }
     
     func save() {

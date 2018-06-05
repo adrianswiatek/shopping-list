@@ -1,12 +1,4 @@
-extension Item {
-    func map() -> ItemEntity {
-        let entity = ItemEntity()
-        entity.id = self.id
-        entity.name = self.name
-        entity.state = Int32(self.state.rawValue)
-        return entity
-    }
-}
+import CoreData
 
 extension ItemEntity {
     func map() -> Item {
@@ -17,5 +9,15 @@ extension ItemEntity {
             else { fatalError("Unable to create Item") }
         
         return Item(id: id, name: name, state: state, category: nil)
+    }
+}
+
+extension Item {
+    func map(context: NSManagedObjectContext) -> ItemEntity {
+        let entity = ItemEntity(context: context)
+        entity.id = self.id
+        entity.name = self.name
+        entity.state = Int32(self.state.rawValue)
+        return entity
     }
 }

@@ -29,7 +29,7 @@ class InMemoryRepository: RepositoryProtocol {
 
     func getItemsWith(state: ItemState) -> [Item] {
         let itemsInGivenState = items.filter { $0.state == state }
-        let itemsIds = itemsOrders.first { $0.itemState == state }?.itemsIds ?? [UUID]()
+        let itemsIds = itemsOrders.first { $0.itemsState == state }?.itemsIds ?? [UUID]()
         return getItemsInOrder(items: itemsInGivenState, orderedItemsIds: itemsIds)
     }
     
@@ -72,7 +72,7 @@ class InMemoryRepository: RepositoryProtocol {
     }
     
     func setItemsOrder(_ items: [Item], forState state: ItemState) {
-        if let itemsOrderIndex = itemsOrders.index(where: { $0.itemState == state }) {
+        if let itemsOrderIndex = itemsOrders.index(where: { $0.itemsState == state }) {
             itemsOrders.remove(at: itemsOrderIndex)
         }
         

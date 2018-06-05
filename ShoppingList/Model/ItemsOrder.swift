@@ -1,11 +1,16 @@
 import Foundation
 
 struct ItemsOrder {
-    let itemState: ItemState
+    let itemsState: ItemState
     let itemsIds: [UUID]
     
-    init(_ state: ItemState, _ items: [Item]) {
-        self.itemState = state
+    init(_ itemsState: ItemState, _ itemsIds: [UUID]) {
+        self.itemsState = itemsState
+        self.itemsIds = itemsIds
+    }
+    
+    init(_ itemsState: ItemState, _ items: [Item]) {
+        self.itemsState = itemsState
         self.itemsIds = items.map { $0.id }
     }
 }
