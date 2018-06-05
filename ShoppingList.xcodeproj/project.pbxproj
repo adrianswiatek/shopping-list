@@ -32,6 +32,7 @@
 		3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4F207D52BC006B3885 /* ItemState.swift */; };
 		3A82DC53207D6616006B3885 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */; };
 		3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC55207D7539006B3885 /* BasketViewController.swift */; };
+		3A8BC19820C7024100B2F357 /* ItemsOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BC19720C7024100B2F357 /* ItemsOrder.swift */; };
 		3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
 		3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
 		3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemTableViewCell.swift */; };
@@ -89,6 +90,7 @@
 		3A82DC4F207D52BC006B3885 /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
 		3A82DC55207D7539006B3885 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
+		3A8BC19720C7024100B2F357 /* ItemsOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsOrder.swift; sourceTree = "<group>"; };
 		3A972EBE207A877D00963961 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonAnimations.swift; sourceTree = "<group>"; };
 		3A972EC3207A97B300963961 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				3A9EAF41209BBA4900B4A39D /* Category.swift */,
 				3A82DC4D207D5296006B3885 /* Item.swift */,
 				3A82DC4F207D52BC006B3885 /* ItemState.swift */,
+				3A8BC19720C7024100B2F357 /* ItemsOrder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */,
 				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
 				3A69E41220B9EFD0004D122E /* Repository.swift in Sources */,
+				3A8BC19820C7024100B2F357 /* ItemsOrder.swift in Sources */,
 				3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */,
 				3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */,
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,

@@ -7,6 +7,7 @@ extension BasketViewController: UITableViewDelegate {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             
             Repository.shared.remove(item)
+            Repository.shared.setItemsOrder(self.items, forState: .inBasket)
             
             self.refreshScene()
             completionHandler(true)
@@ -51,6 +52,7 @@ extension BasketViewController: UITableViewDataSource {
         let item = items[sourceIndexPath.row]
         items.remove(at: sourceIndexPath.row)
         items.insert(item, at: destinationIndexPath.row)
+        Repository.shared.setItemsOrder(items, forState: .inBasket)
     }
 }
 

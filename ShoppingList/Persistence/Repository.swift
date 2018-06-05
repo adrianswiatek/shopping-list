@@ -33,6 +33,10 @@ class Repository: RepositoryProtocol {
         repository.updateState(of: item, to: state)
     }
     
+    func setItemsOrder(_ items: [Item], forState state: ItemState) {
+        repository.setItemsOrder(items, forState: state)
+    }
+    
     func save() {
         repository.save()
     }

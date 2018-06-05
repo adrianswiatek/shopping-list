@@ -1,7 +1,6 @@
 import CoreData
 
 class CoreDataRepository: RepositoryProtocol {
-    
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ShoppingList")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -88,6 +87,10 @@ class CoreDataRepository: RepositoryProtocol {
         } catch {
             fatalError("Unable to update Item: \(error)")
         }
+    }
+
+    func setItemsOrder(_ items: [Item], forState state: ItemState) {
+        fatalError("Not implemented")
     }
     
     func save() {

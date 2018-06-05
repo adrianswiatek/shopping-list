@@ -16,6 +16,7 @@ extension BasketViewController: BasketToolbarDelegate {
             self.tableView.deleteRows(at: indexPathsOfRestoredItems, with: .left)
             
             Repository.shared.updateState(of: itemsToRestore, to: .toBuy)
+            Repository.shared.setItemsOrder(self.items, forState: .inBasket)
             
             self.refreshScene()
         }
@@ -29,6 +30,7 @@ extension BasketViewController: BasketToolbarDelegate {
             self.tableView.deleteRows(at: indexPathsOfDeletedItems, with: .automatic)
             
             Repository.shared.remove(itemsToDelete)
+            Repository.shared.setItemsOrder(self.items, forState: .inBasket)
             
             self.refreshScene()
         }
@@ -49,6 +51,7 @@ extension BasketViewController: BasketToolbarDelegate {
         let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
         tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
         Repository.shared.remove(selectedItems)
+        Repository.shared.setItemsOrder(items, forState: .inBasket)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
@@ -59,6 +62,7 @@ extension BasketViewController: BasketToolbarDelegate {
         let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
         tableView.deleteRows(at: selectedIndexPaths, with: .left)
         Repository.shared.updateState(of: selectedItems, to: .toBuy)
+        Repository.shared.setItemsOrder(items, forState: .inBasket)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
