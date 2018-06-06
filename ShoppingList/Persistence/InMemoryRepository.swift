@@ -28,22 +28,9 @@ class InMemoryRepository: RepositoryProtocol {
     }
 
     func getItemsWith(state: ItemState) -> [Item] {
-        let itemsInGivenState = items.filter { $0.state == state }
-        let itemsIds = itemsOrders.first { $0.itemsState == state }?.itemsIds ?? [UUID]()
-        return getItemsInOrder(items: itemsInGivenState, orderedItemsIds: itemsIds)
-    }
-    
-    private func getItemsInOrder(items: [Item], orderedItemsIds: [UUID]) -> [Item] {
-        var unorderedItems = items
-        var result = [Item]()
-        
-        for itemId in orderedItemsIds {
-            guard let itemIndex = unorderedItems.index(where: { $0.id == itemId }) else { continue }
-            result.append(unorderedItems.remove(at: itemIndex))
-        }
-        
-        unorderedItems.forEach { result.append($0) }
-        return result
+        let unorderedItems = items.filter { $0.state == state }
+        let orderedItemsIds = itemsOrders.first { $0.itemsState == state }?.itemsIds ?? [UUID]()
+        return ItemsSorter.sort(unorderedItems, by: orderedItemsIds)
     }
     
     func add(_ item: Item) {

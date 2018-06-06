@@ -34,23 +34,10 @@ class CoreDataRepository: RepositoryProtocol {
                 orderedItemsIds = itemsOrder.itemsIds
             }
             
-            return getItemsInOrder(items: unorderedItems, orderedItemsIds: orderedItemsIds)
+            return ItemsSorter.sort(unorderedItems, by: orderedItemsIds)
         } catch {
             fatalError("Unable to fetch Items: \(error)")
         }
-    }
-    
-    private func getItemsInOrder(items: [Item], orderedItemsIds: [UUID]) -> [Item] {
-        var unorderedItems = items
-        var result = [Item]()
-        
-        for itemId in orderedItemsIds {
-            guard let itemIndex = unorderedItems.index(where: { $0.id == itemId }) else { continue }
-            result.append(unorderedItems.remove(at: itemIndex))
-        }
-        
-        unorderedItems.forEach { result.append($0) }
-        return result
     }
     
     func add(_ item: Item) {
