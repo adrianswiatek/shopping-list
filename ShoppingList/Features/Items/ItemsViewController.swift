@@ -6,9 +6,12 @@ class ItemsViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tableView.separatorStyle = .singleLine
         tableView.allowsSelection = false
         tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.dragInteractionEnabled = true
         tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.tableFooterView = UIView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +33,7 @@ class ItemsViewController: UIViewController {
     }()
     
     var items = [[Item]]()
-    var categoryNames = [String]()
+    var categories = [Category]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,10 +52,10 @@ class ItemsViewController: UIViewController {
     func fetchItems() {
         let allItems = Repository.shared.getItemsWith(state: .toBuy)
         var items = [[Item]]()
-        self.categoryNames = Set(allItems.map { $0.getCategoryName() }).sorted()
+        self.categories = Set(allItems.compactMap { $0.category }).sorted { $0.name < $1.name }
         
-        for categoryName in categoryNames {
-            let itemsInCategory = allItems.filter { $0.getCategoryName() == categoryName }
+        for category in categories {
+            let itemsInCategory = allItems.filter { $0.getCategoryName() == category.name }
             items.append(itemsInCategory)
         }
         
@@ -112,14 +115,14 @@ class ItemsViewController: UIViewController {
     
     private func clearCategoriesIfNeeded() {
         if items.count == 0 {
-            let range = 0..<categoryNames.count
-            categoryNames.removeAll()
+            let range = 0..<categories.count
+            categories.removeAll()
             tableView.deleteSections(IndexSet(range), with: .middle)
         } else {
             for (index, itemsInCategory) in items.enumerated().sorted(by: { $0.offset > $1.offset }) {
                 if itemsInCategory.count == 0 {
                     items.remove(at: index)
-                    categoryNames.remove(at: index)
+                    categories.remove(at: index)
                     tableView.deleteSections(IndexSet(integer: index), with: .middle)
                 }
             }

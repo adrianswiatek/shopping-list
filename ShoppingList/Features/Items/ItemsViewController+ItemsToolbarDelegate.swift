@@ -11,7 +11,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
             let itemsToMove = self.items
             
             var indexPaths = [IndexPath]()
-            let sectionNumbers = 0..<self.categoryNames.count
+            let sectionNumbers = 0..<self.categories.count
             for sectionNumber in sectionNumbers {
                 let rowNumbers = 0..<self.items[sectionNumber].count
                 for rowNumber in rowNumbers {
@@ -30,7 +30,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
             let itemsToDelete = self.items
             
             var indexPaths = [IndexPath]()
-            let sectionNumbers = 0..<self.categoryNames.count
+            let sectionNumbers = 0..<self.categories.count
             for sectionNumber in sectionNumbers {
                 let rowNumbers = 0..<self.items[sectionNumber].count
                 for rowNumber in rowNumbers {

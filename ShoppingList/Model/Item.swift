@@ -10,7 +10,7 @@ struct Item {
         self.id = id
         self.name = name
         self.state = state
-        self.category = category
+        self.category = category ?? Category.getDefault()
     }
     
     static func toBuy(name: String, category: Category? = nil) -> Item {
@@ -18,11 +18,7 @@ struct Item {
     }
     
     func getCategoryName() -> String {
-        if let category = category {
-            return category.name
-        } else {
-            return "Other"
-        }
+        return category != nil ? category!.name : Category.getDefault().name
     }
     
     func getWithChanged(state: ItemState) -> Item {
@@ -31,5 +27,9 @@ struct Item {
     
     func getWithChanged(name: String) -> Item {
         return Item(id: self.id, name: name, state: self.state, category: self.category)
+    }
+    
+    func getWithChanged(category: Category) -> Item {
+        return Item(id: self.id, name: self.name, state: self.state, category: category)
     }
 }

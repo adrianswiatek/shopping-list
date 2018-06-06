@@ -3,17 +3,18 @@ import UIKit
 extension ItemsViewController: AddItemViewDelegate {
     func addItemTextField(_ addItemTextField: UITextField, didReturnWith text: String) {
         let item = Item.toBuy(name: text)
+        let itemCategory = item.category ?? Category.getDefault()
         
-        if !categoryNames.contains(item.getCategoryName()) {
-            categoryNames.append(item.getCategoryName())
-            categoryNames.sort()
+        if !categories.contains(itemCategory) {
+            categories.append(itemCategory)
+            categories.sort { $0.name < $1.name }
             
-            let categoryNameIndex = getCategoryNameIndex(item: item)
-            items.insert([Item](), at: categoryNameIndex)
-            tableView.insertSections(IndexSet(integer: categoryNameIndex), with: .automatic)
+            let categoryIndex = getCategoryIndex(item: item)
+            items.insert([Item](), at: categoryIndex)
+            tableView.insertSections(IndexSet(integer: categoryIndex), with: .automatic)
         }
         
-        let categoryNameIndex = getCategoryNameIndex(item: item)
+        let categoryNameIndex = getCategoryIndex(item: item)
         items[categoryNameIndex].insert(item, at: 0)
         tableView.insertRows(at: [IndexPath(row: 0, section: categoryNameIndex)], with: .automatic)
         Repository.shared.add(item)
@@ -24,7 +25,7 @@ extension ItemsViewController: AddItemViewDelegate {
         addItemTextField.text = ""
     }
     
-    func getCategoryNameIndex(item: Item) -> Int {
-        return categoryNames.index { $0 == item.getCategoryName() } ?? 0
+    func getCategoryIndex(item: Item) -> Int {
+        return categories.index { $0 == item.category } ?? 0
     }
 }

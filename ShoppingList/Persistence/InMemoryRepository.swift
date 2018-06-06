@@ -42,8 +42,8 @@ class InMemoryRepository: RepositoryProtocol {
     }
     
     func remove(_ item: Item) {
-        if let index = self.items.index(where: { $0.id == item.id }) {
-            self.items.remove(at: index)
+        if let index = getIndex(of: item) {
+            items.remove(at: index)
         }
     }
     
@@ -52,9 +52,16 @@ class InMemoryRepository: RepositoryProtocol {
     }
     
     func updateState(of item: Item, to state: ItemState) {
-        if let index = self.items.index(where: { $0.id == item.id }) {
-            self.items.remove(at: index)
-            self.items.insert(item.getWithChanged(state: state), at: 0)
+        if let index = getIndex(of: item) {
+            items.remove(at: index)
+            items.insert(item.getWithChanged(state: state), at: index)
+        }
+    }
+    
+    func updateCategory(of item: Item, to category: Category) {
+        if let index = getIndex(of: item) {
+            items.remove(at: index)
+            items.insert(item.getWithChanged(category: category), at: index)
         }
     }
     
@@ -70,4 +77,8 @@ class InMemoryRepository: RepositoryProtocol {
     }
     
     func save() {}
+    
+    private func getIndex(of item: Item) -> Int? {
+        return items.index { $0.id == item.id }
+    }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct Category {
+struct Category: Hashable {
     let id: UUID
     let name: String
     
@@ -9,13 +9,17 @@ struct Category {
         self.name = name
     }
     
+    func getWithChanged(name: String) -> Category {
+        return Category(id: self.id, name: name)
+    }
+    
     static func new(name: String) -> Category {
         return Category(id: UUID(), name: name)
     }
-}
-
-extension Category {
-    func getWithChanged(name: String) -> Category {
-        return Category(id: self.id, name: name)
+    
+    static func getDefault() -> Category {
+        let defaultUUID = UUID(uuidString: "a5ebf554-e318-48a4-b944-24eb450a4b46")!
+        let defaultName = "Other"
+        return Category(id: defaultUUID, name: defaultName)
     }
 }

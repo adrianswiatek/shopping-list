@@ -3,7 +3,7 @@ import Foundation
 extension ItemsViewController: AddToBasketDelegate {
     func addItemToBasket(_ item: Item) {
         guard
-            let section = categoryNames.index(where: { $0 == item.getCategoryName() }),
+            let section = categories.index(where: { $0 == item.category }),
             let row = items[section].index(where: { $0.id == item.id })
         else { return }
         

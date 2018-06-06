@@ -98,6 +98,10 @@ class CoreDataRepository: RepositoryProtocol {
         }
     }
 
+    func updateCategory(of item: Item, to category: Category) {
+        fatalError("Not implemented")
+    }
+    
     func setItemsOrder(_ items: [Item], forState state: ItemState) {
         let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
         request.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)

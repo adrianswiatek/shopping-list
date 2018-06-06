@@ -5,8 +5,8 @@ class Repository: RepositoryProtocol {
     private let repository: RepositoryProtocol
     
     private init() {
-        repository = CoreDataRepository()
-//        repository = InMemoryRepository()
+//        repository = CoreDataRepository()
+        repository = InMemoryRepository()
     }
     
     func getItemsWith(state: ItemState) -> [Item] {
@@ -31,6 +31,10 @@ class Repository: RepositoryProtocol {
     
     func updateState(of item: Item, to state: ItemState) {
         repository.updateState(of: item, to: state)
+    }
+    
+    func updateCategory(of item: Item, to category: Category) {
+        repository.updateCategory(of: item, to: category)
     }
     
     func setItemsOrder(_ items: [Item], forState state: ItemState) {

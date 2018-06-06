@@ -22,7 +22,6 @@ extension ItemsOrder {
         
         if let itemsIdsData = try? JSONEncoder().encode(self.itemsIds) {
             entity.itemsIds = itemsIdsData
-            print(itemsIds)
         }
         
         return entity
