@@ -2,7 +2,9 @@ import UIKit
 
 extension ItemsViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { (action, sourceView, completionHandler) in
+        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] (action, sourceView, completionHandler) in
+            let item = self.items[indexPath.section][indexPath.row]
+            self.goToEditItemDetailed(with: item)
             completionHandler(true)
         }
         editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)

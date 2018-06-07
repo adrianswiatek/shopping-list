@@ -4,7 +4,7 @@ class ItemsToolbar: UIView {
     
     var delegate: ItemsToolbarDelegate?
     
-    // MARK:- Regular toolbar
+    // MARK: - Regular toolbar
     
     private lazy var editButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editButtonHandler))
@@ -12,6 +12,14 @@ class ItemsToolbar: UIView {
     
     @objc private func editButtonHandler() {
         delegate?.editButtonDidTap()
+    }
+    
+    private lazy var addButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(addButtonHandler))
+    }()
+    
+    @objc private func addButtonHandler() {
+        delegate?.addButtonDidTap()
     }
     
     private lazy var actionButton: UIBarButtonItem = {
@@ -27,13 +35,15 @@ class ItemsToolbar: UIView {
         toolbar.setItems([
             editButton,
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            addButton,
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             actionButton
             ], animated: true)
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
     
-    // MARK:- Edit toolbar
+    // MARK: - Edit toolbar
     
     private lazy var deleteAllButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -91,7 +101,7 @@ class ItemsToolbar: UIView {
         delegate?.cancelButtonDidTap()
     }
     
-    // MARK:- Initialize
+    // MARK: - Initialize
     
     init(viewController: UIViewController) {
         super.init(frame: CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 50))
@@ -116,7 +126,7 @@ class ItemsToolbar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK:- API
+    // MARK: - API
     
     func setRegularMode() {
         regularToolbar.alpha = 1

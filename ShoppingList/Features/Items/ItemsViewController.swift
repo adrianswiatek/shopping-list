@@ -32,6 +32,15 @@ class ItemsViewController: UIViewController {
         return toolbar
     }()
     
+    lazy var goToBasketBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
+    }()
+    
+    @objc private func goToBasketScene() {
+        let basketViewController = BasketViewController()
+        navigationController?.pushViewController(basketViewController, animated: true)
+    }
+    
     var items = [[Item]]()
     var categories = [Category]()
 
@@ -65,8 +74,7 @@ class ItemsViewController: UIViewController {
     private func setupUserInterface() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem =
-            UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
+        navigationItem.rightBarButtonItem = goToBasketBarButtonItem
 
         view.addSubview(addItemView)
         addItemView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -85,11 +93,6 @@ class ItemsViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: addItemView.bottomAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
-    }
-    
-    @objc private func goToBasketScene() {
-        let basketViewController = BasketViewController()
-        navigationController?.pushViewController(basketViewController, animated: true)
     }
     
     func refreshScene(after: Double = 0) {
@@ -127,5 +130,15 @@ class ItemsViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    func goToEditItemDetailed(with item: Item? = nil) {
+        let viewController = EditItemViewController()
+        viewController.item = item
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .overCurrentContext
+        
+        present(navigationController, animated: true)
     }
 }

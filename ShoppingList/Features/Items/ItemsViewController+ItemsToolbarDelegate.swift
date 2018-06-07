@@ -6,6 +6,10 @@ extension ItemsViewController: ItemsToolbarDelegate {
         tableView.setEditing(true, animated: true)
     }
     
+    func addButtonDidTap() {
+        goToEditItemDetailed()
+    }
+    
     func actionButtonDidTap() {
         let moveAllToBasketAction = UIAlertAction(title: "Move all to basket", style: .default) { [unowned self] action in
             let itemsToMove = self.items
