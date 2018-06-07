@@ -65,6 +65,8 @@ extension ItemsViewController: UITableViewDataSource {
         if sourceIndexPath.section != destinationIndexPath.section {
             let destinationCategory = categories[destinationIndexPath.section]
             item = item.getWithChanged(category: destinationCategory)
+            let cell = tableView.cellForRow(at: sourceIndexPath) as! ItemTableViewCell
+            cell.item = item
             Repository.shared.updateCategory(of: item, to: destinationCategory)
         }
         
