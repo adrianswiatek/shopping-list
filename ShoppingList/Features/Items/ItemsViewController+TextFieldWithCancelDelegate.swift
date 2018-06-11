@@ -1,7 +1,9 @@
 import UIKit
 
-extension ItemsViewController: AddItemViewDelegate {
-    func addItemTextField(_ addItemTextField: UITextField, didReturnWith text: String) {
+extension ItemsViewController: TextFieldWithCancelDelegate {
+    func textFieldWithCancelDidCancel(_ textFieldWithCancel: UITextField) {}
+    
+    func textFieldWithCancel(_ textFieldWithCancel: UITextField, didReturnWith text: String) {
         let item = Item.toBuy(name: text)
         let itemCategory = item.category ?? Category.getDefault()
         
@@ -21,8 +23,8 @@ extension ItemsViewController: AddItemViewDelegate {
         
         refreshScene()
         
-        addItemTextField.resignFirstResponder()
-        addItemTextField.text = ""
+        textFieldWithCancel.resignFirstResponder()
+        textFieldWithCancel.text = ""
     }
     
     func getCategoryIndex(item: Item) -> Int {

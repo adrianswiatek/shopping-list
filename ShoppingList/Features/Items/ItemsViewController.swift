@@ -18,11 +18,11 @@ class ItemsViewController: UIViewController {
         return tableView
     }()
     
-    lazy var addItemView: AddItemView = {
-        let addItemView = AddItemView(viewController: self)
-        addItemView.delegate = self
-        addItemView.translatesAutoresizingMaskIntoConstraints = false
-        return addItemView
+    lazy var addItemTextField: TextFieldWithCancel = {
+        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new item...")
+        textFieldWithCancel.delegate = self
+        textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
+        return textFieldWithCancel
     }()
     
     lazy var toolbar: ItemsToolbar = {
@@ -76,11 +76,11 @@ class ItemsViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = goToBasketBarButtonItem
 
-        view.addSubview(addItemView)
-        addItemView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        addItemView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        addItemView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        addItemView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        view.addSubview(addItemTextField)
+        addItemTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        addItemTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        addItemTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        addItemTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(toolbar)
         toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -90,7 +90,7 @@ class ItemsViewController: UIViewController {
         
         view.addSubview(tableView)
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: addItemView.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: addItemTextField.bottomAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
     }
