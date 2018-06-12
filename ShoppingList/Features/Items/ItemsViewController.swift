@@ -134,6 +134,7 @@ class ItemsViewController: UIViewController {
     
     func goToEditItemDetailed(with item: Item? = nil) {
         let viewController = EditItemViewController()
+        viewController.delegate = self
         viewController.item = item
         
         let navigationController = UINavigationController(rootViewController: viewController)

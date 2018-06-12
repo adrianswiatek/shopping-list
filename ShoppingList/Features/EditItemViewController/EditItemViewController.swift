@@ -1,31 +1,27 @@
 import UIKit
 
 // TODO:
-// - validation
 // - categories in repository
-// - think if I can divide somehow this view controller
 // - connect this view controller with items view controller
+// - validation
+// - core data
 class EditItemViewController: UIViewController {
     
-    var categories: [String] = [
-        "Dairy",
-        "Electronics",
-        "Fruits",
-        "Other",
-        "Vegetables"
-    ]
+    var delegate: EditItemViewControllerDelegate?
+    
+    var categories = [Category]()
     
     var item: Item? {
         didSet {
             guard let item = item else {
-                if let rowOfCategory = categories.index(where: { $0 == Category.getDefault().name }) {
+                if let rowOfCategory = categories.index(where: { $0.name == Category.getDefault().name }) {
                     categoriesPickerView.selectRow(rowOfCategory, inComponent: 0, animated: true)
                 }
                 return
             }
             itemNameTextField.text = item.name
             
-            if let rowOfCategory = categories.index(where: { $0 == item.getCategoryName() }) {
+            if let rowOfCategory = categories.index(where: { $0.name == item.getCategoryName() }) {
                 categoriesPickerView.selectRow(rowOfCategory, inComponent: 0, animated: true)
             }
         }
@@ -46,7 +42,17 @@ class EditItemViewController: UIViewController {
     }()
     
     @objc private func save() {
-        dismiss(animated: true)
+        guard let itemName = itemNameTextField.text, itemName != "" else { return }
+        
+        let selectedCategoryRow = categoriesPickerView.selectedRow(inComponent: 0)
+        let category = categories[selectedCategoryRow]
+        let item = Item.toBuy(name: itemName, category: category)
+        
+        Repository.shared.add(item)
+        
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.didSave(item)
+        }
     }
     
     private lazy var itemNameLabel: UILabel = {
@@ -124,7 +130,13 @@ class EditItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCategories()
         setupUserInterface()
+    }
+    
+    private func fetchCategories() {
+        categories = Repository.shared.getCategories()
+        categories.sort { $0.name < $1.name }
     }
     
     private func setupUserInterface() {

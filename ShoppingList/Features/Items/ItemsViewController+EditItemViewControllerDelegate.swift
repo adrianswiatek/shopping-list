@@ -1,10 +1,7 @@
 import UIKit
 
-extension ItemsViewController: TextFieldWithCancelDelegate {
-    func textFieldWithCancelDidCancel(_ textFieldWithCancel: UITextField) {}
-    
-    func textFieldWithCancel(_ textFieldWithCancel: UITextField, didReturnWith text: String) {
-        let item = Item.toBuy(name: text)
+extension ItemsViewController: EditItemViewControllerDelegate {
+    func didSave(_ item: Item) {
         let itemCategory = item.category ?? Category.getDefault()
         
         if !categories.contains(itemCategory) {
@@ -23,15 +20,6 @@ extension ItemsViewController: TextFieldWithCancelDelegate {
         tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         
-        Repository.shared.add(item)
-        
         refreshScene()
-        
-        textFieldWithCancel.resignFirstResponder()
-        textFieldWithCancel.text = ""
-    }
-    
-    func getCategoryIndex(item: Item) -> Int {
-        return categories.index { $0 == item.category } ?? 0
     }
 }

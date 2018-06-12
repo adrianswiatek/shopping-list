@@ -1,4 +1,6 @@
 protocol RepositoryProtocol {
+    func getCategories() -> [Category]
+    func add(_ category: Category)
     func getItemsWith(state: ItemState) -> [Item]
     func add(_ item: Item)
     func remove(_ items: [Item])

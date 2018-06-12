@@ -4,33 +4,48 @@ class InMemoryRepository: RepositoryProtocol {
     
     private var items = [Item]()
     private var itemsOrders = [ItemsOrder]()
+    private var categories = [Category]()
     
     init() {
         let fruitsCategory = Category.new(name: "Fruits")
+        categories.append(fruitsCategory)
         items.append(Item.toBuy(name: "Avocado", category: fruitsCategory))
         items.append(Item.toBuy(name: "Bananas", category: fruitsCategory))
         items.append(Item.toBuy(name: "Blackberries", category: fruitsCategory))
         items.append(Item.toBuy(name: "Apples", category: fruitsCategory))
         
         let dairyCategory = Category.new(name: "Dairy")
+        categories.append(dairyCategory)
         items.append(Item.toBuy(name: "Milk", category: dairyCategory))
         items.append(Item.toBuy(name: "Yogurt", category: dairyCategory))
         
         let vegetablesCategory = Category.new(name: "Vegetables")
+        categories.append(vegetablesCategory)
         items.append(Item.toBuy(name: "Carrots", category: vegetablesCategory))
         items.append(Item.toBuy(name: "Spinach", category: vegetablesCategory))
         items.append(Item.toBuy(name: "Kale", category: vegetablesCategory))
         items.append(Item.toBuy(name: "Beetroot", category: vegetablesCategory))
         
         let electronicsCategory = Category.new(name: "Electronics")
+        categories.append(electronicsCategory)
         items.append(Item.toBuy(name: "iPad Gray 128GB 2018", category: electronicsCategory))
         items.append(Item.toBuy(name: "Power adapter", category: electronicsCategory))
+        
+        categories.append(Category.getDefault())
     }
 
     func getItemsWith(state: ItemState) -> [Item] {
         let unorderedItems = items.filter { $0.state == state }
         let orderedItemsIds = itemsOrders.first { $0.itemsState == state }?.itemsIds ?? [UUID]()
         return ItemsSorter.sort(unorderedItems, by: orderedItemsIds)
+    }
+    
+    func getCategories() -> [Category] {
+        return categories
+    }
+    
+    func add(_ category: Category) {
+        categories.append(category)
     }
     
     func add(_ item: Item) {

@@ -7,8 +7,8 @@ extension EditItemViewController: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let label = UILabel()
-        label.text = categories[row]
-        label.font = .systemFont(ofSize: 17)
+        label.text = categories[row].name
+        label.font = .systemFont(ofSize: 18)
         label.textAlignment = .center
         return label
     }

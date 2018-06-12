@@ -16,6 +16,14 @@ class CoreDataRepository: RepositoryProtocol {
         return persistentContainer.viewContext
     }
     
+    func getCategories() -> [Category] {
+        return []
+    }
+    
+    func add(_ category: Category) {
+        // Not implemented
+    }
+    
     func getItemsWith(state: ItemState) -> [Item] {
         let itemsRequest: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         itemsRequest.predicate = NSPredicate(format: "state == %@", state.rawValue.description)

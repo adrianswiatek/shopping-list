@@ -9,6 +9,14 @@ class Repository: RepositoryProtocol {
         repository = InMemoryRepository()
     }
     
+    func getCategories() -> [Category] {
+        return repository.getCategories()
+    }
+    
+    func add(_ category: Category) {
+        return repository.add(category)
+    }
+    
     func getItemsWith(state: ItemState) -> [Item] {
         return repository.getItemsWith(state: state)
     }
