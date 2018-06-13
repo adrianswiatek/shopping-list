@@ -73,6 +73,13 @@ class InMemoryRepository: RepositoryProtocol {
         }
     }
     
+    func update(_ item: Item) {
+        if let index = getIndex(of: item) {
+            items.remove(at: index)
+            items.insert(item, at: index)
+        }
+    }
+    
     func updateCategory(of item: Item, to category: Category) {
         if let index = getIndex(of: item) {
             items.remove(at: index)

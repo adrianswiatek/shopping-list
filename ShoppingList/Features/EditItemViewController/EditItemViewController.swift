@@ -1,15 +1,8 @@
 import UIKit
 
-// TODO:
-// - categories in repository
-// - connect this view controller with items view controller
-// - validation
-// - core data
 class EditItemViewController: UIViewController {
     
     var delegate: EditItemViewControllerDelegate?
-    
-    var categories = [Category]()
     
     var item: Item? {
         didSet {
@@ -25,6 +18,15 @@ class EditItemViewController: UIViewController {
                 categoriesPickerView.selectRow(rowOfCategory, inComponent: 0, animated: true)
             }
         }
+    }
+    
+    lazy var categories: [Category] = {
+        return fetchCategories()
+    }()
+    
+    private func fetchCategories() -> [Category] {
+        let categories = Repository.shared.getCategories()
+        return categories.sorted { $0.name < $1.name }
     }
     
     // MARK: - Controls
@@ -46,12 +48,24 @@ class EditItemViewController: UIViewController {
         
         let selectedCategoryRow = categoriesPickerView.selectedRow(inComponent: 0)
         let category = categories[selectedCategoryRow]
-        let item = Item.toBuy(name: itemName, category: category)
         
-        Repository.shared.add(item)
+        var itemToSave: Item
         
+        if let existingItem = self.item {
+            itemToSave = Item(id: existingItem.id, name: itemName, state: existingItem.state, category: category)
+        } else {
+            itemToSave = Item.toBuy(name: itemName, category: category)
+        }
+
         dismiss(animated: true) { [weak self] in
-            self?.delegate?.didSave(item)
+            let itemIsBeingCreated = self?.item == nil
+            if itemIsBeingCreated {
+                self?.delegate?.didCreate(itemToSave)
+                Repository.shared.add(itemToSave)
+            } else if let previousItem = self?.item {
+                self?.delegate?.didUpdate(previousItem, itemToSave)
+                Repository.shared.update(itemToSave)
+            }
         }
     }
     
@@ -130,13 +144,7 @@ class EditItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchCategories()
         setupUserInterface()
-    }
-    
-    private func fetchCategories() {
-        categories = Repository.shared.getCategories()
-        categories.sort { $0.name < $1.name }
     }
     
     private func setupUserInterface() {

@@ -106,6 +106,10 @@ class CoreDataRepository: RepositoryProtocol {
         }
     }
 
+    func update(_ item: Item) {
+        // Not implemented
+    }
+    
     func updateCategory(of item: Item, to category: Category) {
         fatalError("Not implemented")
     }

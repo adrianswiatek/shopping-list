@@ -1,3 +1,4 @@
 protocol EditItemViewControllerDelegate {
-    func didSave(_ item: Item)
+    func didCreate(_ item: Item)
+    func didUpdate(_ previousItem: Item, _ newItem: Item)
 }

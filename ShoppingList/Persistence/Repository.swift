@@ -41,6 +41,10 @@ class Repository: RepositoryProtocol {
         repository.updateState(of: item, to: state)
     }
     
+    func update(_ item: Item) {
+        repository.update(item)
+    }
+    
     func updateCategory(of item: Item, to category: Category) {
         repository.updateCategory(of: item, to: category)
     }

@@ -7,6 +7,7 @@ protocol RepositoryProtocol {
     func remove(_ item: Item)
     func updateState(of items: [Item], to state: ItemState)
     func updateState(of item: Item, to state: ItemState)
+    func update(_ item: Item)
     func updateCategory(of item: Item, to category: Category)
     func setItemsOrder(_ items: [Item], forState state: ItemState)
     func save()
