@@ -16,6 +16,10 @@
 		3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift */; };
 		3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */; };
 		3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */; };
+		3A37694C20D1B27D0039DA54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */; };
+		3A37694E20D1B3780039DA54 /* SettingsViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */; };
+		3A37695120D1BA920039DA54 /* ManageCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */; };
+		3A37695320D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */; };
 		3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E37207A5A3C005857E5 /* AppDelegate.swift */; };
 		3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E39207A5A3C005857E5 /* ItemsViewController.swift */; };
 		3A392E3F207A5A3D005857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E3E207A5A3D005857E5 /* Assets.xcassets */; };
@@ -53,6 +57,7 @@
 		3AEDFEF020BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */; };
 		3AEDFEF220BC9F980002B6F7 /* ItemsToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */; };
 		3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */; };
+		3AF04E9920D2FA6000938F13 /* ManageCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */; };
 		E5E415EADA71430253D04582 /* Pods_ShoppingListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */; };
 		F467B00E34EF72F27407A067 /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */; };
 /* End PBXBuildFile section */
@@ -78,6 +83,10 @@
 		3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+AddToBasketDelegate.swift"; sourceTree = "<group>"; };
 		3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketVewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+RemoveFromBasket.swift"; sourceTree = "<group>"; };
+		3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+UITableView.swift"; sourceTree = "<group>"; };
+		3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesViewController.swift; sourceTree = "<group>"; };
+		3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageCategoriesViewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A392E34207A5A3C005857E5 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A392E37207A5A3C005857E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A392E39207A5A3C005857E5 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +128,7 @@
 		3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+ItemsToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbar.swift; sourceTree = "<group>"; };
 		3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbarDelegate.swift; sourceTree = "<group>"; };
+		3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		65FD02EE20E74D6FFBCB7B47 /* Pods-ShoppingListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingListTests/Pods-ShoppingListTests.release.xcconfig"; sourceTree = "<group>"; };
 		BDE64E5E42B865B8309C895D /* Pods-ShoppingList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingList/Pods-ShoppingList.debug.xcconfig"; sourceTree = "<group>"; };
 		D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +172,26 @@
 				3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */,
 			);
 			path = BasketToolbar;
+			sourceTree = "<group>";
+		};
+		3A37694A20D1B0B10039DA54 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3A37694F20D1BA730039DA54 /* ManageCategories */,
+				3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */,
+				3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3A37694F20D1BA730039DA54 /* ManageCategories */ = {
+			isa = PBXGroup;
+			children = (
+				3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */,
+				3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */,
+				3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */,
+			);
+			path = ManageCategories;
 			sourceTree = "<group>";
 		};
 		3A392E2B207A5A3C005857E5 = {
@@ -269,8 +299,9 @@
 			isa = PBXGroup;
 			children = (
 				3A82DC54207D7524006B3885 /* Basket */,
-				3A9A31C520CD876800C99D26 /* EditItemViewController */,
+				3A9A31C520CD876800C99D26 /* EditItem */,
 				3A972EB9207A5D7300963961 /* Items */,
+				3A37694A20D1B0B10039DA54 /* Settings */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -301,7 +332,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		3A9A31C520CD876800C99D26 /* EditItemViewController */ = {
+		3A9A31C520CD876800C99D26 /* EditItem */ = {
 			isa = PBXGroup;
 			children = (
 				3ADE39D120CF242E007806B1 /* AddCategoryTextFieldAnimations.swift */,
@@ -311,7 +342,7 @@
 				3ADE39CD20CF0F0C007806B1 /* EditViewController+TextFieldWithCancelDelegate.swift */,
 				3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */,
 			);
-			path = EditItemViewController;
+			path = EditItem;
 			sourceTree = "<group>";
 		};
 		3AC6211B20C0541600A16F0E /* TextFieldWithCancel */ = {
@@ -568,6 +599,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AF04E9920D2FA6000938F13 /* ManageCategoriesTableViewCell.swift in Sources */,
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
@@ -595,6 +627,7 @@
 				3A69E40E20B9ECE7004D122E /* CoreDataRepository.swift in Sources */,
 				3A82DC4E207D5296006B3885 /* Item.swift in Sources */,
 				3AEDFEF020BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift in Sources */,
+				3A37694E20D1B3780039DA54 /* SettingsViewController+UITableView.swift in Sources */,
 				3A3B54B120D05F870039CDCC /* ItemsViewController+EditItemViewControllerDelegate.swift in Sources */,
 				3A13566D207E94D8006A7414 /* BasketTableViewCell.swift in Sources */,
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
@@ -603,10 +636,13 @@
 				3A03324E20C9BD56007C7B46 /* EditItemViewController.swift in Sources */,
 				3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */,
 				3ACC283B20C8699300F31AB6 /* ItemsSorter.swift in Sources */,
+				3A37694C20D1B27D0039DA54 /* SettingsViewController.swift in Sources */,
 				3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */,
+				3A37695120D1BA920039DA54 /* ManageCategoriesViewController.swift in Sources */,
 				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
 				3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */,
 				3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */,
+				3A37695320D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift in Sources */,
 				3A9A31C720CD878800C99D26 /* EditItemViewController+UITextFieldDelegate.swift in Sources */,
 				3AC6211F20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */,

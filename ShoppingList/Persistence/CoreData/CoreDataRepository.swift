@@ -21,7 +21,19 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func add(_ category: Category) {
-        // Not implemented
+        fatalError("Not implemented")
+    }
+    
+    func update(_ category: Category) {
+        fatalError("Not implemented")
+    }
+    
+    func remove(_ category: Category) {
+        fatalError("Not implemented")
+    }
+    
+    func getItems() -> [Item] {
+        fatalError("Not implemented")
     }
     
     func getItemsWith(state: ItemState) -> [Item] {
@@ -107,10 +119,14 @@ class CoreDataRepository: RepositoryProtocol {
     }
 
     func update(_ item: Item) {
-        // Not implemented
+        fatalError("Not implemented")
     }
     
     func updateCategory(of item: Item, to category: Category) {
+        fatalError("Not implemented")
+    }
+    
+    func updateCategory(of items: [Item], to category: Category) {
         fatalError("Not implemented")
     }
     

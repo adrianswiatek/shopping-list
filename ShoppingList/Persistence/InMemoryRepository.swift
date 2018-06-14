@@ -32,12 +32,7 @@ class InMemoryRepository: RepositoryProtocol {
         items.append(Item.toBuy(name: "Power adapter", category: electronicsCategory))
         
         categories.append(Category.getDefault())
-    }
-
-    func getItemsWith(state: ItemState) -> [Item] {
-        let unorderedItems = items.filter { $0.state == state }
-        let orderedItemsIds = itemsOrders.first { $0.itemsState == state }?.itemsIds ?? [UUID]()
-        return ItemsSorter.sort(unorderedItems, by: orderedItemsIds)
+        categories.append(Category.new(name: "Dupa"))
     }
     
     func getCategories() -> [Category] {
@@ -46,6 +41,35 @@ class InMemoryRepository: RepositoryProtocol {
     
     func add(_ category: Category) {
         categories.append(category)
+    }
+
+    func update(_ category: Category) {
+        if let index = getIndex(of: category) {
+            let removedCategory = categories.remove(at: index)
+            categories.insert(category, at: index)
+            
+            let itemsInCategory = items.filter { $0.getCategoryName() == removedCategory.name }
+            updateCategory(of: itemsInCategory, to: category)
+        }
+    }
+    
+    func remove(_ category: Category) {
+        if let index = getIndex(of: category) {
+            let removedCategory = categories.remove(at: index)
+            
+            let itemsInCategory = items.filter { $0.getCategoryName() == removedCategory.name }
+            updateCategory(of: itemsInCategory, to: Category.getDefault())
+        }
+    }
+    
+    func getItems() -> [Item] {
+        return items
+    }
+    
+    func getItemsWith(state: ItemState) -> [Item] {
+        let unorderedItems = items.filter { $0.state == state }
+        let orderedItemsIds = itemsOrders.first { $0.itemsState == state }?.itemsIds ?? [UUID]()
+        return ItemsSorter.sort(unorderedItems, by: orderedItemsIds)
     }
     
     func add(_ item: Item) {
@@ -87,6 +111,12 @@ class InMemoryRepository: RepositoryProtocol {
         }
     }
     
+    func updateCategory(of items: [Item], to category: Category) {
+        for item in items {
+            updateCategory(of: item, to: category)
+        }
+    }
+    
     func setItemsOrder(_ items: [Item], forState state: ItemState) {
         if let itemsOrderIndex = itemsOrders.index(where: { $0.itemsState == state }) {
             itemsOrders.remove(at: itemsOrderIndex)
@@ -102,5 +132,9 @@ class InMemoryRepository: RepositoryProtocol {
     
     private func getIndex(of item: Item) -> Int? {
         return items.index { $0.id == item.id }
+    }
+    
+    private func getIndex(of category: Category) -> Int? {
+        return categories.index { $0.id == category.id }
     }
 }

@@ -17,6 +17,18 @@ class Repository: RepositoryProtocol {
         return repository.add(category)
     }
     
+    func update(_ category: Category) {
+        return repository.update(category)
+    }
+    
+    func remove(_ category: Category) {
+        return repository.remove(category)
+    }
+    
+    func getItems() -> [Item] {
+        return repository.getItems()
+    }
+    
     func getItemsWith(state: ItemState) -> [Item] {
         return repository.getItemsWith(state: state)
     }
@@ -47,6 +59,10 @@ class Repository: RepositoryProtocol {
     
     func updateCategory(of item: Item, to category: Category) {
         repository.updateCategory(of: item, to: category)
+    }
+    
+    func updateCategory(of items: [Item], to category: Category) {
+        repository.updateCategory(of: items, to: category)
     }
     
     func setItemsOrder(_ items: [Item], forState state: ItemState) {

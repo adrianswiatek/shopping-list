@@ -41,6 +41,16 @@ class ItemsViewController: UIViewController {
         navigationController?.pushViewController(basketViewController, animated: true)
     }
     
+    lazy var goToSettingsBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "Settings"), style: .plain, target: self, action: #selector(goToSettingsScene))
+    }()
+    
+    @objc private func goToSettingsScene() {
+        let settingsViewController = SettingsViewController()
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
+        present(navigationController, animated: true)
+    }
+    
     var items = [[Item]]()
     var categories = [Category]()
 
@@ -61,7 +71,7 @@ class ItemsViewController: UIViewController {
     func fetchItems() {
         let allItems = Repository.shared.getItemsWith(state: .toBuy)
         var items = [[Item]]()
-        self.categories = Set(allItems.compactMap { $0.category }).sorted { $0.name < $1.name }
+        self.categories = Set(allItems.map { $0.category ?? Category.getDefault() }).sorted { $0.name < $1.name }
         
         for category in categories {
             let itemsInCategory = allItems.filter { $0.getCategoryName() == category.name }
@@ -74,7 +84,7 @@ class ItemsViewController: UIViewController {
     private func setupUserInterface() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = goToBasketBarButtonItem
+        navigationItem.rightBarButtonItems = [goToBasketBarButtonItem, goToSettingsBarButtonItem]
 
         view.addSubview(addItemTextField)
         addItemTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

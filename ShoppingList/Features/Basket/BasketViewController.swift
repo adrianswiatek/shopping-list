@@ -8,7 +8,6 @@ class BasketViewController: UIViewController {
         tableView.delegate = self
         tableView.dragDelegate = self
         tableView.dropDelegate = self
-        tableView.separatorStyle = .singleLine
         tableView.allowsSelection = false
         tableView.dragInteractionEnabled = true
         tableView.allowsMultipleSelectionDuringEditing = true
