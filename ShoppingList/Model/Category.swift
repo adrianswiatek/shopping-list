@@ -12,6 +12,10 @@ struct Category: Hashable {
     func getWithChanged(name: String) -> Category {
         return Category(id: self.id, name: name)
     }
+ 
+    func isDefault() -> Bool {
+        return id == Category.getDefault().id
+    }
     
     static func new(name: String) -> Category {
         return Category(id: UUID(), name: name)

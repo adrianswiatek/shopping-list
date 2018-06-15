@@ -52,6 +52,11 @@
 		3AC6211F20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */; };
 		3AC6212120C0575900A16F0E /* TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6212020C0575900A16F0E /* TextFieldWithCancelDelegate.swift */; };
 		3ACC283B20C8699300F31AB6 /* ItemsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */; };
+		3AD1EFFE20D45B700066FBF7 /* WarningAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1EFFD20D45B700066FBF7 /* WarningAlertBuilder.swift */; };
+		3AD1F00020D461650066FBF7 /* DeleteCategoryAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1EFFF20D461650066FBF7 /* DeleteCategoryAlertBuilder.swift */; };
+		3AD1F00220D4635F0066FBF7 /* EditCategoryAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1F00120D4635F0066FBF7 /* EditCategoryAlertBuilder.swift */; };
+		3AD1F00520D46C8E0066FBF7 /* EditContextualActionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1F00420D46C8E0066FBF7 /* EditContextualActionBuilder.swift */; };
+		3AD1F00720D476A20066FBF7 /* DeleteContextualActionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1F00620D476A20066FBF7 /* DeleteContextualActionBuilder.swift */; };
 		3ADE39CE20CF0F0C007806B1 /* EditViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE39CD20CF0F0C007806B1 /* EditViewController+TextFieldWithCancelDelegate.swift */; };
 		3ADE39D220CF242E007806B1 /* AddCategoryTextFieldAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADE39D120CF242E007806B1 /* AddCategoryTextFieldAnimations.swift */; };
 		3AEDFEF020BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */; };
@@ -123,6 +128,11 @@
 		3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
 		3AC6212020C0575900A16F0E /* TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithCancelDelegate.swift; sourceTree = "<group>"; };
 		3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsSorter.swift; sourceTree = "<group>"; };
+		3AD1EFFD20D45B700066FBF7 /* WarningAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningAlertBuilder.swift; sourceTree = "<group>"; };
+		3AD1EFFF20D461650066FBF7 /* DeleteCategoryAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCategoryAlertBuilder.swift; sourceTree = "<group>"; };
+		3AD1F00120D4635F0066FBF7 /* EditCategoryAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryAlertBuilder.swift; sourceTree = "<group>"; };
+		3AD1F00420D46C8E0066FBF7 /* EditContextualActionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContextualActionBuilder.swift; sourceTree = "<group>"; };
+		3AD1F00620D476A20066FBF7 /* DeleteContextualActionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteContextualActionBuilder.swift; sourceTree = "<group>"; };
 		3ADE39CD20CF0F0C007806B1 /* EditViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
 		3ADE39D120CF242E007806B1 /* AddCategoryTextFieldAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryTextFieldAnimations.swift; sourceTree = "<group>"; };
 		3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+ItemsToolbarDelegate.swift"; sourceTree = "<group>"; };
@@ -187,6 +197,8 @@
 		3A37694F20D1BA730039DA54 /* ManageCategories */ = {
 			isa = PBXGroup;
 			children = (
+				3AD1EFFC20D45B360066FBF7 /* AlertBuilders */,
+				3AD1F00320D46C770066FBF7 /* ContextualActionBuilders */,
 				3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */,
 				3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */,
 				3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */,
@@ -361,6 +373,25 @@
 				3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		3AD1EFFC20D45B360066FBF7 /* AlertBuilders */ = {
+			isa = PBXGroup;
+			children = (
+				3AD1EFFF20D461650066FBF7 /* DeleteCategoryAlertBuilder.swift */,
+				3AD1F00120D4635F0066FBF7 /* EditCategoryAlertBuilder.swift */,
+				3AD1EFFD20D45B700066FBF7 /* WarningAlertBuilder.swift */,
+			);
+			path = AlertBuilders;
+			sourceTree = "<group>";
+		};
+		3AD1F00320D46C770066FBF7 /* ContextualActionBuilders */ = {
+			isa = PBXGroup;
+			children = (
+				3AD1F00420D46C8E0066FBF7 /* EditContextualActionBuilder.swift */,
+				3AD1F00620D476A20066FBF7 /* DeleteContextualActionBuilder.swift */,
+			);
+			path = ContextualActionBuilders;
 			sourceTree = "<group>";
 		};
 		3ADE39CC20CF0D41007806B1 /* Controls */ = {
@@ -605,6 +636,7 @@
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
 				3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */,
 				3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */,
+				3AD1EFFE20D45B700066FBF7 /* WarningAlertBuilder.swift in Sources */,
 				3ADE39CE20CF0F0C007806B1 /* EditViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */,
 				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
@@ -616,8 +648,11 @@
 				3A8BC19A20C72C3300B2F357 /* ItemsOrdersEntityMapper.swift in Sources */,
 				3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */,
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,
+				3AD1F00220D4635F0066FBF7 /* EditCategoryAlertBuilder.swift in Sources */,
 				3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift in Sources */,
 				3A82DC53207D6616006B3885 /* UITableViewExtensions.swift in Sources */,
+				3AD1F00020D461650066FBF7 /* DeleteCategoryAlertBuilder.swift in Sources */,
+				3AD1F00520D46C8E0066FBF7 /* EditContextualActionBuilder.swift in Sources */,
 				3AEDFEF220BC9F980002B6F7 /* ItemsToolbar.swift in Sources */,
 				3A69E41D20BA1C37004D122E /* ItemEntityMapper.swift in Sources */,
 				3AC6212120C0575900A16F0E /* TextFieldWithCancelDelegate.swift in Sources */,
@@ -640,6 +675,7 @@
 				3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */,
 				3A37695120D1BA920039DA54 /* ManageCategoriesViewController.swift in Sources */,
 				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
+				3AD1F00720D476A20066FBF7 /* DeleteContextualActionBuilder.swift in Sources */,
 				3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */,
 				3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */,
 				3A37695320D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift in Sources */,
