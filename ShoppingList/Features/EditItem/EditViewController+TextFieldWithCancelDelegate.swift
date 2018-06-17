@@ -1,7 +1,7 @@
 import UIKit
 
 extension EditItemViewController: TextFieldWithCancelDelegate {
-    func textFieldWithCancel(_ textFieldWithCancel: UITextField, didReturnWith text: String) {
+    func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
         let category = Category.new(name: text)
         categories.append(category)
         Repository.shared.add(category)
@@ -16,7 +16,7 @@ extension EditItemViewController: TextFieldWithCancelDelegate {
         addCategoryTextFieldAnimations.hide()
     }
     
-    func textFieldWithCancelDidCancel(_ textFieldWithCancel: UITextField) {
+    func textFieldWithCancelDidCancel(_ textFieldWithCancel: TextFieldWithCancel) {
         addCategoryTextFieldAnimations.hide()
     }
 }

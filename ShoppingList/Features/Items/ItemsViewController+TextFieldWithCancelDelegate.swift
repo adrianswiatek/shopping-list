@@ -1,7 +1,7 @@
 import UIKit
 
 extension ItemsViewController: TextFieldWithCancelDelegate {
-    func textFieldWithCancelDidCancel(_ textFieldWithCancel: UITextField) {}
+    func textFieldWithCancelDidCancel(_ textFieldWithCancel: TextFieldWithCancel) {}
     
     func textFieldWithCancel(_ textFieldWithCancel: UITextField, didReturnWith text: String) {
         let item = Item.toBuy(name: text)

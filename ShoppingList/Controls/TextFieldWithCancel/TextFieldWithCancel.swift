@@ -35,7 +35,7 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
     @objc private func cancelHandler() {
         textField.text = ""
         textField.resignFirstResponder()
-        delegate?.textFieldWithCancelDidCancel?(textField)
+        delegate?.textFieldWithCancelDidCancel?(self)
     }
     
     private var cancelButtonAnimations: CancelButtonAnimations!
@@ -50,6 +50,8 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
     }
     
     private func setupUserInterface() {
+        backgroundColor = .white
+        
         addSubview(cancelButton)
         cancelButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
         cancelButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -90,7 +92,7 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
         guard let text = textField.text, text != "" else { return false }
         textField.text = ""
         textField.resignFirstResponder()
-        delegate?.textFieldWithCancel?(textField, didReturnWith: text)
+        delegate?.textFieldWithCancel?(self, didReturnWith: text)
         return true
     }
     

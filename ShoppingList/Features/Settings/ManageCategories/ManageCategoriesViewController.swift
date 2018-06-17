@@ -9,6 +9,13 @@ class ManageCategoriesViewController: UIViewController {
     
     // MARK: - Controls
     
+    lazy var addCategoryTextField: TextFieldWithCancel = {
+        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new category...")
+        textFieldWithCancel.delegate = self
+        textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
+        return textFieldWithCancel
+    }()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -32,9 +39,15 @@ class ManageCategoriesViewController: UIViewController {
         
         navigationItem.largeTitleDisplayMode = .never
         
+        view.addSubview(addCategoryTextField)
+        addCategoryTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        addCategoryTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        addCategoryTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        addCategoryTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         view.addSubview(tableView)
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: addCategoryTextField.bottomAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }

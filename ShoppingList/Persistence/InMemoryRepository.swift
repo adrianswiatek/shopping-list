@@ -32,7 +32,6 @@ class InMemoryRepository: RepositoryProtocol {
         items.append(Item.toBuy(name: "Power adapter", category: electronicsCategory))
         
         categories.append(Category.getDefault())
-        categories.append(Category.new(name: "Dupa"))
     }
     
     func getCategories() -> [Category] {

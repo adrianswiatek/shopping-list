@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A03324E20C9BD56007C7B46 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */; };
+		3A043E5F20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */; };
 		3A13566D207E94D8006A7414 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */; };
 		3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */; };
 		3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */; };
@@ -80,6 +81,7 @@
 /* Begin PBXFileReference section */
 		2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
+		3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageCategoriesViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
 		3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
 		3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFromBasketDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				3AD1F00320D46C770066FBF7 /* ContextualActionBuilders */,
 				3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */,
 				3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */,
+				3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */,
 				3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */,
 			);
 			path = ManageCategories;
@@ -638,6 +641,7 @@
 				3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */,
 				3AD1EFFE20D45B700066FBF7 /* WarningAlertBuilder.swift in Sources */,
 				3ADE39CE20CF0F0C007806B1 /* EditViewController+TextFieldWithCancelDelegate.swift in Sources */,
+				3A043E5F20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */,
 				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
 				3A69E41220B9EFD0004D122E /* Repository.swift in Sources */,
