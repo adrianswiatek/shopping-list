@@ -1,19 +1,16 @@
 import UIKit
 
 extension ItemsViewController: TextFieldWithCancelDelegate {
-    func textFieldWithCancelDidCancel(_ textFieldWithCancel: TextFieldWithCancel) {}
-    
-    func textFieldWithCancel(_ textFieldWithCancel: UITextField, didReturnWith text: String) {
+    func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
         let item = Item.toBuy(name: text)
-        let itemCategory = item.category ?? Category.getDefault()
         
-        if !categories.contains(itemCategory) {
-            categories.append(itemCategory)
+        if !categories.containsDefaultCategory() {
+            categories.append(Category.getDefault())
             categories.sort { $0.name < $1.name }
             
-            let categoryIndex = getCategoryIndex(item: item)
-            items.insert([Item](), at: categoryIndex)
-            tableView.insertSections(IndexSet(integer: categoryIndex), with: .automatic)
+            let index = getCategoryIndex(item: item)
+            items.insert([Item](), at: index)
+            tableView.insertSections(IndexSet(integer: index), with: .automatic)
         }
         
         let categoryIndex = getCategoryIndex(item: item)
@@ -26,12 +23,15 @@ extension ItemsViewController: TextFieldWithCancelDelegate {
         Repository.shared.add(item)
         
         refreshScene()
-        
-        textFieldWithCancel.resignFirstResponder()
-        textFieldWithCancel.text = ""
     }
     
     func getCategoryIndex(item: Item) -> Int {
-        return categories.index { $0 == item.category } ?? 0
+        let category = item.category ?? Category.getDefault()
+        
+        guard let index = categories.index (where: { $0.id == category.id }) else {
+            fatalError("Unable to find category index.")
+        }
+        
+        return index
     }
 }

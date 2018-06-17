@@ -63,7 +63,7 @@ extension ItemsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         var item = items[sourceIndexPath.section].remove(at: sourceIndexPath.row)
-        
+
         if sourceIndexPath.section != destinationIndexPath.section {
             let destinationCategory = categories[destinationIndexPath.section]
             item = item.getWithChanged(category: destinationCategory)
@@ -71,10 +71,10 @@ extension ItemsViewController: UITableViewDataSource {
             cell.item = item
             Repository.shared.updateCategory(of: item, to: destinationCategory)
         }
-        
+
         items[destinationIndexPath.section].insert(item, at: destinationIndexPath.row)
         Repository.shared.setItemsOrder(items.flatMap { $0 }, forState: .toBuy)
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [unowned self] in
             let sectionIndex = sourceIndexPath.section
             if tableView.numberOfRows(inSection: sectionIndex) == 0 {
@@ -86,7 +86,7 @@ extension ItemsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return !tableView.isEditing
+        return false
     }
 }
 

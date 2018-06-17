@@ -30,8 +30,6 @@ class InMemoryRepository: RepositoryProtocol {
         categories.append(electronicsCategory)
         items.append(Item.toBuy(name: "iPad Gray 128GB 2018", category: electronicsCategory))
         items.append(Item.toBuy(name: "Power adapter", category: electronicsCategory))
-        
-        categories.append(Category.getDefault())
     }
     
     func getCategories() -> [Category] {

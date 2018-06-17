@@ -25,7 +25,13 @@ class EditItemViewController: UIViewController {
     }()
     
     private func fetchCategories() -> [Category] {
-        let categories = Repository.shared.getCategories()
+        var categories = Repository.shared.getCategories()
+        
+        let defaultCategory = Category.getDefault()
+        if categories.first(where: { $0.id == defaultCategory.id }) == nil {
+            categories.append(defaultCategory)
+        }
+        
         return categories.sorted { $0.name < $1.name }
     }
     
@@ -47,7 +53,8 @@ class EditItemViewController: UIViewController {
         guard let itemName = itemNameTextField.text, itemName != "" else { return }
         
         let selectedCategoryRow = categoriesPickerView.selectedRow(inComponent: 0)
-        let category = categories[selectedCategoryRow]
+        let selectedCategory = categories[selectedCategoryRow]
+        let category = selectedCategory.isDefault() ? nil : selectedCategory
         
         var itemToSave: Item
         

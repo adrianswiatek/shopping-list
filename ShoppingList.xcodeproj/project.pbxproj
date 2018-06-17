@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A03324E20C9BD56007C7B46 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */; };
 		3A043E5F20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */; };
+		3A043E6120D6FC400068287B /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A043E6020D6FC400068287B /* CollectionExtensions.swift */; };
 		3A13566D207E94D8006A7414 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */; };
 		3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */; };
 		3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */; };
@@ -82,6 +83,7 @@
 		2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageCategoriesViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
+		3A043E6020D6FC400068287B /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
 		3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFromBasketDelegate.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 		3A972EBD207A877000963961 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3A043E6020D6FC400068287B /* CollectionExtensions.swift */,
 				3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */,
 				3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */,
 				3A972EBE207A877D00963961 /* UIViewExtensions.swift */,
@@ -649,6 +652,7 @@
 				3A8BC19820C7024100B2F357 /* ItemsOrder.swift in Sources */,
 				3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */,
 				3A3B54AF20D05D310039CDCC /* EditItemViewControllerDelegate.swift in Sources */,
+				3A043E6120D6FC400068287B /* CollectionExtensions.swift in Sources */,
 				3A8BC19A20C72C3300B2F357 /* ItemsOrdersEntityMapper.swift in Sources */,
 				3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */,
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,

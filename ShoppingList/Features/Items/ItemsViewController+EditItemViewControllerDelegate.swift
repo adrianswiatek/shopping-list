@@ -14,7 +14,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     
     func didUpdate(_ previousItem: Item, _ newItem: Item) {
         didSave(newItem) {
-            let isBeingUpdatedInTheSameCategory = previousItem.category?.id == newItem.category?.id
+            let isBeingUpdatedInTheSameCategory = previousItem.getCategory().id == newItem.getCategory().id
             isBeingUpdatedInTheSameCategory
                 ? updateItemInTheSameCategory(newItem)
                 : updateItemInDifferentCategories(previousItem, newItem)
@@ -23,7 +23,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     
     func updateItemInTheSameCategory(_ item: Item) {
         guard
-            let categoryIndex = categories.index(where: { $0.id == item.category?.id }),
+            let categoryIndex = categories.index(where: { $0.id == item.getCategory().id }),
             let itemIndex = items[categoryIndex].index(where: { $0.id == item.id })
         else { return }
         
@@ -36,9 +36,9 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     
     func updateItemInDifferentCategories(_ previousItem: Item, _ newItem: Item) {
         guard
-            let previousCategoryIndex = categories.index(where: { $0.id == previousItem.category?.id }),
+            let previousCategoryIndex = categories.index(where: { $0.id == previousItem.getCategory().id }),
             let previousItemIndex = items[previousCategoryIndex].index(where: { $0.id == previousItem.id }),
-            let newCategoryIndex = categories.index(where: { $0.id == newItem.category?.id })
+            let newCategoryIndex = categories.index(where: { $0.id == newItem.getCategory().id })
         else { return }
         
         updatePreviousItem(at: previousItemIndex, and: previousCategoryIndex)
