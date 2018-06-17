@@ -11,13 +11,24 @@ extension ManageCategoriesViewController: UITableViewDelegate {
     }
     
     private func categoryEdited(to name: String, at indexPath: IndexPath) {
-        // TODO: handle sorting after name update
         let existingCategory = categories[indexPath.row]
         let newCategory = existingCategory.getWithChanged(name: name)
         self.categories[indexPath.row] = newCategory
+        categories.sort { $0.name < $1.name }
         
-        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        updateTableViewAfterCategoryUpdate(currentIndexPath: indexPath, newCategory: newCategory)
+        
         Repository.shared.update(newCategory)
+    }
+    
+    private func updateTableViewAfterCategoryUpdate(currentIndexPath: IndexPath, newCategory: Category) {
+        guard let newCategoryIndex = categories.index(where: { $0.id == newCategory.id }) else { return }
+        
+        let newIndexPath = IndexPath(row: newCategoryIndex, section: 0)
+        if newIndexPath != currentIndexPath {
+            self.tableView.moveRow(at: currentIndexPath, to: newIndexPath)
+        }
+        self.tableView.reloadRows(at: [newIndexPath], with: .automatic)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
