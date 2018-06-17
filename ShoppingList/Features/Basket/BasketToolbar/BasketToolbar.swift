@@ -29,6 +29,7 @@ class BasketToolbar: UIView {
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             actionButton,
             ], animated: true)
+        toolbar.barTintColor = .white
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
@@ -81,6 +82,7 @@ class BasketToolbar: UIView {
         let toolbar = UIToolbar()
         toolbar.setItems([cancelButton, flexibleSpace, deleteAllButton, fixedSpace, restoreAllButton], animated: true)
         toolbar.alpha = 0
+        toolbar.barTintColor = .white
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
@@ -88,6 +90,13 @@ class BasketToolbar: UIView {
     @objc private func cancelButtonHandler() {
         delegate?.cancelButtonDidTap()
     }
+    
+    private lazy var topLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     // MARK:- Initialize
     
@@ -108,6 +117,12 @@ class BasketToolbar: UIView {
         editToolbar.topAnchor.constraint(equalTo: topAnchor).isActive = true
         editToolbar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         editToolbar.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        addSubview(topLineView)
+        topLineView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        topLineView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        topLineView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        topLineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

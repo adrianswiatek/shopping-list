@@ -87,21 +87,21 @@ class ItemsViewController: UIViewController {
         navigationItem.rightBarButtonItems = [goToBasketBarButtonItem, goToSettingsBarButtonItem]
 
         view.addSubview(addItemTextField)
-        addItemTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        addItemTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        addItemTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        addItemTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        addItemTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        addItemTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         addItemTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(toolbar)
-        toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        toolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        toolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         toolbar.heightAnchor.constraint(equalToConstant: 50)
         
         view.addSubview(tableView)
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: addItemTextField.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
     }
     
