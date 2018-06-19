@@ -17,23 +17,42 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func getCategories() -> [Category] {
-        return []
+        let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        
+        do {
+            let entities = try context.fetch(request)
+            return entities.map { $0.map() }
+        } catch {
+            fatalError("Unable to fetch Categories: \(error)")
+        }
     }
     
     func add(_ category: Category) {
-        fatalError("Not implemented")
+        _ = category.map(context: context)
+        save()
     }
     
     func update(_ category: Category) {
-        fatalError("Not implemented")
+        guard let entity = getCategoryEntity(by: category) else { return }
+        entity.update(by: category)
+        save()
     }
     
     func remove(_ category: Category) {
-        fatalError("Not implemented")
+        if let entity = getCategoryEntity(by: category) {
+            context.delete(entity)
+            save()
+        }
     }
     
     func getItems() -> [Item] {
-        fatalError("Not implemented")
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        
+        do {
+            return try context.fetch(request).map { $0.map() }
+        } catch {
+            fatalError("Unable to fetch Items: \(error)")
+        }
     }
     
     func getItemsWith(state: ItemState) -> [Item] {
@@ -66,68 +85,69 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func remove(_ items: [Item]) {
-        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id IN %@", items.map { $0.id })
-        
-        do {
-            let entities = try context.fetch(request)
-            entities.forEach { context.delete($0) }
-            save()
-        } catch {
-            fatalError("Unable to delete Items: \(error)")
-        }
+        let entities = getItemEntities(by: items)
+        entities.forEach { context.delete($0) }
+        save()
     }
     
     func remove(_ item: Item) {
-        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", item.id as CVarArg)
-        
-        do {
-            guard let entity = try context.fetch(request).first else { return }
+        if let entity = getItemEntity(by: item) {
             context.delete(entity)
             save()
-        } catch {
-            fatalError("Unable to delete Item: \(error)")
         }
     }
     
     func updateState(of items: [Item], to state: ItemState) {
-        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id IN %@", items.map { $0.id })
-        
-        do {
-            let entities = try context.fetch(request)
-            entities.forEach { $0.state = Int32(state.rawValue)}
-            save()
-        } catch {
-            fatalError("Unable to update state of Item: \(error)")
-        }
+        let entities = getItemEntities(by: items)
+        entities.forEach { $0.state = Int32(state.rawValue)}
+        save()
     }
     
     func updateState(of item: Item, to state: ItemState) {
-        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", item.id as CVarArg)
-        
-        do {
-            let entities = try context.fetch(request)
-            guard let entity = entities.first else { return }
+        if let entity = getItemEntity(by: item) {
             entity.state = Int32(state.rawValue)
             save()
-        } catch {
-            fatalError("Unable to update state of Item: \(error)")
         }
     }
 
     func update(_ item: Item) {
-        fatalError("Not implemented")
+        guard let itemEntity = getItemEntity(by: item) else { return }
+        
+        var categoryEntity: CategoryEntity?
+        if let category = item.category {
+            categoryEntity = getCategoryEntity(by: category)
+        }
+        
+        itemEntity.name = item.name
+        itemEntity.state = Int32(item.state.rawValue)
+        itemEntity.category = categoryEntity
+        
+        save()
     }
     
     func updateCategory(of item: Item, to category: Category) {
-        fatalError("Not implemented")
+        guard let itemEntity = getItemEntity(by: item) else { return }
+        
+        var categoryEntity: CategoryEntity?
+        
+        if !category.isDefault() {
+            categoryEntity = getCategoryEntityOrCreate(from: category)
+        }
+        
+        itemEntity.category = categoryEntity
+        
+        save()
     }
     
     func updateCategory(of items: [Item], to category: Category) {
-        fatalError("Not implemented")
+        var categoryEntity: CategoryEntity?
+        if !category.isDefault() {
+            categoryEntity = getCategoryEntityOrCreate(from: category)
+        }
+        
+        let itemEntities = getItemEntities(by: items)
+        itemEntities.forEach { $0.category = categoryEntity }
+        save()
     }
     
     func setItemsOrder(_ items: [Item], forState state: ItemState) {
@@ -149,13 +169,50 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func save() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
+        guard context.hasChanges else { return }
+        
+        do {
+            try context.save()
+        } catch {
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
+    }
+    
+    private func getItemEntity(by item: Item) -> ItemEntity? {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", item.id as CVarArg)
+        
+        do {
+            return try context.fetch(request).first
+        } catch  {
+            fatalError("Unable to fetch Item: \(error)")
+        }
+    }
+    
+    private func getItemEntities(by items: [Item]) -> [ItemEntity] {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id IN %@", items.map { $0.id })
+        
+        do {
+            return try context.fetch(request)
+        } catch {
+            fatalError("Unable to fetch Items: \(error)")
+        }
+    }
+    
+    private func getCategoryEntity(by category: Category) -> CategoryEntity? {
+        let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", category.id as CVarArg)
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            fatalError("Unable to fetch Category: \(error)")
+        }
+    }
+    
+    private func getCategoryEntityOrCreate(from category: Category) -> CategoryEntity? {
+        return getCategoryEntity(by: category) ?? category.map(context: context)
     }
 }

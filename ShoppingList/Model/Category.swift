@@ -4,7 +4,7 @@ struct Category: Hashable {
     let id: UUID
     let name: String
     
-    private init(id: UUID, name: String) {
+    init(id: UUID, name: String) {
         self.id = id
         self.name = name
     }

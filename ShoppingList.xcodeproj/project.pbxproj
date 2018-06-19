@@ -18,6 +18,7 @@
 		3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift */; };
 		3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */; };
 		3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */; };
+		3A31380220D85ADF00635266 /* CategoryEntityMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A31380120D85ADF00635266 /* CategoryEntityMapper.swift */; };
 		3A37694C20D1B27D0039DA54 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */; };
 		3A37694E20D1B3780039DA54 /* SettingsViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */; };
 		3A37695120D1BA920039DA54 /* ManageCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */; };
@@ -92,6 +93,7 @@
 		3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+AddToBasketDelegate.swift"; sourceTree = "<group>"; };
 		3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketVewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+RemoveFromBasket.swift"; sourceTree = "<group>"; };
+		3A31380120D85ADF00635266 /* CategoryEntityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntityMapper.swift; sourceTree = "<group>"; };
 		3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesViewController.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			children = (
 				3A69E41C20BA1C37004D122E /* ItemEntityMapper.swift */,
 				3A8BC19920C72C3300B2F357 /* ItemsOrdersEntityMapper.swift */,
+				3A31380120D85ADF00635266 /* CategoryEntityMapper.swift */,
 			);
 			path = Mappers;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				3A37694E20D1B3780039DA54 /* SettingsViewController+UITableView.swift in Sources */,
 				3A3B54B120D05F870039CDCC /* ItemsViewController+EditItemViewControllerDelegate.swift in Sources */,
 				3A13566D207E94D8006A7414 /* BasketTableViewCell.swift in Sources */,
+				3A31380220D85ADF00635266 /* CategoryEntityMapper.swift in Sources */,
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
 				3A20012B2097CBBE0015111F /* ItemsViewController+UITableView.swift in Sources */,
 				3ABFD99120CD9B5E00D0C258 /* EditItemViewController+UIPickerView.swift in Sources */,
