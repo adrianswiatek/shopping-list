@@ -10,7 +10,7 @@ extension CategoryEntity {
     }
     
     func update(by category: Category) {
-        guard self.id != category.id else {
+        guard self.id == category.id else {
             fatalError("Unable to update Categories that have different ids.")
         }
         
