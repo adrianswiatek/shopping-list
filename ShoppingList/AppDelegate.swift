@@ -9,13 +9,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)
-        
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = .white
         
-        let itemsViewController = ItemsViewController()
-        let navigationController = UINavigationController(rootViewController: itemsViewController)
+        let rootViewController = ListsViewController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
         
         window = UIWindow()
         window?.makeKeyAndVisible()

@@ -6,13 +6,6 @@ struct Item {
     let state: ItemState
     let category: Category?
     
-    init(id: UUID, name: String, state: ItemState, category: Category?) {
-        self.id = id
-        self.name = name
-        self.state = state
-        self.category = category
-    }
-    
     static func toBuy(name: String, category: Category? = nil) -> Item {
         return self.init(id: UUID(), name: name, state: .toBuy, category: category)
     }
