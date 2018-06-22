@@ -12,7 +12,9 @@ extension ItemsViewController: AddToBasketDelegate {
         
         items[section].remove(at: row)
         tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .right)
+        
         Repository.shared.updateState(of: item, to: .inBasket)
+        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
         
         refreshScene()
     }

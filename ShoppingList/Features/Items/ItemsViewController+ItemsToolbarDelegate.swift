@@ -25,7 +25,9 @@ extension ItemsViewController: ItemsToolbarDelegate {
             
             self.items.removeAll()
             self.tableView.deleteRows(at: indexPaths, with: .right)
+            
             Repository.shared.updateState(of: itemsToMove.flatMap { $0 }, to: .inBasket)
+            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
             
             self.refreshScene()
         }
@@ -44,7 +46,9 @@ extension ItemsViewController: ItemsToolbarDelegate {
             
             self.items.removeAll()
             self.tableView.deleteRows(at: indexPaths, with: .automatic)
+            
             Repository.shared.remove(itemsToDelete.flatMap { $0 })
+            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
             
             self.refreshScene()
         }
@@ -64,7 +68,9 @@ extension ItemsViewController: ItemsToolbarDelegate {
         
         let selectedItems = selectedIndexPaths.map { self.items[$0.section].remove(at: $0.row) }
         tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
+        
         Repository.shared.remove(selectedItems)
+        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
         
@@ -78,7 +84,9 @@ extension ItemsViewController: ItemsToolbarDelegate {
             .sorted { $0 > $1 }
             .map { self.items[$0.section].remove(at: $0.row) }
         tableView.deleteRows(at: selectedIndexPaths, with: .right)
+        
         Repository.shared.updateState(of: selectedItems, to: .inBasket)
+        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
         

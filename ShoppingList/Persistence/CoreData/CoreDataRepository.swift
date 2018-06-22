@@ -160,8 +160,11 @@ class CoreDataRepository: RepositoryProtocol {
                 context.delete(entity)
             }
             
-            let itemsOrder = ItemsOrder(state, items)
-            _ = itemsOrder.map(context: context)
+            if items.count > 0 {
+                let itemsOrder = ItemsOrder(state, items)
+                _ = itemsOrder.map(context: context)
+            }
+
             save()
         } catch {
             fatalError("Unable to fetch ItemsOrder: \(error)")

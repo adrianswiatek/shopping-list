@@ -16,7 +16,9 @@ extension ItemsViewController: UITableViewDelegate {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
             let item = self.items[indexPath.section].remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
             Repository.shared.remove(item)
+            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
             
             self.refreshScene(after: 0.5)
             completionHandler(true)

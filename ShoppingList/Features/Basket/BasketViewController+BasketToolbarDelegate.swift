@@ -50,6 +50,7 @@ extension BasketViewController: BasketToolbarDelegate {
         
         let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
         tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
+        
         Repository.shared.remove(selectedItems)
         Repository.shared.setItemsOrder(items, forState: .inBasket)
         
@@ -61,6 +62,7 @@ extension BasketViewController: BasketToolbarDelegate {
         
         let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
         tableView.deleteRows(at: selectedIndexPaths, with: .left)
+        
         Repository.shared.updateState(of: selectedItems, to: .toBuy)
         Repository.shared.setItemsOrder(items, forState: .inBasket)
         
