@@ -2,7 +2,7 @@ import UIKit
 
 extension ItemsViewController: TextFieldWithCancelDelegate {
     func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
-        let item = Item.toBuy(name: text)
+        let item = Item.toBuy(name: text, list: list)
         
         if !categories.containsDefaultCategory() {
             categories.append(Category.getDefault())

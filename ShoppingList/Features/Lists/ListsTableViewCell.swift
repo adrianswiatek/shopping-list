@@ -7,6 +7,7 @@ class ListsTableViewCell: UITableViewCell {
             guard let list = list else { return }
             nameLabel.text = list.name
             accessTypeLabel.text = list.accessType.rawValue
+            numberOfItemsValueLabel.text = String(list.getNumberOfItemsToBuy())
         }
     }
     
@@ -14,6 +15,24 @@ class ListsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .darkGray
         label.font = .boldSystemFont(ofSize: 18)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let numberOfItemsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Number of items to buy:"
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let numberOfItemsValueLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = .gray
+        label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -50,9 +69,16 @@ class ListsTableViewCell: UITableViewCell {
     private func setupUserInterface() {
         contentView.addSubview(nameLabel)
         nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16).isActive = true
+        nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -8).isActive = true
         nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        nameLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        contentView.addSubview(numberOfItemsLabel)
+        numberOfItemsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
+        numberOfItemsLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 16).isActive = true
+        
+        contentView.addSubview(numberOfItemsValueLabel)
+        numberOfItemsValueLabel.leadingAnchor.constraint(equalTo: numberOfItemsLabel.trailingAnchor, constant: 4).isActive = true
+        numberOfItemsValueLabel.centerYAnchor.constraint(equalTo: numberOfItemsLabel.centerYAnchor).isActive = true
         
         contentView.addSubview(accessTypeView)
         accessTypeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true

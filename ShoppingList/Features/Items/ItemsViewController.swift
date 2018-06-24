@@ -2,6 +2,12 @@ import UIKit
 
 class ItemsViewController: UIViewController {
     
+    var delegate: ItemsViewControllerDelegate!
+    var list: List!
+    
+    var items = [[Item]]()
+    var categories = [Category]()
+
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -50,13 +56,18 @@ class ItemsViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: settingsViewController)
         present(navigationController, animated: true)
     }
-    
-    var items = [[Item]]()
-    var categories = [Category]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        validateStartingContract()
         setupUserInterface()
+    }
+    
+    private func validateStartingContract() {
+        guard delegate != nil, list != nil else {
+            fatalError("Found nil in starting contract.")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,8 +79,15 @@ class ItemsViewController: UIViewController {
         refreshScene()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    
+        list = list.getWithChanged(items: items.flatMap { $0 })
+        delegate.itemsViewControllerDidDismiss(self, with: list)
+    }
+    
     func fetchItems() {
-        let allItems = Repository.shared.getItemsWith(state: .toBuy)
+        let allItems = Repository.shared.getItemsFrom(list: list, withState: .toBuy)
         var items = [[Item]]()
         self.categories = Set(allItems.map { $0.category ?? Category.getDefault() }).sorted { $0.name < $1.name }
         
@@ -145,6 +163,7 @@ class ItemsViewController: UIViewController {
     func goToEditItemDetailed(with item: Item? = nil) {
         let viewController = EditItemViewController()
         viewController.delegate = self
+        viewController.list = list
         viewController.item = item
         
         let navigationController = UINavigationController(rootViewController: viewController)

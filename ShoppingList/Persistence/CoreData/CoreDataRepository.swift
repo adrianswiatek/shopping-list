@@ -1,6 +1,7 @@
 import CoreData
 
 class CoreDataRepository: RepositoryProtocol {
+
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ShoppingList")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -15,6 +16,26 @@ class CoreDataRepository: RepositoryProtocol {
     private var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
+    
+    // Mark: - List
+    
+    func getLists() -> [List] {
+        fatalError("Not implemented")
+    }
+    
+    func add(_ list: List) {
+        fatalError("Not implemented")
+    }
+    
+    func update(_ list: List) {
+        fatalError("Not implemented")
+    }
+    
+    func remove(_ list: List) {
+        fatalError("Not implemented")
+    }
+    
+    // MARK: - Category
     
     func getCategories() -> [Category] {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
@@ -45,6 +66,8 @@ class CoreDataRepository: RepositoryProtocol {
         }
     }
     
+    // MARK: - Item
+    
     func getItems() -> [Item] {
         let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         
@@ -53,6 +76,10 @@ class CoreDataRepository: RepositoryProtocol {
         } catch {
             fatalError("Unable to fetch Items: \(error)")
         }
+    }
+    
+    func getItemsFrom(list: List, withState state: ItemState) -> [Item] {
+        fatalError("Not implemented")
     }
     
     func getItemsWith(state: ItemState) -> [Item] {
@@ -150,6 +177,8 @@ class CoreDataRepository: RepositoryProtocol {
         save()
     }
     
+    // MARK: - Items Order
+    
     func setItemsOrder(_ items: [Item], forState state: ItemState) {
         let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
         request.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)
@@ -170,6 +199,8 @@ class CoreDataRepository: RepositoryProtocol {
             fatalError("Unable to fetch ItemsOrder: \(error)")
         }
     }
+    
+    // MARK: - Other
     
     func save() {
         guard context.hasChanges else { return }

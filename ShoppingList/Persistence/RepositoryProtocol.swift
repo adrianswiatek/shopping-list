@@ -1,10 +1,23 @@
 protocol RepositoryProtocol {
+    
+    // MARK: - List
+    
+    func getLists() -> [List]
+    func add(_ list: List)
+    func update(_ list: List)
+    func remove(_ list: List)
+    
+    // MARK: - Category
+    
     func getCategories() -> [Category]
     func add(_ category: Category)
     func update(_ category: Category)
     func remove(_ category: Category)
     
+    // MARK: - Item
+    
     func getItems() -> [Item]
+    func getItemsFrom(list: List, withState state: ItemState) -> [Item]
     func getItemsWith(state: ItemState) -> [Item]
     func add(_ item: Item)
     func remove(_ items: [Item])
@@ -15,7 +28,11 @@ protocol RepositoryProtocol {
     func updateCategory(of item: Item, to category: Category)
     func updateCategory(of items: [Item], to category: Category)
     
+    // MARK: - ItemsOrder
+    
     func setItemsOrder(_ items: [Item], forState state: ItemState)
+    
+    // MARK: - Other
     
     func save()
 }

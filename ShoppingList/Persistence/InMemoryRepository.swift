@@ -1,36 +1,67 @@
 import Foundation
 
 class InMemoryRepository: RepositoryProtocol {
-    
+
+    private var lists = [List]()
     private var items = [Item]()
     private var itemsOrders = [ItemsOrder]()
     private var categories = [Category]()
-    
+
     init() {
+        let myList = List.new(name: "Daily shopping")
+        
         let fruitsCategory = Category.new(name: "Fruits")
         categories.append(fruitsCategory)
-        items.append(Item.toBuy(name: "Avocado", category: fruitsCategory))
-        items.append(Item.toBuy(name: "Bananas", category: fruitsCategory))
-        items.append(Item.toBuy(name: "Blackberries", category: fruitsCategory))
-        items.append(Item.toBuy(name: "Apples", category: fruitsCategory))
+        items.append(Item.toBuy(name: "Avocado", list: myList, category: fruitsCategory))
+        items.append(Item.toBuy(name: "Bananas", list: myList, category: fruitsCategory))
+        items.append(Item.toBuy(name: "Blackberries", list: myList, category: fruitsCategory))
+        items.append(Item.toBuy(name: "Apples", list: myList, category: fruitsCategory))
         
         let dairyCategory = Category.new(name: "Dairy")
         categories.append(dairyCategory)
-        items.append(Item.toBuy(name: "Milk", category: dairyCategory))
-        items.append(Item.toBuy(name: "Yogurt", category: dairyCategory))
+        items.append(Item.toBuy(name: "Milk", list: myList, category: dairyCategory))
+        items.append(Item.toBuy(name: "Yogurt", list: myList, category: dairyCategory))
         
         let vegetablesCategory = Category.new(name: "Vegetables")
         categories.append(vegetablesCategory)
-        items.append(Item.toBuy(name: "Carrots", category: vegetablesCategory))
-        items.append(Item.toBuy(name: "Spinach", category: vegetablesCategory))
-        items.append(Item.toBuy(name: "Kale", category: vegetablesCategory))
-        items.append(Item.toBuy(name: "Beetroot", category: vegetablesCategory))
+        items.append(Item.toBuy(name: "Carrots", list: myList, category: vegetablesCategory))
+        items.append(Item.toBuy(name: "Spinach", list: myList, category: vegetablesCategory))
+        items.append(Item.toBuy(name: "Kale", list: myList, category: vegetablesCategory))
+        items.append(Item.toBuy(name: "Beetroot", list: myList, category: vegetablesCategory))
         
         let electronicsCategory = Category.new(name: "Electronics")
         categories.append(electronicsCategory)
-        items.append(Item.toBuy(name: "iPad Gray 128GB 2018", category: electronicsCategory))
-        items.append(Item.toBuy(name: "Power adapter", category: electronicsCategory))
+        items.append(Item.toBuy(name: "iPad Gray 128GB 2018", list: myList, category: electronicsCategory))
+        items.append(Item.toBuy(name: "Power adapter", list: myList, category: electronicsCategory))
+        
+        lists.append(myList.getWithChanged(items: items))
+        lists.append(List.new(name: "For later"))
     }
+    
+    // MARK: - List
+    
+    func getLists() -> [List] {
+        return lists
+    }
+    
+    func add(_ list: List) {
+        lists.append(list)
+    }
+    
+    func update(_ list: List) {
+        fatalError("Not implemented")
+    }
+    
+    func remove(_ list: List) {
+        guard let index = lists.index(where: { $0.id == list.id }) else {
+            fatalError("Unable to find index of the given list.")
+        }
+        
+        items.removeAll { $0.list.id == list.id }
+        lists.remove(at: index)
+    }
+    
+    // MARK: - Category
     
     func getCategories() -> [Category] {
         return categories
@@ -59,8 +90,14 @@ class InMemoryRepository: RepositoryProtocol {
         }
     }
     
+    // MARK: - Item
+    
     func getItems() -> [Item] {
         return items
+    }
+    
+    func getItemsFrom(list: List, withState state: ItemState) -> [Item] {
+        return items.filter { $0.list.id == list.id }.filter { $0.state == state }
     }
     
     func getItemsWith(state: ItemState) -> [Item] {
@@ -114,6 +151,8 @@ class InMemoryRepository: RepositoryProtocol {
         }
     }
     
+    // MARK: - Items Order
+    
     func setItemsOrder(_ items: [Item], forState state: ItemState) {
         if let itemsOrderIndex = itemsOrders.index(where: { $0.itemsState == state }) {
             itemsOrders.remove(at: itemsOrderIndex)
@@ -124,6 +163,8 @@ class InMemoryRepository: RepositoryProtocol {
         let itemsOrder = ItemsOrder(state, items)
         itemsOrders.append(itemsOrder)
     }
+    
+    // Mark: - Other
     
     func save() {}
     

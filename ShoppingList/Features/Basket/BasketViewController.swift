@@ -2,6 +2,8 @@ import UIKit
 
 class BasketViewController: UIViewController {
     
+    var items = [Item]()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -23,8 +25,6 @@ class BasketViewController: UIViewController {
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
-    
-    var items = [Item]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

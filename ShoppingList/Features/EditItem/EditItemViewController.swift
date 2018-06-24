@@ -2,7 +2,8 @@ import UIKit
 
 class EditItemViewController: UIViewController {
     
-    var delegate: EditItemViewControllerDelegate?
+    var delegate: EditItemViewControllerDelegate!
+    var list: List!
     
     var item: Item? {
         didSet {
@@ -51,6 +52,7 @@ class EditItemViewController: UIViewController {
     
     @objc private func save() {
         guard let itemName = itemNameTextField.text, itemName != "" else { return }
+        guard let list = list else { return }
         
         let selectedCategoryRow = categoriesPickerView.selectedRow(inComponent: 0)
         let selectedCategory = categories[selectedCategoryRow]
@@ -59,9 +61,9 @@ class EditItemViewController: UIViewController {
         var itemToSave: Item
         
         if let existingItem = self.item {
-            itemToSave = Item(id: existingItem.id, name: itemName, state: existingItem.state, category: category)
+            itemToSave = Item(id: existingItem.id, name: itemName, state: existingItem.state, category: category, list: list)
         } else {
-            itemToSave = Item.toBuy(name: itemName, category: category)
+            itemToSave = Item.toBuy(name: itemName, list: list, category: category)
         }
 
         dismiss(animated: true) { [weak self] in
@@ -151,7 +153,14 @@ class EditItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        validateStartingContract()
         setupUserInterface()
+    }
+    
+    private func validateStartingContract() {
+        guard delegate != nil, list != nil else {
+            fatalError("Found nil in starting contract.")
+        }
     }
     
     private func setupUserInterface() {

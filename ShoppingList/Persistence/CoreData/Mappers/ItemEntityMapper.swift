@@ -9,7 +9,8 @@ extension ItemEntity {
             else { fatalError("Unable to create Item") }
         
         let category = self.category?.map()
-        return Item(id: id, name: name, state: state, category: category)
+        let list = List.new(name: "test")
+        return Item(id: id, name: name, state: state, category: category, list: list)
     }
 }
 
