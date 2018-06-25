@@ -46,7 +46,9 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
         super.init(frame: CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 50))
         cancelButtonAnimations = CancelButtonAnimations(viewController: viewController, button: cancelButton)
         textField.placeholder = placeHolder
+        
         setupUserInterface()
+        setupNormalShadow()
     }
     
     private func setupUserInterface() {
@@ -77,6 +79,16 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
         textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
     }
     
+    private func setupNormalShadow() {
+        layer.shadowOpacity = 0.1
+        layer.shadowOffset = CGSize(width: 0, height: 1.5)
+    }
+    
+    private func setupEditingShadow() {
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -98,9 +110,11 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         cancelButtonAnimations.show()
+        setupEditingShadow()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         cancelButtonAnimations.hide()
+        setupNormalShadow()
     }
 }

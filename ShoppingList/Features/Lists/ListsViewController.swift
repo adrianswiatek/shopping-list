@@ -7,6 +7,7 @@ class ListsViewController: UIViewController {
     lazy var addListTextFieldWithCancel: TextFieldWithCancel = {
         let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new list")
         textFieldWithCancel.delegate = self
+        textFieldWithCancel.layer.zPosition = 1
         textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
         return textFieldWithCancel
     }()
@@ -44,7 +45,7 @@ class ListsViewController: UIViewController {
     }
     
     private func fetchLists() {
-        lists = Repository.shared.getLists().sorted { $0.name < $1.name }
+        lists = Repository.shared.getLists().sorted { $0.updateDate < $1.updateDate }
     }
     
     func setScene() {
