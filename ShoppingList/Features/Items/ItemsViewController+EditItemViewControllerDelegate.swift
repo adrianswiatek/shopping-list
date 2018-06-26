@@ -84,6 +84,6 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         }
         
         setItemsAndTableView()
-        refreshScene()
+        refreshUserInterface()
     }
 }

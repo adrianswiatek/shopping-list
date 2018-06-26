@@ -22,7 +22,7 @@ extension ItemsViewController: TextFieldWithCancelDelegate {
         
         Repository.shared.add(item)
         
-        refreshScene()
+        refreshUserInterface()
     }
     
     func getCategoryIndex(item: Item) -> Int {

@@ -47,16 +47,6 @@ class ItemsViewController: UIViewController {
         let basketViewController = BasketViewController()
         navigationController?.pushViewController(basketViewController, animated: true)
     }
-    
-    lazy var goToSettingsBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "Settings"), style: .plain, target: self, action: #selector(goToSettingsScene))
-    }()
-    
-    @objc private func goToSettingsScene() {
-        let settingsViewController = SettingsViewController()
-        let navigationController = UINavigationController(rootViewController: settingsViewController)
-        present(navigationController, animated: true)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +67,7 @@ class ItemsViewController: UIViewController {
         fetchItems()
         tableView.reloadData()
         
-        refreshScene()
+        refreshUserInterface()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -103,7 +93,8 @@ class ItemsViewController: UIViewController {
     private func setupUserInterface() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItems = [goToBasketBarButtonItem, goToSettingsBarButtonItem]
+        navigationItem.rightBarButtonItem = goToBasketBarButtonItem
+        navigationItem.title = list.name
 
         view.addSubview(addItemTextField)
         addItemTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -124,7 +115,7 @@ class ItemsViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
     }
     
-    func refreshScene(after: Double = 0) {
+    func refreshUserInterface(after: Double = 0) {
         items.count > 0 ? self.setSceneAsEditable() : self.setSceneAsNotEditable()
         tableView.setEditing(false, animated: true)
         

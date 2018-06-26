@@ -20,7 +20,7 @@ extension ItemsViewController: UITableViewDelegate {
             Repository.shared.remove(item)
             Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
             
-            self.refreshScene(after: 0.5)
+            self.refreshUserInterface(after: 0.5)
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)

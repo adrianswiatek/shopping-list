@@ -29,7 +29,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
             Repository.shared.updateState(of: itemsToMove.flatMap { $0 }, to: .inBasket)
             Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
             
-            self.refreshScene()
+            self.refreshUserInterface()
         }
         
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
@@ -50,7 +50,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
             Repository.shared.remove(itemsToDelete.flatMap { $0 })
             Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
             
-            self.refreshScene()
+            self.refreshUserInterface()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -74,7 +74,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
         
-        self.refreshScene()
+        self.refreshUserInterface()
     }
     
     func moveAllToBasketButtonDidTap() {
@@ -90,12 +90,12 @@ extension ItemsViewController: ItemsToolbarDelegate {
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
         
-        self.refreshScene()
+        self.refreshUserInterface()
     }
     
     func cancelButtonDidTap() {
         tableView.setEditing(false, animated: true)
         toolbar.setRegularMode()
-        refreshScene()
+        refreshUserInterface()
     }
 }

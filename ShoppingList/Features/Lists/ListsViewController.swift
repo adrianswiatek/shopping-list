@@ -5,7 +5,7 @@ class ListsViewController: UIViewController {
     var lists = [List]()
     
     lazy var addListTextFieldWithCancel: TextFieldWithCancel = {
-        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new list")
+        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new list...")
         textFieldWithCancel.delegate = self
         textFieldWithCancel.layer.zPosition = 1
         textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
@@ -22,15 +22,34 @@ class ListsViewController: UIViewController {
         return tableView
     }()
     
+    lazy var goToSettingsBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "Settings"), style: .plain, target: self, action: #selector(goToSettingsScene))
+    }()
+    
+    @objc private func goToSettingsScene() {
+        let settingsViewController = SettingsViewController()
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
+        present(navigationController, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUserInterface()
-        fetchLists()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         setScene()
+        fetchLists()
     }
     
     private func setupUserInterface() {
+        navigationItem.title = "My lists"
+        
+        navigationItem.rightBarButtonItem = goToSettingsBarButtonItem
+        
         view.addSubview(addListTextFieldWithCancel)
         addListTextFieldWithCancel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         addListTextFieldWithCancel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -44,15 +63,15 @@ class ListsViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    private func fetchLists() {
-        lists = Repository.shared.getLists().sorted { $0.updateDate < $1.updateDate }
-    }
-    
     func setScene() {
         if lists.count > 0 {
             tableView.backgroundView = nil
         } else {
             tableView.setTextIfEmpty("You have not added any lists yet")
         }
+    }
+    
+    private func fetchLists() {
+        lists = Repository.shared.getLists().sorted { $0.updateDate < $1.updateDate }
     }
 }

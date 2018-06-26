@@ -16,6 +16,6 @@ extension ItemsViewController: AddToBasketDelegate {
         Repository.shared.updateState(of: item, to: .inBasket)
         Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
         
-        refreshScene()
+        refreshUserInterface()
     }
 }
