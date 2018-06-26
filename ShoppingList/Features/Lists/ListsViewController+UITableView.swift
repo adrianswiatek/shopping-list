@@ -16,15 +16,31 @@ extension ListsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
-            let list = self.lists.remove(at: indexPath.row)
-            Repository.shared.remove(list)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.setScene()
-            completionHandler(true)
+            let currentList = self.lists[indexPath.row]
+            if currentList.getNumberOfItemsToBuy() == 0 {
+                self.deleteList(at: indexPath)
+                completionHandler(true)
+                return
+            }
+            
+            var builder = DeleteListAlertBuilder()
+            builder.deleteButtonTapped = {
+                self.deleteList(at: indexPath)
+                completionHandler(true)
+            }
+            builder.cancelButtonTapped = { completionHandler(false) }
+            self.present(builder.build(), animated: true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         deleteItemAction.image = #imageLiteral(resourceName: "Trash")
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
+    }
+    
+    private func deleteList(at indexPath: IndexPath) {
+        let list = lists.remove(at: indexPath.row)
+        Repository.shared.remove(list)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        setScene()
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
