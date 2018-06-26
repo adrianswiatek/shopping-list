@@ -39,13 +39,16 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
     }
     
     private var cancelButtonAnimations: CancelButtonAnimations!
+    private var bottomShadowAnimations: BottomShadowAnimations!
     
     // MARK: - Initialize
     
     init(viewController: UIViewController, placeHolder: String) {
         super.init(frame: CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 50))
-        cancelButtonAnimations = CancelButtonAnimations(viewController: viewController, button: cancelButton)
         textField.placeholder = placeHolder
+        
+        cancelButtonAnimations = CancelButtonAnimations(viewController: viewController, button: cancelButton)
+        bottomShadowAnimations = BottomShadowAnimations(view: self)
         
         setupUserInterface()
         setupNormalShadow()
@@ -80,13 +83,11 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
     }
     
     private func setupNormalShadow() {
-        layer.shadowOpacity = 0.1
-        layer.shadowOffset = CGSize(width: 0, height: 1.5)
+        bottomShadowAnimations.showNormalShadow()
     }
     
     private func setupEditingShadow() {
-        layer.shadowOpacity = 0.2
-        layer.shadowOffset = CGSize(width: 0, height: 2)
+        bottomShadowAnimations.showEditShadow()
     }
     
     required init?(coder aDecoder: NSCoder) {
