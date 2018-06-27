@@ -59,9 +59,14 @@ extension ListsViewController: UITableViewDelegate {
     }
     
     private func changeListName(at indexPath: IndexPath, newName: String) {
-        let list = lists.remove(at: indexPath.row)
-        let listWithChangedName = list.getWithChanged(name: newName)
+        let existingList = lists[indexPath.row]
+        guard existingList.name != newName else { return }
+        
+        let listWithChangedName = existingList.getWithChanged(name: newName)
+        
+        lists.remove(at: indexPath.row)
         lists.insert(listWithChangedName, at: 0)
+        
         Repository.shared.update(listWithChangedName)
         
         if indexPath.row == 0 {

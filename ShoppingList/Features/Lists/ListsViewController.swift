@@ -41,8 +41,8 @@ class ListsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setScene()
         fetchLists()
+        setScene()
     }
     
     private func setupUserInterface() {
