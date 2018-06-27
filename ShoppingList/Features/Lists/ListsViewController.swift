@@ -72,6 +72,6 @@ class ListsViewController: UIViewController {
     }
     
     private func fetchLists() {
-        lists = Repository.shared.getLists().sorted { $0.updateDate < $1.updateDate }
+        lists = Repository.shared.getLists().sorted { $0.updateDate > $1.updateDate }
     }
 }

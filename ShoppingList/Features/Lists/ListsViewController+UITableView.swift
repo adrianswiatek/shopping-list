@@ -60,9 +60,19 @@ extension ListsViewController: UITableViewDelegate {
     
     private func changeListName(at indexPath: IndexPath, newName: String) {
         let list = lists.remove(at: indexPath.row)
-        lists.insert(list.getWithChanged(name: newName), at: indexPath.row)
-        Repository.shared.update(list)
-        tableView.reloadRows(at: [indexPath], with: .middle)
+        let listWithChangedName = list.getWithChanged(name: newName)
+        lists.insert(listWithChangedName, at: 0)
+        Repository.shared.update(listWithChangedName)
+        
+        if indexPath.row == 0 {
+            tableView.reloadRows(at: [indexPath], with: .middle)
+        } else {
+            let zeroIndexPath = IndexPath(row: 0, section: 0)
+            tableView.moveRow(at: indexPath, to: zeroIndexPath)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+                self?.tableView.reloadRows(at: [zeroIndexPath], with: .middle)
+            }
+        }
     }
 }
 
