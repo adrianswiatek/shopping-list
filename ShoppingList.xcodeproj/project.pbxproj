@@ -36,6 +36,7 @@
 		3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251C20BBD8090095D66A /* BasketToolbar.swift */; };
 		3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */; };
 		3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */; };
+		3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */; };
 		3A69E40E20B9ECE7004D122E /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */; };
 		3A69E41220B9EFD0004D122E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41120B9EFD0004D122E /* Repository.swift */; };
 		3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41320B9F158004D122E /* RepositoryProtocol.swift */; };
@@ -57,7 +58,7 @@
 		3AC6211D20C0542A00A16F0E /* TextFieldWithCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */; };
 		3AC6211F20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */; };
 		3AC6212120C0575900A16F0E /* TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6212020C0575900A16F0E /* TextFieldWithCancelDelegate.swift */; };
-		3AC68B9320E2CF7F000F0487 /* CancelButtonShadowAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC68B9220E2CF7F000F0487 /* CancelButtonShadowAnimations.swift */; };
+		3AC68B9320E2CF7F000F0487 /* BottomShadowAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC68B9220E2CF7F000F0487 /* BottomShadowAnimations.swift */; };
 		3AC68B9620E2DF2A000F0487 /* DeleteListAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC68B9520E2DF2A000F0487 /* DeleteListAlertBuilder.swift */; };
 		3ACC283B20C8699300F31AB6 /* ItemsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */; };
 		3AD1EFFE20D45B700066FBF7 /* WarningAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1EFFD20D45B700066FBF7 /* WarningAlertBuilder.swift */; };
@@ -125,6 +126,7 @@
 		3A54251C20BBD8090095D66A /* BasketToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbar.swift; sourceTree = "<group>"; };
 		3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+BasketToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarDelegate.swift; sourceTree = "<group>"; };
+		3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListAlertBuilder.swift; sourceTree = "<group>"; };
 		3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		3A69E41120B9EFD0004D122E /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3A69E41320B9F158004D122E /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -146,7 +148,7 @@
 		3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithCancel.swift; sourceTree = "<group>"; };
 		3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
 		3AC6212020C0575900A16F0E /* TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithCancelDelegate.swift; sourceTree = "<group>"; };
-		3AC68B9220E2CF7F000F0487 /* CancelButtonShadowAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonShadowAnimations.swift; sourceTree = "<group>"; };
+		3AC68B9220E2CF7F000F0487 /* BottomShadowAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomShadowAnimations.swift; sourceTree = "<group>"; };
 		3AC68B9520E2DF2A000F0487 /* DeleteListAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteListAlertBuilder.swift; sourceTree = "<group>"; };
 		3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsSorter.swift; sourceTree = "<group>"; };
 		3AD1EFFD20D45B700066FBF7 /* WarningAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningAlertBuilder.swift; sourceTree = "<group>"; };
@@ -394,7 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */,
-				3AC68B9220E2CF7F000F0487 /* CancelButtonShadowAnimations.swift */,
+				3AC68B9220E2CF7F000F0487 /* BottomShadowAnimations.swift */,
 				3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */,
 				3AC6212020C0575900A16F0E /* TextFieldWithCancelDelegate.swift */,
 			);
@@ -405,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				3AC68B9520E2DF2A000F0487 /* DeleteListAlertBuilder.swift */,
+				3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */,
 			);
 			path = AlertBuilders;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				3AF04E9920D2FA6000938F13 /* ManageCategoriesTableViewCell.swift in Sources */,
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
+				3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */,
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
 				3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */,
 				3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */,
@@ -741,7 +745,7 @@
 				3A37694C20D1B27D0039DA54 /* SettingsViewController.swift in Sources */,
 				3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */,
 				3A37695120D1BA920039DA54 /* ManageCategoriesViewController.swift in Sources */,
-				3AC68B9320E2CF7F000F0487 /* CancelButtonShadowAnimations.swift in Sources */,
+				3AC68B9320E2CF7F000F0487 /* BottomShadowAnimations.swift in Sources */,
 				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
 				3AD1F00720D476A20066FBF7 /* DeleteContextualActionBuilder.swift in Sources */,
 				3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */,

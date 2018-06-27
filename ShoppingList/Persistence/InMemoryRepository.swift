@@ -49,11 +49,16 @@ class InMemoryRepository: RepositoryProtocol {
     }
     
     func update(_ list: List) {
-        fatalError("Not implemented")
+        guard let index = getIndex(of: list) else {
+            fatalError("Unable to find index of the given list.")
+        }
+        
+        lists.remove(at: index)
+        lists.insert(list, at: index)
     }
     
     func remove(_ list: List) {
-        guard let index = lists.index(where: { $0.id == list.id }) else {
+        guard let index = getIndex(of: list) else {
             fatalError("Unable to find index of the given list.")
         }
         
@@ -174,5 +179,9 @@ class InMemoryRepository: RepositoryProtocol {
     
     private func getIndex(of category: Category) -> Int? {
         return categories.index { $0.id == category.id }
+    }
+    
+    private func getIndex(of list: List) -> Int? {
+        return lists.index { $0.id == list.id }
     }
 }

@@ -44,12 +44,25 @@ extension ListsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { (action, sourceView, completionHandler) in
-            completionHandler(false)
+        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] (action, sourceView, completionHandler) in
+            var builder = EditListAlertBuilder(listName: self.lists[indexPath.row].name)
+            builder.saveButtonTapped = {
+                self.changeListName(at: indexPath, newName: $0)
+                completionHandler(true)
+            }
+            builder.cancelButtonTapped = { completionHandler(false) }
+            self.present(builder.build(), animated: true)
         }
         editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         editItemAction.image = #imageLiteral(resourceName: "Edit")
         return UISwipeActionsConfiguration(actions: [editItemAction])
+    }
+    
+    private func changeListName(at indexPath: IndexPath, newName: String) {
+        let list = lists.remove(at: indexPath.row)
+        lists.insert(list.getWithChanged(name: newName), at: indexPath.row)
+        Repository.shared.update(list)
+        tableView.reloadRows(at: [indexPath], with: .middle)
     }
 }
 
