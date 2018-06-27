@@ -1,8 +1,11 @@
+import Foundation
+
 protocol RepositoryProtocol {
     
     // MARK: - List
     
     func getLists() -> [List]
+    func getList(by id: UUID) -> List?
     func add(_ list: List)
     func update(_ list: List)
     func remove(_ list: List)
@@ -17,8 +20,7 @@ protocol RepositoryProtocol {
     // MARK: - Item
     
     func getItems() -> [Item]
-    func getItemsFrom(list: List, withState state: ItemState) -> [Item]
-    func getItemsWith(state: ItemState) -> [Item]
+    func getItemsWith(state: ItemState, in list: List) -> [Item]
     func add(_ item: Item)
     func remove(_ items: [Item])
     func remove(_ item: Item)
@@ -30,7 +32,7 @@ protocol RepositoryProtocol {
     
     // MARK: - ItemsOrder
     
-    func setItemsOrder(_ items: [Item], forState state: ItemState)
+    func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState)
     
     // MARK: - Other
     

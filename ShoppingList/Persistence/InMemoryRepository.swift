@@ -3,38 +3,37 @@ import Foundation
 class InMemoryRepository: RepositoryProtocol {
 
     private var lists = [List]()
-    private var items = [Item]()
     private var itemsOrders = [ItemsOrder]()
     private var categories = [Category]()
 
     init() {
-        let myList = List.new(name: "Daily shopping")
+        var myList = List.new(name: "Daily shopping")
         
         let fruitsCategory = Category.new(name: "Fruits")
         categories.append(fruitsCategory)
-        items.append(Item.toBuy(name: "Avocado", list: myList, category: fruitsCategory))
-        items.append(Item.toBuy(name: "Bananas", list: myList, category: fruitsCategory))
-        items.append(Item.toBuy(name: "Blackberries", list: myList, category: fruitsCategory))
-        items.append(Item.toBuy(name: "Apples", list: myList, category: fruitsCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Avocado", list: myList, category: fruitsCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Bananas", list: myList, category: fruitsCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Blackberries", list: myList, category: fruitsCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Apples", list: myList, category: fruitsCategory))
         
         let dairyCategory = Category.new(name: "Dairy")
         categories.append(dairyCategory)
-        items.append(Item.toBuy(name: "Milk", list: myList, category: dairyCategory))
-        items.append(Item.toBuy(name: "Yogurt", list: myList, category: dairyCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Milk", list: myList, category: dairyCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Yogurt", list: myList, category: dairyCategory))
         
         let vegetablesCategory = Category.new(name: "Vegetables")
         categories.append(vegetablesCategory)
-        items.append(Item.toBuy(name: "Carrots", list: myList, category: vegetablesCategory))
-        items.append(Item.toBuy(name: "Spinach", list: myList, category: vegetablesCategory))
-        items.append(Item.toBuy(name: "Kale", list: myList, category: vegetablesCategory))
-        items.append(Item.toBuy(name: "Beetroot", list: myList, category: vegetablesCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Carrots", list: myList, category: vegetablesCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Spinach", list: myList, category: vegetablesCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Kale", list: myList, category: vegetablesCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Beetroot", list: myList, category: vegetablesCategory))
         
         let electronicsCategory = Category.new(name: "Electronics")
         categories.append(electronicsCategory)
-        items.append(Item.toBuy(name: "iPad Gray 128GB 2018", list: myList, category: electronicsCategory))
-        items.append(Item.toBuy(name: "Power adapter", list: myList, category: electronicsCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "iPad Gray 128GB 2018", list: myList, category: electronicsCategory))
+        myList = myList.getWithAdded(item: Item.toBuy(name: "Power adapter", list: myList, category: electronicsCategory))
         
-        lists.append(myList.getWithChanged(items: items))
+        lists.append(myList)
         lists.append(List.new(name: "For later"))
     }
     
@@ -42,6 +41,10 @@ class InMemoryRepository: RepositoryProtocol {
     
     func getLists() -> [List] {
         return lists
+    }
+    
+    func getList(by id: UUID) -> List? {
+        return lists.first { $0.id == id }
     }
     
     func add(_ list: List) {
@@ -62,7 +65,6 @@ class InMemoryRepository: RepositoryProtocol {
             fatalError("Unable to find index of the given list.")
         }
         
-        items.removeAll { $0.list.id == list.id }
         lists.remove(at: index)
     }
     
@@ -81,7 +83,10 @@ class InMemoryRepository: RepositoryProtocol {
             let removedCategory = categories.remove(at: index)
             categories.insert(category, at: index)
             
-            let itemsInCategory = items.filter { $0.getCategoryName() == removedCategory.name }
+            let itemsInCategory = lists
+                .flatMap { $0.items }
+                .filter { $0.getCategoryName() == removedCategory.name }
+            
             updateCategory(of: itemsInCategory, to: category)
         }
     }
@@ -90,7 +95,10 @@ class InMemoryRepository: RepositoryProtocol {
         if let index = getIndex(of: category) {
             let removedCategory = categories.remove(at: index)
             
-            let itemsInCategory = items.filter { $0.getCategoryName() == removedCategory.name }
+            let itemsInCategory = lists
+                .flatMap { $0.items }
+                .filter { $0.getCategoryName() == removedCategory.name }
+            
             updateCategory(of: itemsInCategory, to: Category.getDefault())
         }
     }
@@ -98,21 +106,24 @@ class InMemoryRepository: RepositoryProtocol {
     // MARK: - Item
     
     func getItems() -> [Item] {
-        return items
+        return lists.flatMap { $0.items }
     }
     
-    func getItemsFrom(list: List, withState state: ItemState) -> [Item] {
-        return items.filter { $0.list.id == list.id }.filter { $0.state == state }
-    }
-    
-    func getItemsWith(state: ItemState) -> [Item] {
-        let unorderedItems = items.filter { $0.state == state }
-        let orderedItemsIds = itemsOrders.first { $0.itemsState == state }?.itemsIds ?? [UUID]()
-        return ItemsSorter.sort(unorderedItems, by: orderedItemsIds)
+    func getItemsWith(state: ItemState, in list: List) -> [Item] {
+        guard let indexOfList = getIndex(of: list) else { return [] }
+        
+        let unorderedItems = lists[indexOfList].items.filter { $0.state == state }
+        let orderedItemsIds = itemsOrders
+            .filter { $0.listId == list.id }
+            .first { $0.itemsState == state }?
+            .itemsIds
+        
+        return ItemsSorter.sort(unorderedItems, by: orderedItemsIds ?? [UUID]())
     }
     
     func add(_ item: Item) {
-        items.insert(item, at: 0)
+        guard let indexOfList = getIndex(of: item.list) else { return }
+        update(lists[indexOfList].getWithAdded(item: item))
     }
     
     func remove(_ items: [Item]) {
@@ -120,9 +131,8 @@ class InMemoryRepository: RepositoryProtocol {
     }
     
     func remove(_ item: Item) {
-        if let index = getIndex(of: item) {
-            items.remove(at: index)
-        }
+        guard let indexOfList = getIndex(of: item.list) else { return }
+        update(lists[indexOfList].getWithRemoved(item: item))
     }
     
     func updateState(of items: [Item], to state: ItemState) {
@@ -130,24 +140,23 @@ class InMemoryRepository: RepositoryProtocol {
     }
     
     func updateState(of item: Item, to state: ItemState) {
-        if let index = getIndex(of: item) {
-            items.remove(at: index)
-            items.insert(item.getWithChanged(state: state), at: index)
-        }
+        guard let indexOfList = getIndex(of: item.list) else { return}
+        
+        let updatedItem = item.getWithChanged(state: state)
+        update(lists[indexOfList].getWithChanged(item: updatedItem))
     }
     
     func update(_ item: Item) {
-        if let index = getIndex(of: item) {
-            items.remove(at: index)
-            items.insert(item, at: index)
-        }
+        guard let indexOfList = getIndex(of: item.list) else { return}
+        
+        update(lists[indexOfList].getWithChanged(item: item))
     }
     
     func updateCategory(of item: Item, to category: Category) {
-        if let index = getIndex(of: item) {
-            items.remove(at: index)
-            items.insert(item.getWithChanged(category: category), at: index)
-        }
+        guard let indexOfList = getIndex(of: item.list) else { return}
+        
+        let updatedItem = item.getWithChanged(category: category)
+        update(lists[indexOfList].getWithChanged(item: updatedItem))
     }
     
     func updateCategory(of items: [Item], to category: Category) {
@@ -158,14 +167,14 @@ class InMemoryRepository: RepositoryProtocol {
     
     // MARK: - Items Order
     
-    func setItemsOrder(_ items: [Item], forState state: ItemState) {
-        if let itemsOrderIndex = itemsOrders.index(where: { $0.itemsState == state }) {
+    func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) {
+        if let itemsOrderIndex = itemsOrders.index(where: { $0.listId == list.id && $0.itemsState == state }) {
             itemsOrders.remove(at: itemsOrderIndex)
         }
         
         guard items.count > 0 else { return }
         
-        let itemsOrder = ItemsOrder(state, items)
+        let itemsOrder = ItemsOrder(state, list.id, items)
         itemsOrders.append(itemsOrder)
     }
     
@@ -173,8 +182,9 @@ class InMemoryRepository: RepositoryProtocol {
     
     func save() {}
     
-    private func getIndex(of item: Item) -> Int? {
-        return items.index { $0.id == item.id }
+    private func getIndex(of item: Item, in list: List) -> Int? {
+        guard let indexOfList = getIndex(of: list) else { return nil }
+        return lists[indexOfList].items.index { $0.id == item.id }
     }
     
     private func getIndex(of category: Category) -> Int? {

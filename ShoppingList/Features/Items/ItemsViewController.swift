@@ -3,10 +3,14 @@ import UIKit
 class ItemsViewController: UIViewController {
     
     var delegate: ItemsViewControllerDelegate!
+    
     var list: List!
+    var listIndexPath: IndexPath!
     
     var items = [[Item]]()
     var categories = [Category]()
+    
+    private var initialListUpdateDate: Date!
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -45,6 +49,7 @@ class ItemsViewController: UIViewController {
     
     @objc private func goToBasketScene() {
         let basketViewController = BasketViewController()
+        basketViewController.list = list
         navigationController?.pushViewController(basketViewController, animated: true)
     }
 
@@ -56,7 +61,7 @@ class ItemsViewController: UIViewController {
     }
     
     private func validateStartingContract() {
-        guard delegate != nil, list != nil else {
+        guard delegate != nil, list != nil, listIndexPath != nil else {
             fatalError("Found nil in starting contract.")
         }
     }
@@ -72,13 +77,14 @@ class ItemsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-    
-        list = list.getWithChanged(items: items.flatMap { $0 })
-        delegate.itemsViewControllerDidDismiss(self, with: list)
+        
+        let list = Repository.shared.getList(by: self.list.id)
+        let hasChanges = list?.updateDate != initialListUpdateDate
+        delegate.itemsViewControllerDidDismiss(self, with: self.list, hasChanges: hasChanges, previousIndexPath: listIndexPath)
     }
     
     func fetchItems() {
-        let allItems = Repository.shared.getItemsFrom(list: list, withState: .toBuy)
+        let allItems = Repository.shared.getItemsWith(state: .toBuy, in: list)
         var items = [[Item]]()
         self.categories = Set(allItems.map { $0.category ?? Category.getDefault() }).sorted { $0.name < $1.name }
         
@@ -88,6 +94,7 @@ class ItemsViewController: UIViewController {
         }
         
         self.items = items
+        self.initialListUpdateDate = self.list.updateDate
     }
     
     private func setupUserInterface() {

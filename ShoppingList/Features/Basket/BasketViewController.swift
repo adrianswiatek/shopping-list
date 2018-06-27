@@ -3,6 +3,7 @@ import UIKit
 class BasketViewController: UIViewController {
     
     var items = [Item]()
+    var list: List!
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -28,7 +29,13 @@ class BasketViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        validateStartingContract()
         setupUserInterface()
+    }
+    
+    private func validateStartingContract() {
+        guard list != nil else { fatalError("Found nil in starting contract.") }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +46,7 @@ class BasketViewController: UIViewController {
     }
     
     private func fetchItems() {
-        items = Repository.shared.getItemsWith(state: .inBasket)
+        items = Repository.shared.getItemsWith(state: .inBasket, in: list)
     }
     
     private func setupUserInterface() {

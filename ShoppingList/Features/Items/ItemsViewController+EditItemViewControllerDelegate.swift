@@ -45,7 +45,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         updateNewItem(newItem, at: newCategoryIndex)
         removeCategoryIfEmpty(at: previousCategoryIndex)
  
-        Repository.shared.setItemsOrder(items.flatMap { $0 }, forState: .toBuy)
+        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: list, forState: .toBuy)
     }
     
     private func updatePreviousItem(at itemIndex: Int, and categoryIndex: Int) {

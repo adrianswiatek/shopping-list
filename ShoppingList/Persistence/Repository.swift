@@ -1,3 +1,5 @@
+import Foundation
+
 class Repository: RepositoryProtocol {
     
     static let shared: Repository = Repository()
@@ -12,6 +14,7 @@ class Repository: RepositoryProtocol {
     // MARK: - List
     
     func getLists() -> [List] { return repository.getLists() }
+    func getList(by id: UUID) -> List? { return repository.getList(by: id) }
     func add(_ list: List) { repository.add(list) }
     func update(_ list: List) { repository.update(list) }
     func remove(_ list: List) { repository.remove(list) }
@@ -25,8 +28,7 @@ class Repository: RepositoryProtocol {
 
     // MARK: - Item
     func getItems() -> [Item] { return repository.getItems() }
-    func getItemsFrom(list: List, withState state: ItemState) -> [Item] { return repository.getItemsFrom(list: list, withState: state) }
-    func getItemsWith(state: ItemState) -> [Item] { return repository.getItemsWith(state: state) }
+    func getItemsWith(state: ItemState, in list: List) -> [Item] { return repository.getItemsWith(state: state, in: list) }
     func add(_ item: Item) { repository.add(item) }
     func remove(_ items: [Item]) { repository.remove(items) }
     func remove(_ item: Item) { repository.remove(item) }
@@ -37,7 +39,7 @@ class Repository: RepositoryProtocol {
     func updateCategory(of items: [Item], to category: Category) { repository.updateCategory(of: items, to: category) }
     
     // MARK: - Items Order
-    func setItemsOrder(_ items: [Item], forState state: ItemState) { repository.setItemsOrder(items, forState: state) }
+    func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) { repository.setItemsOrder(items, in: list, forState: state) }
     
     // MARK: - Other
     func save() { repository.save() }

@@ -14,7 +14,7 @@ extension ItemsViewController: AddToBasketDelegate {
         tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .right)
         
         Repository.shared.updateState(of: item, to: .inBasket)
-        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, forState: .toBuy)
+        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: list, forState: .toBuy)
         
         refreshUserInterface()
     }

@@ -37,6 +37,7 @@
 		3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */; };
 		3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */; };
 		3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */; };
+		3A562A0320E430CE0030732D /* ListEntityMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0220E430CE0030732D /* ListEntityMapper.swift */; };
 		3A69E40E20B9ECE7004D122E /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */; };
 		3A69E41220B9EFD0004D122E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41120B9EFD0004D122E /* Repository.swift */; };
 		3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41320B9F158004D122E /* RepositoryProtocol.swift */; };
@@ -127,6 +128,7 @@
 		3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+BasketToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarDelegate.swift; sourceTree = "<group>"; };
 		3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListAlertBuilder.swift; sourceTree = "<group>"; };
+		3A562A0220E430CE0030732D /* ListEntityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEntityMapper.swift; sourceTree = "<group>"; };
 		3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		3A69E41120B9EFD0004D122E /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3A69E41320B9F158004D122E /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -305,9 +307,10 @@
 		3A69E41B20BA1C26004D122E /* Mappers */ = {
 			isa = PBXGroup;
 			children = (
+				3A31380120D85ADF00635266 /* CategoryEntityMapper.swift */,
 				3A69E41C20BA1C37004D122E /* ItemEntityMapper.swift */,
 				3A8BC19920C72C3300B2F357 /* ItemsOrdersEntityMapper.swift */,
-				3A31380120D85ADF00635266 /* CategoryEntityMapper.swift */,
+				3A562A0220E430CE0030732D /* ListEntityMapper.swift */,
 			);
 			path = Mappers;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,
 				3AD1F00220D4635F0066FBF7 /* EditCategoryAlertBuilder.swift in Sources */,
 				3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift in Sources */,
+				3A562A0320E430CE0030732D /* ListEntityMapper.swift in Sources */,
 				3A82DC53207D6616006B3885 /* UITableViewExtensions.swift in Sources */,
 				3AD1F00020D461650066FBF7 /* DeleteCategoryAlertBuilder.swift in Sources */,
 				3AD1F00520D46C8E0066FBF7 /* EditContextualActionBuilder.swift in Sources */,

@@ -11,6 +11,7 @@ extension ListsViewController: UITableViewDelegate {
         let itemsViewController = ItemsViewController()
         itemsViewController.delegate = self
         itemsViewController.list = lists[indexPath.row]
+        itemsViewController.listIndexPath = indexPath
         navigationController?.pushViewController(itemsViewController, animated: true)
     }
     

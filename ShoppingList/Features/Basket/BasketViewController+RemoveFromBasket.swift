@@ -8,7 +8,7 @@ extension BasketViewController: RemoveFromBasketDelegate {
         tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .left)
         
         Repository.shared.updateState(of: item, to: .toBuy)
-        Repository.shared.setItemsOrder(items, forState: .inBasket)
+        Repository.shared.setItemsOrder(items, in: list, forState: .inBasket)
         
         refreshScene()
     }

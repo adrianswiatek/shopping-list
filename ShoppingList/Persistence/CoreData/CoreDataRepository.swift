@@ -23,6 +23,10 @@ class CoreDataRepository: RepositoryProtocol {
         fatalError("Not implemented")
     }
     
+    func getList(by id: UUID) -> List? {
+        fatalError("Not implemented")
+    }
+    
     func add(_ list: List) {
         fatalError("Not implemented")
     }
@@ -78,11 +82,7 @@ class CoreDataRepository: RepositoryProtocol {
         }
     }
     
-    func getItemsFrom(list: List, withState state: ItemState) -> [Item] {
-        fatalError("Not implemented")
-    }
-    
-    func getItemsWith(state: ItemState) -> [Item] {
+    func getItemsWith(state: ItemState, in list: List) -> [Item] {
         let itemsRequest: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         itemsRequest.predicate = NSPredicate(format: "state == %@", state.rawValue.description)
         
@@ -179,25 +179,26 @@ class CoreDataRepository: RepositoryProtocol {
     
     // MARK: - Items Order
     
-    func setItemsOrder(_ items: [Item], forState state: ItemState) {
-        let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)
-        
-        do {
-            let entities = try context.fetch(request)
-            if let entity = entities.first {
-                context.delete(entity)
-            }
-            
-            if items.count > 0 {
-                let itemsOrder = ItemsOrder(state, items)
-                _ = itemsOrder.map(context: context)
-            }
-
-            save()
-        } catch {
-            fatalError("Unable to fetch ItemsOrder: \(error)")
-        }
+    func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) {
+        fatalError("Not implemented")
+//        let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
+//        request.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)
+//
+//        do {
+//            let entities = try context.fetch(request)
+//            if let entity = entities.first {
+//                context.delete(entity)
+//            }
+//
+//            if items.count > 0 {
+//                let itemsOrder = ItemsOrder(state, items)
+//                _ = itemsOrder.map(context: context)
+//            }
+//
+//            save()
+//        } catch {
+//            fatalError("Unable to fetch ItemsOrder: \(error)")
+//        }
     }
     
     // MARK: - Other
