@@ -7,8 +7,8 @@ class Repository: RepositoryProtocol {
     private let repository: RepositoryProtocol
     
     private init() {
-        // repository = CoreDataRepository()
-        repository = InMemoryRepository()
+        repository = CoreDataRepository()
+        //repository = InMemoryRepository()
     }
     
     // MARK: - List

@@ -20,23 +20,34 @@ class CoreDataRepository: RepositoryProtocol {
     // Mark: - List
     
     func getLists() -> [List] {
-        fatalError("Not implemented")
+        let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
+        
+        do {
+            return try context.fetch(request).map { $0.map() }
+        } catch {
+            fatalError("Unable to fetch Lists: \(error)")
+        }
     }
     
     func getList(by id: UUID) -> List? {
-        fatalError("Not implemented")
+        return getListEntity(by: id)?.map()
     }
     
     func add(_ list: List) {
-        fatalError("Not implemented")
+        _ = list.map(context: context)
+        save()
     }
     
     func update(_ list: List) {
-        fatalError("Not implemented")
+        guard let entity = getListEntity(by: list) else { return }
+        entity.update(by: list, context: context)
+        save()
     }
     
     func remove(_ list: List) {
-        fatalError("Not implemented")
+        guard let entity = getListEntity(by: list) else { return }
+        context.delete(entity)
+        save()
     }
     
     // MARK: - Category
@@ -45,8 +56,7 @@ class CoreDataRepository: RepositoryProtocol {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         
         do {
-            let entities = try context.fetch(request)
-            return entities.map { $0.map() }
+            return try context.fetch(request).map { $0.map() }
         } catch {
             fatalError("Unable to fetch Categories: \(error)")
         }
@@ -64,10 +74,9 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func remove(_ category: Category) {
-        if let entity = getCategoryEntity(by: category) {
-            context.delete(entity)
-            save()
-        }
+        guard let entity = getCategoryEntity(by: category) else { return }
+        context.delete(entity)
+        save()
     }
     
     // MARK: - Item
@@ -84,10 +93,16 @@ class CoreDataRepository: RepositoryProtocol {
     
     func getItemsWith(state: ItemState, in list: List) -> [Item] {
         let itemsRequest: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        itemsRequest.predicate = NSPredicate(format: "state == %@", state.rawValue.description)
+        itemsRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(format: "state == %@", state.rawValue.description),
+            NSPredicate(format: "list.id == %@", list.id as CVarArg)
+        ])
         
         let itemsOrdersRequest: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
-        itemsOrdersRequest.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)
+        itemsOrdersRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(format: "itemsState == %@", state.rawValue.description),
+            NSPredicate(format: "listId == %@", list.id as CVarArg)
+        ])
         
         do {
             let itemsEntities = try context.fetch(itemsRequest)
@@ -107,48 +122,46 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func add(_ item: Item) {
-        _ = item.map(context: context)
+        let entity = item.map(context: context)
+        entity.list?.updateDate = Date()
         save()
     }
     
     func remove(_ items: [Item]) {
         let entities = getItemEntities(by: items)
+        if let entity = entities.first {
+            entity.list?.updateDate = Date()
+        }
         entities.forEach { context.delete($0) }
         save()
     }
     
     func remove(_ item: Item) {
-        if let entity = getItemEntity(by: item) {
-            context.delete(entity)
-            save()
-        }
+        guard let entity = getItemEntity(by: item) else { return }
+        entity.list?.updateDate = Date()
+        context.delete(entity)
+        save()
     }
     
     func updateState(of items: [Item], to state: ItemState) {
         let entities = getItemEntities(by: items)
-        entities.forEach { $0.state = Int32(state.rawValue)}
+        if let entity = entities.first {
+            entity.list?.updateDate = Date()
+        }
+        entities.forEach { $0.state = Int32(state.rawValue) }
         save()
     }
     
     func updateState(of item: Item, to state: ItemState) {
-        if let entity = getItemEntity(by: item) {
-            entity.state = Int32(state.rawValue)
-            save()
-        }
+        guard let entity = getItemEntity(by: item) else { return }
+        entity.state = Int32(state.rawValue)
+        entity.list?.updateDate = Date()
+        save()
     }
 
     func update(_ item: Item) {
-        guard let itemEntity = getItemEntity(by: item) else { return }
-        
-        var categoryEntity: CategoryEntity?
-        if let category = item.category {
-            categoryEntity = getCategoryEntity(by: category)
-        }
-        
-        itemEntity.name = item.name
-        itemEntity.state = Int32(item.state.rawValue)
-        itemEntity.category = categoryEntity
-        
+        guard let entity = getItemEntity(by: item) else { return }
+        entity.update(by: item, context: context)
         save()
     }
     
@@ -156,13 +169,12 @@ class CoreDataRepository: RepositoryProtocol {
         guard let itemEntity = getItemEntity(by: item) else { return }
         
         var categoryEntity: CategoryEntity?
-        
         if !category.isDefault() {
             categoryEntity = getCategoryEntityOrCreate(from: category)
         }
         
         itemEntity.category = categoryEntity
-        
+        itemEntity.list?.updateDate = Date()
         save()
     }
     
@@ -173,6 +185,9 @@ class CoreDataRepository: RepositoryProtocol {
         }
         
         let itemEntities = getItemEntities(by: items)
+        if let entity = itemEntities.first {
+            entity.list?.updateDate = Date()
+        }
         itemEntities.forEach { $0.category = categoryEntity }
         save()
     }
@@ -180,25 +195,30 @@ class CoreDataRepository: RepositoryProtocol {
     // MARK: - Items Order
     
     func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) {
-        fatalError("Not implemented")
-//        let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
-//        request.predicate = NSPredicate(format: "itemsState == %@", state.rawValue.description)
-//
-//        do {
-//            let entities = try context.fetch(request)
-//            if let entity = entities.first {
-//                context.delete(entity)
-//            }
-//
-//            if items.count > 0 {
-//                let itemsOrder = ItemsOrder(state, items)
-//                _ = itemsOrder.map(context: context)
-//            }
-//
-//            save()
-//        } catch {
-//            fatalError("Unable to fetch ItemsOrder: \(error)")
-//        }
+        guard let listEntity = getListEntity(by: list) else { return }
+        listEntity.updateDate = Date()
+        
+        let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
+        request.predicate = NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(format: "itemsState == %@", state.rawValue.description),
+            NSPredicate(format: "listId == %@", list.id as CVarArg) 
+        ])
+
+        do {
+            let entities = try context.fetch(request)
+            if let entity = entities.first {
+                context.delete(entity)
+            }
+
+            if items.count > 0 {
+                let itemsOrder = ItemsOrder(state, list, items)
+                _ = itemsOrder.map(context: context)
+            }
+
+            save()
+        } catch {
+            fatalError("Unable to fetch ItemsOrder: \(error)")
+        }
     }
     
     // MARK: - Other
@@ -212,6 +232,40 @@ class CoreDataRepository: RepositoryProtocol {
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
+    }
+    
+    private func getListEntity(by id: UUID) -> ListEntity? {
+        let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            fatalError("Unable to fetch List: \(error)")
+        }
+    }
+    
+    private func getListEntity(by list: List) -> ListEntity? {
+        return getListEntity(by: list.id)
+    }
+    
+    private func getListEntityOrCreate(from list: List) -> ListEntity? {
+        return getListEntity(by: list) ?? list.map(context: context)
+    }
+    
+    private func getCategoryEntity(by category: Category) -> CategoryEntity? {
+        let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", category.id as CVarArg)
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            fatalError("Unable to fetch Category: \(error)")
+        }
+    }
+    
+    private func getCategoryEntityOrCreate(from category: Category) -> CategoryEntity? {
+        return getCategoryEntity(by: category) ?? category.map(context: context)
     }
     
     private func getItemEntity(by item: Item) -> ItemEntity? {
@@ -234,20 +288,5 @@ class CoreDataRepository: RepositoryProtocol {
         } catch {
             fatalError("Unable to fetch Items: \(error)")
         }
-    }
-    
-    private func getCategoryEntity(by category: Category) -> CategoryEntity? {
-        let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", category.id as CVarArg)
-        
-        do {
-            return try context.fetch(request).first
-        } catch {
-            fatalError("Unable to fetch Category: \(error)")
-        }
-    }
-    
-    private func getCategoryEntityOrCreate(from category: Category) -> CategoryEntity? {
-        return getCategoryEntity(by: category) ?? category.map(context: context)
     }
 }

@@ -22,7 +22,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updateDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemEntity" inverseName="list" inverseEntity="ItemEntity" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ItemEntity" inverseName="list" inverseEntity="ItemEntity" syncable="YES"/>
     </entity>
     <elements>
         <element name="CategoryEntity" positionX="-63" positionY="9" width="128" height="90"/>

@@ -5,6 +5,14 @@ struct ItemsOrder {
     let listId: UUID
     let itemsIds: [UUID]
     
+    init(_ itemsState: ItemState, _ list: List, _ itemsIds: [UUID]) {
+        self.init(itemsState, list.id, itemsIds)
+    }
+    
+    init(_ itemsState: ItemState, _ list: List, _ items: [Item]) {
+        self.init(itemsState, list.id, items)
+    }
+    
     init(_ itemsState: ItemState, _ listId: UUID, _ itemsIds: [UUID]) {
         self.itemsState = itemsState
         self.listId = listId
