@@ -2,14 +2,18 @@ import CoreData
 
 extension ItemEntity {
     func map() -> Item {
+        guard let list = self.list?.map() else { fatalError("Unable to create Item") }
+        return map(with: list)
+    }
+    
+    func map(with list: List) -> Item {
         guard
             let id = self.id,
             let name = self.name,
             let state = ItemState(rawValue: Int(self.state))
-            else { fatalError("Unable to create Item") }
+        else { fatalError("Unable to create Item") }
         
         let category = self.category?.map()
-        let list = List.new(name: "test")
         return Item(id: id, name: name, state: state, category: category, list: list)
     }
     

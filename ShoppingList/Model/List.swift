@@ -21,6 +21,12 @@ struct List {
         return List(id: self.id, name: self.name, accessType: self.accessType, items: items, updateDate: Date())
     }
     
+    func getWithAdded(items: [Item]) -> List {
+        var currentItems = self.items
+        currentItems.append(contentsOf: items)
+        return List(id: self.id, name: self.name, accessType: self.accessType, items: currentItems, updateDate: Date())
+    }
+    
     func getWithRemoved(item: Item) -> List {
         var items = self.items
         guard let index = items.index(where: { $0.id == item.id }) else { return self }

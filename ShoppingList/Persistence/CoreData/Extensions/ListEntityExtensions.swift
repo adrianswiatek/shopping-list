@@ -6,11 +6,13 @@ extension ListEntity {
             let id = self.id,
             let name = self.name,
             let accessType = ListAccessType(rawValue: Int(self.accessType)),
-            let items = self.items?.compactMap({ $0 as? ItemEntity }).map({ $0.map() }),
+            let items = self.items?.compactMap({ $0 as? ItemEntity }),
             let updateDate = self.updateDate
         else { fatalError("Unable to create List") }
         
-        return List(id: id, name: name, accessType: accessType, items: items, updateDate: updateDate)
+        let list = List(id: id, name: name, accessType: accessType, items: [], updateDate: updateDate)
+        let mappedItems = items.map({ $0.map(with: list) })
+        return list.getWithAdded(items: mappedItems)
     }
     
     func update(by list: List, context: NSManagedObjectContext) {
