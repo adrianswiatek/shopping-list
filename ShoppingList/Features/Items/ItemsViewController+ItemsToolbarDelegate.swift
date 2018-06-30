@@ -66,7 +66,9 @@ extension ItemsViewController: ItemsToolbarDelegate {
     func deleteAllButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
-        let selectedItems = selectedIndexPaths.map { self.items[$0.section].remove(at: $0.row) }
+        let selectedItems = selectedIndexPaths
+            .sorted { $0 > $1 }
+            .map { self.items[$0.section].remove(at: $0.row) }
         tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
         
         Repository.shared.remove(selectedItems)

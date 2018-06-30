@@ -41,7 +41,7 @@ class BasketViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchItems()
-        refreshScene()
+        refreshUserInterface()
         tableView.reloadData()
     }
     
@@ -66,7 +66,7 @@ class BasketViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
     }
     
-    func refreshScene() {
+    func refreshUserInterface() {
         items.count > 0 ? setSceneAsEditable() : setSceneAsNotEditable()
     }
     

@@ -18,7 +18,7 @@ extension BasketViewController: BasketToolbarDelegate {
             Repository.shared.updateState(of: itemsToRestore, to: .toBuy)
             Repository.shared.setItemsOrder(self.items, in: self.list, forState: .inBasket)
             
-            self.refreshScene()
+            self.refreshUserInterface()
         }
         
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
@@ -32,7 +32,7 @@ extension BasketViewController: BasketToolbarDelegate {
             Repository.shared.remove(itemsToDelete)
             Repository.shared.setItemsOrder(self.items, in: self.list, forState: .inBasket)
             
-            self.refreshScene()
+            self.refreshUserInterface()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -48,30 +48,40 @@ extension BasketViewController: BasketToolbarDelegate {
     func deleteAllButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
-        let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
+        let selectedItems = selectedIndexPaths
+            .sorted { $0 > $1 }
+            .map { items.remove(at: $0.row) }
+        
         tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
         
         Repository.shared.remove(selectedItems)
         Repository.shared.setItemsOrder(items, in: list, forState: .inBasket)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
+        
+        self.refreshUserInterface()
     }
     
     func restoreAllButtonDidTap() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
         
-        let selectedItems = selectedIndexPaths.map { items.remove(at: $0.row) }
+        let selectedItems = selectedIndexPaths
+            .sorted { $0 > $1 }
+            .map { items.remove(at: $0.row) }
+        
         tableView.deleteRows(at: selectedIndexPaths, with: .left)
         
         Repository.shared.updateState(of: selectedItems, to: .toBuy)
         Repository.shared.setItemsOrder(items, in: list, forState: .inBasket)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
+        
+        self.refreshUserInterface()
     }
     
     func cancelButtonDidTap() {
         tableView.setEditing(false, animated: true)
         toolbar.setRegularMode()
-        refreshScene()
+        refreshUserInterface()
     }
 }

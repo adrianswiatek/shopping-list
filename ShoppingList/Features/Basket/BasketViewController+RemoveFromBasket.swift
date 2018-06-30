@@ -10,6 +10,6 @@ extension BasketViewController: RemoveFromBasketDelegate {
         Repository.shared.updateState(of: item, to: .toBuy)
         Repository.shared.setItemsOrder(items, in: list, forState: .inBasket)
         
-        refreshScene()
+        refreshUserInterface()
     }
 }
