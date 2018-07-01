@@ -8,9 +8,8 @@ class EditItemViewController: UIViewController {
     var item: Item? {
         didSet {
             guard let item = item else {
-                if let rowOfCategory = categories.index(where: { $0.name == Category.getDefault().name }) {
-                    categoriesPickerView.selectRow(rowOfCategory, inComponent: 0, animated: true)
-                }
+                selectDefaultCategory()
+                itemNameTextField.becomeFirstResponder()
                 return
             }
             itemNameTextField.text = item.name
@@ -18,6 +17,12 @@ class EditItemViewController: UIViewController {
             if let rowOfCategory = categories.index(where: { $0.name == item.getCategoryName() }) {
                 categoriesPickerView.selectRow(rowOfCategory, inComponent: 0, animated: true)
             }
+        }
+    }
+    
+    private func selectDefaultCategory() {
+        if let rowOfCategory = categories.index(where: { $0.name == Category.getDefault().name }) {
+            categoriesPickerView.selectRow(rowOfCategory, inComponent: 0, animated: true)
         }
     }
     
