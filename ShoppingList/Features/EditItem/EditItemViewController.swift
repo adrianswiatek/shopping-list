@@ -137,6 +137,8 @@ class EditItemViewController: UIViewController {
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowOpacity = 0.25
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
