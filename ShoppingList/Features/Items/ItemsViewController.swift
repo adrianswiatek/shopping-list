@@ -41,8 +41,12 @@ class ItemsViewController: UIViewController {
         return toolbar
     }()
     
-    lazy var goToBasketBarButtonItem: UIBarButtonItem = {
+    lazy var goToFilledBasketBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
+    }()
+    
+    lazy var goToEmptyBasketBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), style: .plain, target: self, action: #selector(goToBasketScene))
     }()
     
     @objc private func goToBasketScene() {
@@ -94,7 +98,6 @@ class ItemsViewController: UIViewController {
     private func setupUserInterface() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = goToBasketBarButtonItem
         navigationItem.title = list.name
 
         view.addSubview(addItemTextField)
@@ -117,12 +120,20 @@ class ItemsViewController: UIViewController {
     }
     
     func refreshUserInterface(after: Double = 0) {
+        setGoToBasketButton()
+        
         items.count > 0 ? self.setSceneAsEditable() : self.setSceneAsNotEditable()
         tableView.setEditing(false, animated: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + after) { [unowned self] in
             self.clearCategoriesIfNeeded()
         }
+    }
+    
+    func setGoToBasketButton() {
+        let numberOfItemsInBasket = Repository.shared.getNumberOfItemsWith(state: .inBasket, in: list)
+        navigationItem.rightBarButtonItem =
+            numberOfItemsInBasket > 0 ? goToFilledBasketBarButtonItem : goToEmptyBasketBarButtonItem
     }
     
     private func setSceneAsEditable() {

@@ -121,6 +121,12 @@ class InMemoryRepository: RepositoryProtocol {
         return ItemsSorter.sort(unorderedItems, by: orderedItemsIds ?? [UUID]())
     }
     
+    func getNumberOfItemsWith(state: ItemState, in list: List) -> Int {
+        guard let indexOfList = getIndex(of: list) else { return 0 }
+        
+        return lists[indexOfList].items.count
+    }
+    
     func add(_ item: Item) {
         guard let indexOfList = getIndex(of: item.list) else { return }
         update(lists[indexOfList].getWithAdded(item: item))

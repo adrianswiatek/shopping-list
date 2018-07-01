@@ -121,6 +121,20 @@ class CoreDataRepository: RepositoryProtocol {
         }
     }
     
+    func getNumberOfItemsWith(state: ItemState, in list: List) -> Int {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(format: "state == %@", state.rawValue.description),
+            NSPredicate(format: "list.id == %@", list.id as CVarArg)
+        ])
+        
+        do {
+            return try context.count(for: request)
+        } catch {
+            fatalError("Unable to fetch Items count: \(error)")
+        }
+    }
+    
     func add(_ item: Item) {
         let entity = item.map(context: context)
         entity.list?.updateDate = Date()

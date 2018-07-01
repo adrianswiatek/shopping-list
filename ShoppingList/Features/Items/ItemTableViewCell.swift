@@ -22,7 +22,8 @@ class ItemTableViewCell: UITableViewCell {
     
     private lazy var addToBasketButton: UIButton = {
         let button = UIButton(type: .infoLight)
-        button.setListItemButton(with: #imageLiteral(resourceName: "Basket"))
+//        button.setListItemButton(with: #imageLiteral(resourceName: "Basket"))
+        button.setListItemButton(with: #imageLiteral(resourceName: "AddToBasket"))
         button.addTarget(self, action: #selector(addToBasket), for: UIControl.Event.touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
