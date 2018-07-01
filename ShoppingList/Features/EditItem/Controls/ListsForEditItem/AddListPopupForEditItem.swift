@@ -1,7 +1,7 @@
 import UIKit
 
-class AddCategoryPopupForEditItem {
- 
+class AddListPopupForEditItem {
+    
     private let viewController: UIViewController
     private let completed: (String) -> ()
     
@@ -10,10 +10,10 @@ class AddCategoryPopupForEditItem {
     init(_ viewController: UIViewController, completed: @escaping (String) -> ()) {
         self.viewController = viewController
         self.completed = completed
-        self.alertController = UIAlertController(title: "Add Category", message: nil, preferredStyle: .alert)
+        self.alertController = UIAlertController(title: "Add List", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { textField in
-            textField.placeholder = "Enter category name..."
+            textField.placeholder = "Enter list name..."
             textField.clearButtonMode = .whileEditing
         }
         

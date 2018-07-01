@@ -6,18 +6,25 @@ class EditItemViewController: UIViewController {
     static let labelsLeftPadding: CGFloat = 16
     
     var delegate: EditItemViewControllerDelegate!
-    var list: List!
+    
+    var list: List!  {
+        didSet {
+            guard let list = list else { return }
+            listsView.selectBy(name: list.name)
+        }
+    }
     
     var item: Item? {
         didSet {
             guard let item = item else {
                 itemNameView.becomeFirstResponder()
                 categoriesView.selectDefault()
+                listsView.isHidden = true
                 return
             }
             
-            categoriesView.select(by: item)
             itemNameView.text = item.name
+            categoriesView.select(by: item)
         }
     }
 
@@ -37,6 +44,14 @@ class EditItemViewController: UIViewController {
         return categories
     }()
     
+    lazy var listsView: ListsForEditItem = {
+        let lists = ListsForEditItem()
+        lists.delegate = self
+        lists.viewController = self
+        lists.translatesAutoresizingMaskIntoConstraints = false
+        return lists
+    }()
+    
     private lazy var cancelBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
     }()
@@ -51,8 +66,8 @@ class EditItemViewController: UIViewController {
     
     @objc private func save() {
         guard let itemName = itemNameView.text, itemName != "" else { return }
-        guard let list = list else { return }
         
+        let list = listsView.getSelected()
         let category = categoriesView.getSelected()
         var itemToSave: Item
         
@@ -71,6 +86,15 @@ class EditItemViewController: UIViewController {
                 self?.delegate?.didUpdate(previousItem, itemToSave)
                 Repository.shared.update(itemToSave)
             }
+            
+            self?.updatePreviousListIfHasChanged(newList: list)
+        }
+    }
+    
+    private func updatePreviousListIfHasChanged(newList: List) {
+        let areListsTheSame = newList.id == list.id
+        if !areListsTheSame, let previousList = Repository.shared.getList(by: list.id) {
+            Repository.shared.update(previousList.getWithChangedDate())
         }
     }
     
@@ -110,5 +134,11 @@ class EditItemViewController: UIViewController {
         categoriesView.topAnchor.constraint(equalTo: itemNameView.bottomAnchor).isActive = true
         categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         categoriesView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        view.addSubview(listsView)
+        listsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        listsView.topAnchor.constraint(equalTo: categoriesView.bottomAnchor).isActive = true
+        listsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        listsView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
 }

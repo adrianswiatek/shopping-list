@@ -14,6 +14,12 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     
     func didUpdate(_ previousItem: Item, _ newItem: Item) {
         didSave(newItem) {
+            let isBeingUpdatedInTheSameList = previousItem.list.id == newItem.list.id
+            if !isBeingUpdatedInTheSameList {
+                moveToOtherList(previousItem)
+                return
+            }
+            
             let isBeingUpdatedInTheSameCategory = previousItem.getCategory().id == newItem.getCategory().id
             isBeingUpdatedInTheSameCategory
                 ? updateItemInTheSameCategory(newItem)
@@ -21,7 +27,19 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         }
     }
     
-    func updateItemInTheSameCategory(_ item: Item) {
+    private func moveToOtherList(_ item: Item) {
+        guard
+            let categoryIndex = categories.index(where: { $0.id == item.getCategory().id }),
+            let itemIndex = items[categoryIndex].index(where: { $0.id == item.id })
+        else { return }
+        
+        updatePreviousItem(at: itemIndex, and: categoryIndex)
+        removeCategoryIfEmpty(at: categoryIndex)
+        
+        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: list, forState: .toBuy)
+    }
+    
+    private func updateItemInTheSameCategory(_ item: Item) {
         guard
             let categoryIndex = categories.index(where: { $0.id == item.getCategory().id }),
             let itemIndex = items[categoryIndex].index(where: { $0.id == item.id })
@@ -34,7 +52,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    func updateItemInDifferentCategories(_ previousItem: Item, _ newItem: Item) {
+    private func updateItemInDifferentCategories(_ previousItem: Item, _ newItem: Item) {
         guard
             let previousCategoryIndex = categories.index(where: { $0.id == previousItem.getCategory().id }),
             let previousItemIndex = items[previousCategoryIndex].index(where: { $0.id == previousItem.id }),
@@ -51,15 +69,15 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     private func updatePreviousItem(at itemIndex: Int, and categoryIndex: Int) {
         items[categoryIndex].remove(at: itemIndex)
         
-        let indexPathOfPreviousItem = IndexPath(row: itemIndex, section: categoryIndex)
-        tableView.deleteRows(at: [indexPathOfPreviousItem], with: .automatic)
+        let indexPath = IndexPath(row: itemIndex, section: categoryIndex)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
     private func updateNewItem(_ item: Item, at categoryIndex: Int) {
         items[categoryIndex].insert(item, at: 0)
         
-        let indexPathOfNewItem = IndexPath(row: 0, section: categoryIndex)
-        tableView.insertRows(at: [indexPathOfNewItem], with: .automatic)
+        let indexPath = IndexPath(row: 0, section: categoryIndex)
+        tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
     private func removeCategoryIfEmpty(at categoryIndex: Int) {

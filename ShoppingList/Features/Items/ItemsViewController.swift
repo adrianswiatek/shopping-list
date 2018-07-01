@@ -10,8 +10,6 @@ class ItemsViewController: UIViewController {
     var items = [[Item]]()
     var categories = [Category]()
     
-    private var initialListUpdateDate: Date!
-
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -77,10 +75,7 @@ class ItemsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        let list = Repository.shared.getList(by: self.list.id)
-        let hasChanges = list?.updateDate != initialListUpdateDate
-        delegate.itemsViewControllerDidDismiss(self, with: self.list, hasChanges: hasChanges, previousIndexPath: listIndexPath)
+        delegate.itemsViewControllerDidDismiss(self)
     }
     
     func fetchItems() {
@@ -94,7 +89,6 @@ class ItemsViewController: UIViewController {
         }
         
         self.items = items
-        self.initialListUpdateDate = self.list.updateDate
     }
     
     private func setupUserInterface() {

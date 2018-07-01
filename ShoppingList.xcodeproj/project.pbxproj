@@ -73,6 +73,11 @@
 		3ADFCD3720E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3620E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift */; };
 		3ADFCD3920E9441900E49C17 /* CategoriesForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3820E9441900E49C17 /* CategoriesForEditItemDelegate.swift */; };
 		3ADFCD3B20E947D500E49C17 /* AddCategoryPopupForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3A20E947D500E49C17 /* AddCategoryPopupForEditItem.swift */; };
+		3ADFCD3D20E9503E00E49C17 /* ListsForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */; };
+		3ADFCD3F20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3E20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift */; };
+		3ADFCD4120E95D0900E49C17 /* ListsForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */; };
+		3ADFCD4320E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4220E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift */; };
+		3ADFCD4520E964F200E49C17 /* AddListPopupForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */; };
 		3AEDFEF020BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */; };
 		3AEDFEF220BC9F980002B6F7 /* ItemsToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */; };
 		3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */; };
@@ -168,6 +173,11 @@
 		3ADFCD3620E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+CategoriesForEditItemDelegate.swift"; sourceTree = "<group>"; };
 		3ADFCD3820E9441900E49C17 /* CategoriesForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesForEditItemDelegate.swift; sourceTree = "<group>"; };
 		3ADFCD3A20E947D500E49C17 /* AddCategoryPopupForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryPopupForEditItem.swift; sourceTree = "<group>"; };
+		3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsForEditItem.swift; sourceTree = "<group>"; };
+		3ADFCD3E20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsForEditItem+UIPickerView.swift"; sourceTree = "<group>"; };
+		3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsForEditItemDelegate.swift; sourceTree = "<group>"; };
+		3ADFCD4220E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+ListsForEditItemDelegate.swift"; sourceTree = "<group>"; };
+		3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListPopupForEditItem.swift; sourceTree = "<group>"; };
 		3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+ItemsToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbar.swift; sourceTree = "<group>"; };
 		3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbarDelegate.swift; sourceTree = "<group>"; };
@@ -395,8 +405,9 @@
 			children = (
 				3ADFCD2420E91AC200E49C17 /* Controls */,
 				3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */,
-				3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */,
 				3ADFCD3620E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift */,
+				3ADFCD4220E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift */,
+				3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */,
 			);
 			path = EditItem;
 			sourceTree = "<group>";
@@ -479,10 +490,10 @@
 		3ADFCD2E20E9294300E49C17 /* CategoriesForEditItem */ = {
 			isa = PBXGroup;
 			children = (
+				3ADFCD3A20E947D500E49C17 /* AddCategoryPopupForEditItem.swift */,
 				3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */,
 				3ABFD99020CD9B5E00D0C258 /* CategoriesForEditItem+UIPickerView.swift */,
 				3ADFCD3820E9441900E49C17 /* CategoriesForEditItemDelegate.swift */,
-				3ADFCD3A20E947D500E49C17 /* AddCategoryPopupForEditItem.swift */,
 			);
 			path = CategoriesForEditItem;
 			sourceTree = "<group>";
@@ -490,6 +501,10 @@
 		3ADFCD3520E93B3000E49C17 /* ListsForEditItem */ = {
 			isa = PBXGroup;
 			children = (
+				3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */,
+				3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */,
+				3ADFCD3E20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift */,
+				3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */,
 			);
 			path = ListsForEditItem;
 			sourceTree = "<group>";
@@ -737,6 +752,7 @@
 			files = (
 				3AFAEF1420DD8A1F00E58C00 /* ListsViewController.swift in Sources */,
 				3AF04E9920D2FA6000938F13 /* ManageCategoriesTableViewCell.swift in Sources */,
+				3ADFCD4120E95D0900E49C17 /* ListsForEditItemDelegate.swift in Sources */,
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
 				3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */,
@@ -751,19 +767,23 @@
 				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
 				3A69E41220B9EFD0004D122E /* Repository.swift in Sources */,
 				3A8BC19820C7024100B2F357 /* ItemsOrder.swift in Sources */,
+				3ADFCD4320E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift in Sources */,
 				3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */,
 				3A3B54AF20D05D310039CDCC /* EditItemViewControllerDelegate.swift in Sources */,
 				3A50641B20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift in Sources */,
 				3A043E6120D6FC400068287B /* CollectionExtensions.swift in Sources */,
 				3AFAEF1120DD88DE00E58C00 /* List.swift in Sources */,
 				3ADFCD3720E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift in Sources */,
+				3ADFCD3D20E9503E00E49C17 /* ListsForEditItem.swift in Sources */,
 				3A8BC19A20C72C3300B2F357 /* ItemsOrdersEntityExtensions.swift in Sources */,
 				3ADFCD2D20E928DF00E49C17 /* ItemNameForEditItem+UITextFieldDelegate.swift in Sources */,
 				3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */,
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,
 				3AD1F00220D4635F0066FBF7 /* EditCategoryAlertBuilder.swift in Sources */,
 				3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift in Sources */,
+				3ADFCD3F20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift in Sources */,
 				3A562A0320E430CE0030732D /* ListEntityExtensions.swift in Sources */,
+				3ADFCD4520E964F200E49C17 /* AddListPopupForEditItem.swift in Sources */,
 				3A82DC53207D6616006B3885 /* UITableViewExtensions.swift in Sources */,
 				3AD1F00020D461650066FBF7 /* DeleteCategoryAlertBuilder.swift in Sources */,
 				3AD1F00520D46C8E0066FBF7 /* EditContextualActionBuilder.swift in Sources */,

@@ -63,7 +63,7 @@ extension ItemEntity {
     
     private func getListEntity(from item: Item, context: NSManagedObjectContext) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", item.id as CVarArg)
+        request.predicate = NSPredicate(format: "id == %@", item.list.id as CVarArg)
         
         do {
             return try context.fetch(request).first

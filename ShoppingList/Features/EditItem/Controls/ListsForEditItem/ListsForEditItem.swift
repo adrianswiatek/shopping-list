@@ -1,8 +1,8 @@
 import UIKit
 
-class CategoriesForEditItem: UIView {
-
-    var delegate: CategoriesForEditItemDelegate?
+class ListsForEditItem: UIView {
+    
+    var delegate: ListsForEditItemDelegate?
     var viewController: UIViewController?
     
     override var backgroundColor: UIColor? {
@@ -15,25 +15,14 @@ class CategoriesForEditItem: UIView {
         }
     }
     
-    lazy var categories: [Category] = {
-        return fetchCategories()
+    lazy var lists: [List] = {
+        return Repository.shared.getLists().sorted { $0.name < $1.name }
     }()
-    
-    private func fetchCategories() -> [Category] {
-        var categories = Repository.shared.getCategories()
-        
-        let defaultCategory = Category.getDefault()
-        if categories.first(where: { $0.id == defaultCategory.id }) == nil {
-            categories.append(defaultCategory)
-        }
-        
-        return categories.sorted { $0.name < $1.name }
-    }
-    
+
     private lazy var label: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        label.text = "CATEGORY:"
+        label.text = "LIST:"
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -51,32 +40,32 @@ class CategoriesForEditItem: UIView {
     lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "Add"), for: .normal)
-        button.addTarget(self, action: #selector(showAddCategoryPopup), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showAddListPopup), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    @objc func showAddCategoryPopup() {
-        delegate?.categoriesForEditItemDidShowAddCategoryPopup(self)
-        addCategoryPopup.show()
+    @objc func showAddListPopup() {
+        delegate?.listsForEditItemDidShowAddCategoryPopup(self)
+        addListPopup.show()
     }
     
-    lazy var addCategoryPopup: AddCategoryPopupForEditItem = {
+    lazy var addListPopup: AddListPopupForEditItem = {
         guard let viewController = viewController else {
             fatalError("View Controller must have the value.")
         }
-        
-        return AddCategoryPopupForEditItem(viewController, completed: categoryAdded)
+
+        return AddListPopupForEditItem(viewController, completed: listAdded)
     }()
     
-    private func categoryAdded(withName name: String) {
-        let category = Category.new(name: name)
+    private func listAdded(withName name: String) {
+        let list = List.new(name: name)
         
-        categories.append(category)
+        lists.append(list)
         
-        Repository.shared.add(category)
+        Repository.shared.add(list)
         
-        categories.sort { $0.name < $1.name }
+        lists.sort { $0.name < $1.name }
         pickerView.reloadComponent(0)
         
         selectBy(name: name)
@@ -86,7 +75,7 @@ class CategoriesForEditItem: UIView {
         super.init(frame: frame)
         setupUserInterface()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -111,23 +100,18 @@ class CategoriesForEditItem: UIView {
         pickerView.trailingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -8).isActive = true
         pickerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
-    
-    func selectDefault() {
-        selectBy(name: Category.getDefault().name)
-    }
-    
+
     func select(by item: Item) {
-        selectBy(name: item.getCategoryName())
+        selectBy(name: item.list.name)
     }
     
-    private func selectBy(name: String) {
-        guard let index = categories.index(where: { $0.name == name }) else { return }
+    func selectBy(name: String) {
+        guard let index = lists.index(where: { $0.name == name }) else { return }
         pickerView.selectRow(index, inComponent: 0, animated: true)
     }
     
-    func getSelected() -> Category? {
+    func getSelected() -> List {
         let selectedRow = pickerView.selectedRow(inComponent: 0)
-        let selectedCategory = categories[selectedRow]
-        return selectedCategory.isDefault() ? nil : selectedCategory
+        return lists[selectedRow]
     }
 }

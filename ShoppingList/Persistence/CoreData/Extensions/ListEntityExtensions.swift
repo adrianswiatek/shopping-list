@@ -12,7 +12,7 @@ extension ListEntity {
         
         let list = List(id: id, name: name, accessType: accessType, items: [], updateDate: updateDate)
         let mappedItems = items.map({ $0.map(with: list) })
-        return list.getWithAdded(items: mappedItems)
+        return list.getWithTheSameUpdateDateAndWithAdded(items: mappedItems)
     }
     
     func update(by list: List, context: NSManagedObjectContext) {
