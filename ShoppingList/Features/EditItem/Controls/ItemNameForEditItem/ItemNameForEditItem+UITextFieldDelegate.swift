@@ -1,8 +1,8 @@
 import UIKit
 
-extension EditItemViewController: UITextFieldDelegate {
+extension ItemNameForEditItem: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        addCategoryTextFieldAnimations.hide()
+        delegate?.itemNameDidBeginEditing(self)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

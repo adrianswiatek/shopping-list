@@ -1,6 +1,6 @@
 import UIKit
 
-extension EditItemViewController: UIPickerViewDelegate {
+extension CategoriesForEditItem: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 24
     }
@@ -14,7 +14,7 @@ extension EditItemViewController: UIPickerViewDelegate {
     }
 }
 
-extension EditItemViewController: UIPickerViewDataSource {
+extension CategoriesForEditItem: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
