@@ -18,7 +18,7 @@ extension ItemsViewController: UITableViewDelegate {
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             
             Repository.shared.remove(item)
-            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.list, forState: .toBuy)
+            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
             
             self.refreshUserInterface(after: 0.5)
             completionHandler(true)
@@ -75,7 +75,7 @@ extension ItemsViewController: UITableViewDataSource {
         }
 
         items[destinationIndexPath.section].insert(item, at: destinationIndexPath.row)
-        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: list, forState: .toBuy)
+        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: currentList, forState: .toBuy)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [unowned self] in
             let sectionIndex = sourceIndexPath.section

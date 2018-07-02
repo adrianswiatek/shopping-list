@@ -34,17 +34,12 @@ class ListsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupUserInterface()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         fetchLists()
         setScene()
     }
-    
+
     private func setupUserInterface() {
         navigationItem.title = "My lists"
         

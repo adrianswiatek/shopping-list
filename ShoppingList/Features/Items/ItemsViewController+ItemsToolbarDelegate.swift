@@ -27,7 +27,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
             self.tableView.deleteRows(at: indexPaths, with: .right)
             
             Repository.shared.updateState(of: itemsToMove.flatMap { $0 }, to: .inBasket)
-            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.list, forState: .toBuy)
+            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
             
             self.refreshUserInterface()
         }
@@ -48,7 +48,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
             self.tableView.deleteRows(at: indexPaths, with: .automatic)
             
             Repository.shared.remove(itemsToDelete.flatMap { $0 })
-            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.list, forState: .toBuy)
+            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
             
             self.refreshUserInterface()
         }
@@ -72,7 +72,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
         tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
         
         Repository.shared.remove(selectedItems)
-        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.list, forState: .toBuy)
+        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
         
@@ -88,7 +88,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
         tableView.deleteRows(at: selectedIndexPaths, with: .right)
         
         Repository.shared.updateState(of: selectedItems, to: .inBasket)
-        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.list, forState: .toBuy)
+        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
         
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
         

@@ -17,6 +17,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
             let isBeingUpdatedInTheSameList = previousItem.list.id == newItem.list.id
             if !isBeingUpdatedInTheSameList {
                 moveToOtherList(previousItem)
+                listToUpdate = newItem.list
                 return
             }
             
@@ -36,7 +37,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         updatePreviousItem(at: itemIndex, and: categoryIndex)
         removeCategoryIfEmpty(at: categoryIndex)
         
-        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: list, forState: .toBuy)
+        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: currentList, forState: .toBuy)
     }
     
     private func updateItemInTheSameCategory(_ item: Item) {
@@ -63,7 +64,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         updateNewItem(newItem, at: newCategoryIndex)
         removeCategoryIfEmpty(at: previousCategoryIndex)
  
-        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: list, forState: .toBuy)
+        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: currentList, forState: .toBuy)
     }
     
     private func updatePreviousItem(at itemIndex: Int, and categoryIndex: Int) {

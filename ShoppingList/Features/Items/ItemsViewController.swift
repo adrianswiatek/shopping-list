@@ -4,8 +4,8 @@ class ItemsViewController: UIViewController {
     
     var delegate: ItemsViewControllerDelegate!
     
-    var list: List!
-    var listIndexPath: IndexPath!
+    var currentList: List!
+    var listToUpdate: List?
     
     var items = [[Item]]()
     var categories = [Category]()
@@ -51,7 +51,7 @@ class ItemsViewController: UIViewController {
     
     @objc private func goToBasketScene() {
         let basketViewController = BasketViewController()
-        basketViewController.list = list
+        basketViewController.list = currentList
         navigationController?.pushViewController(basketViewController, animated: true)
     }
 
@@ -63,14 +63,14 @@ class ItemsViewController: UIViewController {
     }
     
     private func validateStartingContract() {
-        guard delegate != nil, list != nil, listIndexPath != nil else {
+        guard delegate != nil, currentList != nil else {
             fatalError("Found nil in starting contract.")
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         fetchItems()
         tableView.reloadData()
         
@@ -79,11 +79,20 @@ class ItemsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        delegate.itemsViewControllerDidDismiss(self)
+
+        if isMovingFromParent {
+            var lists: [List] = [currentList]
+            
+            if let listToUpdate = listToUpdate {
+                lists.append(listToUpdate)
+            }
+            
+            delegate.itemsViewControllerDidDismiss(self, withUpdated: lists)
+        }
     }
     
     func fetchItems() {
-        let allItems = Repository.shared.getItemsWith(state: .toBuy, in: list)
+        let allItems = Repository.shared.getItemsWith(state: .toBuy, in: currentList)
         var items = [[Item]]()
         self.categories = Set(allItems.map { $0.category ?? Category.getDefault() }).sorted { $0.name < $1.name }
         
@@ -98,7 +107,7 @@ class ItemsViewController: UIViewController {
     private func setupUserInterface() {
         view.backgroundColor = .white
         
-        navigationItem.title = list.name
+        navigationItem.title = currentList.name
 
         view.addSubview(addItemTextField)
         addItemTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -131,7 +140,7 @@ class ItemsViewController: UIViewController {
     }
     
     func setGoToBasketButton() {
-        let numberOfItemsInBasket = Repository.shared.getNumberOfItemsWith(state: .inBasket, in: list)
+        let numberOfItemsInBasket = Repository.shared.getNumberOfItemsWith(state: .inBasket, in: currentList)
         navigationItem.rightBarButtonItem =
             numberOfItemsInBasket > 0 ? goToFilledBasketBarButtonItem : goToEmptyBasketBarButtonItem
     }
@@ -167,7 +176,7 @@ class ItemsViewController: UIViewController {
     func goToEditItemDetailed(with item: Item? = nil) {
         let viewController = EditItemViewController()
         viewController.delegate = self
-        viewController.list = list
+        viewController.list = currentList
         viewController.item = item
         
         let navigationController = UINavigationController(rootViewController: viewController)
