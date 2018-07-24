@@ -11,6 +11,10 @@ struct List {
         return items.filter { $0.state == .toBuy }.count
     }
     
+    func getNumberOfItemsInBasket() -> Int {
+        return items.filter { $0.state == .inBasket }.count
+    }
+    
     func getWithChanged(name: String) -> List {
         return List(id: self.id, name: name, accessType: self.accessType, items: self.items, updateDate: Date())
     }

@@ -66,6 +66,7 @@ class InMemoryRepository: RepositoryProtocol {
         }
         
         lists.remove(at: index)
+        itemsOrders.removeAll { $0.listId == list.id }
     }
     
     // MARK: - Category
@@ -124,6 +125,11 @@ class InMemoryRepository: RepositoryProtocol {
     func getNumberOfItemsWith(state: ItemState, in list: List) -> Int {
         guard let indexOfList = getIndex(of: list) else { return 0 }
         
+        return lists[indexOfList].items.filter { $0.state == state }.count
+    }
+    
+    func getNumberOfItems(in list: List) -> Int {
+        guard let indexOfList = getIndex(of: list) else { return 0 }
         return lists[indexOfList].items.count
     }
     

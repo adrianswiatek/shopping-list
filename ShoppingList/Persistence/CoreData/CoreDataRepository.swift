@@ -45,8 +45,12 @@ class CoreDataRepository: RepositoryProtocol {
     }
     
     func remove(_ list: List) {
-        guard let entity = getListEntity(by: list) else { return }
-        context.delete(entity)
+        guard let listEntity = getListEntity(by: list) else { return }
+        context.delete(listEntity)
+        
+        guard let orderEntity = getItemsOrderEntity(by: list) else { return }
+        context.delete(orderEntity)
+        
         save()
     }
     
@@ -127,6 +131,17 @@ class CoreDataRepository: RepositoryProtocol {
             NSPredicate(format: "state == %@", state.rawValue.description),
             NSPredicate(format: "list.id == %@", list.id as CVarArg)
         ])
+        
+        do {
+            return try context.count(for: request)
+        } catch {
+            fatalError("Unable to fetch Items count: \(error)")
+        }
+    }
+    
+    func getNumberOfItems(in list: List) -> Int {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "list.id == $@", list.id as CVarArg)
         
         do {
             return try context.count(for: request)
@@ -265,6 +280,17 @@ class CoreDataRepository: RepositoryProtocol {
     
     private func getListEntityOrCreate(from list: List) -> ListEntity? {
         return getListEntity(by: list) ?? list.map(context: context)
+    }
+    
+    private func getItemsOrderEntity(by list: List) -> ItemsOrderEntity? {
+        let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "listId == %@", list.id as CVarArg)
+        
+        do {
+            return try context.fetch(request).first
+        } catch {
+            fatalError("Unable to fetch Category: \(error)")
+        }
     }
     
     private func getCategoryEntity(by category: Category) -> CategoryEntity? {

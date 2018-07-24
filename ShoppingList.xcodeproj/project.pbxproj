@@ -49,6 +49,9 @@
 		3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC55207D7539006B3885 /* BasketViewController.swift */; };
 		3A8BC19820C7024100B2F357 /* ItemsOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BC19720C7024100B2F357 /* ItemsOrder.swift */; };
 		3A8BC19A20C72C3300B2F357 /* ItemsOrdersEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8BC19920C72C3300B2F357 /* ItemsOrdersEntityExtensions.swift */; };
+		3A8F1A292107CE1900F27A1E /* ListActionsAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F1A282107CE1900F27A1E /* ListActionsAlertBuilder.swift */; };
+		3A8F1A2B2107D7B700F27A1E /* ListsActionsAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F1A2A2107D7B700F27A1E /* ListsActionsAlertDelegate.swift */; };
+		3A8F1A2D2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F1A2C2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift */; };
 		3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
 		3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
 		3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemTableViewCell.swift */; };
@@ -149,6 +152,9 @@
 		3A82DC55207D7539006B3885 /* BasketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewController.swift; sourceTree = "<group>"; };
 		3A8BC19720C7024100B2F357 /* ItemsOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsOrder.swift; sourceTree = "<group>"; };
 		3A8BC19920C72C3300B2F357 /* ItemsOrdersEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsOrdersEntityExtensions.swift; sourceTree = "<group>"; };
+		3A8F1A282107CE1900F27A1E /* ListActionsAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListActionsAlertBuilder.swift; sourceTree = "<group>"; };
+		3A8F1A2A2107D7B700F27A1E /* ListsActionsAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsActionsAlertDelegate.swift; sourceTree = "<group>"; };
+		3A8F1A2C2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsViewController+ListsActionsAlertDelegate.swift"; sourceTree = "<group>"; };
 		3A972EBE207A877D00963961 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonAnimations.swift; sourceTree = "<group>"; };
 		3A972EC3207A97B300963961 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -428,6 +434,8 @@
 			children = (
 				3AC68B9520E2DF2A000F0487 /* DeleteListAlertBuilder.swift */,
 				3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */,
+				3A8F1A282107CE1900F27A1E /* ListActionsAlertBuilder.swift */,
+				3A8F1A2A2107D7B700F27A1E /* ListsActionsAlertDelegate.swift */,
 			);
 			path = AlertBuilders;
 			sourceTree = "<group>";
@@ -525,9 +533,10 @@
 				3AC68B9420E2DF0F000F0487 /* AlertBuilders */,
 				3AFAEF1B20DDA05500E58C00 /* ListsTableViewCell.swift */,
 				3AFAEF1320DD8A1F00E58C00 /* ListsViewController.swift */,
-				3AFAEF1720DD946E00E58C00 /* ListsViewController+UITableView.swift */,
-				3A50641620DFEE5300DBB5C4 /* ListsViewController+TextFieldWithCancelDelegate.swift */,
 				3A50641C20E012C400DBB5C4 /* ListsViewController+ItemsViewControllerDelegate.swift */,
+				3A8F1A2C2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift */,
+				3A50641620DFEE5300DBB5C4 /* ListsViewController+TextFieldWithCancelDelegate.swift */,
+				3AFAEF1720DD946E00E58C00 /* ListsViewController+UITableView.swift */,
 			);
 			path = Lists;
 			sourceTree = "<group>";
@@ -760,6 +769,7 @@
 				3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */,
 				3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */,
 				3AD1EFFE20D45B700066FBF7 /* WarningAlertBuilder.swift in Sources */,
+				3A8F1A292107CE1900F27A1E /* ListActionsAlertBuilder.swift in Sources */,
 				3A043E5F20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				3ADFCD3920E9441900E49C17 /* CategoriesForEditItemDelegate.swift in Sources */,
 				3AFAEF1820DD946E00E58C00 /* ListsViewController+UITableView.swift in Sources */,
@@ -816,12 +826,14 @@
 				3AFAEF1E20DDA78D00E58C00 /* ListAccessType.swift in Sources */,
 				3A37694C20D1B27D0039DA54 /* SettingsViewController.swift in Sources */,
 				3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */,
+				3A8F1A2B2107D7B700F27A1E /* ListsActionsAlertDelegate.swift in Sources */,
 				3A37695120D1BA920039DA54 /* ManageCategoriesViewController.swift in Sources */,
 				3AC68B9320E2CF7F000F0487 /* BottomShadowAnimations.swift in Sources */,
 				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
 				3AD1F00720D476A20066FBF7 /* DeleteContextualActionBuilder.swift in Sources */,
 				3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */,
 				3ADFCD2620E91AF800E49C17 /* ItemNameForEditItem.swift in Sources */,
+				3A8F1A2D2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift in Sources */,
 				3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */,
 				3A37695320D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift in Sources */,
 				3AC6211F20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift in Sources */,

@@ -21,7 +21,7 @@ class ListsTableViewCell: UITableViewCell {
         }
         
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateStyle = .medium
         
         return formatter.string(from: date)
     }

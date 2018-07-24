@@ -16,11 +16,24 @@ class ListsViewController: UIViewController {
         let tableView = UITableView()
         tableView.tableFooterView = UIView()
         tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler)))
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    @objc private func longPressHandler(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        
+        let touchLocation = gesture.location(in: tableView)
+        guard let touchedRow = tableView.indexPathForRow(at: touchLocation)?.row else { return }
+        
+        var alertController = ListActionsAlertBuilder(lists[touchedRow])
+        alertController.delegate = self
+        
+        present(alertController.build(), animated: true)
+    }
     
     lazy var goToSettingsBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: #imageLiteral(resourceName: "Settings"), style: .plain, target: self, action: #selector(goToSettingsScene))
