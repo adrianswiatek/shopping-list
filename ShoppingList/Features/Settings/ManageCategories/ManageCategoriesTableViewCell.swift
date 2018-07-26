@@ -2,10 +2,15 @@ import UIKit
 
 class ManageCategoriesTableViewCell: UITableViewCell {
     
-    var categoryName: String? {
+    var category: Category? {
         didSet {
-            guard let categoryName = categoryName else { return }
-            categoryNameLabel.text = categoryName
+            if let categoryName = category?.name {
+                categoryNameLabel.text = categoryName
+            }
+            
+            if category?.isDefault() == true {
+                defaultCategoryImageView.image = #imageLiteral(resourceName: "Star").withRenderingMode(.alwaysTemplate)
+            }
         }
     }
     
@@ -14,6 +19,13 @@ class ManageCategoriesTableViewCell: UITableViewCell {
             numberOfItemsInCategoryLabel.text = "Items in category: \(itemsInCategory ?? 0)"
         }
     }
+    
+    private var defaultCategoryImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .lightGray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     private let categoryNameLabel: UILabel = {
         let label = UILabel()
@@ -37,14 +49,20 @@ class ManageCategoriesTableViewCell: UITableViewCell {
     }
     
     private func setupUserInterface() {
+        contentView.addSubview(defaultCategoryImageView)
+        defaultCategoryImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        defaultCategoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+        defaultCategoryImageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        defaultCategoryImageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        
         contentView.addSubview(categoryNameLabel)
         categoryNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         categoryNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
-        categoryNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        categoryNameLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.leadingAnchor, constant: -16).isActive = true
         
         contentView.addSubview(numberOfItemsInCategoryLabel)
         numberOfItemsInCategoryLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
-        numberOfItemsInCategoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        numberOfItemsInCategoryLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.trailingAnchor, constant: -16).isActive = true
         numberOfItemsInCategoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
     }
 

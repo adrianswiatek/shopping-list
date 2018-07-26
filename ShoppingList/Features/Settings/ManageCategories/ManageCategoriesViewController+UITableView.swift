@@ -85,7 +85,7 @@ extension ManageCategoriesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ManageCategoriesTableViewCell
         let category = categories[indexPath.row]
-        cell.categoryName = category.name
+        cell.category = category
         cell.itemsInCategory = items
             .map { $0.category ?? Category.getDefault() }
             .filter { $0.id == category.id }
