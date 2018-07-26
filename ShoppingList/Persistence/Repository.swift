@@ -12,7 +12,6 @@ class Repository: RepositoryProtocol {
     }
     
     // MARK: - List
-    
     func getLists() -> [List] { return repository.getLists() }
     func getList(by id: UUID) -> List? { return repository.getList(by: id) }
     func add(_ list: List) { repository.add(list) }
@@ -20,7 +19,6 @@ class Repository: RepositoryProtocol {
     func remove(_ list: List) { repository.remove(list) }
     
     // MARK: - Category
-    
     func getCategories() -> [Category] { return repository.getCategories() }
     func add(_ category: Category) { return repository.add(category) }
     func update(_ category: Category) { return repository.update(category) }
@@ -45,4 +43,15 @@ class Repository: RepositoryProtocol {
     
     // MARK: - Other
     func save() { repository.save() }
+}
+
+extension Repository {
+    private var defaultCategoryNameKey: String {
+        return "DefaultCategoryName"
+    }
+    
+    var defaultCategoryName: String {
+        get { return UserDefaults.standard.string(forKey: defaultCategoryNameKey) ?? "Other" }
+        set { UserDefaults.standard.set(newValue, forKey: defaultCategoryNameKey) }
+    }
 }

@@ -2,8 +2,6 @@ import UIKit
 
 class ManageCategoriesTableViewCell: UITableViewCell {
     
-    // MARK: - Properties
-    
     var categoryName: String? {
         didSet {
             guard let categoryName = categoryName else { return }
@@ -16,8 +14,6 @@ class ManageCategoriesTableViewCell: UITableViewCell {
             numberOfItemsInCategoryLabel.text = "Items in category: \(itemsInCategory ?? 0)"
         }
     }
-    
-    // MARK: - Controles
     
     private let categoryNameLabel: UILabel = {
         let label = UILabel()
@@ -34,8 +30,6 @@ class ManageCategoriesTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    // MARK: - Initialize
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

@@ -3,7 +3,6 @@ import Foundation
 protocol RepositoryProtocol {
     
     // MARK: - List
-    
     func getLists() -> [List]
     func getList(by id: UUID) -> List?
     func add(_ list: List)
@@ -11,14 +10,12 @@ protocol RepositoryProtocol {
     func remove(_ list: List)
     
     // MARK: - Category
-    
     func getCategories() -> [Category]
     func add(_ category: Category)
     func update(_ category: Category)
     func remove(_ category: Category)
     
     // MARK: - Item
-    
     func getItems() -> [Item]
     func getItemsWith(state: ItemState, in list: List) -> [Item]
     func getNumberOfItemsWith(state: ItemState, in list: List) -> Int
@@ -33,10 +30,8 @@ protocol RepositoryProtocol {
     func updateCategory(of items: [Item], to category: Category)
     
     // MARK: - ItemsOrder
-    
     func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState)
     
     // MARK: - Other
-    
     func save()
 }

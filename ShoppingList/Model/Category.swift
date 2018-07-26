@@ -23,7 +23,7 @@ struct Category: Hashable {
     
     static func getDefault() -> Category {
         let defaultUUID = UUID(uuidString: "a5ebf554-e318-48a4-b944-24eb450a4b46")!
-        let defaultName = "Other"
+        let defaultName = Repository.shared.defaultCategoryName
         return Category(id: defaultUUID, name: defaultName)
     }
 }

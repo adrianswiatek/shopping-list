@@ -5,30 +5,43 @@ extension ManageCategoriesViewController: UITableViewDelegate {
         let builder = EditContextualActionBuilder(
             viewController: self,
             category: categories[indexPath.row],
-            saved: { self.categoryEdited(to: $0, at: indexPath) })
+            saved: { self.categoryEdited(to: $0, at: indexPath) },
+            savedDefault: { self.defaultCategoryNameChanged(to: $0, at: indexPath) })
         
         return UISwipeActionsConfiguration(actions: [builder.build()])
     }
     
-    private func categoryEdited(to name: String, at indexPath: IndexPath) {
-        let existingCategory = categories[indexPath.row]
-        let newCategory = existingCategory.getWithChanged(name: name)
-        self.categories[indexPath.row] = newCategory
-        categories.sort { $0.name < $1.name }
-        
-        updateTableViewAfterCategoryUpdate(currentIndexPath: indexPath, newCategory: newCategory)
-        
-        Repository.shared.update(newCategory)
+    private func defaultCategoryNameChanged(to name: String, at indexPath: IndexPath) {
+        let updatedCategory = updateCategory(to: name, at: indexPath)
+        updateTableViewAfterCategoryUpdate(currentIndexPath: indexPath, category: updatedCategory)
+        Repository.shared.defaultCategoryName = updatedCategory.name
     }
     
-    private func updateTableViewAfterCategoryUpdate(currentIndexPath: IndexPath, newCategory: Category) {
-        guard let newCategoryIndex = categories.index(where: { $0.id == newCategory.id }) else { return }
+    private func categoryEdited(to name: String, at indexPath: IndexPath) {
+        let updatedCategory = updateCategory(to: name, at: indexPath)
+        updateTableViewAfterCategoryUpdate(currentIndexPath: indexPath, category: updatedCategory)
+        Repository.shared.update(updatedCategory)
+    }
+    
+    private func updateCategory(to name: String, at indexPath: IndexPath) -> Category {
+        let existingCategory = categories[indexPath.row]
+        let newCategory = existingCategory.getWithChanged(name: name)
+        categories[indexPath.row] = newCategory
+        categories.sort { $0.name < $1.name }
+        return newCategory
+    }
+    
+    private func updateTableViewAfterCategoryUpdate(currentIndexPath: IndexPath, category: Category) {
+        guard let newCategoryIndex = categories.index(where: { $0.id == category.id }) else { return }
         
         let newIndexPath = IndexPath(row: newCategoryIndex, section: 0)
         if newIndexPath != currentIndexPath {
-            self.tableView.moveRow(at: currentIndexPath, to: newIndexPath)
+            tableView.moveRow(at: currentIndexPath, to: newIndexPath)
         }
-        self.tableView.reloadRows(at: [newIndexPath], with: .automatic)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [unowned self] in
+            self.tableView.reloadRows(at: [newIndexPath], with: .automatic)
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
