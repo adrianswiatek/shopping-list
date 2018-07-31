@@ -28,12 +28,16 @@ class EditItemViewController: UIViewController {
         }
     }
 
-    // MARK: - Controls
-
     lazy var itemNameView: ItemNameForEditItem = {
         let itemName = ItemNameForEditItem()
         itemName.translatesAutoresizingMaskIntoConstraints = false
         return itemName
+    }()
+    
+    lazy var infoView: InfoForEditItem = {
+        let info = InfoForEditItem()
+        info.translatesAutoresizingMaskIntoConstraints = false
+        return info
     }()
     
     lazy var categoriesView: CategoriesForEditItem = {
@@ -72,9 +76,9 @@ class EditItemViewController: UIViewController {
         var itemToSave: Item
         
         if let existingItem = self.item {
-            itemToSave = Item(id: existingItem.id, name: itemName, state: existingItem.state, category: category, list: list)
+            itemToSave = Item(id: existingItem.id, name: itemName, description: "", state: existingItem.state, category: category, list: list)
         } else {
-            itemToSave = Item.toBuy(name: itemName, list: list, category: category)
+            itemToSave = Item.toBuy(name: itemName, description: "", list: list, category: category)
         }
 
         dismiss(animated: true) { [weak self] in
@@ -97,9 +101,7 @@ class EditItemViewController: UIViewController {
             Repository.shared.update(previousList.getWithChangedDate())
         }
     }
-    
-    // MARK: - Initialize
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         validateStartingContract()
@@ -129,9 +131,15 @@ class EditItemViewController: UIViewController {
         itemNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         itemNameView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         
+        view.addSubview(infoView)
+        infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        infoView.topAnchor.constraint(equalTo: itemNameView.bottomAnchor).isActive = true
+        infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        infoView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
         view.addSubview(categoriesView)
         categoriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        categoriesView.topAnchor.constraint(equalTo: itemNameView.bottomAnchor).isActive = true
+        categoriesView.topAnchor.constraint(equalTo: infoView.bottomAnchor).isActive = true
         categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         categoriesView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
@@ -140,5 +148,16 @@ class EditItemViewController: UIViewController {
         listsView.topAnchor.constraint(equalTo: categoriesView.bottomAnchor).isActive = true
         listsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         listsView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTapGesture(gesture: UITapGestureRecognizer) {
+        guard gesture.state == .ended else { return }
+        
+        itemNameView.resignFirstResponder()
+        infoView.resignFirstResponder()
     }
 }

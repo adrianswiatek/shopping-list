@@ -14,7 +14,7 @@ extension ItemEntity {
         else { fatalError("Unable to create Item") }
         
         let category = self.category?.map()
-        return Item(id: id, name: name, state: state, category: category, list: list)
+        return Item(id: id, name: name, description: "", state: state, category: category, list: list)
     }
     
     func update(by item: Item, context: NSManagedObjectContext) {

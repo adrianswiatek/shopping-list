@@ -1,8 +1,8 @@
 import UIKit
 
-class ItemNameForEditItem: UIView {
+class InfoForEditItem: UIView {
     
-    weak var delegate: ItemNameForEditItemDelegate?
+    weak var delegate: InfoForEditItemDelegate?
     
     var text: String? {
         get { return textField.text }
@@ -12,7 +12,7 @@ class ItemNameForEditItem: UIView {
     lazy var label: UILabel = {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        label.text = "ITEM NAME:"
+        label.text = "INFO:"
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -20,7 +20,7 @@ class ItemNameForEditItem: UIView {
     
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter item name..."
+        textField.placeholder = "Enter additional info..."
         textField.textColor = .darkGray
         textField.font = .systemFont(ofSize: 17)
         textField.clearButtonMode = .whileEditing

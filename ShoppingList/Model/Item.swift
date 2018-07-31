@@ -3,12 +3,13 @@ import Foundation
 struct Item {
     let id: UUID
     let name: String
+    let description: String
     let state: ItemState
     let category: Category?
     let list: List
     
-    static func toBuy(name: String, list: List, category: Category? = nil) -> Item {
-        return self.init(id: UUID(), name: name, state: .toBuy, category: category, list: list)
+    static func toBuy(name: String, description: String, list: List, category: Category? = nil) -> Item {
+        return self.init(id: UUID(), name: name, description: description, state: .toBuy, category: category, list: list)
     }
     
     func getCategoryName() -> String {
@@ -20,14 +21,14 @@ struct Item {
     }
     
     func getWithChanged(state: ItemState) -> Item {
-        return Item(id: self.id, name: self.name, state: state, category: self.category, list: self.list)
+        return Item(id: id, name: name, description: description, state: state, category: category, list: list)
     }
     
     func getWithChanged(name: String) -> Item {
-        return Item(id: self.id, name: name, state: self.state, category: self.category, list: self.list)
+        return Item(id: id, name: name, description: description, state: state, category: category, list: list)
     }
     
     func getWithChanged(category: Category) -> Item {
-        return Item(id: self.id, name: self.name, state: self.state, category: category, list: self.list)
+        return Item(id: id, name: name, description: description, state: state, category: category, list: list)
     }
 }

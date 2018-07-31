@@ -57,6 +57,9 @@
 		3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemTableViewCell.swift */; };
 		3A9EAF42209BBA4900B4A39D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF41209BBA4900B4A39D /* Category.swift */; };
 		3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */; };
+		3AB80FD52110FCE7002DDC4C /* InfoForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */; };
+		3AB80FD72110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */; };
+		3AB80FD92110FD70002DDC4C /* InfoForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */; };
 		3ABFD99120CD9B5E00D0C258 /* CategoriesForEditItem+UIPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABFD99020CD9B5E00D0C258 /* CategoriesForEditItem+UIPickerView.swift */; };
 		3AC6211D20C0542A00A16F0E /* TextFieldWithCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */; };
 		3AC6211F20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */; };
@@ -160,6 +163,9 @@
 		3A972EC3207A97B300963961 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		3A9EAF41209BBA4900B4A39D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryRepository.swift; sourceTree = "<group>"; };
+		3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItem.swift; sourceTree = "<group>"; };
+		3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InfoForEditItem+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
+		3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItemDelegate.swift; sourceTree = "<group>"; };
 		3ABFD99020CD9B5E00D0C258 /* CategoriesForEditItem+UIPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoriesForEditItem+UIPickerView.swift"; sourceTree = "<group>"; };
 		3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithCancel.swift; sourceTree = "<group>"; };
 		3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
@@ -418,6 +424,16 @@
 			path = EditItem;
 			sourceTree = "<group>";
 		};
+		3AB80FD32110FCBA002DDC4C /* InfoForEditItem */ = {
+			isa = PBXGroup;
+			children = (
+				3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */,
+				3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */,
+				3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */,
+			);
+			path = InfoForEditItem;
+			sourceTree = "<group>";
+		};
 		3AC6211B20C0541600A16F0E /* TextFieldWithCancel */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				3ADFCD2E20E9294300E49C17 /* CategoriesForEditItem */,
+				3AB80FD32110FCBA002DDC4C /* InfoForEditItem */,
 				3ADFCD2920E928B200E49C17 /* ItemNameForEditItem */,
 				3ADFCD3520E93B3000E49C17 /* ListsForEditItem */,
 			);
@@ -773,8 +790,10 @@
 				3A043E5F20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				3ADFCD3920E9441900E49C17 /* CategoriesForEditItemDelegate.swift in Sources */,
 				3AFAEF1820DD946E00E58C00 /* ListsViewController+UITableView.swift in Sources */,
+				3AB80FD92110FD70002DDC4C /* InfoForEditItemDelegate.swift in Sources */,
 				3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */,
 				3A392E3A207A5A3C005857E5 /* ItemsViewController.swift in Sources */,
+				3AB80FD72110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift in Sources */,
 				3A69E41220B9EFD0004D122E /* Repository.swift in Sources */,
 				3A8BC19820C7024100B2F357 /* ItemsOrder.swift in Sources */,
 				3ADFCD4320E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift in Sources */,
@@ -799,6 +818,7 @@
 				3AD1F00520D46C8E0066FBF7 /* EditContextualActionBuilder.swift in Sources */,
 				3AEDFEF220BC9F980002B6F7 /* ItemsToolbar.swift in Sources */,
 				3A69E41D20BA1C37004D122E /* ItemEntityExtensions.swift in Sources */,
+				3AB80FD52110FCE7002DDC4C /* InfoForEditItem.swift in Sources */,
 				3AC6212120C0575900A16F0E /* TextFieldWithCancelDelegate.swift in Sources */,
 				3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */,
 				3ADFCD3B20E947D500E49C17 /* AddCategoryPopupForEditItem.swift in Sources */,

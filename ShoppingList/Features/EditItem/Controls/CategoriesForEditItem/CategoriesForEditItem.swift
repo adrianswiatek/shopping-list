@@ -47,7 +47,7 @@ class CategoriesForEditItem: UIView {
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         return pickerView
     }()
-    
+
     lazy var addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "Add"), for: .normal)
