@@ -24,6 +24,7 @@ class EditItemViewController: UIViewController {
             }
             
             itemNameView.text = item.name
+            infoView.text = item.info
             categoriesView.select(by: item)
         }
     }
@@ -73,12 +74,24 @@ class EditItemViewController: UIViewController {
         
         let list = listsView.getSelected()
         let category = categoriesView.getSelected()
+        let info = infoView.text ?? ""
+        
         var itemToSave: Item
         
         if let existingItem = self.item {
-            itemToSave = Item(id: existingItem.id, name: itemName, description: "", state: existingItem.state, category: category, list: list)
+            itemToSave = Item(
+                id: existingItem.id,
+                name: itemName,
+                info: info,
+                state: existingItem.state,
+                category: category,
+                list: list)
         } else {
-            itemToSave = Item.toBuy(name: itemName, description: "", list: list, category: category)
+            itemToSave = Item.toBuy(
+                name: itemName,
+                info: info,
+                list: list,
+                category: category)
         }
 
         dismiss(animated: true) { [weak self] in

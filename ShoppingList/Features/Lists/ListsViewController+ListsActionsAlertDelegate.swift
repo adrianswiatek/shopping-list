@@ -21,12 +21,12 @@ extension ListsViewController: ListsActionsAlertDelegate {
         let indexPath = IndexPath(row: index, section: 0)
         
         if index == 0 {
-            tableView.reloadRows(at: [indexPath], with: .middle)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         } else {
             let zeroIndexPath = IndexPath(row: 0, section: 0)
             tableView.moveRow(at: indexPath, to: zeroIndexPath)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
-                self?.tableView.reloadRows(at: [zeroIndexPath], with: .middle)
+                self?.tableView.reloadRows(at: [zeroIndexPath], with: .automatic)
             }
         }
     }

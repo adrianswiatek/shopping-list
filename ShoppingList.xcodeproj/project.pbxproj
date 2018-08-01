@@ -165,6 +165,7 @@
 		3A9EAF41209BBA4900B4A39D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryRepository.swift; sourceTree = "<group>"; };
 		3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
+		3AAC84FA2112390F00FF3B9E /* ShoppingList 0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShoppingList 0.2.xcdatamodel"; sourceTree = "<group>"; };
 		3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItem.swift; sourceTree = "<group>"; };
 		3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InfoForEditItem+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
 		3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItemDelegate.swift; sourceTree = "<group>"; };
@@ -1128,9 +1129,10 @@
 		3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3AAC84FA2112390F00FF3B9E /* ShoppingList 0.2.xcdatamodel */,
 				3A69E41620BA01AF004D122E /* ShoppingList.xcdatamodel */,
 			);
-			currentVersion = 3A69E41620BA01AF004D122E /* ShoppingList.xcdatamodel */;
+			currentVersion = 3AAC84FA2112390F00FF3B9E /* ShoppingList 0.2.xcdatamodel */;
 			path = ShoppingList.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -14,7 +14,7 @@ extension ItemEntity {
         else { fatalError("Unable to create Item") }
         
         let category = self.category?.map()
-        return Item(id: id, name: name, description: "", state: state, category: category, list: list)
+        return Item(id: id, name: name, info: self.info, state: state, category: category, list: list)
     }
     
     func update(by item: Item, context: NSManagedObjectContext) {
@@ -26,6 +26,11 @@ extension ItemEntity {
         
         if self.name != item.name {
             self.name = item.name
+            hasBeenUpdated = true
+        }
+        
+        if self.info != item.info {
+            self.info = item.info
             hasBeenUpdated = true
         }
         
@@ -78,6 +83,7 @@ extension Item {
         let entity = ItemEntity(context: context)
         entity.id = self.id
         entity.name = self.name
+        entity.info = self.info
         entity.state = Int32(self.state.rawValue)
         entity.list = getListEntity(withId: self.list.id, context: context)
         
