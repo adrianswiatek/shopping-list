@@ -57,6 +57,7 @@
 		3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemTableViewCell.swift */; };
 		3A9EAF42209BBA4900B4A39D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF41209BBA4900B4A39D /* Category.swift */; };
 		3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */; };
+		3AAC84F9211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */; };
 		3AB80FD52110FCE7002DDC4C /* InfoForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */; };
 		3AB80FD72110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */; };
 		3AB80FD92110FD70002DDC4C /* InfoForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */; };
@@ -163,6 +164,7 @@
 		3A972EC3207A97B300963961 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		3A9EAF41209BBA4900B4A39D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryRepository.swift; sourceTree = "<group>"; };
+		3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItem.swift; sourceTree = "<group>"; };
 		3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InfoForEditItem+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
 		3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItemDelegate.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */,
 				3ADFCD3620E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift */,
 				3ADFCD4220E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift */,
+				3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */,
 				3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */,
 			);
 			path = EditItem;
@@ -858,6 +861,7 @@
 				3A37695320D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift in Sources */,
 				3AC6211F20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */,
+				3AAC84F9211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift in Sources */,
 				3AC6211D20C0542A00A16F0E /* TextFieldWithCancel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
