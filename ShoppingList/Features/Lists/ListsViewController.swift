@@ -7,6 +7,7 @@ class ListsViewController: UIViewController {
     lazy var addListTextFieldWithCancel: TextFieldWithCancel = {
         let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new list...")
         textFieldWithCancel.delegate = self
+        textFieldWithCancel.allowEmptyText = true
         textFieldWithCancel.layer.zPosition = 1
         textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
         return textFieldWithCancel

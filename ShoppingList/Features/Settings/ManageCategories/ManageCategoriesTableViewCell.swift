@@ -8,9 +8,9 @@ class ManageCategoriesTableViewCell: UITableViewCell {
                 categoryNameLabel.text = categoryName
             }
             
-            if category?.isDefault() == true {
-                defaultCategoryImageView.image = #imageLiteral(resourceName: "Star").withRenderingMode(.alwaysTemplate)
-            }
+            defaultCategoryImageView.image = category?.isDefault() == true
+                ? #imageLiteral(resourceName: "Star").withRenderingMode(.alwaysTemplate)
+                : nil
         }
     }
     

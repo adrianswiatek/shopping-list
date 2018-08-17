@@ -4,6 +4,8 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
     
     var delegate: TextFieldWithCancelDelegate?
     
+    var allowEmptyText = false
+    
     var font: UIFont? {
         get {
             return textField.font
@@ -102,11 +104,18 @@ class TextFieldWithCancel: UIView, UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text, text != "" else { return false }
+        guard let text = textField.text else { return false }
+        guard allowEmptyText || text != "" else { return false }
+        
         textField.text = ""
         textField.resignFirstResponder()
         delegate?.textFieldWithCancel?(self, didReturnWith: text)
         return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        return text != "" || string != " "
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
