@@ -62,7 +62,7 @@ extension ListsViewController: UITableViewDelegate {
         let existingList = lists[indexPath.row]
         guard existingList.name != newName else { return }
         
-        let listWithChangedName = existingList.getWithChanged(name: newName)
+        let listWithChangedName = existingList.getWithChanged(name: getListName(from: newName))
         
         lists.remove(at: indexPath.row)
         lists.insert(listWithChangedName, at: 0)
