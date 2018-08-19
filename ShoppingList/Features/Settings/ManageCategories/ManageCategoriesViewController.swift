@@ -12,6 +12,7 @@ class ManageCategoriesViewController: UIViewController {
     lazy var addCategoryTextField: TextFieldWithCancel = {
         let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new category...")
         textFieldWithCancel.delegate = self
+        textFieldWithCancel.setEmptyTextValidationMessage("Please provide the Name for the Category.")
         textFieldWithCancel.layer.zPosition = 1
         textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
         return textFieldWithCancel

@@ -12,7 +12,7 @@ struct BottomShadowAnimations {
     let normalOffset = CGSize(width: 0, height: 1)
     let editOffset = CGSize(width: 0, height: 2)
     
-    init(view: UIView) {
+    init(_ view: UIView) {
         self.view = view
         
         self.opacityAnimation = CABasicAnimation(keyPath: "shadowOpacity")

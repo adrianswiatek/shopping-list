@@ -5,9 +5,7 @@ class CancelButtonAnimations {
     private var viewController: UIViewController
     private var button: UIButton
     
-    private var constraint: NSLayoutConstraint?
-    
-    init(viewController: UIViewController, button: UIButton) {
+    init(_ viewController: UIViewController, _ button: UIButton) {
         self.viewController = viewController
         self.button = button
     }

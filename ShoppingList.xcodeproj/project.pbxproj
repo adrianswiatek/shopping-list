@@ -94,6 +94,7 @@
 		3AFAEF1820DD946E00E58C00 /* ListsViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAEF1720DD946E00E58C00 /* ListsViewController+UITableView.swift */; };
 		3AFAEF1C20DDA05500E58C00 /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAEF1B20DDA05500E58C00 /* ListsTableViewCell.swift */; };
 		3AFAEF1E20DDA78D00E58C00 /* ListAccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAEF1D20DDA78D00E58C00 /* ListAccessType.swift */; };
+		3AFBF96A2128DDC500FEAB55 /* ValidationButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFBF9692128DDC500FEAB55 /* ValidationButtonAnimations.swift */; };
 		E5E415EADA71430253D04582 /* Pods_ShoppingListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */; };
 		F467B00E34EF72F27407A067 /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F89A6B77104F16996628384 /* Pods_ShoppingList.framework */; };
 /* End PBXBuildFile section */
@@ -202,6 +203,7 @@
 		3AFAEF1720DD946E00E58C00 /* ListsViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsViewController+UITableView.swift"; sourceTree = "<group>"; };
 		3AFAEF1B20DDA05500E58C00 /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
 		3AFAEF1D20DDA78D00E58C00 /* ListAccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAccessType.swift; sourceTree = "<group>"; };
+		3AFBF9692128DDC500FEAB55 /* ValidationButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationButtonAnimations.swift; sourceTree = "<group>"; };
 		65FD02EE20E74D6FFBCB7B47 /* Pods-ShoppingListTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingListTests/Pods-ShoppingListTests.release.xcconfig"; sourceTree = "<group>"; };
 		BDE64E5E42B865B8309C895D /* Pods-ShoppingList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShoppingList/Pods-ShoppingList.debug.xcconfig"; sourceTree = "<group>"; };
 		D08A02D339E985ADB26259F4 /* Pods_ShoppingListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -441,10 +443,11 @@
 		3AC6211B20C0541600A16F0E /* TextFieldWithCancel */ = {
 			isa = PBXGroup;
 			children = (
-				3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */,
 				3AC68B9220E2CF7F000F0487 /* BottomShadowAnimations.swift */,
+				3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */,
 				3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */,
 				3AC6212020C0575900A16F0E /* TextFieldWithCancelDelegate.swift */,
+				3AFBF9692128DDC500FEAB55 /* ValidationButtonAnimations.swift */,
 			);
 			path = TextFieldWithCancel;
 			sourceTree = "<group>";
@@ -803,6 +806,7 @@
 				3ADFCD4320E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift in Sources */,
 				3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */,
 				3A3B54AF20D05D310039CDCC /* EditItemViewControllerDelegate.swift in Sources */,
+				3AFBF96A2128DDC500FEAB55 /* ValidationButtonAnimations.swift in Sources */,
 				3A50641B20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift in Sources */,
 				3A043E6120D6FC400068287B /* CollectionExtensions.swift in Sources */,
 				3AFAEF1120DD88DE00E58C00 /* List.swift in Sources */,

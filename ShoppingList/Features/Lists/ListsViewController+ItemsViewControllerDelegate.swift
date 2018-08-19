@@ -18,14 +18,29 @@ extension ListsViewController: ItemsViewControllerDelegate {
     }
     
     private func updateTableView(_ startingIndexPaths: [IndexPath], _ endingIndexPaths: [IndexPath]) {
-        for index in (0..<startingIndexPaths.count) {
-            let startingIndexPath = startingIndexPaths[index]
-            let endingIndexPath = endingIndexPaths[index]
-            guard startingIndexPath != endingIndexPath else { continue }
-            
-            tableView.moveRow(at: startingIndexPath, to: endingIndexPath)
+        if startingIndexPaths.count < endingIndexPaths.count {
+            for index in (0..<endingIndexPaths.count) {
+                let endingIndexPath = endingIndexPaths[index]
+                guard startingIndexPaths.first(where: { $0.row == endingIndexPath.row }) == nil else { continue }
+
+                tableView.insertRows(at: [endingIndexPath], with: .automatic)
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.tableView.reloadData()
+            }
+        } else {
+            for index in (0..<startingIndexPaths.count) {
+                let startingIndexPath = startingIndexPaths[index]
+                let endingIndexPath = endingIndexPaths[index]
+                guard startingIndexPath != endingIndexPath else { continue }
+
+                tableView.moveRow(at: startingIndexPath, to: endingIndexPath)
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.tableView.reloadRows(at: endingIndexPaths, with: .none)
+            }
         }
-        
-        tableView.reloadRows(at: endingIndexPaths, with: .none)
     }
 }
