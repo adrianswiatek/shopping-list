@@ -48,8 +48,9 @@ class CoreDataRepository: RepositoryProtocol {
         guard let listEntity = getListEntity(by: list) else { return }
         context.delete(listEntity)
         
-        guard let orderEntity = getItemsOrderEntity(by: list) else { return }
-        context.delete(orderEntity)
+        if let orderEntity = getItemsOrderEntity(by: list) {
+            context.delete(orderEntity)
+        }
         
         save()
     }
