@@ -18,21 +18,24 @@ class ItemNameForEditItem: UIView {
         return label
     }()
     
-    lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter item name..."
+    lazy var textField: TextFieldWithWarning = {
+        let textField = TextFieldWithWarning(viewController, "Enter item name...")
         textField.textColor = .darkGray
         textField.font = .systemFont(ofSize: 17)
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = .done
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.setEmptyTextValidationMessage("Please provide the Name for the Item.")
         textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUserInterface()
+    private let viewController: UIViewController
+    
+    init(_ viewController: UIViewController) {
+        self.viewController = viewController
+        
+        super.init(frame: CGRect.zero)
+
+        self.setupUserInterface()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -40,6 +43,8 @@ class ItemNameForEditItem: UIView {
     }
     
     private func setupUserInterface() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
         backgroundColor = .white
         
         addSubview(label)
@@ -52,6 +57,10 @@ class ItemNameForEditItem: UIView {
         textField.topAnchor.constraint(equalTo: label.topAnchor).isActive = true
         textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
         textField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+    
+    func isValid() -> Bool {
+        return textField.isValid()
     }
     
     @discardableResult override func becomeFirstResponder() -> Bool {

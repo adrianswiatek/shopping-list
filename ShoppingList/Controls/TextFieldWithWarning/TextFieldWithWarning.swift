@@ -1,12 +1,22 @@
 import UIKit
 
-class TextFieldWithCancel: UIView {
+class TextFieldWithWarning: UIView {
     
-    var delegate: TextFieldWithCancelDelegate?
+    weak var delegate: UITextFieldDelegate?
     
     var font: UIFont? {
         get { return textField.font }
         set { textField.font = newValue }
+    }
+    
+    var textColor: UIColor? {
+        get { return textField.textColor }
+        set { textField.textColor = newValue }
+    }
+    
+    var text: String? {
+        get { return textField.text }
+        set { textField.text = newValue }
     }
     
     private lazy var textField: UITextField = {
@@ -14,26 +24,10 @@ class TextFieldWithCancel: UIView {
         textField.clearButtonMode = .whileEditing
         textField.returnKeyType = .done
         textField.delegate = self
+        delegate = textField.delegate
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    
-    private lazy var cancelButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Cancel", for: UIControl.State.normal)
-        button.setTitleColor(#colorLiteral(red: 0, green: 0.4117647059, blue: 0.8509803922, alpha: 1), for: UIControl.State.normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(cancelHandler), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    @objc private func cancelHandler() {
-        textField.text = ""
-        textField.resignFirstResponder()
-        validationButton.alpha = 0
-        delegate?.textFieldWithCancelDidCancel?(self)
-    }
     
     private lazy var validationButton: UIButton = {
         let button = UIButton(type: .system)
@@ -50,76 +44,53 @@ class TextFieldWithCancel: UIView {
             message: emptyTextValidationMessage,
             preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.textField.becomeFirstResponder()
+        }
+        
         alertController.addAction(okAction)
         
         viewController.present(alertController, animated: true)
     }
     
     private var viewController: UIViewController!
-    
-    private var cancelButtonAnimations: CancelButtonAnimations!
     private var validationButtonAnimations: ValidationButtonAnimations!
-    private var bottomShadowAnimations: BottomShadowAnimations!
     
-    var allowEmptyText = true
-    var emptyTextValidationMessage = ""
+    private var allowEmptyText = true
+    private var emptyTextValidationMessage = ""
     
-    // MARK: - Initialize
-    
-    init(viewController: UIViewController, placeHolder: String) {
-        super.init(frame: CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 50))
+    init(_ viewController: UIViewController, _ placeHolder: String) {
+        super.init(frame: CGRect.zero)
         
         self.textField.placeholder = placeHolder
-        
         self.viewController = viewController
-        self.cancelButtonAnimations = CancelButtonAnimations(viewController, cancelButton)
-        self.validationButtonAnimations = ValidationButtonAnimations(viewController, validationButton, textField)
-        self.bottomShadowAnimations = BottomShadowAnimations(self)
-        
-        setupUserInterface()
-        setupNormalShadow()
+        self.validationButtonAnimations =
+            ValidationButtonAnimations(viewController, validationButton, textField)
+
+        self.setupUserInterface()
     }
     
     private func setupUserInterface() {
-        backgroundColor = .white
-        
-        addSubview(cancelButton)
-        cancelButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        cancelButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        cancelButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let cancelButtonTrailingConstraint =
-            NSLayoutConstraint(
-                item: cancelButton,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: self,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 48)
-        
-        cancelButtonTrailingConstraint.identifier = "CancelButtonTrailingConstraint"
-        cancelButtonTrailingConstraint.isActive = true
+        translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(validationButton)
         validationButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        validationButton.trailingAnchor.constraint(equalTo: cancelButton.leadingAnchor, constant: -8).isActive = true
         validationButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         validationButton.widthAnchor.constraint(equalTo: validationButton.heightAnchor).isActive = true
+        validationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4).isActive = true
         
         addSubview(textField)
+        textField.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         textField.topAnchor.constraint(equalTo: topAnchor).isActive = true
         textField.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
         
         let textFieldTrailingConstraint =
             NSLayoutConstraint(
                 item: textField,
                 attribute: .trailing,
                 relatedBy: .equal,
-                toItem: cancelButton,
-                attribute: .leading,
+                toItem: self,
+                attribute: .trailing,
                 multiplier: 1,
                 constant: 0)
         
@@ -127,25 +98,20 @@ class TextFieldWithCancel: UIView {
         textFieldTrailingConstraint.isActive = true
     }
     
-    private func setupNormalShadow() {
-        bottomShadowAnimations.showNormalShadow()
-    }
-    
-    private func setupEditingShadow() {
-        bottomShadowAnimations.showEditShadow()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     @discardableResult override func becomeFirstResponder() -> Bool {
-        textField.becomeFirstResponder()
-        return true
+        return textField.becomeFirstResponder()
+    }
+    
+    @discardableResult override func resignFirstResponder() -> Bool {
+        return textField.resignFirstResponder()
     }
 }
 
-extension TextFieldWithCancel: ButtonValidatable {
+extension TextFieldWithWarning: ButtonValidatable {
     func setEmptyTextValidationMessage(_ message: String) {
         allowEmptyText = false
         emptyTextValidationMessage = message
@@ -165,14 +131,12 @@ extension TextFieldWithCancel: ButtonValidatable {
     }
 }
 
-extension TextFieldWithCancel: UITextFieldDelegate {
+extension TextFieldWithWarning: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = textField.text else { return false }
         guard isValid() else { return false }
         
         textField.text = ""
         textField.resignFirstResponder()
-        delegate?.textFieldWithCancel?(self, didReturnWith: text)
         return true
     }
     
@@ -191,14 +155,7 @@ extension TextFieldWithCancel: UITextFieldDelegate {
         return isDirty
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        cancelButtonAnimations.show()
-        setupEditingShadow()
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        cancelButtonAnimations.hide()
         validationButtonAnimations.hide()
-        setupNormalShadow()
     }
 }

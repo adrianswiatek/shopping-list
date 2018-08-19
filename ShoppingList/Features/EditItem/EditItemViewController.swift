@@ -30,7 +30,7 @@ class EditItemViewController: UIViewController {
     }
 
     lazy var itemNameView: ItemNameForEditItem = {
-        let itemName = ItemNameForEditItem()
+        let itemName = ItemNameForEditItem(self)
         itemName.translatesAutoresizingMaskIntoConstraints = false
         return itemName
     }()
@@ -70,7 +70,8 @@ class EditItemViewController: UIViewController {
     }()
     
     @objc private func save() {
-        guard let itemName = itemNameView.text, itemName != "" else { return }
+        guard let itemName = itemNameView.text else { return }
+        guard itemNameView.isValid() else { return }
         
         let list = listsView.getSelected()
         let category = categoriesView.getSelected()
