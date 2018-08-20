@@ -47,7 +47,7 @@ class TextFieldWithCancel: UIView {
     @objc func handleValidation() {
         let alertController = UIAlertController(
             title: "",
-            message: emptyTextValidationMessage,
+            message: getValidationMessage(),
             preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default)
@@ -62,8 +62,12 @@ class TextFieldWithCancel: UIView {
     private var validationButtonAnimations: ValidationButtonAnimations!
     private var bottomShadowAnimations: BottomShadowAnimations!
     
-    var allowEmptyText = true
-    var emptyTextValidationMessage = ""
+    private var allowEmptyText = true
+    private var emptyTextValidationMessage = ""
+    
+    private var allowDuplication = true
+    private var duplicatedValidationMessage = ""
+    private var isDuplicated: ((String) -> Bool)?
     
     // MARK: - Initialize
     
@@ -146,29 +150,54 @@ class TextFieldWithCancel: UIView {
 }
 
 extension TextFieldWithCancel: ButtonValidatable {
-    func setEmptyTextValidationMessage(_ message: String) {
-        allowEmptyText = false
-        emptyTextValidationMessage = message
+    func setDuplicatedValidation(_ message: String, isDuplicated: @escaping (String) -> Bool) {
+        self.allowDuplication = false
+        self.duplicatedValidationMessage = message
+        self.isDuplicated = isDuplicated
     }
     
-    func isValid() -> Bool {
+    func setEmptyTextValidation(_ message: String) {
+        self.allowEmptyText = false
+        self.emptyTextValidationMessage = message
+    }
+    
+    func validate() -> Bool {
         guard let text = textField.text else { return false }
-        let isValid = allowEmptyText || text != ""
         
-        if isValid {
+        let isDirty = (allowEmptyText || text != "")
+        let isDistinct = (allowDuplication || isDuplicated?(text) == false)
+        
+        if isDirty && isDistinct {
             validationButtonAnimations.hide()
-        } else {
-            validationButtonAnimations.show()
+            return true
         }
         
-        return isValid
+        validationButtonAnimations.show()
+        return false
+    }
+    
+    func getValidationMessage() -> String {
+        guard let text = textField.text else { return "" }
+        
+        let isDirty = (allowEmptyText || text != "")
+        let isDistinct = (allowDuplication || isDuplicated?(text) == false)
+        
+        if !isDirty {
+            return emptyTextValidationMessage
+        }
+        
+        if !isDistinct {
+            return duplicatedValidationMessage
+        }
+        
+        return ""
     }
 }
 
 extension TextFieldWithCancel: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
-        guard isValid() else { return false }
+        guard validate() else { return false }
         
         textField.text = ""
         textField.resignFirstResponder()

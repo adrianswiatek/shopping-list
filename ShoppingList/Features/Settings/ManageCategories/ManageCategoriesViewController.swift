@@ -10,12 +10,15 @@ class ManageCategoriesViewController: UIViewController {
     // MARK: - Controls
     
     lazy var addCategoryTextField: TextFieldWithCancel = {
-        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new category...")
-        textFieldWithCancel.delegate = self
-        textFieldWithCancel.setEmptyTextValidationMessage("Please provide the Name for the Category.")
-        textFieldWithCancel.layer.zPosition = 1
-        textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
-        return textFieldWithCancel
+        let textField = TextFieldWithCancel(viewController: self, placeHolder: "Add new category...")
+        textField.delegate = self
+        textField.setEmptyTextValidation("Please provide the Name for the Category.")
+        textField.setDuplicatedValidation("Category with given name already exists.") { [unowned self] text in
+            self.categories.first { $0.name == text } != nil
+        }
+        textField.layer.zPosition = 1
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }()
     
     lazy var tableView: UITableView = {
