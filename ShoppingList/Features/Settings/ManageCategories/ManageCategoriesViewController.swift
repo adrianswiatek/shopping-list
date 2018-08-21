@@ -12,14 +12,23 @@ class ManageCategoriesViewController: UIViewController {
     lazy var addCategoryTextField: TextFieldWithCancel = {
         let textField = TextFieldWithCancel(viewController: self, placeHolder: "Add new category...")
         textField.delegate = self
-        textField.setEmptyTextValidation("Please provide the Name for the Category.")
-        textField.setDuplicatedValidation("Category with given name already exists.") { [unowned self] text in
-            self.categories.first { $0.name == text } != nil
-        }
+        textField.set(getValidationButtonRule())
         textField.layer.zPosition = 1
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+
+    private func getValidationButtonRule() -> ValidationButtonRule {
+        let notEmptyRule = ValidationButtonRuleLeaf(
+            message: "Please provide the Name for the Item",
+            predicate: { $0 != "" })
+        
+        let uniqueRule = ValidationButtonRuleLeaf(
+            message: "Category with given name already exists.",
+            predicate: { [unowned self] text in self.categories.first { $0.name == text } == nil })
+        
+        return ValidationButtonRuleComposite(rules: notEmptyRule, uniqueRule)
+    }
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()

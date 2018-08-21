@@ -55,13 +55,7 @@ class TextFieldWithWarning: UIView {
     
     private var viewController: UIViewController!
     private var validationButtonAnimations: ValidationButtonAnimations!
-    
-    private var allowEmptyText = true
-    private var emptyTextValidationMessage = ""
-    
-    private var allowDuplication = true
-    private var duplicatedValidationMessage = ""
-    private var isDuplicated: ((String) -> Bool)?
+    private var validationRule: ValidationButtonRule?
     
     init(_ viewController: UIViewController, _ placeHolder: String) {
         super.init(frame: CGRect.zero)
@@ -116,24 +110,14 @@ class TextFieldWithWarning: UIView {
 }
 
 extension TextFieldWithWarning: ButtonValidatable {
-    func setDuplicatedValidation(_ message: String, isDuplicated: @escaping (String) -> Bool) {
-        self.allowDuplication = false
-        self.duplicatedValidationMessage = message
-        self.isDuplicated = isDuplicated
+    func set(_ validationRule: ValidationButtonRule) {
+        self.validationRule = validationRule
     }
     
-    func setEmptyTextValidation(_ message: String) {
-        self.allowEmptyText = false
-        self.emptyTextValidationMessage = message
-    }
-    
-    func validate() -> Bool {
+    func isValid() -> Bool {
         guard let text = textField.text else { return false }
         
-        let isDirty = (allowEmptyText || text != "")
-        let isDistinct = (allowDuplication || isDuplicated?(text) == false)
-        
-        if isDirty && isDistinct {
+        if validationRule?.validate(with: text).isValid == true {
             validationButtonAnimations.hide()
             return true
         }
@@ -145,15 +129,8 @@ extension TextFieldWithWarning: ButtonValidatable {
     func getValidationMessage() -> String {
         guard let text = textField.text else { return "" }
         
-        let isDirty = (allowEmptyText || text != "")
-        let isDistinct = (allowDuplication || isDuplicated?(text) == false)
-        
-        if !isDirty {
-            return emptyTextValidationMessage
-        }
-        
-        if !isDistinct {
-            return duplicatedValidationMessage
+        if let validatedRule = validationRule?.validate(with: text) {
+            return validatedRule.message
         }
         
         return ""
@@ -162,7 +139,7 @@ extension TextFieldWithWarning: ButtonValidatable {
 
 extension TextFieldWithWarning: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard validate() else { return false }
+        guard isValid() else { return false }
         
         textField.text = ""
         textField.resignFirstResponder()

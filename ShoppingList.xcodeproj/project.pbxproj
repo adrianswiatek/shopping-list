@@ -38,6 +38,7 @@
 		3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */; };
 		3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */; };
 		3A562A0320E430CE0030732D /* ListEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0220E430CE0030732D /* ListEntityExtensions.swift */; };
+		3A56DE92212CB1BF00F269F3 /* ValidationButtonRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */; };
 		3A69E40E20B9ECE7004D122E /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */; };
 		3A69E41220B9EFD0004D122E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41120B9EFD0004D122E /* Repository.swift */; };
 		3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41320B9F158004D122E /* RepositoryProtocol.swift */; };
@@ -148,6 +149,7 @@
 		3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarDelegate.swift; sourceTree = "<group>"; };
 		3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListAlertBuilder.swift; sourceTree = "<group>"; };
 		3A562A0220E430CE0030732D /* ListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEntityExtensions.swift; sourceTree = "<group>"; };
+		3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationButtonRule.swift; sourceTree = "<group>"; };
 		3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		3A69E41120B9EFD0004D122E /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3A69E41320B9F158004D122E /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -320,6 +322,16 @@
 				3A392E4E207A5A3D005857E5 /* Info.plist */,
 			);
 			path = ShoppingListTests;
+			sourceTree = "<group>";
+		};
+		3A603F3A212B8152002D0640 /* ValidationButton */ = {
+			isa = PBXGroup;
+			children = (
+				3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */,
+				3AFBF9692128DDC500FEAB55 /* ValidationButtonAnimations.swift */,
+				3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */,
+			);
+			path = ValidationButton;
 			sourceTree = "<group>";
 		};
 		3A69E40C20B9ECB0004D122E /* Persistence */ = {
@@ -496,10 +508,9 @@
 		3ADE39CC20CF0D41007806B1 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				3A603F3A212B8152002D0640 /* ValidationButton */,
 				3AE3AF702129EB3800D105FE /* TextFieldWithWarning */,
 				3AC6211B20C0541600A16F0E /* TextFieldWithCancel */,
-				3AFBF9692128DDC500FEAB55 /* ValidationButtonAnimations.swift */,
-				3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -801,6 +812,7 @@
 				3AF04E9920D2FA6000938F13 /* ManageCategoriesTableViewCell.swift in Sources */,
 				3ADFCD4120E95D0900E49C17 /* ListsForEditItemDelegate.swift in Sources */,
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
+				3A56DE92212CB1BF00F269F3 /* ValidationButtonRule.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
 				3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */,
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,

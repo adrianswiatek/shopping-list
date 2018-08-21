@@ -27,12 +27,12 @@ class ItemsViewController: UIViewController {
     }()
     
     lazy var addItemTextField: TextFieldWithCancel = {
-        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new item...")
-        textFieldWithCancel.delegate = self
-        textFieldWithCancel.setEmptyTextValidation("Please provide the Name for the Item.")
-        textFieldWithCancel.layer.zPosition = 1
-        textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
-        return textFieldWithCancel
+        let textField = TextFieldWithCancel(viewController: self, placeHolder: "Add new item...")
+        textField.delegate = self
+        textField.set(ValidationButtonRuleLeaf(message: "Please provide the Name for the Item") { $0 != "" })
+        textField.layer.zPosition = 1
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }()
     
     lazy var toolbar: ItemsToolbar = {

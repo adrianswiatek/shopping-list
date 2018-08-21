@@ -22,7 +22,7 @@ class ItemNameForEditItem: UIView {
         let textField = TextFieldWithWarning(viewController, "Enter item name...")
         textField.textColor = .darkGray
         textField.font = .systemFont(ofSize: 17)
-        textField.setEmptyTextValidation("Please provide the Name for the Item.")
+        textField.set(ValidationButtonRuleLeaf(message: "Please provide the Name for the Item") { $0 != "" })
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -60,7 +60,7 @@ class ItemNameForEditItem: UIView {
     }
     
     func isValid() -> Bool {
-        return textField.validate()
+        return textField.isValid()
     }
     
     @discardableResult override func becomeFirstResponder() -> Bool {
