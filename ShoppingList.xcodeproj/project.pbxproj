@@ -56,6 +56,7 @@
 		3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
 		3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
 		3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemTableViewCell.swift */; };
+		3A992241212E042800A6A2F9 /* PopupWithTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */; };
 		3A9EAF42209BBA4900B4A39D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF41209BBA4900B4A39D /* Category.swift */; };
 		3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */; };
 		3AAC84F9211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */; };
@@ -167,6 +168,7 @@
 		3A972EBE207A877D00963961 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonAnimations.swift; sourceTree = "<group>"; };
 		3A972EC3207A97B300963961 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWithTextFieldController.swift; sourceTree = "<group>"; };
 		3A9EAF41209BBA4900B4A39D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryRepository.swift; sourceTree = "<group>"; };
 		3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
@@ -433,6 +435,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3A992242212E045600A6A2F9 /* PopupWithTextField */ = {
+			isa = PBXGroup;
+			children = (
+				3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */,
+			);
+			path = PopupWithTextField;
+			sourceTree = "<group>";
+		};
 		3A9A31C520CD876800C99D26 /* EditItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -508,6 +518,7 @@
 		3ADE39CC20CF0D41007806B1 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				3A992242212E045600A6A2F9 /* PopupWithTextField */,
 				3A603F3A212B8152002D0640 /* ValidationButton */,
 				3AE3AF702129EB3800D105FE /* TextFieldWithWarning */,
 				3AC6211B20C0541600A16F0E /* TextFieldWithCancel */,
@@ -810,6 +821,7 @@
 			files = (
 				3AFAEF1420DD8A1F00E58C00 /* ListsViewController.swift in Sources */,
 				3AF04E9920D2FA6000938F13 /* ManageCategoriesTableViewCell.swift in Sources */,
+				3A992241212E042800A6A2F9 /* PopupWithTextFieldController.swift in Sources */,
 				3ADFCD4120E95D0900E49C17 /* ListsForEditItemDelegate.swift in Sources */,
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A56DE92212CB1BF00F269F3 /* ValidationButtonRule.swift in Sources */,

@@ -29,7 +29,7 @@ struct EditContextualActionBuilder {
         action: UIContextualAction,
         sourceView: UIView,
         completionHandler: @escaping (Bool) -> Void) {
-        self.showEditAlert(
+        self.showEditPopup(
             saved: {
                 self.category.isDefault() ? self.savedDefault($0) : self.saved($0)
                 completionHandler(true)
@@ -38,13 +38,21 @@ struct EditContextualActionBuilder {
                 completionHandler(false)
             })
     }
-    
-    private func showEditAlert(
-        saved: @escaping (String) -> Void,
-        cancelled: @escaping () -> Void) {
-        var builder = EditCategoryAlertBuilder(categoryName: category.name)
-        builder.saveButtonTapped = saved
-        builder.cancelButtonTapped = cancelled
-        viewController.present(builder.build(), animated: true)
+
+    private func showEditPopup(saved: @escaping (String) -> Void, cancelled: @escaping () -> Void) {
+        let controller = PopupWithTextFieldController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        controller.cancelled = cancelled
+        viewController.present(controller, animated: true)
     }
+    
+//    private func showEditAlert(
+//        saved: @escaping (String) -> Void,
+//        cancelled: @escaping () -> Void) {
+//        var builder = EditCategoryAlertBuilder(categoryName: category.name)
+//        builder.saveButtonTapped = saved
+//        builder.cancelButtonTapped = cancelled
+//        viewController.present(builder.build(), animated: true)
+//    }
 }
