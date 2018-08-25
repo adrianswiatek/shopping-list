@@ -19,7 +19,8 @@ class ItemNameForEditItem: UIView {
     }()
     
     lazy var textField: TextFieldWithWarning = {
-        let textField = TextFieldWithWarning(viewController, "Enter item name...")
+        let textField = TextFieldWithWarning(viewController)
+        textField.placeholder = "Enter item name..."
         textField.textColor = .darkGray
         textField.font = .systemFont(ofSize: 17)
         textField.set(ValidationButtonRuleLeaf(message: "Please provide the Name for the Item") { $0 != "" })

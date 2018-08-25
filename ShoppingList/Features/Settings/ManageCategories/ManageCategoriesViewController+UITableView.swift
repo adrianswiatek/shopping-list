@@ -5,6 +5,7 @@ extension ManageCategoriesViewController: UITableViewDelegate {
         let builder = EditContextualActionBuilder(
             viewController: self,
             category: categories[indexPath.row],
+            categories: categories,
             saved: { self.categoryEdited(to: $0, at: indexPath) },
             savedDefault: { self.defaultCategoryNameChanged(to: $0, at: indexPath) })
         

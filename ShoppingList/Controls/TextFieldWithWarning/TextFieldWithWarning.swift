@@ -19,10 +19,17 @@ class TextFieldWithWarning: UIView {
         set { textField.text = newValue }
     }
     
+    var placeholder: String? {
+        get { return textField.placeholder }
+        set { textField.placeholder = newValue }
+    }
+    
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.clearButtonMode = .whileEditing
         textField.returnKeyType = .done
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+        textField.leftViewMode = .always
         textField.delegate = self
         delegate = textField.delegate
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -57,10 +64,9 @@ class TextFieldWithWarning: UIView {
     private var validationButtonAnimations: ValidationButtonAnimations!
     private var validationRule: ValidationButtonRule?
     
-    init(_ viewController: UIViewController, _ placeHolder: String) {
+    init(_ viewController: UIViewController) {
         super.init(frame: CGRect.zero)
         
-        self.textField.placeholder = placeHolder
         self.viewController = viewController
         self.validationButtonAnimations =
             ValidationButtonAnimations(viewController, validationButton, textField)
@@ -75,7 +81,7 @@ class TextFieldWithWarning: UIView {
         validationButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         validationButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         validationButton.widthAnchor.constraint(equalTo: validationButton.heightAnchor).isActive = true
-        validationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4).isActive = true
+        validationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
         
         addSubview(textField)
         textField.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
@@ -116,6 +122,10 @@ extension TextFieldWithWarning: ButtonValidatable {
     
     func isValid() -> Bool {
         guard let text = textField.text else { return false }
+        
+        if validationRule == nil {
+            return true
+        }
         
         if validationRule?.validate(with: text).isValid == true {
             validationButtonAnimations.hide()
@@ -163,5 +173,10 @@ extension TextFieldWithWarning: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         validationButtonAnimations.hide()
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        validationButtonAnimations.hide()
+        return true
     }
 }

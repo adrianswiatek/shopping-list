@@ -1,7 +1,5 @@
 import UIKit
 
-// TODO: Add blur effect to the popup.
-
 class PopupWithTextFieldController: UIViewController {
 
     var popupTitle: String? {
@@ -10,13 +8,24 @@ class PopupWithTextFieldController: UIViewController {
         }
     }
     
+    var placeholder: String? {
+        didSet {
+            textField.placeholder = placeholder
+        }
+    }
+    
+    var text: String? {
+        didSet {
+            textField.text = text
+        }
+    }
+    
     var saved: ((String) -> Void)?
     var cancelled: (() -> Void)?
     
     let popupView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
-        view.alpha = 0.9
+        view.backgroundColor = UIColor(white: 1, alpha: 0.98)
         view.layer.cornerRadius = 16
         view.layer.shadowOffset = CGSize(width: 0, height: 1)
         view.layer.shadowColor = UIColor.black.cgColor
@@ -41,14 +50,14 @@ class PopupWithTextFieldController: UIViewController {
         button.setTitle("Save", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.addTarget(self, action: #selector(handleSaveButton), for: .touchUpInside)
-        button.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
-        button.layer.borderWidth = 0.5
         return button
     }()
     
     @objc private func handleSaveButton() {
-        cancelled?()
-        dismiss(animated: true)
+        if textField.isValid() {
+            saved?(textField.text ?? "")
+            dismiss(animated: true)
+        }
     }
     
     let cancelButton: UIButton = {
@@ -56,8 +65,6 @@ class PopupWithTextFieldController: UIViewController {
         button.setTitle("Cancel", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 16)
         button.addTarget(self, action: #selector(handleCancelButton), for: .touchUpInside)
-        button.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
-        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -65,6 +72,19 @@ class PopupWithTextFieldController: UIViewController {
         cancelled?()
         dismiss(animated: true)
     }
+    
+    lazy var textField: TextFieldWithWarning = {
+        let textField = TextFieldWithWarning(self)
+        textField.backgroundColor = .white
+        textField.textColor = .darkGray
+        textField.font = .systemFont(ofSize: 15)
+        textField.layer.cornerRadius = 8
+        textField.layer.borderColor = UIColor(white: 0.75, alpha: 1).cgColor
+        textField.layer.borderWidth = 0.25
+        textField.becomeFirstResponder()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
     
     let headerView: UIView = {
         let view = UIView()
@@ -84,23 +104,72 @@ class PopupWithTextFieldController: UIViewController {
         return view
     }()
     
+    private var popupViewCenterYConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupKeyboardEventsObservers()
         setupUserInterface()
     }
     
+    func set(_ validationRules: ValidationButtonRule) {
+        textField.set(validationRules)
+    }
+    
+    private func setupKeyboardEventsObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWilldHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+                self.popupViewCenterYConstraint.constant = -keyboardFrame.height / 2
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
+    
+    @objc private func keyboardWilldHide(_ notification: Notification) {
+        guard popupViewCenterYConstraint.constant != 0 else { return }
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+            self.popupViewCenterYConstraint.constant = 0
+            self.view.layoutIfNeeded()
+        })
+    }
+    
     private func setupUserInterface() {
-        view.backgroundColor = UIColor(white: 0, alpha: 0.4)
+        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+
+        view.addSubview(popupView)
+        
+        popupViewCenterYConstraint = NSLayoutConstraint(
+            item: popupView,
+            attribute: .centerY,
+            relatedBy: .equal,
+            toItem: view,
+            attribute: .centerY,
+            multiplier: 1,
+            constant: 0)
+        
+        popupViewCenterYConstraint.isActive = true
+
+        popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
+        popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48).isActive = true
+        popupView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
         setupHeader()
         setupFooter()
         setupContent()
-        
-        view.addSubview(popupView)
-        popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -200).isActive = true
-        popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
-        popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48).isActive = true
-        popupView.heightAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
     private func setupHeader() {
@@ -125,12 +194,43 @@ class PopupWithTextFieldController: UIViewController {
         let buttonsStackView = UIStackView(arrangedSubviews: [cancelButton, saveButton])
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsStackView.spacing = 10
         
         footerView.addSubview(buttonsStackView)
         buttonsStackView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor).isActive = true
         buttonsStackView.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
         buttonsStackView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor).isActive = true
         buttonsStackView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor).isActive = true
+        
+        let topDividerView = UIView()
+        topDividerView.backgroundColor = .lightGray
+        topDividerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        footerView.addSubview(topDividerView)
+        topDividerView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor).isActive = true
+        topDividerView.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
+        topDividerView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor).isActive = true
+        topDividerView.heightAnchor.constraint(equalToConstant: 0.2).isActive = true
+        
+        let cancelDividerView = UIView()
+        cancelDividerView.backgroundColor = .lightGray
+        cancelDividerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        cancelButton.addSubview(cancelDividerView)
+        cancelDividerView.topAnchor.constraint(equalTo: cancelButton.topAnchor).isActive = true
+        cancelDividerView.trailingAnchor.constraint(equalTo: cancelButton.trailingAnchor).isActive = true
+        cancelDividerView.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor).isActive = true
+        cancelDividerView.widthAnchor.constraint(equalToConstant: 0.1).isActive = true
+        
+        let saveDividerView = UIView()
+        saveDividerView.backgroundColor = .lightGray
+        saveDividerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        saveButton.addSubview(saveDividerView)
+        saveDividerView.leadingAnchor.constraint(equalTo: saveButton.leadingAnchor).isActive = true
+        saveDividerView.topAnchor.constraint(equalTo: saveButton.topAnchor).isActive = true
+        saveDividerView.bottomAnchor.constraint(equalTo: saveButton.bottomAnchor).isActive = true
+        saveDividerView.widthAnchor.constraint(equalToConstant: 0.25).isActive = true
     }
     
     private func setupContent() {
@@ -139,5 +239,11 @@ class PopupWithTextFieldController: UIViewController {
         contentView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         contentView.trailingAnchor.constraint(equalTo: popupView.trailingAnchor).isActive = true
         contentView.bottomAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
+        
+        contentView.addSubview(textField)
+        textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12).isActive = true
+        textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12).isActive = true
+        textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
 }
