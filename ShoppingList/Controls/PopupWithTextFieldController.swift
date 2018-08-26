@@ -23,7 +23,7 @@ class PopupWithTextFieldController: UIViewController {
     var saved: ((String) -> Void)?
     var cancelled: (() -> Void)?
     
-    let popupView: UIView = {
+    private lazy var popupView: UIView = { [unowned self] in
         let view = UIView()
         view.backgroundColor = UIColor(white: 1, alpha: 0.98)
         view.layer.cornerRadius = 16
@@ -107,6 +107,7 @@ class PopupWithTextFieldController: UIViewController {
         return view
     }()
     
+    private let popupViewHeight: CGFloat = 180
     private var popupViewCenterYConstraint: NSLayoutConstraint!
     private var colorForHighlightedButton: UIColor {
         return UIColor(red: 84 / 255, green: 152 / 255, blue: 252 / 255, alpha: 1)
@@ -143,10 +144,14 @@ class PopupWithTextFieldController: UIViewController {
     
     @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-                self.popupViewCenterYConstraint.constant = -keyboardFrame.height / 2
-                self.view.layoutIfNeeded()
-            })
+            if popupView.bounds == .zero {
+                popupViewCenterYConstraint.constant = -keyboardFrame.height / 2
+            } else {
+                UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
+                    self.popupViewCenterYConstraint.constant = -keyboardFrame.height / 2
+                    self.view.layoutIfNeeded()
+                })
+            }
         }
     }
     
@@ -167,7 +172,7 @@ class PopupWithTextFieldController: UIViewController {
         
         popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
         popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48).isActive = true
-        popupView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+        popupView.heightAnchor.constraint(equalToConstant: popupViewHeight).isActive = true
         
         setupHeader()
         setupFooter()
