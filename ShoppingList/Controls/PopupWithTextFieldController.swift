@@ -119,6 +119,10 @@ class PopupWithTextFieldController: UIViewController {
         setupUserInterface()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func set(_ validationRules: ValidationButtonRule) {
         textField.set(validationRules)
     }
