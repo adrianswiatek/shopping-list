@@ -199,28 +199,30 @@ class PopupWithTextFieldController: UIViewController {
         buttonsStackView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor).isActive = true
         buttonsStackView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor).isActive = true
         
+        let dividerViewColor = UIColor(white: 0, alpha: 0.1)
+        
         let topDividerView = UIView()
-        topDividerView.backgroundColor = .lightGray
+        topDividerView.backgroundColor = dividerViewColor
         topDividerView.translatesAutoresizingMaskIntoConstraints = false
         
         footerView.addSubview(topDividerView)
         topDividerView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor).isActive = true
         topDividerView.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
         topDividerView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor).isActive = true
-        topDividerView.heightAnchor.constraint(equalToConstant: 0.2).isActive = true
+        topDividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         
         let cancelDividerView = UIView()
-        cancelDividerView.backgroundColor = .lightGray
+        cancelDividerView.backgroundColor = dividerViewColor
         cancelDividerView.translatesAutoresizingMaskIntoConstraints = false
         
         cancelButton.addSubview(cancelDividerView)
         cancelDividerView.topAnchor.constraint(equalTo: cancelButton.topAnchor).isActive = true
         cancelDividerView.trailingAnchor.constraint(equalTo: cancelButton.trailingAnchor).isActive = true
         cancelDividerView.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor).isActive = true
-        cancelDividerView.widthAnchor.constraint(equalToConstant: 0.1).isActive = true
+        cancelDividerView.widthAnchor.constraint(equalToConstant: 0.25).isActive = true
         
         let saveDividerView = UIView()
-        saveDividerView.backgroundColor = .lightGray
+        saveDividerView.backgroundColor = dividerViewColor
         saveDividerView.translatesAutoresizingMaskIntoConstraints = false
         
         saveButton.addSubview(saveDividerView)
