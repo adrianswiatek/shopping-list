@@ -39,6 +39,7 @@
 		3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */; };
 		3A562A0320E430CE0030732D /* ListEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0220E430CE0030732D /* ListEntityExtensions.swift */; };
 		3A56DE92212CB1BF00F269F3 /* ValidationButtonRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */; };
+		3A67525A2132B18D008CD3E4 /* ButtonWithHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */; };
 		3A69E40E20B9ECE7004D122E /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */; };
 		3A69E41220B9EFD0004D122E /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41120B9EFD0004D122E /* Repository.swift */; };
 		3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41320B9F158004D122E /* RepositoryProtocol.swift */; };
@@ -151,6 +152,7 @@
 		3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListAlertBuilder.swift; sourceTree = "<group>"; };
 		3A562A0220E430CE0030732D /* ListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEntityExtensions.swift; sourceTree = "<group>"; };
 		3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationButtonRule.swift; sourceTree = "<group>"; };
+		3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithHighlight.swift; sourceTree = "<group>"; };
 		3A69E40D20B9ECE7004D122E /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		3A69E41120B9EFD0004D122E /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		3A69E41320B9F158004D122E /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				3A603F3A212B8152002D0640 /* ValidationButton */,
 				3AE3AF702129EB3800D105FE /* TextFieldWithWarning */,
 				3AC6211B20C0541600A16F0E /* TextFieldWithCancel */,
+				3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -903,6 +906,7 @@
 				3ADFCD2620E91AF800E49C17 /* ItemNameForEditItem.swift in Sources */,
 				3A8F1A2D2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift in Sources */,
 				3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */,
+				3A67525A2132B18D008CD3E4 /* ButtonWithHighlight.swift in Sources */,
 				3A37695320D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift in Sources */,
 				3AC6211F20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */,
