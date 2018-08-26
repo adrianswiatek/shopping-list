@@ -59,7 +59,8 @@ class ListsForEditItem: UIView {
     }()
     
     private func listAdded(withName name: String) {
-        let list = List.new(name: name)
+        let newName = ListNameGenerator().generate(from: name, and: lists)
+        let list = List.new(name: newName)
         
         lists.append(list)
         
@@ -68,7 +69,7 @@ class ListsForEditItem: UIView {
         lists.sort { $0.name < $1.name }
         pickerView.reloadComponent(0)
         
-        selectBy(name: name)
+        selectBy(name: newName)
     }
     
     override init(frame: CGRect) {
