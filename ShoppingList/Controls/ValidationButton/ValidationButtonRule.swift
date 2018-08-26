@@ -35,4 +35,16 @@ class ValidationButtonRuleLeaf: ValidationButtonRule {
     func validate(with text: String) -> (isValid: Bool, message: String) {
         return (predicate(text), message)
     }
+    
+    static func getNotEmptyCategoryRule() -> ValidationButtonRule {
+        return getNotEmptyRule(message: "Please provide the Name for the Category")
+    }
+    
+    static func getNotEmptyItemRule() -> ValidationButtonRule {
+        return getNotEmptyRule(message: "Please provide the Name for the Item")
+    }
+    
+    private static func getNotEmptyRule(message: String) -> ValidationButtonRule {
+        return ValidationButtonRuleLeaf(message: message, predicate: { $0 != "" })
+    }
 }

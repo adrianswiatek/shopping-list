@@ -3,33 +3,35 @@ import UIKit
 class AddCategoryPopupForEditItem {
  
     private let viewController: UIViewController
+    private let getCategories: () -> [Category]
     private let completed: (String) -> ()
     
-    private let alertController: UIAlertController
-    
-    init(_ viewController: UIViewController, completed: @escaping (String) -> ()) {
+    init(
+        _ viewController: UIViewController,
+        _ getCategories: @escaping () -> [Category],
+        completed: @escaping (String) -> ()) {
         self.viewController = viewController
+        self.getCategories = getCategories
         self.completed = completed
-        self.alertController = UIAlertController(title: "Add Category", message: nil, preferredStyle: .alert)
-        
-        alertController.addTextField { textField in
-            textField.placeholder = "Enter category name..."
-            textField.clearButtonMode = .whileEditing
-        }
-        
-        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
-            let categoryName = self.alertController.textFields?[0].text ?? ""
-            self.completed(categoryName)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
     }
     
     func show() {
-        alertController.textFields?[0].text = ""
-        viewController.present(alertController, animated: true)
+        let controller = PopupWithTextFieldController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.popupTitle = "Add Category"
+        controller.placeholder = "Enter category name..."
+        controller.saved = completed
+        controller.set(getValidationButtonRule())
+        viewController.present(controller, animated: true)
+    }
+    
+    private func getValidationButtonRule() -> ValidationButtonRule {
+        let notEmptyRule = ValidationButtonRuleLeaf.getNotEmptyCategoryRule()
+        
+        let uniqueRule = ValidationButtonRuleLeaf(
+            message: "Category with given name already exists.",
+            predicate: { [unowned self] text in self.getCategories().allSatisfy { $0.name != text } })
+        
+        return ValidationButtonRuleComposite(rules: notEmptyRule, uniqueRule)
     }
 }

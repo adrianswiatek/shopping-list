@@ -45,7 +45,6 @@ struct EditContextualActionBuilder {
     private func showEditPopup(saved: @escaping (String) -> Void, cancelled: @escaping () -> Void) {
         let controller = PopupWithTextFieldController()
         controller.modalPresentationStyle = .overFullScreen
-        controller.modalTransitionStyle = .crossDissolve
         controller.popupTitle = "Edit Category"
         controller.placeholder = "Enter category name..."
         controller.text = category.name
@@ -56,9 +55,7 @@ struct EditContextualActionBuilder {
     }
     
     private func getValidationButtonRule() -> ValidationButtonRule {
-        let notEmptyRule = ValidationButtonRuleLeaf(
-            message: "Please provide the Name for the Category",
-            predicate: { $0 != "" })
+        let notEmptyRule = ValidationButtonRuleLeaf.getNotEmptyCategoryRule()
         
         let uniqueRule = ValidationButtonRuleLeaf(
             message: "Category with given name already exists.",

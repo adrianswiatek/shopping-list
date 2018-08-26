@@ -24,6 +24,9 @@ class TextFieldWithWarning: UIView {
         set { textField.placeholder = newValue }
     }
     
+    var validationPopupWillAppear: (() -> Void)?
+    var validationPopupWillDisappear: (() -> Void)?
+    
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.clearButtonMode = .whileEditing
@@ -45,17 +48,16 @@ class TextFieldWithWarning: UIView {
     }()
     
     @objc func handleValidation() {
-        let alertController = UIAlertController(
-            title: "",
-            message: getValidationMessage(),
-            preferredStyle: .alert)
+        let alertController = UIAlertController(title: "", message: getValidationMessage(), preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.validationPopupWillDisappear?()
             self?.textField.becomeFirstResponder()
         }
         
         alertController.addAction(okAction)
         
+        validationPopupWillAppear?()
         viewController.present(alertController, animated: true)
     }
     
@@ -153,7 +155,6 @@ extension TextFieldWithWarning: UITextFieldDelegate {
         
         delegate?.textFieldWithWarning?(self, didReturnWith: text)
         
-        textField.text = ""
         textField.resignFirstResponder()
         
         return true

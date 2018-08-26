@@ -25,6 +25,8 @@ class InfoForEditItem: UIView {
         textField.font = .systemFont(ofSize: 17)
         textField.clearButtonMode = .whileEditing
         textField.returnKeyType = .done
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+        textField.leftViewMode = .always
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         return textField

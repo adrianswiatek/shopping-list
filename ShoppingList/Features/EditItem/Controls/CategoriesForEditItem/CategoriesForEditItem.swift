@@ -66,7 +66,7 @@ class CategoriesForEditItem: UIView {
             fatalError("View Controller must have the value.")
         }
         
-        return AddCategoryPopupForEditItem(viewController, completed: categoryAdded)
+        return AddCategoryPopupForEditItem(viewController, { self.categories }, completed: categoryAdded)
     }()
     
     private func categoryAdded(withName name: String) {

@@ -29,7 +29,7 @@ class ItemsViewController: UIViewController {
     lazy var addItemTextField: TextFieldWithCancel = {
         let textField = TextFieldWithCancel(viewController: self, placeHolder: "Add new item...")
         textField.delegate = self
-        textField.set(ValidationButtonRuleLeaf(message: "Please provide the Name for the Item") { $0 != "" })
+        textField.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
         textField.layer.zPosition = 1
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField

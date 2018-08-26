@@ -84,6 +84,12 @@ class PopupWithTextFieldController: UIViewController {
         textField.layer.borderColor = UIColor(white: 0.75, alpha: 1).cgColor
         textField.layer.borderWidth = 0.25
         textField.becomeFirstResponder()
+        textField.validationPopupWillAppear = { [weak self] in
+            self?.popupView.alpha = 0
+        }
+        textField.validationPopupWillDisappear = { [weak self] in
+            UIView.animate(withDuration: 0.2) { self?.popupView.alpha = 1 }
+        }
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -115,6 +121,8 @@ class PopupWithTextFieldController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        modalTransitionStyle = .crossDissolve
         
         setupKeyboardEventsObservers()
         setupUserInterface()

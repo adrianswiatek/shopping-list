@@ -23,7 +23,7 @@ class ItemNameForEditItem: UIView {
         textField.placeholder = "Enter item name..."
         textField.textColor = .darkGray
         textField.font = .systemFont(ofSize: 17)
-        textField.set(ValidationButtonRuleLeaf(message: "Please provide the Name for the Item") { $0 != "" })
+        textField.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

@@ -63,7 +63,6 @@ extension ListsViewController: UITableViewDelegate {
     private func showEditPopup(list: List, saved: @escaping (String) -> Void, cancelled: @escaping () -> Void) {
         let controller = PopupWithTextFieldController()
         controller.modalPresentationStyle = .overFullScreen
-        controller.modalTransitionStyle = .crossDissolve
         controller.popupTitle = "Edit List"
         controller.placeholder = "Enter list name..."
         controller.text = list.name
