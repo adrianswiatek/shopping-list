@@ -2,7 +2,7 @@ import UIKit
 
 class TextFieldWithWarning: UIView {
     
-    weak var delegate: UITextFieldDelegate?
+    weak var delegate: TextFieldWithWarningDelegate?
     
     var font: UIFont? {
         get { return textField.font }
@@ -31,7 +31,6 @@ class TextFieldWithWarning: UIView {
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
         textField.leftViewMode = .always
         textField.delegate = self
-        delegate = textField.delegate
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -149,10 +148,14 @@ extension TextFieldWithWarning: ButtonValidatable {
 
 extension TextFieldWithWarning: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return false }
         guard isValid() else { return false }
+        
+        delegate?.textFieldWithWarning?(self, didReturnWith: text)
         
         textField.text = ""
         textField.resignFirstResponder()
+        
         return true
     }
     

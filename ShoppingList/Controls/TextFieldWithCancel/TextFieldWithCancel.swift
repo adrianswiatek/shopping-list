@@ -151,6 +151,10 @@ extension TextFieldWithCancel: ButtonValidatable {
     func isValid() -> Bool {
         guard let text = textField.text else { return false }
         
+        if validationRule == nil {
+            return true
+        }
+        
         if validationRule?.validate(with: text).isValid == true {
             validationButtonAnimations.hide()
             return true
@@ -176,9 +180,11 @@ extension TextFieldWithCancel: UITextFieldDelegate {
         guard let text = textField.text else { return false }
         guard isValid() else { return false }
         
+        delegate?.textFieldWithCancel?(self, didReturnWith: text)
+        
         textField.text = ""
         textField.resignFirstResponder()
-        delegate?.textFieldWithCancel?(self, didReturnWith: text)
+        
         return true
     }
     
@@ -206,5 +212,10 @@ extension TextFieldWithCancel: UITextFieldDelegate {
         cancelButtonAnimations.hide()
         validationButtonAnimations.hide()
         setupNormalShadow()
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        validationButtonAnimations.hide()
+        return true
     }
 }

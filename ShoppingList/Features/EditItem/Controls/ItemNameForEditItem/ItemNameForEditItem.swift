@@ -24,7 +24,6 @@ class ItemNameForEditItem: UIView {
         textField.textColor = .darkGray
         textField.font = .systemFont(ofSize: 17)
         textField.set(ValidationButtonRuleLeaf(message: "Please provide the Name for the Item") { $0 != "" })
-        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()

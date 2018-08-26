@@ -62,7 +62,7 @@ struct EditContextualActionBuilder {
         
         let uniqueRule = ValidationButtonRuleLeaf(
             message: "Category with given name already exists.",
-            predicate: { text in self.categories.first { $0.name == text } == nil })
+            predicate: { text in self.categories.allSatisfy { $0.name != text } || text == self.category.name })
         
         return ValidationButtonRuleComposite(rules: notEmptyRule, uniqueRule)
     }

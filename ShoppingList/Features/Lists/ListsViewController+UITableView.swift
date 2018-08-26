@@ -42,22 +42,36 @@ extension ListsViewController: UITableViewDelegate {
         tableView.deleteRows(at: [indexPath], with: .automatic)
         setScene()
     }
-    
+
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let editItemAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] (action, sourceView, completionHandler) in
-            var builder = EditListAlertBuilder(listName: self.lists[indexPath.row].name)
-            builder.saveButtonTapped = {
-                self.changeListName(at: indexPath, newName: $0)
-                completionHandler(true)
-            }
-            builder.cancelButtonTapped = { completionHandler(false) }
-            self.present(builder.build(), animated: true)
+            self.showEditPopup(
+                list: self.lists[indexPath.row],
+                saved: {
+                    self.changeListName(at: indexPath, newName: $0)
+                    completionHandler(true)
+                },
+                cancelled: {
+                    completionHandler(false)
+                })
         }
         editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         editItemAction.image = #imageLiteral(resourceName: "Edit")
         return UISwipeActionsConfiguration(actions: [editItemAction])
     }
     
+    private func showEditPopup(list: List, saved: @escaping (String) -> Void, cancelled: @escaping () -> Void) {
+        let controller = PopupWithTextFieldController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.modalTransitionStyle = .crossDissolve
+        controller.popupTitle = "Edit List"
+        controller.placeholder = "Enter list name..."
+        controller.text = list.name
+        controller.saved = saved
+        controller.cancelled = cancelled
+        present(controller, animated: true)
+    }
+
     private func changeListName(at indexPath: IndexPath, newName: String) {
         let existingList = lists[indexPath.row]
         guard existingList.name != newName else { return }
