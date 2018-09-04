@@ -17,7 +17,6 @@ extension ItemsViewController: EditItemViewControllerDelegate {
             let isBeingUpdatedInTheSameList = previousItem.list.id == newItem.list.id
             if !isBeingUpdatedInTheSameList {
                 moveToOtherList(previousItem)
-                listToUpdate = newItem.list
                 return
             }
             

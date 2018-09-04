@@ -5,7 +5,6 @@ class ItemsViewController: UIViewController {
     var delegate: ItemsViewControllerDelegate!
     
     var currentList: List!
-    var listToUpdate: List?
     
     var items = [[Item]]()
     var categories = [Category]()
@@ -82,13 +81,7 @@ class ItemsViewController: UIViewController {
         super.viewDidDisappear(animated)
 
         if isMovingFromParent {
-            var lists: [List] = [currentList]
-            
-            if let listToUpdate = listToUpdate {
-                lists.append(listToUpdate)
-            }
-            
-            delegate.itemsViewControllerDidDismiss(self, withUpdated: lists)
+            delegate.itemsViewControllerDidDismiss(self)
         }
     }
     
