@@ -7,7 +7,7 @@ class ItemsToolbar: UIView {
     // MARK: - Regular toolbar
     
     private lazy var editButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editButtonHandler))
+        return UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonHandler))
     }()
     
     @objc private func editButtonHandler() {
@@ -15,7 +15,7 @@ class ItemsToolbar: UIView {
     }
     
     private lazy var addButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(addButtonHandler))
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonHandler))
     }()
     
     @objc private func addButtonHandler() {
