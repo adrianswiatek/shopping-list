@@ -54,6 +54,19 @@ class ItemsViewController: UIViewController {
         basketViewController.list = currentList
         navigationController?.pushViewController(basketViewController, animated: true)
     }
+    
+    lazy var restoreBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
+        barButtonItem.isEnabled = false
+        return barButtonItem
+    }()
+    
+    @objc private func restore() {
+        let invoker = CommandInvoker.shared
+        if invoker.canUndo(.items) {
+            invoker.undo(.items)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +96,8 @@ class ItemsViewController: UIViewController {
         if isMovingFromParent {
             delegate.itemsViewControllerDidDismiss(self)
         }
+        
+        CommandInvoker.shared.remove(.items)
     }
     
     func fetchItems() {
@@ -123,7 +138,7 @@ class ItemsViewController: UIViewController {
     }
     
     func refreshUserInterface(after: Double = 0) {
-        setGoToBasketButton()
+        setTopBarButtons()
         
         items.count > 0 ? self.setSceneAsEditable() : self.setSceneAsNotEditable()
         tableView.setEditing(false, animated: true)
@@ -133,10 +148,15 @@ class ItemsViewController: UIViewController {
         }
     }
     
-    func setGoToBasketButton() {
+    private func setTopBarButtons() {
         let numberOfItemsInBasket = Repository.shared.getNumberOfItemsWith(state: .inBasket, in: currentList)
-        navigationItem.rightBarButtonItem =
-            numberOfItemsInBasket > 0 ? goToFilledBasketBarButtonItem : goToEmptyBasketBarButtonItem
+        let basketBarButtonItem = numberOfItemsInBasket > 0
+            ? goToFilledBasketBarButtonItem
+            : goToEmptyBasketBarButtonItem
+        
+        restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.items)
+        
+        navigationItem.rightBarButtonItems = [ basketBarButtonItem, restoreBarButtonItem ]
     }
     
     private func setSceneAsEditable() {
