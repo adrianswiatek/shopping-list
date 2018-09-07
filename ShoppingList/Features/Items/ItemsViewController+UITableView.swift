@@ -14,13 +14,9 @@ extension ItemsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
-            let item = self.items[indexPath.section].remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            
-            Repository.shared.remove(item)
-            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
-            
-            self.refreshUserInterface(after: 0.5)
+            let item = self.items[indexPath.section][indexPath.row]
+            let command = RemoveItemFromListCommand(item, self)
+            CommandInvoker.shared.execute(command)
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)

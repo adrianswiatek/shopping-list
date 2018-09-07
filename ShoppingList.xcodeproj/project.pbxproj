@@ -35,6 +35,8 @@
 		3A4E31902142F8C800BE1DCD /* CommandInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E318F2142F8C800BE1DCD /* CommandInvoker.swift */; };
 		3A4E31922142F9B900BE1DCD /* AddItemToBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E31912142F9B900BE1DCD /* AddItemToBasketCommand.swift */; };
 		3A4E319821430F0800BE1DCD /* CommandSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E319721430F0800BE1DCD /* CommandSource.swift */; };
+		3A4E319B214322BC00BE1DCD /* RemoveItemFromListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E319A214322BC00BE1DCD /* RemoveItemFromListCommand.swift */; };
+		3A4E319D214322DD00BE1DCD /* ItemsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E319C214322DD00BE1DCD /* ItemsCommand.swift */; };
 		3A50641720DFEE5300DBB5C4 /* ListsViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50641620DFEE5300DBB5C4 /* ListsViewController+TextFieldWithCancelDelegate.swift */; };
 		3A50641B20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50641A20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift */; };
 		3A50641D20E012C400DBB5C4 /* ListsViewController+ItemsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50641C20E012C400DBB5C4 /* ListsViewController+ItemsViewControllerDelegate.swift */; };
@@ -152,6 +154,8 @@
 		3A4E318F2142F8C800BE1DCD /* CommandInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInvoker.swift; sourceTree = "<group>"; };
 		3A4E31912142F9B900BE1DCD /* AddItemToBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemToBasketCommand.swift; sourceTree = "<group>"; };
 		3A4E319721430F0800BE1DCD /* CommandSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandSource.swift; sourceTree = "<group>"; };
+		3A4E319A214322BC00BE1DCD /* RemoveItemFromListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveItemFromListCommand.swift; sourceTree = "<group>"; };
+		3A4E319C214322DD00BE1DCD /* ItemsCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCommand.swift; sourceTree = "<group>"; };
 		3A50641620DFEE5300DBB5C4 /* ListsViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
 		3A50641A20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3A50641C20E012C400DBB5C4 /* ListsViewController+ItemsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsViewController+ItemsViewControllerDelegate.swift"; sourceTree = "<group>"; };
@@ -351,6 +355,8 @@
 			isa = PBXGroup;
 			children = (
 				3A4E31912142F9B900BE1DCD /* AddItemToBasketCommand.swift */,
+				3A4E319C214322DD00BE1DCD /* ItemsCommand.swift */,
+				3A4E319A214322BC00BE1DCD /* RemoveItemFromListCommand.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -844,6 +850,7 @@
 			files = (
 				3AFAEF1420DD8A1F00E58C00 /* ListsViewController.swift in Sources */,
 				3AF04E9920D2FA6000938F13 /* ManageCategoriesTableViewCell.swift in Sources */,
+				3A4E319B214322BC00BE1DCD /* RemoveItemFromListCommand.swift in Sources */,
 				3A992241212E042800A6A2F9 /* PopupWithTextFieldController.swift in Sources */,
 				3ADFCD4120E95D0900E49C17 /* ListsForEditItemDelegate.swift in Sources */,
 				3A4E318E2142F8A600BE1DCD /* Command.swift in Sources */,
@@ -855,6 +862,7 @@
 				3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */,
 				3AE3AF722129EB8B00D105FE /* TextFieldWithWarning.swift in Sources */,
 				3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */,
+				3A4E319D214322DD00BE1DCD /* ItemsCommand.swift in Sources */,
 				3AD1EFFE20D45B700066FBF7 /* WarningAlertBuilder.swift in Sources */,
 				3A67525F2132C0F7008CD3E4 /* TextFieldWithWarningDelegate.swift in Sources */,
 				3A8F1A292107CE1900F27A1E /* ListActionsAlertBuilder.swift in Sources */,
