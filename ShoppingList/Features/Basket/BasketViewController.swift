@@ -27,6 +27,19 @@ class BasketViewController: UIViewController {
         return toolbar
     }()
     
+    lazy var restoreBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
+        barButtonItem.isEnabled = false
+        return barButtonItem
+    }()
+    
+    @objc private func restore() {
+        let invoker = CommandInvoker.shared
+        if invoker.canUndo(.basket) {
+            invoker.undo(.basket)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +56,10 @@ class BasketViewController: UIViewController {
         fetchItems()
         refreshUserInterface()
         tableView.reloadData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        CommandInvoker.shared.remove(.basket)
     }
     
     private func fetchItems() {
@@ -68,6 +85,9 @@ class BasketViewController: UIViewController {
     
     func refreshUserInterface() {
         items.count > 0 ? setSceneAsEditable() : setSceneAsNotEditable()
+        
+        restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.basket)
+        navigationItem.rightBarButtonItem = restoreBarButtonItem
     }
     
     private func setSceneAsEditable() {

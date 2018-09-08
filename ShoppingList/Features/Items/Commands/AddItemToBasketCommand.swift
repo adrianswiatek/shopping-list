@@ -1,10 +1,6 @@
 import Foundation
 
 class AddItemToBasketCommand: ItemsCommand {
-    override init(_ item: Item, _ viewController: ItemsViewController) {
-        super.init(item, viewController)
-    }
-    
     override func execute(at indexPath: IndexPath) {
         viewController.items[indexPath.section].remove(at: indexPath.row)
         viewController.tableView.deleteRows(at: [indexPath], with: .right)

@@ -15,6 +15,9 @@
 		3A135671207E993D006A7414 /* RemoveFromBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */; };
 		3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */; };
 		3A193C8821335F9E00EF6288 /* ListNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A193C8721335F9E00EF6288 /* ListNameGenerator.swift */; };
+		3A1BCC2021447019001925A9 /* RemoveItemFromBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BCC1F21447019001925A9 /* RemoveItemFromBasketCommand.swift */; };
+		3A1BCC222144712D001925A9 /* AddItemBackToListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BCC212144712D001925A9 /* AddItemBackToListCommand.swift */; };
+		3A1BCC2421447C5E001925A9 /* BasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1BCC2321447C5E001925A9 /* BasketCommand.swift */; };
 		3A20012B2097CBBE0015111F /* ItemsViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */; };
 		3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift */; };
 		3A2001312097D4D00015111F /* BasketVewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */; };
@@ -130,6 +133,9 @@
 		3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFromBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		3A193C8721335F9E00EF6288 /* ListNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNameGenerator.swift; sourceTree = "<group>"; };
+		3A1BCC1F21447019001925A9 /* RemoveItemFromBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveItemFromBasketCommand.swift; sourceTree = "<group>"; };
+		3A1BCC212144712D001925A9 /* AddItemBackToListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemBackToListCommand.swift; sourceTree = "<group>"; };
+		3A1BCC2321447C5E001925A9 /* BasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketCommand.swift; sourceTree = "<group>"; };
 		3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+AddToBasketDelegate.swift"; sourceTree = "<group>"; };
 		3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketVewController+UITableView.swift"; sourceTree = "<group>"; };
@@ -269,6 +275,16 @@
 				3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */,
 			);
 			path = BasketToolbar;
+			sourceTree = "<group>";
+		};
+		3A1BCC1E21446D62001925A9 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				3A1BCC212144712D001925A9 /* AddItemBackToListCommand.swift */,
+				3A1BCC2321447C5E001925A9 /* BasketCommand.swift */,
+				3A1BCC1F21447019001925A9 /* RemoveItemFromBasketCommand.swift */,
+			);
+			path = Commands;
 			sourceTree = "<group>";
 		};
 		3A37694A20D1B0B10039DA54 /* Settings */ = {
@@ -428,6 +444,7 @@
 		3A82DC54207D7524006B3885 /* Basket */ = {
 			isa = PBXGroup;
 			children = (
+				3A1BCC1E21446D62001925A9 /* Commands */,
 				3A0BD19020BB67DD00F15DB9 /* BasketToolbar */,
 				3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */,
 				3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */,
@@ -880,6 +897,8 @@
 				3A3B54AF20D05D310039CDCC /* EditItemViewControllerDelegate.swift in Sources */,
 				3A4E31922142F9B900BE1DCD /* AddItemToBasketCommand.swift in Sources */,
 				3AFBF96A2128DDC500FEAB55 /* ValidationButtonAnimations.swift in Sources */,
+				3A1BCC2021447019001925A9 /* RemoveItemFromBasketCommand.swift in Sources */,
+				3A1BCC2421447C5E001925A9 /* BasketCommand.swift in Sources */,
 				3A50641B20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift in Sources */,
 				3A043E6120D6FC400068287B /* CollectionExtensions.swift in Sources */,
 				3AFAEF1120DD88DE00E58C00 /* List.swift in Sources */,
@@ -931,6 +950,7 @@
 				3A8F1A2B2107D7B700F27A1E /* ListsActionsAlertDelegate.swift in Sources */,
 				3A37695120D1BA920039DA54 /* ManageCategoriesViewController.swift in Sources */,
 				3AC68B9320E2CF7F000F0487 /* BottomShadowAnimations.swift in Sources */,
+				3A1BCC222144712D001925A9 /* AddItemBackToListCommand.swift in Sources */,
 				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
 				3AD1F00720D476A20066FBF7 /* DeleteContextualActionBuilder.swift in Sources */,
 				3A2001332097D5250015111F /* BasketViewController+RemoveFromBasket.swift in Sources */,
