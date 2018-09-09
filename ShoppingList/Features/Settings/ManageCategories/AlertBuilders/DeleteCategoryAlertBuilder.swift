@@ -6,14 +6,15 @@ struct DeleteCategoryAlertBuilder {
     var cancelButtonTapped: (() -> ())?
     
     func build() -> UIAlertController {
-        let alertMessage = "There are items related with this category. If continue, all category items will be swapped to the Other category."
-        let controller = UIAlertController(title: "Delete category", message: alertMessage, preferredStyle: .alert)
+        let alertMessage = "There are items related with this category. " +
+            "If continue, all category items will be swapped to default category."
+        let controller = UIAlertController(title: "Delete category", message: alertMessage, preferredStyle: .actionSheet)
         
         let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             self.cancelButtonTapped?()
         }
         
-        let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+        let deleteAlertAction = UIAlertAction(title: "Delete permanently", style: .destructive) { _ in
             self.deleteButtonTapped?()
         }
         

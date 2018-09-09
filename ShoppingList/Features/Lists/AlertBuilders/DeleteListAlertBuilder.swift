@@ -7,13 +7,13 @@ struct DeleteListAlertBuilder {
     
     func build() -> UIAlertController {
         let alertMessage = "There are items in the list, that have not been bought yet. If continue, all list items will be deleted."
-        let controller = UIAlertController(title: "Delete list", message: alertMessage, preferredStyle: .alert)
+        let controller = UIAlertController(title: "Delete list", message: alertMessage, preferredStyle: .actionSheet)
         
         let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             self.cancelButtonTapped?()
         }
         
-        let deleteAlertAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+        let deleteAlertAction = UIAlertAction(title: "Delete permanently", style: .destructive) { _ in
             self.deleteButtonTapped?()
         }
         

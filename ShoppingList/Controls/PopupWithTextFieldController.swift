@@ -48,7 +48,7 @@ class PopupWithTextFieldController: UIViewController {
     private lazy var saveButton: UIButton = {
         let button = ButtonWithHighlight(type: .custom)
         button.setTitle("Save", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
         button.setTitleColor(colorForHighlightedButton, for: .normal)
         button.addTarget(self, action: #selector(handleSaveButton), for: .touchUpInside)
         return button
@@ -64,7 +64,7 @@ class PopupWithTextFieldController: UIViewController {
     private lazy var cancelButton: UIButton = {
         let button = ButtonWithHighlight(type: .custom)
         button.setTitle("Cancel", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
         button.setTitleColor(colorForHighlightedButton, for: .normal)
         button.addTarget(self, action: #selector(handleCancelButton), for: .touchUpInside)
         return button
