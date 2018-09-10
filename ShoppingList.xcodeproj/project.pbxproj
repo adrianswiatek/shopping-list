@@ -34,6 +34,7 @@
 		3A392E4D207A5A3D005857E5 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E4C207A5A3D005857E5 /* ShoppingListTests.swift */; };
 		3A3B54AF20D05D310039CDCC /* EditItemViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */; };
 		3A3B54B120D05F870039CDCC /* ItemsViewController+EditItemViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3B54B020D05F870039CDCC /* ItemsViewController+EditItemViewControllerDelegate.swift */; };
+		3A422A4521472CCD00773BD8 /* ItemsTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */; };
 		3A4E318E2142F8A600BE1DCD /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E318D2142F8A600BE1DCD /* Command.swift */; };
 		3A4E31902142F8C800BE1DCD /* CommandInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E318F2142F8C800BE1DCD /* CommandInvoker.swift */; };
 		3A4E31922142F9B900BE1DCD /* AddItemToBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E31912142F9B900BE1DCD /* AddItemToBasketCommand.swift */; };
@@ -156,6 +157,7 @@
 		3A392E4E207A5A3D005857E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3A3B54B020D05F870039CDCC /* ItemsViewController+EditItemViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+EditItemViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewHeaderCell.swift; sourceTree = "<group>"; };
 		3A4E318D2142F8A600BE1DCD /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		3A4E318F2142F8C800BE1DCD /* CommandInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInvoker.swift; sourceTree = "<group>"; };
 		3A4E31912142F9B900BE1DCD /* AddItemToBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemToBasketCommand.swift; sourceTree = "<group>"; };
@@ -474,6 +476,8 @@
 				3A4E31992143167200BE1DCD /* Commands */,
 				3AEDFEE820BC9D370002B6F7 /* ItemsToolbar */,
 				3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */,
+				3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */,
+				3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */,
 				3A392E39207A5A3C005857E5 /* ItemsViewController.swift */,
 				3A20012C2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift */,
 				3A3B54B020D05F870039CDCC /* ItemsViewController+EditItemViewControllerDelegate.swift */,
@@ -481,7 +485,6 @@
 				3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */,
 				3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */,
 				3A50641A20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift */,
-				3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -629,8 +632,7 @@
 				3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */,
 				3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */,
 			);
-			name = ItemsToolbar;
-			path = Animations/ItemsToolbar;
+			path = ItemsToolbar;
 			sourceTree = "<group>";
 		};
 		3AFAEF1220DD8A0600E58C00 /* Lists */ = {
@@ -920,6 +922,7 @@
 				3AB80FD52110FCE7002DDC4C /* InfoForEditItem.swift in Sources */,
 				3AC6212120C0575900A16F0E /* TextFieldWithCancelDelegate.swift in Sources */,
 				3A972EC4207A97B300963961 /* ItemsTableViewCell.swift in Sources */,
+				3A422A4521472CCD00773BD8 /* ItemsTableViewHeaderCell.swift in Sources */,
 				3ADFCD3B20E947D500E49C17 /* AddCategoryPopupForEditItem.swift in Sources */,
 				3A4E319821430F0800BE1DCD /* CommandSource.swift in Sources */,
 				3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */,

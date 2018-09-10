@@ -22,7 +22,7 @@ struct DeleteContextualActionBuilder {
     }
     
     func build() -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Delete", handler: handler)
+        let action = UIContextualAction(style: .normal, title: nil, handler: handler)
         action.backgroundColor = category.isDefault() ? #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1) : #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         action.image = #imageLiteral(resourceName: "Trash")
         return action

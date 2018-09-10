@@ -72,10 +72,6 @@ extension ManageCategoriesViewController: UITableViewDelegate {
             self.tableView.reloadRows(at: [indexPathOfDefaultCategory], with: .automatic)
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
 }
 
 extension ManageCategoriesViewController: UITableViewDataSource {

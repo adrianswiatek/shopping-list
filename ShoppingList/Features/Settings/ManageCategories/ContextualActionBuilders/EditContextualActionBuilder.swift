@@ -22,7 +22,7 @@ struct EditContextualActionBuilder {
     }
     
     func build() -> UIContextualAction {
-        let action = UIContextualAction(style: .normal, title: "Edit", handler: handler)
+        let action = UIContextualAction(style: .normal, title: nil, handler: handler)
         action.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         action.image = #imageLiteral(resourceName: "Edit")
         return action

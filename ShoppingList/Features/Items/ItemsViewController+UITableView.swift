@@ -24,8 +24,10 @@ extension ItemsViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return categories[section].name
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = ItemsTableViewHeaderCell()
+        headerCell.category = categories[section]
+        return headerCell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
