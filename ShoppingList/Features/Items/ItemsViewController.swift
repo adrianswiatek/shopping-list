@@ -19,7 +19,9 @@ class ItemsViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.allowsMultipleSelectionDuringEditing = true
         tableView.dragInteractionEnabled = true
-        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
+        tableView.register(ItemsTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.tableFooterView = UIView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView

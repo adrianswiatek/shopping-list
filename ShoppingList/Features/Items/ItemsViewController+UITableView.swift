@@ -2,7 +2,7 @@ import UIKit
 
 extension ItemsViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] (action, sourceView, completionHandler) in
+        let editItemAction = UIContextualAction(style: .normal, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let item = self.items[indexPath.section][indexPath.row]
             self.goToEditItemDetailed(with: item)
             completionHandler(true)
@@ -13,7 +13,7 @@ extension ItemsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
+        let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let item = self.items[indexPath.section][indexPath.row]
             let command = RemoveItemFromListCommand(item, self)
             CommandInvoker.shared.execute(command)
@@ -35,10 +35,6 @@ extension ItemsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
 }
 
 extension ItemsViewController: UITableViewDataSource {
@@ -51,7 +47,7 @@ extension ItemsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemsTableViewCell
         
         cell.item = items[indexPath.section][indexPath.row]
         cell.delegate = self
@@ -65,7 +61,7 @@ extension ItemsViewController: UITableViewDataSource {
         if sourceIndexPath.section != destinationIndexPath.section {
             let destinationCategory = categories[destinationIndexPath.section]
             item = item.getWithChanged(category: destinationCategory)
-            let cell = tableView.cellForRow(at: sourceIndexPath) as! ItemTableViewCell
+            let cell = tableView.cellForRow(at: sourceIndexPath) as! ItemsTableViewCell
             cell.item = item
             Repository.shared.updateCategory(of: item, to: destinationCategory)
         }

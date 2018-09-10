@@ -1,25 +1,18 @@
 import UIKit
 
-class ItemTableViewCell: UITableViewCell {
+class ItemsTableViewCell: UITableViewCell {
    
     var item: Item? {
         didSet {
             itemNameLabel.text = item?.name
             itemInfoLabel.text = item?.info
-            setItemNameLabelCenterYConstraint()
+            setItemNameLabelBottomConstraint()
         }
     }
     
-    private func setItemNameLabelCenterYConstraint() {
-        let constraint = itemNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-        
-        if let info = itemInfoLabel.text, info != "" {
-            constraint.constant = -8
-        } else {
-            constraint.constant = 0
-        }
-        
-        constraint.isActive = true
+    private func setItemNameLabelBottomConstraint() {
+        let constraint = itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        constraint.isActive = itemInfoLabel.text == nil || itemInfoLabel.text == ""
     }
     
     weak var delegate: AddToBasketDelegate?
@@ -28,7 +21,7 @@ class ItemTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 1)
         label.font = .systemFont(ofSize: 17)
-        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -37,7 +30,7 @@ class ItemTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         label.font = .systemFont(ofSize: 14)
-        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,18 +59,22 @@ class ItemTableViewCell: UITableViewCell {
     
     private func setupUserInterface() {
         contentView.addSubview(addToBasketButton)
-        addToBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        addToBasketButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16).isActive = true
-        addToBasketButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        addToBasketButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
         contentView.addSubview(itemNameLabel)
-        itemNameLabel.rightAnchor.constraint(equalTo: addToBasketButton.leftAnchor, constant: 16).isActive = true
-        itemNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
-        
         contentView.addSubview(itemInfoLabel)
-        itemInfoLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 12).isActive = true
-        itemInfoLabel.rightAnchor.constraint(equalTo: addToBasketButton.leftAnchor, constant: 16).isActive = true
-        itemInfoLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
+        
+        NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+            addToBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            addToBasketButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            addToBasketButton.heightAnchor.constraint(equalToConstant: 40),
+            addToBasketButton.widthAnchor.constraint(equalTo: addToBasketButton.heightAnchor),
+            itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            itemNameLabel.trailingAnchor.constraint(equalTo: addToBasketButton.leadingAnchor, constant: -4),
+            itemInfoLabel.leadingAnchor.constraint(equalTo: itemNameLabel.leadingAnchor),
+            itemInfoLabel.topAnchor.constraint(equalTo: itemNameLabel.bottomAnchor, constant: 4),
+            itemInfoLabel.trailingAnchor.constraint(equalTo: itemNameLabel.trailingAnchor),
+            itemInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        ])
     }
 }

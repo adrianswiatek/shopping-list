@@ -67,7 +67,7 @@
 		3A8F1A2D2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F1A2C2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift */; };
 		3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
 		3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
-		3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemTableViewCell.swift */; };
+		3A972EC4207A97B300963961 /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */; };
 		3A992241212E042800A6A2F9 /* PopupWithTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */; };
 		3A9EAF42209BBA4900B4A39D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF41209BBA4900B4A39D /* Category.swift */; };
 		3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */; };
@@ -189,7 +189,7 @@
 		3A8F1A2C2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsViewController+ListsActionsAlertDelegate.swift"; sourceTree = "<group>"; };
 		3A972EBE207A877D00963961 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonAnimations.swift; sourceTree = "<group>"; };
-		3A972EC3207A97B300963961 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewCell.swift; sourceTree = "<group>"; };
 		3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWithTextFieldController.swift; sourceTree = "<group>"; };
 		3A9EAF41209BBA4900B4A39D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryRepository.swift; sourceTree = "<group>"; };
@@ -481,7 +481,7 @@
 				3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */,
 				3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */,
 				3A50641A20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift */,
-				3A972EC3207A97B300963961 /* ItemTableViewCell.swift */,
+				3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -919,7 +919,7 @@
 				3A69E41D20BA1C37004D122E /* ItemEntityExtensions.swift in Sources */,
 				3AB80FD52110FCE7002DDC4C /* InfoForEditItem.swift in Sources */,
 				3AC6212120C0575900A16F0E /* TextFieldWithCancelDelegate.swift in Sources */,
-				3A972EC4207A97B300963961 /* ItemTableViewCell.swift in Sources */,
+				3A972EC4207A97B300963961 /* ItemsTableViewCell.swift in Sources */,
 				3ADFCD3B20E947D500E49C17 /* AddCategoryPopupForEditItem.swift in Sources */,
 				3A4E319821430F0800BE1DCD /* CommandSource.swift in Sources */,
 				3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */,
