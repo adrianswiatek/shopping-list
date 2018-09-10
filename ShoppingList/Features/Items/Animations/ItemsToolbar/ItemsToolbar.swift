@@ -62,7 +62,7 @@ class ItemsToolbar: UIView {
     
     private lazy var moveAllToBasketButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
-            image: #imageLiteral(resourceName: "Basket"),
+            image: #imageLiteral(resourceName: "AddToBasket"),
             style: .plain,
             target: self,
             action: #selector(moveAllToBasketButtonHandler))
