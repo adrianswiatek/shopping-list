@@ -30,6 +30,7 @@ class ListsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .darkGray
         label.font = .boldSystemFont(ofSize: 18)
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -100,42 +101,40 @@ class ListsTableViewCell: UITableViewCell {
     
     private func setupUserInterface() {
         contentView.addSubview(accessTypeView)
-        accessTypeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
-        accessTypeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        accessTypeView.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        accessTypeView.widthAnchor.constraint(equalToConstant: 48).isActive = true
-        
         accessTypeView.addSubview(accessTypeLabel)
-        accessTypeLabel.trailingAnchor.constraint(equalTo: accessTypeView.trailingAnchor).isActive = true
-        accessTypeLabel.bottomAnchor.constraint(equalTo: accessTypeView.bottomAnchor).isActive = true
-        
         accessTypeView.addSubview(accessTypeImageView)
-        accessTypeImageView.centerXAnchor.constraint(equalTo: accessTypeLabel.centerXAnchor).isActive = true
-        accessTypeImageView.bottomAnchor.constraint(equalTo: accessTypeLabel.topAnchor).isActive = true
-        accessTypeImageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        accessTypeImageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
         
         contentView.addSubview(nameLabel)
-        nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -20).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: accessTypeView.leadingAnchor).isActive = true
-        
         contentView.addSubview(numberOfItemsLabel)
-        numberOfItemsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
-        numberOfItemsLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 6).isActive = true
-        
         contentView.addSubview(numberOfItemsValueLabel)
-        numberOfItemsValueLabel.leadingAnchor.constraint(equalTo: numberOfItemsLabel.trailingAnchor, constant: 4).isActive = true
-        numberOfItemsValueLabel.centerYAnchor.constraint(equalTo: numberOfItemsLabel.centerYAnchor).isActive = true
-        
         contentView.addSubview(updateDateLabel)
-        updateDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
-        updateDateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 24).isActive = true
-        updateDateLabel.widthAnchor.constraint(equalTo: numberOfItemsLabel.widthAnchor).isActive = false
-        
         contentView.addSubview(updateDateValueLabel)
-        updateDateValueLabel.leadingAnchor.constraint(equalTo: updateDateLabel.trailingAnchor, constant: 4).isActive = true
-        updateDateValueLabel.centerYAnchor.constraint(equalTo: updateDateLabel.centerYAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            accessTypeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            accessTypeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            accessTypeView.heightAnchor.constraint(equalToConstant: 48),
+            accessTypeView.widthAnchor.constraint(equalToConstant: 48),
+            accessTypeLabel.trailingAnchor.constraint(equalTo: accessTypeView.trailingAnchor),
+            accessTypeLabel.bottomAnchor.constraint(equalTo: accessTypeView.bottomAnchor),
+            accessTypeImageView.centerXAnchor.constraint(equalTo: accessTypeLabel.centerXAnchor),
+            accessTypeImageView.bottomAnchor.constraint(equalTo: accessTypeLabel.topAnchor),
+            accessTypeImageView.heightAnchor.constraint(equalToConstant: 24),
+            accessTypeImageView.widthAnchor.constraint(equalToConstant: 24),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            nameLabel.trailingAnchor.constraint(equalTo: accessTypeView.leadingAnchor, constant: -12),
+            numberOfItemsLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            numberOfItemsLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            numberOfItemsValueLabel.leadingAnchor.constraint(equalTo: numberOfItemsLabel.trailingAnchor, constant: 4),
+            numberOfItemsValueLabel.centerYAnchor.constraint(equalTo: numberOfItemsLabel.centerYAnchor),
+            updateDateLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            updateDateLabel.topAnchor.constraint(equalTo: numberOfItemsLabel.bottomAnchor),
+            updateDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            updateDateLabel.widthAnchor.constraint(equalTo: numberOfItemsLabel.widthAnchor),
+            updateDateValueLabel.leadingAnchor.constraint(equalTo: updateDateLabel.trailingAnchor, constant: 4),
+            updateDateValueLabel.centerYAnchor.constraint(equalTo: updateDateLabel.centerYAnchor)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

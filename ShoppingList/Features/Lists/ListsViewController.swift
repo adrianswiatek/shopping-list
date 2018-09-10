@@ -17,6 +17,8 @@ class ListsViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler)))
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 90
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false

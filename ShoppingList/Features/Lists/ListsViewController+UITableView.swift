@@ -1,10 +1,6 @@
 import UIKit
 
 extension ListsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -15,7 +11,7 @@ extension ListsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
+        let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let currentList = self.lists[indexPath.row]
             if currentList.getNumberOfItemsToBuy() == 0 {
                 self.deleteList(at: indexPath)
@@ -44,7 +40,7 @@ extension ListsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(style: .normal, title: "Edit") { [unowned self] (action, sourceView, completionHandler) in
+        let editItemAction = UIContextualAction(style: .normal, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             self.showEditPopup(
                 list: self.lists[indexPath.row],
                 saved: {
