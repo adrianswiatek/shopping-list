@@ -5,7 +5,10 @@ class ListsViewController: UIViewController {
     var lists = [List]()
     
     lazy var addListTextFieldWithCancel: TextFieldWithCancel = {
-        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new list...")
+        let textFieldWithCancel =
+            TextFieldWithCancel(
+                viewController: self,
+                placeHolder: "Add new list...")
         textFieldWithCancel.delegate = self
         textFieldWithCancel.layer.zPosition = 1
         textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
@@ -16,7 +19,10 @@ class ListsViewController: UIViewController {
         let tableView = UITableView()
         tableView.tableFooterView = UIView()
         tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler)))
+        tableView.addGestureRecognizer(
+            UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(longPressHandler)))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 90
         tableView.delegate = self
@@ -37,7 +43,7 @@ class ListsViewController: UIViewController {
         present(alertController.build(), animated: true)
     }
     
-    lazy var goToSettingsBarButtonItem: UIBarButtonItem = {
+    lazy private var goToSettingsBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(image: #imageLiteral(resourceName: "Settings"), style: .plain, target: self, action: #selector(goToSettingsScene))
     }()
     
@@ -47,38 +53,62 @@ class ListsViewController: UIViewController {
         present(navigationController, animated: true)
     }
     
+    lazy private var restoreBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
+        barButtonItem.isEnabled = false
+        return barButtonItem
+    }()
+    
+    @objc private func restore() {
+        let invoker = CommandInvoker.shared
+        if invoker.canUndo(.lists) {
+            invoker.undo(.lists)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUserInterface()
         fetchLists()
-        setScene()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        CommandInvoker.shared.remove(.lists)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        refreshUserInterface()
     }
 
     private func setupUserInterface() {
         navigationItem.title = "My lists"
         
-        navigationItem.rightBarButtonItem = goToSettingsBarButtonItem
-        
         view.addSubview(addListTextFieldWithCancel)
-        addListTextFieldWithCancel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        addListTextFieldWithCancel.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        addListTextFieldWithCancel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        addListTextFieldWithCancel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
         view.addSubview(tableView)
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: addListTextFieldWithCancel.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            addListTextFieldWithCancel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addListTextFieldWithCancel.topAnchor.constraint(equalTo: view.topAnchor),
+            addListTextFieldWithCancel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addListTextFieldWithCancel.heightAnchor.constraint(equalToConstant: 50),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: addListTextFieldWithCancel.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
-    func setScene() {
+    func refreshUserInterface() {
         if lists.count > 0 {
             tableView.backgroundView = nil
         } else {
             tableView.setTextIfEmpty("You have not added any lists yet")
         }
+        
+        restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.lists)
+        navigationItem.rightBarButtonItems = [goToSettingsBarButtonItem, restoreBarButtonItem]
     }
     
     func fetchLists() {

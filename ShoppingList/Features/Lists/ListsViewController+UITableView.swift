@@ -14,7 +14,8 @@ extension ListsViewController: UITableViewDelegate {
         let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let currentList = self.lists[indexPath.row]
             if currentList.getNumberOfItemsToBuy() == 0 {
-                self.deleteList(at: indexPath)
+                let command = RemoveListCommand(currentList, self)
+                CommandInvoker.shared.execute(command)
                 completionHandler(true)
                 return
             }
@@ -36,7 +37,7 @@ extension ListsViewController: UITableViewDelegate {
         let list = lists.remove(at: indexPath.row)
         Repository.shared.remove(list)
         tableView.deleteRows(at: [indexPath], with: .automatic)
-        setScene()
+        refreshUserInterface()
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

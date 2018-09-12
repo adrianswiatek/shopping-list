@@ -7,6 +7,6 @@ extension ListsViewController: TextFieldWithCancelDelegate {
         lists.insert(list, at: 0)
         Repository.shared.add(list)
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        setScene()
+        refreshUserInterface()
     }
 }

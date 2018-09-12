@@ -61,6 +61,7 @@ class BasketViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         CommandInvoker.shared.remove(.basket)
     }
     

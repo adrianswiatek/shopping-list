@@ -66,6 +66,7 @@
 		3A8F1A292107CE1900F27A1E /* ListActionsAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F1A282107CE1900F27A1E /* ListActionsAlertBuilder.swift */; };
 		3A8F1A2B2107D7B700F27A1E /* ListsActionsAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F1A2A2107D7B700F27A1E /* ListsActionsAlertDelegate.swift */; };
 		3A8F1A2D2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8F1A2C2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift */; };
+		3A92DFDB2149BA7B009EA5B7 /* RemoveListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A92DFDA2149BA7B009EA5B7 /* RemoveListCommand.swift */; };
 		3A972EBF207A877D00963961 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
 		3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
 		3A972EC4207A97B300963961 /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */; };
@@ -189,6 +190,7 @@
 		3A8F1A282107CE1900F27A1E /* ListActionsAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListActionsAlertBuilder.swift; sourceTree = "<group>"; };
 		3A8F1A2A2107D7B700F27A1E /* ListsActionsAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsActionsAlertDelegate.swift; sourceTree = "<group>"; };
 		3A8F1A2C2107D82B00F27A1E /* ListsViewController+ListsActionsAlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsViewController+ListsActionsAlertDelegate.swift"; sourceTree = "<group>"; };
+		3A92DFDA2149BA7B009EA5B7 /* RemoveListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListCommand.swift; sourceTree = "<group>"; };
 		3A972EBE207A877D00963961 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonAnimations.swift; sourceTree = "<group>"; };
 		3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewCell.swift; sourceTree = "<group>"; };
@@ -458,6 +460,14 @@
 			path = Basket;
 			sourceTree = "<group>";
 		};
+		3A92DFD92149B970009EA5B7 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				3A92DFDA2149BA7B009EA5B7 /* RemoveListCommand.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		3A972EB8207A5D3E00963961 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -638,6 +648,7 @@
 		3AFAEF1220DD8A0600E58C00 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				3A92DFD92149B970009EA5B7 /* Commands */,
 				3AC68B9420E2DF0F000F0487 /* AlertBuilders */,
 				3AFAEF1B20DDA05500E58C00 /* ListsTableViewCell.swift */,
 				3AFAEF1320DD8A1F00E58C00 /* ListsViewController.swift */,
@@ -896,6 +907,7 @@
 				3A8BC19820C7024100B2F357 /* ItemsOrder.swift in Sources */,
 				3ADFCD4320E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift in Sources */,
 				3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */,
+				3A92DFDB2149BA7B009EA5B7 /* RemoveListCommand.swift in Sources */,
 				3A3B54AF20D05D310039CDCC /* EditItemViewControllerDelegate.swift in Sources */,
 				3A4E31922142F9B900BE1DCD /* AddItemToBasketCommand.swift in Sources */,
 				3AFBF96A2128DDC500FEAB55 /* ValidationButtonAnimations.swift in Sources */,
