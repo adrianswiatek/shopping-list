@@ -15,7 +15,7 @@ class BasketTableViewCell: UITableViewCell {
         label.textColor = #colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 1)
         label.text = "Item name"
         label.font = .systemFont(ofSize: 17)
-        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,14 +44,18 @@ class BasketTableViewCell: UITableViewCell {
     
     private func setupUserInterface() {
         contentView.addSubview(removeFromBasketButton)
-        removeFromBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        removeFromBasketButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16).isActive = true
-        removeFromBasketButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        removeFromBasketButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
         contentView.addSubview(itemNameLabel)
-        itemNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        itemNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
-        itemNameLabel.rightAnchor.constraint(equalTo: removeFromBasketButton.leftAnchor, constant: 16).isActive = true
+        
+        NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+            removeFromBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            removeFromBasketButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            removeFromBasketButton.widthAnchor.constraint(equalToConstant: 40),
+            removeFromBasketButton.heightAnchor.constraint(equalToConstant: 40),
+            itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            itemNameLabel.trailingAnchor.constraint(equalTo: removeFromBasketButton.leadingAnchor, constant: -4),
+            itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        ])
     }
 }

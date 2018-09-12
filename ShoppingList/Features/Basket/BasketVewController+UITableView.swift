@@ -2,7 +2,7 @@ import UIKit
 
 extension BasketViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(style: .destructive, title: "Delete") { [unowned self] (action, sourceView, completionHandler) in
+        let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let item = self.items[indexPath.row]
             let command = RemoveItemFromBasketCommand(item, self)
             CommandInvoker.shared.execute(command)
@@ -19,10 +19,6 @@ extension BasketViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
     }
 }
 

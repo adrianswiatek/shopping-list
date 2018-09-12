@@ -14,6 +14,8 @@ class BasketViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.dragInteractionEnabled = true
         tableView.allowsMultipleSelectionDuringEditing = true
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
         tableView.tableFooterView = UIView()
         tableView.register(BasketTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
