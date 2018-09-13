@@ -57,6 +57,7 @@
 		3A69E41420B9F158004D122E /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41320B9F158004D122E /* RepositoryProtocol.swift */; };
 		3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */; };
 		3A69E41D20BA1C37004D122E /* ItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41C20BA1C37004D122E /* ItemEntityExtensions.swift */; };
+		3A818D55214B00E3005BEC5F /* RemoveCategoryCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A818D54214B00E3005BEC5F /* RemoveCategoryCommand.swift */; };
 		3A82DC4E207D5296006B3885 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4D207D5296006B3885 /* Item.swift */; };
 		3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC4F207D52BC006B3885 /* ItemState.swift */; };
 		3A82DC53207D6616006B3885 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */; };
@@ -181,6 +182,7 @@
 		3A69E41320B9F158004D122E /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
 		3A69E41620BA01AF004D122E /* ShoppingList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShoppingList.xcdatamodel; sourceTree = "<group>"; };
 		3A69E41C20BA1C37004D122E /* ItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEntityExtensions.swift; sourceTree = "<group>"; };
+		3A818D54214B00E3005BEC5F /* RemoveCategoryCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCategoryCommand.swift; sourceTree = "<group>"; };
 		3A82DC4D207D5296006B3885 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		3A82DC4F207D52BC006B3885 /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		3A37694F20D1BA730039DA54 /* ManageCategories */ = {
 			isa = PBXGroup;
 			children = (
+				3A818D53214B00CE005BEC5F /* Commands */,
 				3AD1EFFC20D45B360066FBF7 /* AlertBuilders */,
 				3AD1F00320D46C770066FBF7 /* ContextualActionBuilders */,
 				3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */,
@@ -430,6 +433,14 @@
 				3A562A0220E430CE0030732D /* ListEntityExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3A818D53214B00CE005BEC5F /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				3A818D54214B00E3005BEC5F /* RemoveCategoryCommand.swift */,
+			);
+			path = Commands;
 			sourceTree = "<group>";
 		};
 		3A82DC51207D52D8006B3885 /* Model */ = {
@@ -979,6 +990,7 @@
 				3A135673207E9AF3006A7414 /* UIButtonExtensions.swift in Sources */,
 				3AAC84F9211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift in Sources */,
 				3AC6211D20C0542A00A16F0E /* TextFieldWithCancel.swift in Sources */,
+				3A818D55214B00E3005BEC5F /* RemoveCategoryCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -47,6 +47,7 @@ extension ManageCategoriesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let category = categories[indexPath.row]
+
         let builder = DeleteContextualActionBuilder(
             viewController: self,
             category: category,

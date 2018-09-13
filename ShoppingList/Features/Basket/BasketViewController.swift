@@ -29,7 +29,7 @@ class BasketViewController: UIViewController {
         return toolbar
     }()
     
-    lazy var restoreBarButtonItem: UIBarButtonItem = {
+    private lazy var restoreBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
         barButtonItem.isEnabled = false
         return barButtonItem

@@ -20,7 +20,7 @@ class RemoveListCommand: Command {
         viewController.lists.remove(at: index)
         viewController.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         
-        repository.remove(self.list)
+        repository.remove(list)
         
         viewController.refreshUserInterface()
     }
@@ -32,7 +32,7 @@ class RemoveListCommand: Command {
         let index = viewController.lists.index { $0.id == list.id } ?? 0
         viewController.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         
-        repository.add(self.list)
+        repository.add(list)
         
         viewController.refreshUserInterface()
     }

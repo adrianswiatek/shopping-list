@@ -2,14 +2,14 @@ import UIKit
 
 struct DeleteContextualActionBuilder {
     
-    private let viewController: UIViewController
+    private let viewController: ManageCategoriesViewController
     private let category: Category
     private let isCategoryEmpty: Bool
     private let deleteCategory: () -> ()
     private let deletedCategoryWithItems: () -> ()
     
     init(
-        viewController: UIViewController,
+        viewController: ManageCategoriesViewController,
         category: Category,
         isCategoryEmpty: Bool,
         deleteCategory: @escaping () -> (),
@@ -38,7 +38,8 @@ struct DeleteContextualActionBuilder {
         }
         
         if isCategoryEmpty {
-            self.deleteCategory()
+            let command = RemoveCategoryCommand(category, viewController)
+            CommandInvoker.shared.execute(command)
             completionHandler(true)
             return
         }

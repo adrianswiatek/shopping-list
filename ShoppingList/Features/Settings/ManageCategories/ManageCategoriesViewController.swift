@@ -28,6 +28,19 @@ class ManageCategoriesViewController: UIViewController {
         return ValidationButtonRuleComposite(rules: notEmptyRule, uniqueRule)
     }
     
+    private lazy var restoreBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
+        barButtonItem.isEnabled = false
+        return barButtonItem
+    }()
+    
+    @objc private func restore() {
+        let invoker = CommandInvoker.shared
+        if invoker.canUndo(.categories) {
+            invoker.undo(.categories)
+        }
+    }
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -41,8 +54,6 @@ class ManageCategoriesViewController: UIViewController {
         return tableView
     }()
     
-    // MARK: - Initialize
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUserInterface()
@@ -54,16 +65,18 @@ class ManageCategoriesViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         view.addSubview(addCategoryTextField)
-        addCategoryTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        addCategoryTextField.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        addCategoryTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        addCategoryTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
         view.addSubview(tableView)
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: addCategoryTextField.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            addCategoryTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addCategoryTextField.topAnchor.constraint(equalTo: view.topAnchor),
+            addCategoryTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addCategoryTextField.heightAnchor.constraint(equalToConstant: 50),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: addCategoryTextField.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,6 +84,17 @@ class ManageCategoriesViewController: UIViewController {
         fetchCategories()
         fetchItems()
         tableView.reloadData()
+        refreshUserInterface()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        CommandInvoker.shared.remove(.categories)
+    }
+    
+    func refreshUserInterface() {
+        restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.categories)
+        navigationItem.rightBarButtonItem = restoreBarButtonItem
     }
     
     func fetchCategories() {
