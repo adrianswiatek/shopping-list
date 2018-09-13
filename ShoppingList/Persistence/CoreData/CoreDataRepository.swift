@@ -157,6 +157,14 @@ class CoreDataRepository: RepositoryProtocol {
         save()
     }
     
+    func add(_ items: [Item]) {
+        items.forEach {
+            let entity = $0.map(context: context)
+            entity.list?.updateDate = Date()
+        }
+        save()
+    }
+    
     func remove(_ items: [Item]) {
         let entities = getItemEntities(by: items)
         if let entity = entities.first {

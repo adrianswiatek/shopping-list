@@ -6,8 +6,6 @@ class InMemoryRepository: RepositoryProtocol {
     private var itemsOrders = [ItemsOrder]()
     private var categories = [Category]()
     
-    
-
     init() {
         var myList = List.new(name: "Daily shopping")
         
@@ -138,6 +136,10 @@ class InMemoryRepository: RepositoryProtocol {
     func add(_ item: Item) {
         guard let indexOfList = getIndex(of: item.list) else { return }
         update(lists[indexOfList].getWithAdded(item: item))
+    }
+    
+    func add(_ items: [Item]) {
+        items.forEach { [unowned self] in self.add($0) }
     }
     
     func remove(_ items: [Item]) {

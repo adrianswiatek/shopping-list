@@ -7,32 +7,14 @@ extension BasketViewController: BasketToolbarDelegate {
     }
     
     func actionButtonDidTap() {
-        let restoreAllAction = UIAlertAction(title: "Restore all", style: .default) { [unowned self] action in
-            let itemsToRestore = self.items
-            
-            self.items.removeAll()
-            
-            let indexPathsOfRestoredItems = (0..<itemsToRestore.count).map { IndexPath(row: $0, section: 0) }
-            self.tableView.deleteRows(at: indexPathsOfRestoredItems, with: .left)
-            
-            Repository.shared.updateState(of: itemsToRestore, to: .toBuy)
-            Repository.shared.setItemsOrder(self.items, in: self.list, forState: .inBasket)
-            
-            self.refreshUserInterface()
+        let restoreAllAction = UIAlertAction(title: "Restore all", style: .default) { [unowned self] _ in
+            let command = AddAllItemsBackToListCommand(self.items, self)
+            CommandInvoker.shared.execute(command)
         }
         
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
-            let itemsToDelete = self.items
-            
-            self.items.removeAll()
-            
-            let indexPathsOfDeletedItems = (0..<itemsToDelete.count).map { IndexPath(row: $0, section: 0) }
-            self.tableView.deleteRows(at: indexPathsOfDeletedItems, with: .automatic)
-            
-            Repository.shared.remove(itemsToDelete)
-            Repository.shared.setItemsOrder(self.items, in: self.list, forState: .inBasket)
-            
-            self.refreshUserInterface()
+            let command = RemoveAllItemsFromBasketCommand(self.items, self)
+            CommandInvoker.shared.execute(command)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)

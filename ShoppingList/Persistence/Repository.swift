@@ -30,6 +30,7 @@ class Repository: RepositoryProtocol {
     func getNumberOfItemsWith(state: ItemState, in list: List) -> Int { return repository.getNumberOfItemsWith(state: state, in: list) }
     func getNumberOfItems(in list: List) -> Int { return repository.getNumberOfItems(in: list) }
     func add(_ item: Item) { repository.add(item) }
+    func add(_ items: [Item]) { repository.add(items) }
     func remove(_ items: [Item]) { repository.remove(items) }
     func remove(_ item: Item) { repository.remove(item) }
     func updateState(of items: [Item], to state: ItemState) { repository.updateState(of: items, to: state) }

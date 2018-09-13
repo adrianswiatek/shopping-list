@@ -21,6 +21,7 @@ protocol RepositoryProtocol {
     func getNumberOfItemsWith(state: ItemState, in list: List) -> Int
     func getNumberOfItems(in list: List) -> Int
     func add(_ item: Item)
+    func add(_ items: [Item])
     func remove(_ items: [Item])
     func remove(_ item: Item)
     func updateState(of items: [Item], to state: ItemState)

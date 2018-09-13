@@ -1,6 +1,6 @@
 import Foundation
 
-class BasketCommand: Command {
+class BasketForSingleCommand: Command {
     var source: CommandSource
     
     let item: Item

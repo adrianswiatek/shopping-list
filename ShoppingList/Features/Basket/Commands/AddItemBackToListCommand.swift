@@ -1,6 +1,6 @@
 import Foundation
 
-class AddItemBackToListCommand: BasketCommand {
+class AddItemBackToListCommand: BasketForSingleCommand {
     override func execute(at indexPath: IndexPath) {
         viewController.items.remove(at: indexPath.row)
         viewController.tableView.deleteRows(at: [indexPath], with: .left)
