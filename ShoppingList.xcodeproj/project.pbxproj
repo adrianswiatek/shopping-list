@@ -102,6 +102,7 @@
 		3AE3AF722129EB8B00D105FE /* TextFieldWithWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3AF712129EB8B00D105FE /* TextFieldWithWarning.swift */; };
 		3AE3AF74212A07D800D105FE /* ButtonValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */; };
 		3AE81922214EE717009E962F /* BasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE81921214EE716009E962F /* BasketCommand.swift */; };
+		3AE81924214F0100009E962F /* AddItemsToBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE81923214F0100009E962F /* AddItemsToBasketCommand.swift */; };
 		3AEDFEF020BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */; };
 		3AEDFEF220BC9F980002B6F7 /* ItemsToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */; };
 		3AEDFEF420BC9FE30002B6F7 /* ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */; };
@@ -228,6 +229,7 @@
 		3AE3AF712129EB8B00D105FE /* TextFieldWithWarning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithWarning.swift; sourceTree = "<group>"; };
 		3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonValidatable.swift; sourceTree = "<group>"; };
 		3AE81921214EE716009E962F /* BasketCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCommand.swift; sourceTree = "<group>"; };
+		3AE81923214F0100009E962F /* AddItemsToBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsToBasketCommand.swift; sourceTree = "<group>"; };
 		3AEDFEEF20BC9F460002B6F7 /* ItemsViewController+ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ItemsViewController+ItemsToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbar.swift; sourceTree = "<group>"; };
 		3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbarDelegate.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 		3A4E31992143167200BE1DCD /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				3AE81923214F0100009E962F /* AddItemsToBasketCommand.swift */,
 				3A4E31912142F9B900BE1DCD /* AddItemToBasketCommand.swift */,
 				3A4E319C214322DD00BE1DCD /* ItemsCommand.swift */,
 				3A4E319A214322BC00BE1DCD /* RemoveItemFromListCommand.swift */,
@@ -933,6 +936,7 @@
 				3A193C8821335F9E00EF6288 /* ListNameGenerator.swift in Sources */,
 				3A82DC50207D52BC006B3885 /* ItemState.swift in Sources */,
 				3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */,
+				3AE81924214F0100009E962F /* AddItemsToBasketCommand.swift in Sources */,
 				3A20012D2097CE6F0015111F /* ItemsViewController+AddToBasketDelegate.swift in Sources */,
 				3ADFCD3F20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift in Sources */,
 				3A562A0320E430CE0030732D /* ListEntityExtensions.swift in Sources */,

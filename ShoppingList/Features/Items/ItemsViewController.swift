@@ -142,7 +142,7 @@ class ItemsViewController: UIViewController {
     func refreshUserInterface(after: Double = 0) {
         setTopBarButtons()
         
-        items.count > 0 ? self.setSceneAsEditable() : self.setSceneAsNotEditable()
+        items.count > 0 ? setSceneAsEditable() : setSceneAsNotEditable()
         tableView.setEditing(false, animated: true)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + after) { [unowned self] in

@@ -7,7 +7,7 @@ public class BasketCommand: Command {
     let viewController: BasketViewController
     let repository: Repository
     
-    let itemIndices: [Int]
+    let itemsIndexPaths: [IndexPath]
     
     init(_ items: [Item], _ viewController: BasketViewController) {
         self.source = .basket
@@ -15,18 +15,19 @@ public class BasketCommand: Command {
         self.viewController = viewController
         self.repository = Repository.shared
         
-        self.itemIndices = self.items
+        self.itemsIndexPaths = items
             .map { item -> Int? in viewController.items.index { $0.id == item.id } }
             .compactMap { $0 }
+            .map { IndexPath(row: $0, section: 0) }
     }
     
     func canExecute() -> Bool {
-        return itemIndices.count > 0
+        return itemsIndexPaths.count > 0
     }
     
     func execute() {
         viewController.items.removeAll { items.map { $0.id}.contains($0.id) }
-        execute(at: itemIndices.map { IndexPath(row: $0, section: 0) })
+        execute(at: itemsIndexPaths)
         
         repository.setItemsOrder(viewController.items, in: viewController.list, forState: .inBasket)
         viewController.refreshUserInterface()

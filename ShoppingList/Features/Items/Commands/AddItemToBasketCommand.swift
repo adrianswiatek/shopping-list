@@ -10,7 +10,6 @@ class AddItemToBasketCommand: ItemsCommand {
     override func undo(at indexPath: IndexPath) {
         viewController.items[indexPath.section].insert(item, at: indexPath.row)
         viewController.tableView.insertRows(at: [indexPath], with: .right)
-        viewController.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         repository.updateState(of: item, to: .toBuy)
     }
 }
