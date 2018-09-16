@@ -7,21 +7,30 @@ class ItemsCommand: Command {
     let viewController: ItemsViewController
     let repository: Repository
     
+    let indexOfCategory: Int?
+    let indexOfItemInCategory: Int?
+    
     init(_ item: Item, _ viewController: ItemsViewController) {
         self.source = .items
         self.item = item
         self.viewController = viewController
         self.repository = Repository.shared
+        
+        self.indexOfCategory = viewController.categories.index(where: { $0.id == item.getCategory().id })
+        if let indexOfCategory = self.indexOfCategory {
+            self.indexOfItemInCategory = viewController.items[indexOfCategory].index(where: { $0.id == item.id })
+        } else {
+            self.indexOfItemInCategory = nil
+        }
+    }
+    
+    func canExecute() -> Bool {
+        return indexOfCategory != nil && indexOfItemInCategory != nil
     }
     
     func execute() {
-        guard let section = viewController.categories.index(where: { $0.id == item.getCategory().id }) else {
-            fatalError("Unable to find index of the category.")
-        }
-        
-        guard let row = viewController.items[section].index(where: { $0.id == item.id }) else {
-            fatalError("Unable to find index of the item.")
-        }
+        guard let section = indexOfCategory else { return }
+        guard let row = indexOfItemInCategory else { return }
         
         execute(at: IndexPath(row: row, section: section))
         

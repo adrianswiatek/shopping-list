@@ -7,15 +7,23 @@ class RemoveListCommand: Command {
     private let viewController: ListsViewController
     private let repository: Repository
     
+    private let indexOfList: Int?
+    
     init(_ list: List, _ viewController: ListsViewController) {
         self.source = .lists
         self.list = list
         self.viewController = viewController
         self.repository = Repository.shared
+        
+        self.indexOfList = viewController.lists.index { $0.id == list.id }
+    }
+    
+    func canExecute() -> Bool {
+        return indexOfList != nil
     }
     
     func execute() {
-        guard let index = viewController.lists.index(where: { $0.id == list.id }) else { return }
+        guard let index = indexOfList else { return }
         
         viewController.lists.remove(at: index)
         viewController.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)

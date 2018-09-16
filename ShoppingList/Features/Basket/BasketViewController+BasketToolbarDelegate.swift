@@ -8,12 +8,12 @@ extension BasketViewController: BasketToolbarDelegate {
     
     func actionButtonDidTap() {
         let restoreAllAction = UIAlertAction(title: "Restore all", style: .default) { [unowned self] _ in
-            let command = AddAllItemsBackToListCommand(self.items, self)
+            let command = AddItemsBackToListCommand(self.items, self)
             CommandInvoker.shared.execute(command)
         }
         
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
-            let command = RemoveAllItemsFromBasketCommand(self.items, self)
+            let command = RemoveItemsFromBasketCommand(self.items, self)
             CommandInvoker.shared.execute(command)
         }
         
@@ -28,37 +28,16 @@ extension BasketViewController: BasketToolbarDelegate {
     }
     
     func deleteAllButtonDidTap() {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
-        
-        let selectedItems = selectedIndexPaths
-            .sorted { $0 > $1 }
-            .map { items.remove(at: $0.row) }
-        
-        tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
-        
-        Repository.shared.remove(selectedItems)
-        Repository.shared.setItemsOrder(items, in: list, forState: .inBasket)
-        
-        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
-        
-        self.refreshUserInterface()
+        CommandInvoker.shared.execute(RemoveItemsFromBasketCommand(getSelectedItems(), self))
     }
     
     func restoreAllButtonDidTap() {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
-        
-        let selectedItems = selectedIndexPaths
-            .sorted { $0 > $1 }
-            .map { items.remove(at: $0.row) }
-        
-        tableView.deleteRows(at: selectedIndexPaths, with: .left)
-        
-        Repository.shared.updateState(of: selectedItems, to: .toBuy)
-        Repository.shared.setItemsOrder(items, in: list, forState: .inBasket)
-        
-        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
-        
-        self.refreshUserInterface()
+        CommandInvoker.shared.execute(AddItemsBackToListCommand(getSelectedItems(), self))
+    }
+    
+    private func getSelectedItems() -> [Item] {
+        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return [] }
+        return selectedIndexPaths.sorted { $0 < $1 }.map { items[$0.row] }
     }
     
     func cancelButtonDidTap() {

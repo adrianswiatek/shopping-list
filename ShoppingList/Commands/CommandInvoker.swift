@@ -5,6 +5,7 @@ class CommandInvoker {
     private var commands: [CommandSource: Command] = [:]
     
     func execute(_ command: Command) {
+        guard command.canExecute() else { return }
         commands[command.source] = command
         command.execute()
     }

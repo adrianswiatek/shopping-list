@@ -14,6 +14,10 @@ class RemoveCategoryCommand: Command {
         self.repository = Repository.shared
     }
     
+    func canExecute() -> Bool {
+        return viewController.categories.index(where: { $0.id == category.id }) != nil
+    }
+    
     func execute() {
         guard let index = viewController.categories.index(where: { $0.id == category.id }) else { return }
         

@@ -96,12 +96,14 @@ class BasketViewController: UIViewController {
     private func setSceneAsEditable() {
         toolbar.setRegularMode()
         toolbar.setButtonsAs(enabled: true)
+        tableView.setEditing(false, animated: true)
         tableView.backgroundView = nil
     }
     
     private func setSceneAsNotEditable() {
         toolbar.setRegularMode()
         toolbar.setButtonsAs(enabled: false)
+        tableView.setEditing(false, animated: true)
         tableView.setTextIfEmpty("Your basket is empty")
     }
 }

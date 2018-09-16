@@ -1,6 +1,6 @@
 import Foundation
 
-public class AddAllItemsBackToListCommand: BasketForAllCommand {
+public class AddItemsBackToListCommand: BasketCommand {
     override func execute(at indexPaths: [IndexPath]) {
         viewController.tableView.deleteRows(at: indexPaths, with: .left)
         repository.updateState(of: items, to: .toBuy)
