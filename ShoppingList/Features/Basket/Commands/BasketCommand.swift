@@ -28,7 +28,7 @@ public class BasketCommand: Command {
         viewController.items.removeAll { items.map { $0.id}.contains($0.id) }
         execute(at: itemIndices.map { IndexPath(row: $0, section: 0) })
         
-        repository.setItemsOrder(items, in: viewController.list, forState: .inBasket)
+        repository.setItemsOrder(viewController.items, in: viewController.list, forState: .inBasket)
         viewController.refreshUserInterface()
     }
     
@@ -37,7 +37,7 @@ public class BasketCommand: Command {
     func undo() {
         items.reversed().forEach { viewController.items.insert($0, at: 0) }
         undo(at: (0..<items.count).map { IndexPath(row: $0, section: 0) })
-        repository.setItemsOrder(items, in: viewController.list, forState: .inBasket)
+        repository.setItemsOrder(viewController.items, in: viewController.list, forState: .inBasket)
         viewController.refreshUserInterface()
     }
     
