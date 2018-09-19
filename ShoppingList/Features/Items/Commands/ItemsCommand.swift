@@ -3,70 +3,66 @@ import Foundation
 class ItemsCommand: Command {
     var source: CommandSource
     
-    let item: Item
+    let items: [Item]
     let viewController: ItemsViewController
     let repository: Repository
     
-    let indexOfCategory: Int?
-    let indexOfItemInCategory: Int?
+    var indexPathsOfItems: [IndexPath]
     
-    init(_ item: Item, _ viewController: ItemsViewController) {
+    init(_ items: [Item], _ viewController: ItemsViewController) {
         self.source = .items
-        self.item = item
+        self.items = items
         self.viewController = viewController
         self.repository = Repository.shared
         
-        self.indexOfCategory = viewController.categories.index(where: { $0.id == item.getCategory().id })
-        if let indexOfCategory = self.indexOfCategory {
-            self.indexOfItemInCategory = viewController.items[indexOfCategory].index(where: { $0.id == item.id })
-        } else {
-            self.indexOfItemInCategory = nil
+        self.indexPathsOfItems = []
+        self.indexPathsOfItems = getIndexPathsOfItems()
+    }
+    
+    convenience init(_ item: Item, _ viewController: ItemsViewController) {
+        self.init([item], viewController)
+    }
+    
+    private func getIndexPathsOfItems() -> [IndexPath] {
+        var indexPathsOfItems = [IndexPath]()
+        
+        let groupedItemsByCategory = Dictionary(grouping: items) { $0.getCategory() }
+        
+        for (category, items) in groupedItemsByCategory {
+            guard let indexOfCategory = viewController.categories.index(where: { $0.id == category.id }) else {
+                continue
+            }
+            
+            let indexPaths = items
+                .map { item -> Int? in viewController.items[indexOfCategory].index { $0.id == item.id } }
+                .compactMap { $0 }
+                .map { IndexPath(row: $0, section: indexOfCategory) }
+            
+            guard indexPaths.count > 0 else { continue }
+            indexPathsOfItems.append(contentsOf: indexPaths)
         }
+        
+        return indexPathsOfItems.sorted { $0 > $1 }
     }
     
     func canExecute() -> Bool {
-        return indexOfCategory != nil && indexOfItemInCategory != nil
+        return indexPathsOfItems.count > 0
     }
     
     func execute() {
-        guard let section = indexOfCategory else { return }
-        guard let row = indexOfItemInCategory else { return }
+        indexPathsOfItems.forEach { viewController.items[$0.section].remove(at: $0.row) }
+        execute(at: indexPathsOfItems)
+        let items = viewController.items.flatMap { $0 }
+        repository.setItemsOrder(items, in: viewController.currentList, forState: .toBuy)
         
-        execute(at: IndexPath(row: row, section: section))
-        
-        saveItemsOrder()
-        viewController.refreshUserInterface(after: 0.5)
+        viewController.refreshUserInterface()
     }
     
-    func execute(at indexPath: IndexPath) {}
+    func execute(at indexPaths: [IndexPath]) {}
     
     func undo() {
-        let category = item.getCategory()
-        
-        var categoryIndex = getCategoryIndex(category)
-        if categoryIndex == nil {
-            viewController.categories.append(category)
-            viewController.categories.sort { $0.name < $1.name }
-            
-            categoryIndex = getCategoryIndex(category)
-            viewController.items.insert([Item](), at: categoryIndex ?? 0)
-            viewController.tableView.insertSections(IndexSet(integer: categoryIndex ?? 0), with: .automatic)
-        }
-        
-        undo(at: IndexPath(row: 0, section: categoryIndex ?? 0))
-        
-        saveItemsOrder()
-        viewController.refreshUserInterface(after: 0.5)
+        // TODO: implement, remember about creating new categories if not exist.
     }
     
-    func undo(at indexPath: IndexPath) {}
-    
-    private func getCategoryIndex(_ category: Category) -> Int? {
-        return viewController.categories.index { $0.id == item.getCategory().id }
-    }
-    
-    private func saveItemsOrder() {
-        let items = viewController.items.flatMap({ $0 })
-        repository.setItemsOrder(items, in: viewController.currentList, forState: .toBuy)
-    }
+    func undo(at indexPaths: [IndexPath]) {}
 }

@@ -14,43 +14,11 @@ extension ItemsViewController: ItemsToolbarDelegate {
         let moveAllToBasketAction = UIAlertAction(title: "Move all to basket", style: .default) { [unowned self] action in
             let command = AddItemsToBasketCommand(self.items.flatMap { $0 }, self)
             CommandInvoker.shared.execute(command)
-//            var indexPaths = [IndexPath]()
-//            let sectionNumbers = 0..<self.categories.count
-//            for sectionNumber in sectionNumbers {
-//                let rowNumbers = 0..<self.items[sectionNumber].count
-//                for rowNumber in rowNumbers {
-//                    indexPaths.append(IndexPath(row: rowNumber, section: sectionNumber))
-//                }
-//            }
-//
-//            self.items.removeAll()
-//            self.tableView.deleteRows(at: indexPaths, with: .right)
-//
-//            Repository.shared.updateState(of: itemsToMove.flatMap { $0 }, to: .inBasket)
-//            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
-//
-//            self.refreshUserInterface()
         }
         
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] action in
-            let itemsToDelete = self.items
-            
-            var indexPaths = [IndexPath]()
-            let sectionNumbers = 0..<self.categories.count
-            for sectionNumber in sectionNumbers {
-                let rowNumbers = 0..<self.items[sectionNumber].count
-                for rowNumber in rowNumbers {
-                    indexPaths.append(IndexPath(row: rowNumber, section: sectionNumber))
-                }
-            }
-            
-            self.items.removeAll()
-            self.tableView.deleteRows(at: indexPaths, with: .automatic)
-            
-            Repository.shared.remove(itemsToDelete.flatMap { $0 })
-            Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
-            
-            self.refreshUserInterface()
+            let command = RemoveItemsFromListCommand(self.items.flatMap { $0 }, self)
+            CommandInvoker.shared.execute(command)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -64,27 +32,20 @@ extension ItemsViewController: ItemsToolbarDelegate {
     }
     
     func deleteAllButtonDidTap() {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
-        
-        let selectedItems = selectedIndexPaths
-            .sorted { $0 > $1 }
-            .map { self.items[$0.section].remove(at: $0.row) }
-        tableView.deleteRows(at: selectedIndexPaths, with: .automatic)
-        
-        Repository.shared.remove(selectedItems)
-        Repository.shared.setItemsOrder(self.items.flatMap { $0 }, in: self.currentList, forState: .toBuy)
-        
-        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
-        
-        self.refreshUserInterface()
+        guard let selectedItems = getSelectedItems() else { return }
+        let command = RemoveItemsFromListCommand(selectedItems, self)
+        CommandInvoker.shared.execute(command)
     }
     
     func moveAllToBasketButtonDidTap() {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return }
-        
-        let selectedItems = selectedIndexPaths.sorted { $0 > $1 }.map { self.items[$0.section][$0.row] }
+        guard let selectedItems = getSelectedItems() else { return }
         let command = AddItemsToBasketCommand(selectedItems, self)
         CommandInvoker.shared.execute(command)
+    }
+    
+    private func getSelectedItems() -> [Item]? {
+        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return nil }
+        return selectedIndexPaths.sorted { $0 > $1 }.map { self.items[$0.section][$0.row] }
     }
     
     func cancelButtonDidTap() {

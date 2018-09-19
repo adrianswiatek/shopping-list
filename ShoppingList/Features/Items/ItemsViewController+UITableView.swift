@@ -15,7 +15,7 @@ extension ItemsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let item = self.items[indexPath.section][indexPath.row]
-            let command = RemoveItemFromListCommand(item, self)
+            let command = RemoveItemsFromListCommand(item, self)
             CommandInvoker.shared.execute(command)
             completionHandler(true)
         }

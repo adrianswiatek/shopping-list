@@ -21,6 +21,10 @@ public class BasketCommand: Command {
             .map { IndexPath(row: $0, section: 0) }
     }
     
+    convenience init(_ item: Item, _ viewController: BasketViewController) {
+        self.init([item], viewController)
+    }
+    
     func canExecute() -> Bool {
         return itemsIndexPaths.count > 0
     }

@@ -4,7 +4,7 @@ extension BasketViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let item = self.items[indexPath.row]
-            let command = RemoveItemsFromBasketCommand([item], self)
+            let command = RemoveItemsFromBasketCommand(item, self)
             CommandInvoker.shared.execute(command)
             completionHandler(true)
         }
