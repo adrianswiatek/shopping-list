@@ -200,4 +200,25 @@ class ItemsViewController: UIViewController {
         
         present(navigationController, animated: true)
     }
+    
+    func append(_ category: Category) {
+        categories.append(category)
+        categories.sort { $0.name < $1.name }
+        
+        let categoryIndex = getCategoryIndex(category)
+        items.insert([Item](), at: categoryIndex)
+        tableView.insertSections(IndexSet(integer: categoryIndex), with: .automatic)
+    }
+    
+    func getCategoryIndex(_ item: Item) -> Int {
+        return getCategoryIndex(item.category ?? Category.getDefault())
+    }
+    
+    func getCategoryIndex(_ category: Category) -> Int {
+        guard let index =  categories.index (where: { $0.id == category.id }) else {
+            fatalError("Unable to find category index.")
+        }
+        
+        return index
+    }
 }

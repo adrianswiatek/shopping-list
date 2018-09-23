@@ -3,7 +3,7 @@ import UIKit
 extension ItemsViewController: EditItemViewControllerDelegate {
     func didCreate(_ item: Item) {
         didSave(item) {
-            let categoryIndex = getCategoryIndex(item: item)
+            let categoryIndex = getCategoryIndex(item)
             items[categoryIndex].insert(item, at: 0)
             
             let indexPath = IndexPath(row: 0, section: categoryIndex)
@@ -93,12 +93,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         let itemCategory = item.category ?? Category.getDefault()
         
         if !categories.contains(itemCategory) {
-            categories.append(itemCategory)
-            categories.sort { $0.name < $1.name }
-            
-            let categoryIndex = getCategoryIndex(item: item)
-            items.insert([Item](), at: categoryIndex)
-            tableView.insertSections(IndexSet(integer: categoryIndex), with: .automatic)
+            append(itemCategory)
         }
         
         setItemsAndTableView()

@@ -5,15 +5,10 @@ extension ItemsViewController: TextFieldWithCancelDelegate {
         let item = Item.toBuy(name: text, info: "", list: currentList)
         
         if !categories.containsDefaultCategory() {
-            categories.append(Category.getDefault())
-            categories.sort { $0.name < $1.name }
-            
-            let index = getCategoryIndex(item: item)
-            items.insert([Item](), at: index)
-            tableView.insertSections(IndexSet(integer: index), with: .automatic)
+            append(Category.getDefault())
         }
         
-        let categoryIndex = getCategoryIndex(item: item)
+        let categoryIndex = getCategoryIndex(item)
         items[categoryIndex].insert(item, at: 0)
         
         let indexPath = IndexPath(row: 0, section: categoryIndex)
@@ -23,15 +18,5 @@ extension ItemsViewController: TextFieldWithCancelDelegate {
         Repository.shared.add(item)
         
         refreshUserInterface()
-    }
-    
-    func getCategoryIndex(item: Item) -> Int {
-        let category = item.category ?? Category.getDefault()
-        
-        guard let index = categories.index (where: { $0.id == category.id }) else {
-            fatalError("Unable to find category index.")
-        }
-        
-        return index
     }
 }

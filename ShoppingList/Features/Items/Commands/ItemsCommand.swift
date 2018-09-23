@@ -52,17 +52,37 @@ class ItemsCommand: Command {
     func execute() {
         indexPathsOfItems.forEach { viewController.items[$0.section].remove(at: $0.row) }
         execute(at: indexPathsOfItems)
-        let items = viewController.items.flatMap { $0 }
-        repository.setItemsOrder(items, in: viewController.currentList, forState: .toBuy)
-        
-        viewController.refreshUserInterface()
+        setItemsOrder()
+        viewController.refreshUserInterface(after: 0.5)
     }
     
     func execute(at indexPaths: [IndexPath]) {}
     
     func undo() {
-        // TODO: implement, remember about creating new categories if not exist.
+        addItems()
+        undo(with: items)
+        setItemsOrder()
+        viewController.refreshUserInterface()
     }
     
-    func undo(at indexPaths: [IndexPath]) {}
+    func undo(with items: [Item]) {}
+    
+    private func addItems() {
+        for item in items.reversed() {
+            if !viewController.categories.contains(item.getCategory()) {
+                viewController.append(item.getCategory())
+            }
+            
+            let categoryIndex = viewController.getCategoryIndex(item)
+            viewController.items[categoryIndex].insert(item, at: 0)
+            
+            let indexPath = IndexPath(row: 0, section: categoryIndex)
+            viewController.tableView.insertRows(at: [indexPath], with: .right)
+        }
+    }
+    
+    private func setItemsOrder() {
+        let items = viewController.items.flatMap { $0 }
+        repository.setItemsOrder(items, in: viewController.currentList, forState: .toBuy)
+    }
 }
