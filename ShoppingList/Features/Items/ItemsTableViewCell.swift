@@ -2,6 +2,8 @@ import UIKit
 
 class ItemsTableViewCell: UITableViewCell {
    
+    weak var delegate: AddToBasketDelegate?
+    
     var item: Item? {
         didSet {
             itemNameLabel.text = item?.name
@@ -11,11 +13,16 @@ class ItemsTableViewCell: UITableViewCell {
     }
     
     private func setItemNameLabelBottomConstraint() {
-        let constraint = itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
-        constraint.isActive = itemInfoLabel.text == nil || itemInfoLabel.text == ""
+        if itemInfoLabel.text == nil || itemInfoLabel.text == "" {
+            itemNameLabelTopConstraint.isActive = false
+            itemNameLabelCenterYConstraint.isActive = true
+            itemInfoLabel.alpha = 0
+        } else {
+            itemNameLabelTopConstraint.isActive = true
+            itemNameLabelCenterYConstraint.isActive = false
+            itemInfoLabel.alpha = 1
+        }
     }
-    
-    weak var delegate: AddToBasketDelegate?
     
     private lazy var itemNameLabel: UILabel = {
         let label = UILabel()
@@ -48,6 +55,9 @@ class ItemsTableViewCell: UITableViewCell {
         delegate?.addItemToBasket(item)
     }
     
+    private var itemNameLabelTopConstraint: NSLayoutConstraint!
+    private var itemNameLabelCenterYConstraint: NSLayoutConstraint!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUserInterface()
@@ -69,12 +79,17 @@ class ItemsTableViewCell: UITableViewCell {
             addToBasketButton.heightAnchor.constraint(equalToConstant: 40),
             addToBasketButton.widthAnchor.constraint(equalTo: addToBasketButton.heightAnchor),
             itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             itemNameLabel.trailingAnchor.constraint(equalTo: addToBasketButton.leadingAnchor, constant: -4),
             itemInfoLabel.leadingAnchor.constraint(equalTo: itemNameLabel.leadingAnchor),
-            itemInfoLabel.topAnchor.constraint(equalTo: itemNameLabel.bottomAnchor, constant: 4),
+            itemInfoLabel.topAnchor.constraint(equalTo: itemNameLabel.bottomAnchor, constant: 2),
             itemInfoLabel.trailingAnchor.constraint(equalTo: itemNameLabel.trailingAnchor),
-            itemInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            itemInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
+        
+        itemNameLabelTopConstraint = itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
+        itemNameLabelTopConstraint.isActive = false
+        
+        itemNameLabelCenterYConstraint = itemNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        itemNameLabelCenterYConstraint.isActive = true
     }
 }
