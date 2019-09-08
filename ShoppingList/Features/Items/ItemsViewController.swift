@@ -1,7 +1,7 @@
 import UIKit
 
-class ItemsViewController: UIViewController {
-    
+final class ItemsViewController: UIViewController {
+    let sharedItemsFormatter = SharedItemsFormatter()
     var delegate: ItemsViewControllerDelegate!
     
     var currentList: List!
@@ -62,7 +62,7 @@ class ItemsViewController: UIViewController {
         barButtonItem.isEnabled = false
         return barButtonItem
     }()
-    
+
     @objc private func restore() {
         let invoker = CommandInvoker.shared
         if invoker.canUndo(.items) {

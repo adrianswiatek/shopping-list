@@ -72,6 +72,7 @@
 		3A992241212E042800A6A2F9 /* PopupWithTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */; };
 		3A9EAF42209BBA4900B4A39D /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF41209BBA4900B4A39D /* Category.swift */; };
 		3A9EAF44209BBF5300B4A39D /* InMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */; };
+		3AA754F02325945C00599F58 /* SharedItemsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */; };
 		3AAC84F9211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */; };
 		3AB80FD52110FCE7002DDC4C /* InfoForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */; };
 		3AB80FD72110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */; };
@@ -197,6 +198,7 @@
 		3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWithTextFieldController.swift; sourceTree = "<group>"; };
 		3A9EAF41209BBA4900B4A39D /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryRepository.swift; sourceTree = "<group>"; };
+		3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedItemsFormatter.swift; sourceTree = "<group>"; };
 		3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3AAC84FA2112390F00FF3B9E /* ShoppingList 0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShoppingList 0.2.xcdatamodel"; sourceTree = "<group>"; };
 		3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItem.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				3AC6211E20C0570100A16F0E /* ItemsViewController+TextFieldWithCancelDelegate.swift */,
 				3A20012A2097CBBE0015111F /* ItemsViewController+UITableView.swift */,
 				3A50641A20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift */,
+				3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -926,6 +929,7 @@
 				3AFAEF1120DD88DE00E58C00 /* List.swift in Sources */,
 				3ADFCD3720E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift in Sources */,
 				3A818D57214B08F6005BEC5F /* AddItemsBackToListCommand.swift in Sources */,
+				3AA754F02325945C00599F58 /* SharedItemsFormatter.swift in Sources */,
 				3ADFCD3D20E9503E00E49C17 /* ListsForEditItem.swift in Sources */,
 				3A8BC19A20C72C3300B2F357 /* ItemsOrdersEntityExtensions.swift in Sources */,
 				3A193C8821335F9E00EF6288 /* ListNameGenerator.swift in Sources */,
@@ -1057,6 +1061,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1117,6 +1122,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1143,6 +1149,7 @@
 			baseConfigurationReference = BDE64E5E42B865B8309C895D /* Pods-ShoppingList.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
@@ -1152,6 +1159,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1162,6 +1170,7 @@
 			baseConfigurationReference = E52E21F2A86FCBBDF678C96E /* Pods-ShoppingList.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
@@ -1171,6 +1180,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1182,8 +1192,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ShoppingListTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1192,6 +1202,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingList.app/ShoppingList";
@@ -1204,8 +1215,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ShoppingListTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1214,6 +1225,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingList.app/ShoppingList";
