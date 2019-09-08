@@ -15,7 +15,7 @@ class RemoveListCommand: Command {
         self.viewController = viewController
         self.repository = Repository.shared
         
-        self.indexOfList = viewController.lists.index { $0.id == list.id }
+        self.indexOfList = viewController.lists.firstIndex { $0.id == list.id }
     }
     
     func canExecute() -> Bool {
@@ -37,7 +37,7 @@ class RemoveListCommand: Command {
         viewController.lists.append(list)
         viewController.lists.sort { $0.updateDate > $1.updateDate }
         
-        let index = viewController.lists.index { $0.id == list.id } ?? 0
+        let index = viewController.lists.firstIndex { $0.id == list.id } ?? 0
         viewController.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         
         repository.add(list)

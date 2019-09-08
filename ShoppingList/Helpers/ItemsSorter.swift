@@ -6,7 +6,7 @@ struct ItemsSorter {
         var result = [Item]()
         
         for itemId in orderedItemsIds {
-            guard let itemIndex = unorderedItems.index(where: { $0.id == itemId }) else { continue }
+            guard let itemIndex = unorderedItems.firstIndex(where: { $0.id == itemId }) else { continue }
             result.append(unorderedItems.remove(at: itemIndex))
         }
         

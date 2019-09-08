@@ -107,7 +107,7 @@ class ListsForEditItem: UIView {
     }
     
     func selectBy(name: String) {
-        guard let index = lists.index(where: { $0.name == name }) else { return }
+        guard let index = lists.firstIndex(where: { $0.name == name }) else { return }
         pickerView.selectRow(index, inComponent: 0, animated: true)
     }
     

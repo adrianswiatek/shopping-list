@@ -121,7 +121,7 @@ class CategoriesForEditItem: UIView {
     }
     
     private func selectBy(name: String) {
-        guard let index = categories.index(where: { $0.name == name }) else { return }
+        guard let index = categories.firstIndex(where: { $0.name == name }) else { return }
         pickerView.selectRow(index, inComponent: 0, animated: true)
     }
     

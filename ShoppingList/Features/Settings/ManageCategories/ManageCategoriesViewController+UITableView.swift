@@ -33,7 +33,7 @@ extension ManageCategoriesViewController: UITableViewDelegate {
     }
     
     private func updateTableViewAfterCategoryUpdate(currentIndexPath: IndexPath, category: Category) {
-        guard let newCategoryIndex = categories.index(where: { $0.id == category.id }) else { return }
+        guard let newCategoryIndex = categories.firstIndex(where: { $0.id == category.id }) else { return }
         
         let newIndexPath = IndexPath(row: newCategoryIndex, section: 0)
         if newIndexPath != currentIndexPath {
@@ -64,7 +64,7 @@ extension ManageCategoriesViewController: UITableViewDelegate {
     }
     
     private func deletedCategoryWithItems() {
-        guard let indexOfDefaultCategory = categories.index(where: { $0.id == Category.getDefault().id }) else { return }
+        guard let indexOfDefaultCategory = categories.firstIndex(where: { $0.id == Category.getDefault().id }) else { return }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.fetchItems()

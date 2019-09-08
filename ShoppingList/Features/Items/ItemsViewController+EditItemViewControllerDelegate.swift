@@ -29,8 +29,8 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     
     private func moveToOtherList(_ item: Item) {
         guard
-            let categoryIndex = categories.index(where: { $0.id == item.getCategory().id }),
-            let itemIndex = items[categoryIndex].index(where: { $0.id == item.id })
+            let categoryIndex = categories.firstIndex(where: { $0.id == item.getCategory().id }),
+            let itemIndex = items[categoryIndex].firstIndex(where: { $0.id == item.id })
         else { return }
         
         updatePreviousItem(at: itemIndex, and: categoryIndex)
@@ -41,8 +41,8 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     
     private func updateItemInTheSameCategory(_ item: Item) {
         guard
-            let categoryIndex = categories.index(where: { $0.id == item.getCategory().id }),
-            let itemIndex = items[categoryIndex].index(where: { $0.id == item.id })
+            let categoryIndex = categories.firstIndex(where: { $0.id == item.getCategory().id }),
+            let itemIndex = items[categoryIndex].firstIndex(where: { $0.id == item.id })
         else { return }
         
         items[categoryIndex].remove(at: itemIndex)
@@ -54,9 +54,9 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     
     private func updateItemInDifferentCategories(_ previousItem: Item, _ newItem: Item) {
         guard
-            let previousCategoryIndex = categories.index(where: { $0.id == previousItem.getCategory().id }),
-            let previousItemIndex = items[previousCategoryIndex].index(where: { $0.id == previousItem.id }),
-            let newCategoryIndex = categories.index(where: { $0.id == newItem.getCategory().id })
+            let previousCategoryIndex = categories.firstIndex(where: { $0.id == previousItem.getCategory().id }),
+            let previousItemIndex = items[previousCategoryIndex].firstIndex(where: { $0.id == previousItem.id }),
+            let newCategoryIndex = categories.firstIndex(where: { $0.id == newItem.getCategory().id })
         else { return }
         
         updatePreviousItem(at: previousItemIndex, and: previousCategoryIndex)

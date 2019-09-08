@@ -29,12 +29,12 @@ class ItemsCommand: Command {
         let groupedItemsByCategory = Dictionary(grouping: items) { $0.getCategory() }
         
         for (category, items) in groupedItemsByCategory {
-            guard let indexOfCategory = viewController.categories.index(where: { $0.id == category.id }) else {
+            guard let indexOfCategory = viewController.categories.firstIndex(where: { $0.id == category.id }) else {
                 continue
             }
             
             let indexPaths = items
-                .map { item -> Int? in viewController.items[indexOfCategory].index { $0.id == item.id } }
+                .map { item -> Int? in viewController.items[indexOfCategory].firstIndex { $0.id == item.id } }
                 .compactMap { $0 }
                 .map { IndexPath(row: $0, section: indexOfCategory) }
             

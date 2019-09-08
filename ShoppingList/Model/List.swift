@@ -39,7 +39,7 @@ struct List {
     
     func getWithRemoved(item: Item) -> List {
         var items = self.items
-        guard let index = items.index(where: { $0.id == item.id }) else { return self }
+        guard let index = items.firstIndex(where: { $0.id == item.id }) else { return self }
 
         items.remove(at: index)
         return List(id: self.id, name: self.name, accessType: self.accessType, items: items, updateDate: Date())
@@ -47,7 +47,7 @@ struct List {
     
     func getWithChanged(item: Item) -> List {
         var items = self.items
-        guard let index = items.index(where: { $0.id == item.id }) else { return self }
+        guard let index = items.firstIndex(where: { $0.id == item.id }) else { return self }
         
         items.remove(at: index)
         items.insert(item, at: index)

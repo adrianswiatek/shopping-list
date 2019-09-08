@@ -16,7 +16,7 @@ public class BasketCommand: Command {
         self.repository = Repository.shared
         
         self.itemsIndexPaths = items
-            .map { item -> Int? in viewController.items.index { $0.id == item.id } }
+            .map { item -> Int? in viewController.items.firstIndex { $0.id == item.id } }
             .compactMap { $0 }
             .map { IndexPath(row: $0, section: 0) }
     }

@@ -184,7 +184,7 @@ class InMemoryRepository: RepositoryProtocol {
     // MARK: - Items Order
     
     func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) {
-        if let itemsOrderIndex = itemsOrders.index(where: { $0.listId == list.id && $0.itemsState == state }) {
+        if let itemsOrderIndex = itemsOrders.firstIndex(where: { $0.listId == list.id && $0.itemsState == state }) {
             itemsOrders.remove(at: itemsOrderIndex)
         }
         
@@ -200,14 +200,14 @@ class InMemoryRepository: RepositoryProtocol {
     
     private func getIndex(of item: Item, in list: List) -> Int? {
         guard let indexOfList = getIndex(of: list) else { return nil }
-        return lists[indexOfList].items.index { $0.id == item.id }
+        return lists[indexOfList].items.firstIndex { $0.id == item.id }
     }
     
     private func getIndex(of category: Category) -> Int? {
-        return categories.index { $0.id == category.id }
+        return categories.firstIndex { $0.id == category.id }
     }
     
     private func getIndex(of list: List) -> Int? {
-        return lists.index { $0.id == list.id }
+        return lists.firstIndex { $0.id == list.id }
     }
 }

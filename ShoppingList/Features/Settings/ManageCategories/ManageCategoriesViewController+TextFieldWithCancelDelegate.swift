@@ -9,7 +9,7 @@ extension ManageCategoriesViewController: TextFieldWithCancelDelegate {
         
         Repository.shared.add(category)
         
-        guard let index = categories.index(where: { $0.id == category.id }) else { return }
+        guard let index = categories.firstIndex(where: { $0.id == category.id }) else { return }
         tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     }
 }

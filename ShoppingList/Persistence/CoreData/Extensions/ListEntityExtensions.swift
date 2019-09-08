@@ -44,11 +44,11 @@ extension ListEntity {
             
             entity.update(by: item, context: context)
             
-            if let index = entitiesToUpdate.index(where: { $0.id == item.id }) {
+            if let index = entitiesToUpdate.firstIndex(where: { $0.id == item.id }) {
                 entitiesToUpdate.remove(at: index)
             }
             
-            if let index = itemsToUpdate.index(where: { $0.id == item.id }) {
+            if let index = itemsToUpdate.firstIndex(where: { $0.id == item.id }) {
                 itemsToUpdate.remove(at: index)
             }
         }

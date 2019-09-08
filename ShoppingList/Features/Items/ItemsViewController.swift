@@ -215,7 +215,7 @@ final class ItemsViewController: UIViewController {
     }
     
     func getCategoryIndex(_ category: Category) -> Int {
-        guard let index =  categories.index (where: { $0.id == category.id }) else {
+        guard let index =  categories.firstIndex (where: { $0.id == category.id }) else {
             fatalError("Unable to find category index.")
         }
         

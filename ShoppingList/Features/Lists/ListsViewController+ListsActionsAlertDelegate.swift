@@ -10,7 +10,7 @@ extension ListsViewController: ListsActionsAlertDelegate {
     }
     
     private func remove(items: [Item], from list: List) {
-        guard let index = lists.index(where: { $0.id == list.id }) else { return }
+        guard let index = lists.firstIndex(where: { $0.id == list.id }) else { return }
 
         Repository.shared.remove(items)
         
