@@ -68,10 +68,10 @@ extension ListsViewController: UITableViewDelegate {
                         }
                         self.changeListName(at: indexPath, newName: $0)
                         completionHandler(true)
-                },
+                    },
                     cancelled: {
                         completionHandler(false)
-                })
+                    })
             }
         action.backgroundColor = #colorLiteral(red: 0.1764705882, green: 0.4980392157, blue: 0.7568627451, alpha: 1)
         action.image = #imageLiteral(resourceName: "Edit")
@@ -80,13 +80,20 @@ extension ListsViewController: UITableViewDelegate {
     }
 
     private func getShareItemAction(for indexPath: IndexPath) -> UIContextualAction {
+        let list = lists[indexPath.row]
+
         let action = UIContextualAction(
             style: .normal,
-            title: nil) { _, _, completionHandler in
-                completionHandler(false)
+            title: nil) { [unowned self] _, _, completionHandler in
+                let updatedList = list.with(accessType: list.accessType == .private ? .shared : .private)
+                self.lists[indexPath.row] = updatedList
+                completionHandler(true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
             }
         action.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.8117647059, blue: 0.7568627451, alpha: 1)
-        action.image = #imageLiteral(resourceName: "ShareWith")
+        action.image = list.accessType == .private ? #imageLiteral(resourceName: "ShareWith") : #imageLiteral(resourceName: "Locked")
 
         return action
     }

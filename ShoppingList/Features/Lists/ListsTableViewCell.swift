@@ -5,6 +5,7 @@ final class ListsTableViewCell: UITableViewCell {
         didSet {
             guard let list = list else { return }
             nameLabel.text = list.name
+            accessTypeImageView.image = (list.accessType == .private ? #imageLiteral(resourceName: "Locked") : #imageLiteral(resourceName: "Unlocked")).withRenderingMode(.alwaysTemplate)
             accessTypeLabel.text = list.accessType.description
             numberOfItemsValueLabel.text = String(list.getNumberOfItemsToBuy())
             updateDateValueLabel.text = getFormatted(date: list.updateDate)
@@ -80,7 +81,6 @@ final class ListsTableViewCell: UITableViewCell {
     
     private let accessTypeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "Locked").withRenderingMode(.alwaysTemplate)
         imageView.tintColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
