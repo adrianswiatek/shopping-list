@@ -5,7 +5,7 @@ final class ListsTableViewCell: UITableViewCell {
         didSet {
             guard let list = list else { return }
             nameLabel.text = list.name
-            accessTypeImageView.image = (list.accessType == .private ? #imageLiteral(resourceName: "Locked") : #imageLiteral(resourceName: "Unlocked")).withRenderingMode(.alwaysTemplate)
+            accessTypeImageView.image = (list.accessType == .private ? #imageLiteral(resourceName: "Locked") : #imageLiteral(resourceName: "Shared")).withRenderingMode(.alwaysTemplate)
             accessTypeLabel.text = list.accessType.description
             numberOfItemsValueLabel.text = String(list.getNumberOfItemsToBuy())
             updateDateValueLabel.text = getFormatted(date: list.updateDate)
