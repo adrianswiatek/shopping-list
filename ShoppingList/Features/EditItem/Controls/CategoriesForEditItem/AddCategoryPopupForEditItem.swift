@@ -1,7 +1,6 @@
 import UIKit
 
-class AddCategoryPopupForEditItem {
- 
+final class AddCategoryPopupForEditItem {
     private let viewController: UIViewController
     private let getCategories: () -> [Category]
     private let completed: (String) -> ()

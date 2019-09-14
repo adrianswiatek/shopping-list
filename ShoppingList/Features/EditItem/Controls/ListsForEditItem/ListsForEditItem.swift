@@ -1,9 +1,8 @@
 import UIKit
 
-class ListsForEditItem: UIView {
-    
-    var delegate: ListsForEditItemDelegate?
-    var viewController: UIViewController?
+final class ListsForEditItem: UIView {
+    weak var delegate: ListsForEditItemDelegate?
+    weak var viewController: UIViewController?
     
     override var backgroundColor: UIColor? {
         get {

@@ -1,7 +1,6 @@
 import UIKit
 
 struct WarningAlertBuilder {
-    
     private let message: String
     private let buttonText: String
     

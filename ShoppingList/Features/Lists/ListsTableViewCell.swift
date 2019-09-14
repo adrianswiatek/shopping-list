@@ -1,7 +1,6 @@
 import UIKit
 
-class ListsTableViewCell: UITableViewCell {
-    
+final class ListsTableViewCell: UITableViewCell {
     var list: List? {
         didSet {
             guard let list = list else { return }

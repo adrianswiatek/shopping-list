@@ -1,7 +1,6 @@
 import UIKit
 
 struct EditContextualActionBuilder {
-    
     private let viewController: UIViewController
     private let category: Category
     private let categories: [Category]

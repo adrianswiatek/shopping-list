@@ -1,7 +1,6 @@
 import UIKit
 
-class PopupWithTextFieldController: UIViewController {
-
+final class PopupWithTextFieldController: UIViewController {
     var popupTitle: String? {
         didSet {
             titleLabel.text = popupTitle

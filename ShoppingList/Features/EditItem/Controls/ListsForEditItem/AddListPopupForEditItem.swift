@@ -1,7 +1,6 @@
 import UIKit
 
-class AddListPopupForEditItem {
-    
+final class AddListPopupForEditItem {
     private let viewController: UIViewController
     private let completed: (String) -> ()
     

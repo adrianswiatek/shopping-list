@@ -2,8 +2,7 @@ protocol ValidationButtonRule {
     func validate(with text: String) -> (isValid: Bool, message: String)
 }
 
-class ValidationButtonRuleComposite: ValidationButtonRule {
-    
+final class ValidationButtonRuleComposite: ValidationButtonRule {
     private var rules: [ValidationButtonRule] = []
     
     init(rules: ValidationButtonRule...) {
@@ -22,8 +21,7 @@ class ValidationButtonRuleComposite: ValidationButtonRule {
     }
 }
 
-class ValidationButtonRuleLeaf: ValidationButtonRule {
-    
+final class ValidationButtonRuleLeaf: ValidationButtonRule {
     private let message: String
     private let predicate: (String) -> Bool
     

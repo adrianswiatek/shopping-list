@@ -1,8 +1,7 @@
 import UIKit
 
-class TextFieldWithCancel: UIView {
-    
-    var delegate: TextFieldWithCancelDelegate?
+final class TextFieldWithCancel: UIView {
+    weak var delegate: TextFieldWithCancelDelegate?
     
     var font: UIFont? {
         get { return textField.font }

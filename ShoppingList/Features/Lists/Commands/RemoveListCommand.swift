@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoveListCommand: Command {
+final class RemoveListCommand: Command {
     var source: CommandSource
     
     private let list: List

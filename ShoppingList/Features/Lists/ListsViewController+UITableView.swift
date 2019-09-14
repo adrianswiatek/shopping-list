@@ -10,24 +10,29 @@ extension ListsViewController: UITableViewDelegate {
         navigationController?.pushViewController(itemsViewController, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            let currentList = self.lists[indexPath.row]
-            if currentList.getNumberOfItemsToBuy() == 0 {
-                let command = RemoveListCommand(currentList, self)
-                CommandInvoker.shared.execute(command)
-                completionHandler(true)
-                return
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteItemAction = UIContextualAction(
+            style: .destructive,
+            title: nil) { [unowned self] (action, sourceView, completionHandler) in
+                let currentList = self.lists[indexPath.row]
+                if currentList.getNumberOfItemsToBuy() == 0 {
+                    let command = RemoveListCommand(currentList, self)
+                    CommandInvoker.shared.execute(command)
+                    completionHandler(true)
+                    return
+                }
+
+                var builder = DeleteListAlertBuilder()
+                builder.deleteButtonTapped = {
+                    self.deleteList(at: indexPath)
+                    completionHandler(true)
+                }
+                builder.cancelButtonTapped = { completionHandler(false) }
+                self.present(builder.build(), animated: true)
             }
-            
-            var builder = DeleteListAlertBuilder()
-            builder.deleteButtonTapped = {
-                self.deleteList(at: indexPath)
-                completionHandler(true)
-            }
-            builder.cancelButtonTapped = { completionHandler(false) }
-            self.present(builder.build(), animated: true)
-        }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
         deleteItemAction.image = #imageLiteral(resourceName: "Trash")
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
@@ -40,24 +45,37 @@ extension ListsViewController: UITableViewDelegate {
         refreshUserInterface()
     }
 
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(style: .normal, title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            self.showEditPopup(
-                list: self.lists[indexPath.row],
-                saved: {
-                    self.changeListName(at: indexPath, newName: $0)
-                    completionHandler(true)
-                },
-                cancelled: {
-                    completionHandler(false)
-                })
-        }
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let editItemAction = UIContextualAction(
+            style: .normal,
+            title: nil) { [unowned self] (action, sourceView, completionHandler) in
+                self.showEditPopup(
+                    list: self.lists[indexPath.row],
+                    saved: {
+                        guard !$0.isEmpty else {
+                            completionHandler(false)
+                            return
+                        }
+                        self.changeListName(at: indexPath, newName: $0)
+                        completionHandler(true)
+                    },
+                    cancelled: {
+                        completionHandler(false)
+                    })
+            }
         editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         editItemAction.image = #imageLiteral(resourceName: "Edit")
         return UISwipeActionsConfiguration(actions: [editItemAction])
     }
     
-    private func showEditPopup(list: List, saved: @escaping (String) -> Void, cancelled: @escaping () -> Void) {
+    private func showEditPopup(
+        list: List,
+        saved: @escaping (String) -> Void,
+        cancelled: @escaping () -> Void
+    ) {
         let controller = PopupWithTextFieldController()
         controller.modalPresentationStyle = .overFullScreen
         controller.popupTitle = "Edit List"

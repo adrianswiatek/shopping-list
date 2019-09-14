@@ -1,7 +1,6 @@
 import UIKit
 
-class ItemNameForEditItem: UIView {
-    
+final class ItemNameForEditItem: UIView {
     weak var delegate: ItemNameForEditItemDelegate?
     
     var text: String? {

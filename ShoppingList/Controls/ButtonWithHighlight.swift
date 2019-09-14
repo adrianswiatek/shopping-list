@@ -1,7 +1,6 @@
 import UIKit
 
-class ButtonWithHighlight: UIButton {
-    
+final class ButtonWithHighlight: UIButton {
     override var isHighlighted: Bool {
         didSet {
             updateBackgroundColor(wasHighlighter: oldValue)

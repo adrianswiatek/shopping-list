@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoveItemsFromBasketCommand: BasketCommand {
+final class RemoveItemsFromBasketCommand: BasketCommand {
     override func execute(at indexPaths: [IndexPath]) {
         viewController.tableView.deleteRows(at: indexPaths, with: .automatic)
         repository.remove(items)

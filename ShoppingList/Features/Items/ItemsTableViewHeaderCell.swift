@@ -1,7 +1,6 @@
 import UIKit
 
-class ItemsTableViewHeaderCell: UIView {
-    
+final class ItemsTableViewHeaderCell: UIView {
     var category: Category? {
         didSet {
             label.text = category?.name

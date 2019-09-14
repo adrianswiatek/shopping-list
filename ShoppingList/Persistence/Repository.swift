@@ -1,7 +1,6 @@
 import Foundation
 
-class Repository: RepositoryProtocol {
-    
+final class Repository: RepositoryProtocol {
     static let shared: Repository = Repository()
     
     private let repository: RepositoryProtocol

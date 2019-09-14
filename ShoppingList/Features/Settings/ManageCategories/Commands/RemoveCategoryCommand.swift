@@ -1,6 +1,6 @@
 import Foundation
 
-class RemoveCategoryCommand: Command {
+final class RemoveCategoryCommand: Command {
     var source: CommandSource
     
     private let category: Category

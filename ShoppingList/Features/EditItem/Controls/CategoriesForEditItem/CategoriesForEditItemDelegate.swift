@@ -1,5 +1,5 @@
 import UIKit
 
-protocol CategoriesForEditItemDelegate {
+protocol CategoriesForEditItemDelegate: class {
     func categoriesForEditItemDidShowAddCategoryPopup(_ categoriesForEditItem: CategoriesForEditItem)
 }

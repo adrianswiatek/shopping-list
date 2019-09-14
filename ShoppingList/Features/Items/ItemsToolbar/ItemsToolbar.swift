@@ -1,7 +1,6 @@
 import UIKit
 
-class ItemsToolbar: UIView {
-    
+final class ItemsToolbar: UIView {
     var delegate: ItemsToolbarDelegate?
     
     // MARK: - Regular toolbar

@@ -1,9 +1,6 @@
 import UIKit
 
-class SettingsViewController: UIViewController {
-    
-    // MARK: - Controls
-    
+final class SettingsViewController: UIViewController {    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -30,9 +27,7 @@ class SettingsViewController: UIViewController {
     @objc private func closeScene() {
         dismiss(animated: true)
     }
-    
-    // MARK: - Initialize
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeUserInterface()

@@ -1,7 +1,6 @@
 import CoreData
 
-class CoreDataRepository: RepositoryProtocol {
-
+final class CoreDataRepository: RepositoryProtocol {
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ShoppingList")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in

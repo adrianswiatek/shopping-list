@@ -1,7 +1,6 @@
 import UIKit
 
 struct DeleteCategoryAlertBuilder {
-    
     var deleteButtonTapped: (() -> ())?
     var cancelButtonTapped: (() -> ())?
     

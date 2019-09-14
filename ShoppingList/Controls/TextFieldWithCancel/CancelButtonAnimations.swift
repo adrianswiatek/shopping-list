@@ -1,7 +1,6 @@
 import UIKit
 
-class CancelButtonAnimations {
-    
+final class CancelButtonAnimations {
     private var viewController: UIViewController
     private var button: UIButton
     

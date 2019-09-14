@@ -1,9 +1,8 @@
 import UIKit
 
-class CategoriesForEditItem: UIView {
-
-    var delegate: CategoriesForEditItemDelegate?
-    var viewController: UIViewController?
+final class CategoriesForEditItem: UIView {
+    weak var delegate: CategoriesForEditItemDelegate?
+    weak var viewController: UIViewController?
     
     override var backgroundColor: UIColor? {
         get {

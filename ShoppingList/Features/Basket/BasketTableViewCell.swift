@@ -1,7 +1,6 @@
 import UIKit
 
-class BasketTableViewCell: UITableViewCell {
-
+final class BasketTableViewCell: UITableViewCell {
     var item: Item? {
         didSet {
             itemNameLabel.text = item?.name

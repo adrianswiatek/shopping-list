@@ -1,7 +1,6 @@
 import UIKit
 
-class ItemsTableViewCell: UITableViewCell {
-   
+final class ItemsTableViewCell: UITableViewCell {
     weak var delegate: AddToBasketDelegate?
     
     var item: Item? {

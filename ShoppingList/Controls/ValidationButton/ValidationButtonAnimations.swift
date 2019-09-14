@@ -1,7 +1,6 @@
 import UIKit
 
-class ValidationButtonAnimations {
-    
+final class ValidationButtonAnimations {
     private var viewController: UIViewController
     private var button: UIButton
     private var textField: UITextField

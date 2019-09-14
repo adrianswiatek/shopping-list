@@ -1,7 +1,6 @@
 import UIKit
 
-class EditItemViewController: UIViewController {
-    
+final class EditItemViewController: UIViewController {
     static let labelsWidth: CGFloat = 100
     static let labelsLeftPadding: CGFloat = 16
     

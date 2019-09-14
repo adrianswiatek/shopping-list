@@ -1,14 +1,9 @@
 import UIKit
 
-class ManageCategoriesViewController: UIViewController {
-    
-    // MARK: - Properties
-    
+final class ManageCategoriesViewController: UIViewController {
     var categories = [Category]()
     var items = [Item]()
-    
-    // MARK: - Controls
-    
+
     lazy var addCategoryTextField: TextFieldWithCancel = {
         let textField = TextFieldWithCancel(viewController: self, placeHolder: "Add new category...")
         textField.delegate = self

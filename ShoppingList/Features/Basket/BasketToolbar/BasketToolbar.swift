@@ -1,7 +1,6 @@
 import UIKit
 
-class BasketToolbar: UIView {
-
+final class BasketToolbar: UIView {
     var delegate: BasketToolbarDelegate?
     
     // MARK:- Regular toolbar

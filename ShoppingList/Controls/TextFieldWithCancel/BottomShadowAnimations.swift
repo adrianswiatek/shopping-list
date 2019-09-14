@@ -1,7 +1,6 @@
 import UIKit
 
 struct BottomShadowAnimations {
-    
     let view: UIView
     
     let opacityAnimation: CABasicAnimation

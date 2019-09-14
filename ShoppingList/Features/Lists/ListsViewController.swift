@@ -1,7 +1,6 @@
 import UIKit
 
-class ListsViewController: UIViewController {
-    
+final class ListsViewController: UIViewController {
     var lists = [List]()
     
     lazy var addListTextFieldWithCancel: TextFieldWithCancel = {

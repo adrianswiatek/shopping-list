@@ -42,7 +42,6 @@
 		3A54251D20BBD8090095D66A /* BasketToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251C20BBD8090095D66A /* BasketToolbar.swift */; };
 		3A54251F20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */; };
 		3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */; };
-		3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */; };
 		3A562A0320E430CE0030732D /* ListEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A562A0220E430CE0030732D /* ListEntityExtensions.swift */; };
 		3A56DE92212CB1BF00F269F3 /* ValidationButtonRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */; };
 		3A67525A2132B18D008CD3E4 /* ButtonWithHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */; };
@@ -168,7 +167,6 @@
 		3A54251C20BBD8090095D66A /* BasketToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbar.swift; sourceTree = "<group>"; };
 		3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+BasketToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarDelegate.swift; sourceTree = "<group>"; };
-		3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditListAlertBuilder.swift; sourceTree = "<group>"; };
 		3A562A0220E430CE0030732D /* ListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEntityExtensions.swift; sourceTree = "<group>"; };
 		3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationButtonRule.swift; sourceTree = "<group>"; };
 		3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithHighlight.swift; sourceTree = "<group>"; };
@@ -562,7 +560,6 @@
 			isa = PBXGroup;
 			children = (
 				3AC68B9520E2DF2A000F0487 /* DeleteListAlertBuilder.swift */,
-				3A562A0020E40CFF0030732D /* EditListAlertBuilder.swift */,
 				3A8F1A282107CE1900F27A1E /* ListActionsAlertBuilder.swift */,
 				3A8F1A2A2107D7B700F27A1E /* ListsActionsAlertDelegate.swift */,
 			);
@@ -900,7 +897,6 @@
 				3A82DC56207D7539006B3885 /* BasketViewController.swift in Sources */,
 				3A56DE92212CB1BF00F269F3 /* ValidationButtonRule.swift in Sources */,
 				3A13566F207E9910006A7414 /* AddToBasketDelegate.swift in Sources */,
-				3A562A0120E40CFF0030732D /* EditListAlertBuilder.swift in Sources */,
 				3A972EC2207A8A1000963961 /* CancelButtonAnimations.swift in Sources */,
 				3A54252120BBE2D10095D66A /* BasketToolbarDelegate.swift in Sources */,
 				3AE3AF722129EB8B00D105FE /* TextFieldWithWarning.swift in Sources */,

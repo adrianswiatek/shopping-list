@@ -1,7 +1,6 @@
 import UIKit
 
 struct DeleteContextualActionBuilder {
-    
     private let viewController: ManageCategoriesViewController
     private let category: Category
     private let isCategoryEmpty: Bool

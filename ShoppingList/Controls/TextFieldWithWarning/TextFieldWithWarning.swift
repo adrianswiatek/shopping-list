@@ -1,7 +1,6 @@
 import UIKit
 
-class TextFieldWithWarning: UIView {
-    
+final class TextFieldWithWarning: UIView {
     weak var delegate: TextFieldWithWarningDelegate?
     
     var font: UIFont? {

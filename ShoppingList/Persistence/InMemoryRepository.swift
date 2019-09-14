@@ -1,7 +1,6 @@
 import Foundation
 
-class InMemoryRepository: RepositoryProtocol {
-
+final class InMemoryRepository: RepositoryProtocol {
     private var lists = [List]()
     private var itemsOrders = [ItemsOrder]()
     private var categories = [Category]()

@@ -1,5 +1,4 @@
-class CommandInvoker {
-    
+final class CommandInvoker {
     static let shared = CommandInvoker()
     
     private var commands: [CommandSource: Command] = [:]

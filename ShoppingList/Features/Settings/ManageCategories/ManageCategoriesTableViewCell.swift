@@ -1,7 +1,6 @@
 import UIKit
 
-class ManageCategoriesTableViewCell: UITableViewCell {
-    
+final class ManageCategoriesTableViewCell: UITableViewCell {
     var category: Category? {
         didSet {
             if let categoryName = category?.name {
