@@ -49,7 +49,14 @@ extension ListsViewController: UITableViewDelegate {
         _ tableView: UITableView,
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(
+        return UISwipeActionsConfiguration(actions: [
+            getEditItemAction(for: indexPath),
+            getShareItemAction(for: indexPath)
+        ])
+    }
+
+    private func getEditItemAction(for indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(
             style: .normal,
             title: nil) { [unowned self] (action, sourceView, completionHandler) in
                 self.showEditPopup(
@@ -61,14 +68,27 @@ extension ListsViewController: UITableViewDelegate {
                         }
                         self.changeListName(at: indexPath, newName: $0)
                         completionHandler(true)
-                    },
+                },
                     cancelled: {
                         completionHandler(false)
-                    })
+                })
             }
-        editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        editItemAction.image = #imageLiteral(resourceName: "Edit")
-        return UISwipeActionsConfiguration(actions: [editItemAction])
+        action.backgroundColor = #colorLiteral(red: 0.1764705882, green: 0.4980392157, blue: 0.7568627451, alpha: 1)
+        action.image = #imageLiteral(resourceName: "Edit")
+
+        return action
+    }
+
+    private func getShareItemAction(for indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(
+            style: .normal,
+            title: nil) { _, _, completionHandler in
+                completionHandler(false)
+            }
+        action.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.8117647059, blue: 0.7568627451, alpha: 1)
+        action.image = #imageLiteral(resourceName: "ShareWith")
+
+        return action
     }
     
     private func showEditPopup(

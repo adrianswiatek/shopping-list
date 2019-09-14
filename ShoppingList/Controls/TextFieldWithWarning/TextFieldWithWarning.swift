@@ -39,7 +39,7 @@ final class TextFieldWithWarning: UIView {
     
     private lazy var validationButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "warning"), for: .normal)
+        button.setImage(UIImage(named: "Warning"), for: .normal)
         button.alpha = 0
         button.addTarget(self, action: #selector(handleValidation), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
