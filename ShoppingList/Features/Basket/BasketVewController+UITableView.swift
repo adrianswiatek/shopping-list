@@ -9,7 +9,7 @@ extension BasketViewController: UITableViewDelegate {
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        deleteItemAction.image = #imageLiteral(resourceName: "Trash")
+        deleteItemAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
     }
     
