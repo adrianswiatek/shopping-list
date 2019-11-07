@@ -130,7 +130,7 @@ final class ItemsViewController: UIViewController {
         toolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         toolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        toolbar.heightAnchor.constraint(equalToConstant: 50)
+        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         view.addSubview(tableView)
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
