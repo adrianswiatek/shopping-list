@@ -16,7 +16,7 @@ struct WarningAlertBuilder {
     }
     
     private func createAlertController() -> UIAlertController {
-        return UIAlertController(title: "", message: message, preferredStyle: .alert)
+        UIAlertController(title: "", message: message, preferredStyle: .alert)
     }
     
     private func addCancelAction(to alertController: UIAlertController) {

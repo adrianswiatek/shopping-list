@@ -10,7 +10,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = .white
         
         let rootViewController = ListsViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)

@@ -21,14 +21,14 @@ final class ManageCategoriesTableViewCell: UITableViewCell {
     
     private var defaultCategoryImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = .lightGray
+        imageView.tintColor = .textSecondary
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let categoryNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
+        label.textColor = .textPrimary
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ final class ManageCategoriesTableViewCell: UITableViewCell {
     
     private let numberOfItemsInCategoryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .lightGray
+        label.textColor = .textSecondary
         label.font = .systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -49,18 +49,25 @@ final class ManageCategoriesTableViewCell: UITableViewCell {
     }
     
     private func setupUserInterface() {
+        backgroundColor = .background
+
         contentView.addSubview(defaultCategoryImageView)
-        contentView.addSubview(categoryNameLabel)
-        contentView.addSubview(numberOfItemsInCategoryLabel)
-        
         NSLayoutConstraint.activate([
             defaultCategoryImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             defaultCategoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             defaultCategoryImageView.heightAnchor.constraint(equalToConstant: 24),
-            defaultCategoryImageView.widthAnchor.constraint(equalTo: defaultCategoryImageView.heightAnchor),
+            defaultCategoryImageView.widthAnchor.constraint(equalTo: defaultCategoryImageView.heightAnchor)
+        ])
+
+        contentView.addSubview(categoryNameLabel)
+        NSLayoutConstraint.activate([
             categoryNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             categoryNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            categoryNameLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.leadingAnchor, constant: -8),
+            categoryNameLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.leadingAnchor, constant: -8)
+        ])
+
+        contentView.addSubview(numberOfItemsInCategoryLabel)
+        NSLayoutConstraint.activate([
             numberOfItemsInCategoryLabel.leadingAnchor.constraint(equalTo: categoryNameLabel.leadingAnchor),
             numberOfItemsInCategoryLabel.topAnchor.constraint(equalTo: categoryNameLabel.bottomAnchor, constant: 4),
             numberOfItemsInCategoryLabel.trailingAnchor.constraint(equalTo: categoryNameLabel.trailingAnchor),

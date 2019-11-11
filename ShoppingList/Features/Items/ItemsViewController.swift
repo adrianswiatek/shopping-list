@@ -44,11 +44,11 @@ final class ItemsViewController: UIViewController {
     }()
     
     lazy var goToFilledBasketBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
+        UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
     }()
     
     lazy var goToEmptyBasketBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), style: .plain, target: self, action: #selector(goToBasketScene))
+        UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), style: .plain, target: self, action: #selector(goToBasketScene))
     }()
     
     @objc private func goToBasketScene() {
@@ -116,27 +116,31 @@ final class ItemsViewController: UIViewController {
     }
     
     private func setupUserInterface() {
-        view.backgroundColor = .white
-        
         navigationItem.title = currentList.name
 
         view.addSubview(addItemTextField)
-        addItemTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        addItemTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        addItemTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        addItemTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        NSLayoutConstraint.activate([
+            addItemTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            addItemTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            addItemTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            addItemTextField.heightAnchor.constraint(equalToConstant: 50)
+        ])
         
         view.addSubview(toolbar)
-        toolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        toolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        NSLayoutConstraint.activate([
+            toolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            toolbar.heightAnchor.constraint(equalToConstant: 50)
+        ])
         
         view.addSubview(tableView)
-        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: addItemTextField.bottomAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: addItemTextField.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
     }
     
     func refreshUserInterface(after: Double = 0) {
@@ -145,8 +149,8 @@ final class ItemsViewController: UIViewController {
         items.count > 0 ? setSceneAsEditable() : setSceneAsNotEditable()
         tableView.setEditing(false, animated: true)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + after) { [unowned self] in
-            self.clearCategoriesIfNeeded()
+        DispatchQueue.main.asyncAfter(deadline: .now() + after) { [weak self] in
+            self?.clearCategoriesIfNeeded()
         }
     }
     

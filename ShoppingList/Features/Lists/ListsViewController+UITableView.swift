@@ -33,7 +33,7 @@ extension ListsViewController: UITableViewDelegate {
                 builder.cancelButtonTapped = { completionHandler(false) }
                 self.present(builder.build(), animated: true)
             }
-        deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        deleteItemAction.backgroundColor = .delete
         deleteItemAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
     }
@@ -73,7 +73,7 @@ extension ListsViewController: UITableViewDelegate {
                         completionHandler(false)
                     })
             }
-        action.backgroundColor = #colorLiteral(red: 0.1764705882, green: 0.4980392157, blue: 0.7568627451, alpha: 1)
+        action.backgroundColor = .edit
         action.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
 
         return action
@@ -92,7 +92,7 @@ extension ListsViewController: UITableViewDelegate {
                     self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             }
-        action.backgroundColor = #colorLiteral(red: 0.1450980392, green: 0.8117647059, blue: 0.7568627451, alpha: 1)
+        action.backgroundColor = .share
         action.image = (list.accessType == .private ? #imageLiteral(resourceName: "ShareWith") : #imageLiteral(resourceName: "Locked")).withRenderingMode(.alwaysTemplate)
 
         return action

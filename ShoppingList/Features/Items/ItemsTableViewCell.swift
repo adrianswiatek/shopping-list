@@ -25,7 +25,7 @@ final class ItemsTableViewCell: UITableViewCell {
     
     private lazy var itemNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.2588235294, green: 0.2588235294, blue: 0.2588235294, alpha: 1)
+        label.textColor = .textPrimary
         label.font = .systemFont(ofSize: 17)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ final class ItemsTableViewCell: UITableViewCell {
     
     private lazy var itemInfoLabel: UILabel = {
         let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        label.textColor = .textSecondary
         label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -68,23 +68,29 @@ final class ItemsTableViewCell: UITableViewCell {
     
     private func setupUserInterface() {
         contentView.addSubview(addToBasketButton)
-        contentView.addSubview(itemNameLabel)
-        contentView.addSubview(itemInfoLabel)
-        
         NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
             addToBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             addToBasketButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             addToBasketButton.heightAnchor.constraint(equalToConstant: 40),
-            addToBasketButton.widthAnchor.constraint(equalTo: addToBasketButton.heightAnchor),
+            addToBasketButton.widthAnchor.constraint(equalTo: addToBasketButton.heightAnchor)
+        ])
+
+        contentView.addSubview(itemNameLabel)
+        NSLayoutConstraint.activate([
             itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            itemNameLabel.trailingAnchor.constraint(equalTo: addToBasketButton.leadingAnchor, constant: -4),
+            itemNameLabel.trailingAnchor.constraint(equalTo: addToBasketButton.leadingAnchor, constant: -4)
+        ])
+
+        contentView.addSubview(itemInfoLabel)
+        NSLayoutConstraint.activate([
             itemInfoLabel.leadingAnchor.constraint(equalTo: itemNameLabel.leadingAnchor),
             itemInfoLabel.topAnchor.constraint(equalTo: itemNameLabel.bottomAnchor, constant: 2),
             itemInfoLabel.trailingAnchor.constraint(equalTo: itemNameLabel.trailingAnchor),
             itemInfoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
-        
+
+        contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+
         itemNameLabelTopConstraint = itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
         itemNameLabelTopConstraint.isActive = false
         

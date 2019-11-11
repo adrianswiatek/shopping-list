@@ -1,7 +1,10 @@
 import UIKit
 
 extension ManageCategoriesViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         let builder = EditContextualActionBuilder(
             viewController: self,
             category: categories[indexPath.row],
@@ -45,7 +48,10 @@ extension ManageCategoriesViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         let category = categories[indexPath.row]
 
         let builder = DeleteContextualActionBuilder(
@@ -64,7 +70,9 @@ extension ManageCategoriesViewController: UITableViewDelegate {
     }
     
     private func deletedCategoryWithItems() {
-        guard let indexOfDefaultCategory = categories.firstIndex(where: { $0.id == Category.getDefault().id }) else { return }
+        guard let indexOfDefaultCategory = categories.firstIndex(where: { $0.id == Category.getDefault().id }) else {
+            return
+        }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             self.fetchItems()
