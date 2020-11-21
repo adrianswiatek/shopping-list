@@ -1,26 +1,36 @@
 import UIKit
 
 extension ItemsViewController: UITableViewDelegate {    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(style: .normal, title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            let item = self.items[indexPath.section][indexPath.row]
-            self.goToEditItemDetailed(with: item)
-            completionHandler(true)
-        }
-        editItemAction.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        editItemAction.image = #imageLiteral(resourceName: "Edit")
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let editItemAction = UIContextualAction(
+            style: .normal,
+            title: nil) { [unowned self] (action, sourceView, completionHandler) in
+                let item = self.items[indexPath.section][indexPath.row]
+                self.goToEditItemDetailed(with: item)
+                completionHandler(true)
+            }
+        editItemAction.backgroundColor = .edit
+        editItemAction.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
         return UISwipeActionsConfiguration(actions: [editItemAction])
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(style: .destructive, title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            let item = self.items[indexPath.section][indexPath.row]
-            let command = RemoveItemsFromListCommand(item, self)
-            CommandInvoker.shared.execute(command)
-            completionHandler(true)
-        }
-        deleteItemAction.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-        deleteItemAction.image = #imageLiteral(resourceName: "Trash")
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteItemAction = UIContextualAction(
+            style: .destructive,
+            title: nil) { [unowned self] (action, sourceView, completionHandler) in
+                let item = self.items[indexPath.section][indexPath.row]
+                let command = RemoveItemsFromListCommand(item, self)
+                CommandInvoker.shared.execute(command)
+                completionHandler(true)
+            }
+        deleteItemAction.backgroundColor = .delete
+        deleteItemAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UISwipeActionsConfiguration(actions: [deleteItemAction])
     }
     
@@ -57,7 +67,11 @@ extension ItemsViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        moveRowAt sourceIndexPath: IndexPath,
+        to destinationIndexPath: IndexPath
+    ) {
         var item = items[sourceIndexPath.section].remove(at: sourceIndexPath.row)
 
         if sourceIndexPath.section != destinationIndexPath.section {

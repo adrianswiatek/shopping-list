@@ -24,6 +24,7 @@ final class ListsViewController: UIViewController {
                 action: #selector(longPressHandler)))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 90
+        tableView.backgroundColor = .background
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false

@@ -5,6 +5,7 @@ final class ListsTableViewCell: UITableViewCell {
         didSet {
             guard let list = list else { return }
             nameLabel.text = list.name
+            accessTypeImageView.image = (list.accessType == .private ? #imageLiteral(resourceName: "Locked") : #imageLiteral(resourceName: "Shared")).withRenderingMode(.alwaysTemplate)
             accessTypeLabel.text = list.accessType.description
             numberOfItemsValueLabel.text = String(list.getNumberOfItemsToBuy())
             updateDateValueLabel.text = getFormatted(date: list.updateDate)
@@ -27,7 +28,7 @@ final class ListsTableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
+        label.textColor = .textPrimary
         label.font = .boldSystemFont(ofSize: 18)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +38,7 @@ final class ListsTableViewCell: UITableViewCell {
     private let numberOfItemsLabel: UILabel = {
         let label = UILabel()
         label.text = "Items to buy:"
-        label.textColor = .gray
+        label.textColor = .textSecondary
         label.font = .systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,7 +47,7 @@ final class ListsTableViewCell: UITableViewCell {
     private let numberOfItemsValueLabel: UILabel = {
         let label = UILabel()
         label.text = "0"
-        label.textColor = .darkGray
+        label.textColor = .textPrimary
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -56,14 +57,14 @@ final class ListsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Updated:"
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
+        label.textColor = .textSecondary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let updateDateValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
+        label.textColor = .textPrimary
         label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -71,7 +72,7 @@ final class ListsTableViewCell: UITableViewCell {
     
     private let accessTypeLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .lightGray
+        label.textColor = .textSecondary
         label.font = .systemFont(ofSize: 14)
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -80,8 +81,7 @@ final class ListsTableViewCell: UITableViewCell {
     
     private let accessTypeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "Locked").withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .lightGray
+        imageView.tintColor = .textSecondary
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -99,38 +99,59 @@ final class ListsTableViewCell: UITableViewCell {
     }
     
     private func setupUserInterface() {
+        backgroundColor = .background
+
         contentView.addSubview(accessTypeView)
-        accessTypeView.addSubview(accessTypeLabel)
-        accessTypeView.addSubview(accessTypeImageView)
-        
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(numberOfItemsLabel)
-        contentView.addSubview(numberOfItemsValueLabel)
-        contentView.addSubview(updateDateLabel)
-        contentView.addSubview(updateDateValueLabel)
-        
         NSLayoutConstraint.activate([
             accessTypeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             accessTypeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             accessTypeView.heightAnchor.constraint(equalToConstant: 48),
-            accessTypeView.widthAnchor.constraint(equalToConstant: 48),
+            accessTypeView.widthAnchor.constraint(equalToConstant: 48)
+        ])
+
+        accessTypeView.addSubview(accessTypeLabel)
+        NSLayoutConstraint.activate([
             accessTypeLabel.trailingAnchor.constraint(equalTo: accessTypeView.trailingAnchor),
-            accessTypeLabel.bottomAnchor.constraint(equalTo: accessTypeView.bottomAnchor),
+            accessTypeLabel.bottomAnchor.constraint(equalTo: accessTypeView.bottomAnchor)
+        ])
+
+        accessTypeView.addSubview(accessTypeImageView)
+        NSLayoutConstraint.activate([
             accessTypeImageView.centerXAnchor.constraint(equalTo: accessTypeLabel.centerXAnchor),
             accessTypeImageView.bottomAnchor.constraint(equalTo: accessTypeLabel.topAnchor),
             accessTypeImageView.heightAnchor.constraint(equalToConstant: 24),
-            accessTypeImageView.widthAnchor.constraint(equalToConstant: 24),
+            accessTypeImageView.widthAnchor.constraint(equalToConstant: 24)
+        ])
+
+        contentView.addSubview(nameLabel)
+        NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            nameLabel.trailingAnchor.constraint(equalTo: accessTypeView.leadingAnchor, constant: -12),
+            nameLabel.trailingAnchor.constraint(equalTo: accessTypeView.leadingAnchor, constant: -12)
+        ])
+
+        contentView.addSubview(numberOfItemsLabel)
+        NSLayoutConstraint.activate([
             numberOfItemsLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            numberOfItemsLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4),
+            numberOfItemsLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4)
+        ])
+
+        contentView.addSubview(numberOfItemsValueLabel)
+        NSLayoutConstraint.activate([
             numberOfItemsValueLabel.leadingAnchor.constraint(equalTo: numberOfItemsLabel.trailingAnchor, constant: 4),
-            numberOfItemsValueLabel.centerYAnchor.constraint(equalTo: numberOfItemsLabel.centerYAnchor),
+            numberOfItemsValueLabel.centerYAnchor.constraint(equalTo: numberOfItemsLabel.centerYAnchor)
+        ])
+
+        contentView.addSubview(updateDateLabel)
+        NSLayoutConstraint.activate([
             updateDateLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             updateDateLabel.topAnchor.constraint(equalTo: numberOfItemsLabel.bottomAnchor),
             updateDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            updateDateLabel.widthAnchor.constraint(equalTo: numberOfItemsLabel.widthAnchor),
+            updateDateLabel.widthAnchor.constraint(equalTo: numberOfItemsLabel.widthAnchor)
+        ])
+
+        contentView.addSubview(updateDateValueLabel)
+        NSLayoutConstraint.activate([
             updateDateValueLabel.leadingAnchor.constraint(equalTo: updateDateLabel.trailingAnchor, constant: 4),
             updateDateValueLabel.centerYAnchor.constraint(equalTo: updateDateLabel.centerYAnchor)
         ])

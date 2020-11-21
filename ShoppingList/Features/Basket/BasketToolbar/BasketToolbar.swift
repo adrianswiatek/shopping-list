@@ -3,7 +3,7 @@ import UIKit
 final class BasketToolbar: UIView {
     var delegate: BasketToolbarDelegate?
     
-    // MARK:- Regular toolbar
+    // MARK: - Regular toolbar
     
     private lazy var editButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editButtonHandler))
@@ -28,7 +28,8 @@ final class BasketToolbar: UIView {
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             actionButton,
             ], animated: true)
-        toolbar.barTintColor = .white
+        toolbar.barTintColor = .background
+        toolbar.isTranslucent = false
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
@@ -81,7 +82,8 @@ final class BasketToolbar: UIView {
         let toolbar = UIToolbar()
         toolbar.setItems([cancelButton, flexibleSpace, deleteAllButton, fixedSpace, restoreAllButton], animated: true)
         toolbar.alpha = 0
-        toolbar.barTintColor = .white
+        toolbar.barTintColor = .background
+        toolbar.isTranslucent = false
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         return toolbar
     }()
@@ -92,7 +94,7 @@ final class BasketToolbar: UIView {
     
     private lazy var topLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+        view.backgroundColor = .line
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -106,29 +108,35 @@ final class BasketToolbar: UIView {
     
     private func setupUserInterface() {
         addSubview(regularToolbar)
-        regularToolbar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        regularToolbar.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        regularToolbar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        regularToolbar.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            regularToolbar.topAnchor.constraint(equalTo: topAnchor),
+            regularToolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            regularToolbar.bottomAnchor.constraint(equalTo: bottomAnchor),
+            regularToolbar.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
         
         addSubview(editToolbar)
-        editToolbar.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        editToolbar.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        editToolbar.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        editToolbar.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            editToolbar.topAnchor.constraint(equalTo: topAnchor),
+            editToolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            editToolbar.bottomAnchor.constraint(equalTo: bottomAnchor),
+            editToolbar.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
         
         addSubview(topLineView)
-        topLineView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        topLineView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        topLineView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        topLineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        NSLayoutConstraint.activate([
+            topLineView.topAnchor.constraint(equalTo: topAnchor),
+            topLineView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            topLineView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            topLineView.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK:- API
+    // MARK: - API
     
     func setRegularMode() {
         regularToolbar.alpha = 1

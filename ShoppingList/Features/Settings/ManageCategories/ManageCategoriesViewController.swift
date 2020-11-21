@@ -40,6 +40,7 @@ final class ManageCategoriesViewController: UIViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = .background
         tableView.allowsSelection = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
@@ -56,17 +57,20 @@ final class ManageCategoriesViewController: UIViewController {
     
     private func setupUserInterface() {
         title = "Manage Categories"
+        view.backgroundColor = .background
         
         navigationItem.largeTitleDisplayMode = .never
         
         view.addSubview(addCategoryTextField)
-        view.addSubview(tableView)
-        
         NSLayoutConstraint.activate([
             addCategoryTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             addCategoryTextField.topAnchor.constraint(equalTo: view.topAnchor),
             addCategoryTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addCategoryTextField.heightAnchor.constraint(equalToConstant: 50),
+            addCategoryTextField.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: addCategoryTextField.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

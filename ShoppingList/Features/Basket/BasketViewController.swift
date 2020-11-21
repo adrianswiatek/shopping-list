@@ -29,7 +29,12 @@ final class BasketViewController: UIViewController {
     }()
     
     private lazy var restoreBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
+        let barButtonItem = UIBarButtonItem(
+            image: #imageLiteral(resourceName: "Restore"),
+            style: .plain,
+            target: self,
+            action: #selector(restore)
+        )
         barButtonItem.isEnabled = false
         return barButtonItem
     }()
@@ -70,7 +75,6 @@ final class BasketViewController: UIViewController {
     
     private func setupUserInterface() {
         title = "Basket"
-        view.backgroundColor = .white
         
         view.addSubview(toolbar)
         toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true

@@ -10,6 +10,7 @@ final class TextFieldWithCancel: UIView {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
+        textField.textColor = .textPrimary
         textField.clearButtonMode = .whileEditing
         textField.returnKeyType = .done
         textField.delegate = self
@@ -20,7 +21,7 @@ final class TextFieldWithCancel: UIView {
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("Cancel", for: UIControl.State.normal)
-        button.setTitleColor(#colorLiteral(red: 0, green: 0.4117647059, blue: 0.8509803922, alpha: 1), for: UIControl.State.normal)
+        button.setTitleColor(#colorLiteral(red: 0, green: 0.4117647059, blue: 0.8509803922, alpha: 1), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.addTarget(self, action: #selector(cancelHandler), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +37,7 @@ final class TextFieldWithCancel: UIView {
     
     private lazy var validationButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "warning"), for: .normal)
+        button.setImage(UIImage(named: "Warning"), for: .normal)
         button.alpha = 0
         button.addTarget(self, action: #selector(handleValidation), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +80,7 @@ final class TextFieldWithCancel: UIView {
     }
     
     private func setupUserInterface() {
-        backgroundColor = .white
+        backgroundColor = .background
         
         addSubview(cancelButton)
         cancelButton.topAnchor.constraint(equalTo: topAnchor).isActive = true

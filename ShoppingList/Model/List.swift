@@ -18,6 +18,10 @@ struct List {
     func getWithChanged(name: String) -> List {
         return List(id: self.id, name: name, accessType: self.accessType, items: self.items, updateDate: Date())
     }
+
+    func with(accessType: ListAccessType) -> List {
+        return List(id: self.id, name: self.name, accessType: accessType, items: self.items, updateDate: self.updateDate)
+    }
     
     func getWithAdded(item: Item) -> List {
         var items = self.items

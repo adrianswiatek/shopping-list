@@ -10,7 +10,7 @@ final class ItemsTableViewHeaderCell: UIView {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = UIColor(white: 0.2, alpha: 1)
+        label.textColor = .textSecondary
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -22,14 +22,14 @@ final class ItemsTableViewHeaderCell: UIView {
     }
     
     private func setupUserInterace() {
-        backgroundColor = UIColor(white: 0.95, alpha: 1)
+        backgroundColor = .header
         addSubview(label)
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             label.topAnchor.constraint(equalTo: topAnchor, constant: 6),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6)
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
         ])
     }
     
