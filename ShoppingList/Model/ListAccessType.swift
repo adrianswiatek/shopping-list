@@ -1,8 +1,10 @@
-enum ListAccessType: Int, CustomStringConvertible {
+public enum ListAccessType: Int {
     case `private`
     case shared
-    
-    var description: String {
+}
+
+extension ListAccessType: CustomStringConvertible {
+    public var description: String {
         switch self {
         case .private: return "private"
         case .shared: return "shared"

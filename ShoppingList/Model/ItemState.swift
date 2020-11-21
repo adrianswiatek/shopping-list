@@ -1,4 +1,4 @@
-enum ItemState: Int {
+public enum ItemState: Int {
     case toBuy
     case inBasket
 }

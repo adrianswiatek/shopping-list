@@ -1,47 +1,47 @@
 import Foundation
 
-struct List {
-    let id: UUID
-    let name: String
-    let accessType: ListAccessType
-    let items: [Item]
-    let updateDate: Date
+public struct List {
+    public let id: UUID
+    public let name: String
+    public let accessType: ListAccessType
+    public let items: [Item]
+    public let updateDate: Date
     
-    func getNumberOfItemsToBuy() -> Int {
+    public func getNumberOfItemsToBuy() -> Int {
         return items.filter { $0.state == .toBuy }.count
     }
     
-    func getNumberOfItemsInBasket() -> Int {
+    public func getNumberOfItemsInBasket() -> Int {
         return items.filter { $0.state == .inBasket }.count
     }
     
-    func getWithChanged(name: String) -> List {
+    public func getWithChanged(name: String) -> List {
         return List(id: self.id, name: name, accessType: self.accessType, items: self.items, updateDate: Date())
     }
 
-    func with(accessType: ListAccessType) -> List {
+    public func with(accessType: ListAccessType) -> List {
         return List(id: self.id, name: self.name, accessType: accessType, items: self.items, updateDate: self.updateDate)
     }
     
-    func getWithAdded(item: Item) -> List {
+    public func getWithAdded(item: Item) -> List {
         var items = self.items
         items.append(item)
         return List(id: self.id, name: self.name, accessType: self.accessType, items: items, updateDate: Date())
     }
     
-    func getWithAdded(items: [Item]) -> List {
+    public func getWithAdded(items: [Item]) -> List {
         var currentItems = self.items
         currentItems.append(contentsOf: items)
         return List(id: self.id, name: self.name, accessType: self.accessType, items: currentItems, updateDate: Date())
     }
     
-    func getWithTheSameUpdateDateAndWithAdded(items: [Item]) -> List {
+    public func getWithTheSameUpdateDateAndWithAdded(items: [Item]) -> List {
         var currentItems = self.items
         currentItems.append(contentsOf: items)
         return List(id: self.id, name: self.name, accessType: self.accessType, items: currentItems, updateDate: self.updateDate)
     }
     
-    func getWithRemoved(item: Item) -> List {
+    public func getWithRemoved(item: Item) -> List {
         var items = self.items
         guard let index = items.firstIndex(where: { $0.id == item.id }) else { return self }
 
@@ -49,7 +49,7 @@ struct List {
         return List(id: self.id, name: self.name, accessType: self.accessType, items: items, updateDate: Date())
     }
     
-    func getWithChanged(item: Item) -> List {
+    public func getWithChanged(item: Item) -> List {
         var items = self.items
         guard let index = items.firstIndex(where: { $0.id == item.id }) else { return self }
         
@@ -58,15 +58,15 @@ struct List {
         return List(id: self.id, name: self.name, accessType: self.accessType, items: items, updateDate: Date())
     }
     
-    func getWithChanged(items: [Item]) -> List {
+    public func getWithChanged(items: [Item]) -> List {
         return List(id: self.id, name: self.name, accessType: self.accessType, items: items, updateDate: Date())
     }
     
-    func getWithChangedDate() -> List {
+    public func getWithChangedDate() -> List {
         return List(id: self.id, name: self.name, accessType: self.accessType, items: self.items, updateDate: Date())
     }
     
-    static func new(name: String) -> List {
+    public static func new(name: String) -> List {
         return List(id: UUID(), name: name, accessType: .private, items: [Item](), updateDate: Date())
     }
 }
