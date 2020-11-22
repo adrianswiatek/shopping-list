@@ -1,3 +1,4 @@
+import ShoppingList_Shared
 import UIKit
 
 public final class PopupWithTextFieldController: UIViewController {
@@ -22,56 +23,36 @@ public final class PopupWithTextFieldController: UIViewController {
     public var saved: ((String) -> Void)?
     public var cancelled: (() -> Void)?
     
-    private lazy var popupView: UIView = { [unowned self] in
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 1, alpha: 0.98)
-        view.layer.cornerRadius = 16
-        view.layer.shadowOffset = CGSize(width: 0, height: 1)
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 3
-        view.layer.shadowOpacity = 1
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "The Title"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.textColor = UIColor(white: 0, alpha: 0.7)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var saveButton: UIButton = {
-        let button = ButtonWithHighlight(type: .custom)
-        button.setTitle("Save", for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
-        button.setTitleColor(colorForHighlightedButton, for: .normal)
-        button.addTarget(self, action: #selector(handleSaveButton), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc private func handleSaveButton() {
-        if textField.isValid() {
-            saved?(textField.text ?? "")
-            dismiss(animated: true)
-        }
+    private lazy var popupView: UIView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = UIColor(white: 1, alpha: 0.98)
+        $0.layer.cornerRadius = 16
+        $0.layer.shadowOffset = CGSize(width: 0, height: 1)
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowRadius = 3
+        $0.layer.shadowOpacity = 1
+        $0.clipsToBounds = true
     }
     
-    private lazy var cancelButton: UIButton = {
-        let button = ButtonWithHighlight(type: .custom)
-        button.setTitle("Cancel", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.setTitleColor(colorForHighlightedButton, for: .normal)
-        button.addTarget(self, action: #selector(handleCancelButton), for: .touchUpInside)
-        return button
-    }()
+    private let titleLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "The Title"
+        $0.font = .boldSystemFont(ofSize: 18)
+        $0.textColor = UIColor(white: 0, alpha: 0.7)
+    }
     
-    @objc private func handleCancelButton() {
-        cancelled?()
-        dismiss(animated: true)
+    private lazy var saveButton: UIButton = configure(ButtonWithHighlight(type: .custom)) {
+        $0.setTitle("Save", for: .normal)
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        $0.setTitleColor(colorForHighlightedButton, for: .normal)
+        $0.addTarget(self, action: #selector(handleSaveButton), for: .touchUpInside)
+    }
+    
+    private lazy var cancelButton: UIButton = configure(ButtonWithHighlight(type: .custom)) {
+        $0.setTitle("Cancel", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 16)
+        $0.setTitleColor(colorForHighlightedButton, for: .normal)
+        $0.addTarget(self, action: #selector(handleCancelButton), for: .touchUpInside)
     }
     
     private lazy var textField: TextFieldWithWarning = {
@@ -94,40 +75,35 @@ public final class PopupWithTextFieldController: UIViewController {
         return textField
     }()
     
-    private let headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let headerView: UIView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
-    private let contentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let contentView: UIView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
-    private let footerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let footerView: UIView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     private let popupViewHeight: CGFloat = 180
     private var popupViewCenterYConstraint: NSLayoutConstraint!
+
     private var colorForHighlightedButton: UIColor {
-        return UIColor(red: 84 / 255, green: 152 / 255, blue: 252 / 255, alpha: 1)
+        UIColor(red: 84 / 255, green: 152 / 255, blue: 252 / 255, alpha: 1)
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
-        modalTransitionStyle = .crossDissolve
+        self.modalTransitionStyle = .crossDissolve
         
-        setupKeyboardEventsObservers()
-        setupUserInterface()
+        self.setupKeyboardEventsObservers()
+        self.setupUserInterface()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
@@ -150,7 +126,8 @@ public final class PopupWithTextFieldController: UIViewController {
             object: nil)
     }
     
-    @objc private func keyboardWillShow(_ notification: Notification) {
+    @objc
+    private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             if popupView.bounds == .zero {
                 popupViewCenterYConstraint.constant = -keyboardFrame.height / 2
@@ -163,7 +140,8 @@ public final class PopupWithTextFieldController: UIViewController {
         }
     }
     
-    @objc private func keyboardWilldHide(_ notification: Notification) {
+    @objc
+    private func keyboardWilldHide(_ notification: Notification) {
         guard popupViewCenterYConstraint.constant != 0 else { return }
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
             self.popupViewCenterYConstraint.constant = 0
@@ -261,6 +239,19 @@ public final class PopupWithTextFieldController: UIViewController {
         textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12).isActive = true
         textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 32).isActive = true
+    }
+
+    @objc
+    private func handleSaveButton() {
+        guard textField.isValid() else { return }
+        saved?(textField.text ?? "")
+        dismiss(animated: true)
+    }
+
+    @objc
+    private func handleCancelButton() {
+        cancelled?()
+        dismiss(animated: true)
     }
 }
 

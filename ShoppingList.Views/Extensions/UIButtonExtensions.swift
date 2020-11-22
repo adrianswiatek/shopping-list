@@ -1,8 +1,8 @@
 import UIKit
 
 extension UIButton {
-    func setListItemButton(with image: UIImage) {
-        self.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.tintColor = .textPrimary
+    public func setListItemButton(with image: UIImage) {
+        setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+        tintColor = .textPrimary
     }
 }

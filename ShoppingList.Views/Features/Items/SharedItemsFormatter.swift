@@ -1,7 +1,9 @@
-struct SharedItemsFormatter {
+import ShoppingList_Domain
+
+public struct SharedItemsFormatter {
     private let separator = "\n"
 
-    func format(_ items: [[Item]], withCategories categories: [Category]) -> String {
+    public func format(_ items: [[Item]], withCategories categories: [ItemsCategory]) -> String {
         var result = [String]()
 
         for (categoryIndex, category) in categories.enumerated() {
@@ -15,7 +17,7 @@ struct SharedItemsFormatter {
         return result.joined(separator: separator)
     }
 
-    func format(_ items: [[Item]]) -> String {
-        return items.flatMap { $0 }.map { $0.name }.joined(separator: separator)
+    public func format(_ items: [[Item]]) -> String {
+        items.flatMap { $0 }.map { $0.name }.joined(separator: separator)
     }
 }

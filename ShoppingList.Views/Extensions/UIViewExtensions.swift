@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIView {
-    func findConstraintWith(identifier: String) -> NSLayoutConstraint? {
-        return self.superview?.constraints.first { $0.identifier == identifier }
+    public func findConstraintWith(identifier: String) -> NSLayoutConstraint? {
+        superview?.constraints.first { $0.identifier == identifier }
     }
 }

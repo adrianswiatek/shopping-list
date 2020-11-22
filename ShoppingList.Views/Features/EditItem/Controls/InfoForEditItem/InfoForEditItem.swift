@@ -1,6 +1,7 @@
+import ShoppingList_Shared
 import UIKit
 
-final class InfoForEditItem: UIView {
+public final class InfoForEditItem: UIView {
     weak var delegate: InfoForEditItemDelegate?
     
     var text: String? {
@@ -8,58 +9,72 @@ final class InfoForEditItem: UIView {
         set { textField.text = newValue }
     }
     
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        label.text = "INFO:"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var label: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        $0.text = "INFO:"
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
     
-    lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter additional info..."
-        textField.textColor = .darkGray
-        textField.font = .systemFont(ofSize: 17)
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = .done
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
-        textField.leftViewMode = .always
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.delegate = self
-        return textField
-    }()
+    lazy var textField: UITextField = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.placeholder = "Enter additional info..."
+        $0.textColor = .darkGray
+        $0.font = .systemFont(ofSize: 17)
+        $0.clearButtonMode = .whileEditing
+        $0.returnKeyType = .done
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+        $0.leftViewMode = .always
+        $0.delegate = self
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUserInterface()
+        self.setupView()
     }
-    
+
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("Not supported.")
     }
     
-    private func setupUserInterface() {
+    private func setupView() {
         backgroundColor = .white
         
         addSubview(label)
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding).isActive = true
-        label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth).isActive = true
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding),
+            label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
         addSubview(textField)
-        textField.leadingAnchor.constraint(equalTo: label.trailingAnchor).isActive = true
-        textField.topAnchor.constraint(equalTo: label.topAnchor).isActive = true
-        textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        textField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            textField.leadingAnchor.constraint(equalTo: label.trailingAnchor),
+            textField.topAnchor.constraint(equalTo: label.topAnchor),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            textField.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
-    
-    @discardableResult override func becomeFirstResponder() -> Bool {
-        return textField.becomeFirstResponder()
+
+    @discardableResult
+    public override func becomeFirstResponder() -> Bool {
+        textField.becomeFirstResponder()
     }
-    
-    @discardableResult override func resignFirstResponder() -> Bool {
-        return textField.resignFirstResponder()
+
+    @discardableResult
+    public override func resignFirstResponder() -> Bool {
+        textField.resignFirstResponder()
+    }
+}
+
+extension InfoForEditItem: UITextFieldDelegate {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.descriptionDidBeginEditing(self)
+    }
+
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

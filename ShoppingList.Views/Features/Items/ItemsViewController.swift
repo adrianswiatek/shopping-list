@@ -39,8 +39,8 @@ public final class ItemsViewController: UIViewController {
     
     lazy var toolbar: ItemsToolbar = {
         let toolbar = ItemsToolbar(viewController: self)
-        toolbar.delegate = self
         toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.delegate = self
         return toolbar
     }()
     
@@ -236,7 +236,7 @@ public final class ItemsViewController: UIViewController {
 }
 
 extension ItemsViewController: EditItemViewControllerDelegate {
-    func didCreate(_ item: Item) {
+    public func didCreate(_ item: Item) {
         didSave(item) {
             let categoryIndex = getCategoryIndex(item)
             items[categoryIndex].insert(item, at: 0)
@@ -247,7 +247,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
         }
     }
 
-    func didUpdate(_ previousItem: Item, _ newItem: Item) {
+    public func didUpdate(_ previousItem: Item, _ newItem: Item) {
         didSave(newItem) {
             let isBeingUpdatedInTheSameList = previousItem.list.id == newItem.list.id
             if !isBeingUpdatedInTheSameList {
@@ -337,7 +337,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
 }
 
 extension ItemsViewController: AddToBasketDelegate {
-    func addItemToBasket(_ item: Item) {
+    public func addItemToBasket(_ item: Item) {
         // TODO: command
         // let command = AddItemsToBasketCommand(item, self)
         // CommandInvoker.shared.execute(command)
@@ -345,7 +345,7 @@ extension ItemsViewController: AddToBasketDelegate {
 }
 
 extension ItemsViewController: TextFieldWithCancelDelegate {
-    func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
+    public func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
         let item = Item.toBuy(name: text, info: "", list: currentList)
 
         let containsDefaultCategory = categories.first { $0.id == ItemsCategory.default.id } != nil
@@ -390,10 +390,12 @@ extension ItemsViewController: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let deleteItemAction = UIContextualAction(
             style: .destructive,
-            title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            let item = self.items[indexPath.section][indexPath.row]
-            let command = RemoveItemsFromListCommand(item, self)
-            CommandInvoker.shared.execute(command)
+            title: nil
+        ) { [unowned self] (action, sourceView, completionHandler) in
+            // Todo: command
+            // let item = self.items[indexPath.section][indexPath.row]
+            // let command = RemoveItemsFromListCommand(item, self)
+            // CommandInvoker.shared.execute(command)
             completionHandler(true)
         }
         deleteItemAction.backgroundColor = .delete
@@ -446,11 +448,13 @@ extension ItemsViewController: UITableViewDataSource {
             item = item.getWithChanged(category: destinationCategory)
             let cell = tableView.cellForRow(at: sourceIndexPath) as! ItemsTableViewCell
             cell.item = item
-            Repository.shared.updateCategory(of: item, to: destinationCategory)
+            // Todo: repository
+            // Repository.shared.updateCategory(of: item, to: destinationCategory)
         }
 
         items[destinationIndexPath.section].insert(item, at: destinationIndexPath.row)
-        Repository.shared.setItemsOrder(items.flatMap { $0 }, in: currentList, forState: .toBuy)
+        // Todo: repository
+        // Repository.shared.setItemsOrder(items.flatMap { $0 }, in: currentList, forState: .toBuy)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [unowned self] in
             let sectionIndex = sourceIndexPath.section
@@ -488,16 +492,16 @@ extension ItemsViewController: UITableViewDropDelegate {
 }
 
 extension ItemsViewController: ItemsToolbarDelegate {
-    func editButtonDidTap() {
+    public func editButtonDidTap() {
         toolbar.setEditMode()
         tableView.setEditing(true, animated: true)
     }
 
-    func addButtonDidTap() {
+    public func addButtonDidTap() {
         goToEditItemDetailed()
     }
 
-    func actionButtonDidTap() {
+    public func actionButtonDidTap() {
         let shareAction = UIAlertAction(title: "Share", style: .default) { [unowned self] _ in
             self.openShareItemsAlert()
         }

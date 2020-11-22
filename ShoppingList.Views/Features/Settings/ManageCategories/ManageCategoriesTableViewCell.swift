@@ -1,54 +1,55 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
-final class ManageCategoriesTableViewCell: UITableViewCell {
-    var category: Category? {
+public final class ManageCategoriesTableViewCell: UITableViewCell {
+    public var category: ItemsCategory? {
         didSet {
             if let categoryName = category?.name {
                 categoryNameLabel.text = categoryName
             }
             
-            defaultCategoryImageView.image = category?.isDefault() == true
+            defaultCategoryImageView.image = category?.isDefault == true
                 ? #imageLiteral(resourceName: "Star").withRenderingMode(.alwaysTemplate)
                 : nil
         }
     }
     
-    var itemsInCategory: Int? {
+    public var itemsInCategory: Int? {
         didSet {
             numberOfItemsInCategoryLabel.text = "Items in category: \(itemsInCategory ?? 0)"
         }
     }
     
-    private var defaultCategoryImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = .textSecondary
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let categoryNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .textPrimary
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let numberOfItemsInCategoryLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .textSecondary
-        label.font = .systemFont(ofSize: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUserInterface()
+    private var defaultCategoryImageView: UIImageView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.tintColor = .textSecondary
     }
     
-    private func setupUserInterface() {
+    private let categoryNameLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .textPrimary
+        $0.font = .systemFont(ofSize: 18, weight: .semibold)
+        $0.numberOfLines = 0
+    }
+    
+    private let numberOfItemsInCategoryLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .textSecondary
+        $0.font = .systemFont(ofSize: 14)
+    }
+    
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setupview()
+    }
+
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported")
+    }
+    
+    private func setupview() {
         backgroundColor = .background
 
         contentView.addSubview(defaultCategoryImageView)
@@ -73,9 +74,5 @@ final class ManageCategoriesTableViewCell: UITableViewCell {
             numberOfItemsInCategoryLabel.trailingAnchor.constraint(equalTo: categoryNameLabel.trailingAnchor),
             numberOfItemsInCategoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

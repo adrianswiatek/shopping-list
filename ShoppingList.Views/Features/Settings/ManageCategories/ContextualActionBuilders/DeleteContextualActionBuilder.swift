@@ -1,16 +1,16 @@
 import ShoppingList_Domain
 import UIKit
 
-struct DeleteContextualActionBuilder {
+public struct DeleteContextualActionBuilder {
     private let viewController: ManageCategoriesViewController
-    private let category: ShoppingList_Domain.ItemsCategory
+    private let category: ItemsCategory
     private let isCategoryEmpty: Bool
     private let deleteCategory: () -> ()
     private let deletedCategoryWithItems: () -> ()
     
-    init(
+    public init(
         viewController: ManageCategoriesViewController,
-        category: ShoppingList_Domain.ItemsCategory,
+        category: ItemsCategory,
         isCategoryEmpty: Bool,
         deleteCategory: @escaping () -> (),
         deletedCategoryWithItems: @escaping () -> ()

@@ -1,40 +1,29 @@
+import ShoppingList_Shared
 import UIKit
 
-final class BasketToolbar: UIView {
-    var delegate: BasketToolbarDelegate?
+public final class BasketToolbar: UIView {
+    public var delegate: BasketToolbarDelegate?
     
     // MARK: - Regular toolbar
     
-    private lazy var editButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editButtonHandler))
-    }()
+    private lazy var editButton: UIBarButtonItem =
+        UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editButtonHandler))
     
-    @objc private func editButtonHandler() {
-        delegate?.editButtonDidTap()
-    }
+    private lazy var actionButton: UIBarButtonItem =
+        UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButtonHandler))
     
-    private lazy var actionButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButtonHandler))
-    }()
-    
-    @objc private func actionButtonHandler() {
-        delegate?.actionButtonDidTap()
-    }
-    
-    private lazy var regularToolbar: UIToolbar = {
-        let toolbar = UIToolbar()
-        toolbar.setItems([
+    private lazy var regularToolbar: UIToolbar = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setItems([
             editButton,
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             actionButton,
-            ], animated: true)
-        toolbar.barTintColor = .background
-        toolbar.isTranslucent = false
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        return toolbar
-    }()
+        ], animated: true)
+        $0.barTintColor = .background
+        $0.isTranslucent = false
+    }
     
-    // MARK:- Edit toolbar
+    // MARK: - Edit toolbar
     
     private lazy var deleteAllButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -45,30 +34,20 @@ final class BasketToolbar: UIView {
         button.isEnabled = false
         return button
     }()
-    
-    @objc private func deleteAllButtonHandler() {
-        delegate?.deleteAllButtonDidTap()
-    }
-    
+
     private lazy var restoreAllButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
             image: #imageLiteral(resourceName: "RemoveFromBasket"),
             style: .plain,
             target: self,
-            action: #selector(restoreAllButtonHandler))
+            action: #selector(restoreAllButtonHandler)
+        )
         button.isEnabled = false
         return button
     }()
     
-    @objc private func restoreAllButtonHandler() {
-        delegate?.restoreAllButtonDidTap()
-    }
-    
     private lazy var editToolbar: UIToolbar = {
-        let fixedSpace = UIBarButtonItem(
-            barButtonSystemItem: .fixedSpace,
-            target: nil,
-            action: nil)
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedSpace.width = 16
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -76,83 +55,49 @@ final class BasketToolbar: UIView {
         let cancelButton = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
-            action: #selector(cancelButtonHandler))
+            action: #selector(cancelButtonHandler)
+        )
         cancelButton.style = .done
         
-        let toolbar = UIToolbar()
-        toolbar.setItems([cancelButton, flexibleSpace, deleteAllButton, fixedSpace, restoreAllButton], animated: true)
-        toolbar.alpha = 0
-        toolbar.barTintColor = .background
-        toolbar.isTranslucent = false
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        return toolbar
+        return configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.setItems([cancelButton, flexibleSpace, deleteAllButton, fixedSpace, restoreAllButton], animated: true)
+            $0.alpha = 0
+            $0.barTintColor = .background
+            $0.isTranslucent = false
+        }
     }()
-    
-    @objc private func cancelButtonHandler() {
-        delegate?.cancelButtonDidTap()
+
+    private let topLineView: UIView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .line
     }
-    
-    private lazy var topLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .line
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    // MARK:- Initialize
-    
-    init(viewController: UIViewController) {
+
+    public init(viewController: UIViewController) {
         super.init(frame: CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 50))
-        setupUserInterface()
+        self.setupView()
     }
-    
-    private func setupUserInterface() {
-        addSubview(regularToolbar)
-        NSLayoutConstraint.activate([
-            regularToolbar.topAnchor.constraint(equalTo: topAnchor),
-            regularToolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            regularToolbar.bottomAnchor.constraint(equalTo: bottomAnchor),
-            regularToolbar.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-        
-        addSubview(editToolbar)
-        NSLayoutConstraint.activate([
-            editToolbar.topAnchor.constraint(equalTo: topAnchor),
-            editToolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            editToolbar.bottomAnchor.constraint(equalTo: bottomAnchor),
-            editToolbar.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-        
-        addSubview(topLineView)
-        NSLayoutConstraint.activate([
-            topLineView.topAnchor.constraint(equalTo: topAnchor),
-            topLineView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            topLineView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            topLineView.heightAnchor.constraint(equalToConstant: 0.5)
-        ])
+
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported.")
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - API
-    
-    func setRegularMode() {
+
+    public func setRegularMode() {
         regularToolbar.alpha = 1
         editToolbar.alpha = 0
         deleteAllButton.isEnabled = false
         restoreAllButton.isEnabled = false
     }
-    
-    func setEditMode() {
+
+    public func setEditMode() {
         regularToolbar.alpha = 0
         editToolbar.alpha = 1
         deleteAllButton.isEnabled = false
         restoreAllButton.isEnabled = false
     }
-    
-    func setButtonsAs(enabled: Bool) {
+
+    public func setButtonsAs(enabled: Bool) {
         let isInRegularMode = regularToolbar.alpha == 1
         if isInRegularMode {
             editButton.isEnabled = enabled
@@ -161,5 +106,56 @@ final class BasketToolbar: UIView {
             deleteAllButton.isEnabled = enabled
             restoreAllButton.isEnabled = enabled
         }
+    }
+
+    private func setupView() {
+        addSubview(regularToolbar)
+        NSLayoutConstraint.activate([
+            regularToolbar.topAnchor.constraint(equalTo: topAnchor),
+            regularToolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            regularToolbar.bottomAnchor.constraint(equalTo: bottomAnchor),
+            regularToolbar.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+
+        addSubview(editToolbar)
+        NSLayoutConstraint.activate([
+            editToolbar.topAnchor.constraint(equalTo: topAnchor),
+            editToolbar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            editToolbar.bottomAnchor.constraint(equalTo: bottomAnchor),
+            editToolbar.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+
+        addSubview(topLineView)
+        NSLayoutConstraint.activate([
+            topLineView.topAnchor.constraint(equalTo: topAnchor),
+            topLineView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            topLineView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            topLineView.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
+    }
+
+    @objc
+    private func editButtonHandler() {
+        delegate?.editButtonDidTap()
+    }
+
+    @objc
+    private func actionButtonHandler() {
+        delegate?.actionButtonDidTap()
+    }
+
+    @objc
+    private func cancelButtonHandler() {
+        delegate?.cancelButtonDidTap()
+    }
+
+    @objc
+    private func deleteAllButtonHandler() {
+        delegate?.deleteAllButtonDidTap()
+    }
+
+    @objc
+    private func restoreAllButtonHandler() {
+        delegate?.restoreAllButtonDidTap()
     }
 }

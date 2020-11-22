@@ -6,7 +6,15 @@ public struct List {
     public let accessType: ListAccessType
     public let items: [Item]
     public let updateDate: Date
-    
+
+    public init(id: UUID, name: String, accessType: ListAccessType, items: [Item], updateDate: Date = Date()) {
+        self.id = id
+        self.name = name
+        self.accessType = accessType
+        self.items = items
+        self.updateDate = updateDate
+    }
+
     public func numberOfItemsToBuy() -> Int {
         items.filter { $0.state == .toBuy }.count
     }

@@ -1,19 +1,21 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
-final class EditItemViewController: UIViewController {
+public final class EditItemViewController: UIViewController {
     static let labelsWidth: CGFloat = 100
     static let labelsLeftPadding: CGFloat = 16
     
-    var delegate: EditItemViewControllerDelegate!
+    public var delegate: EditItemViewControllerDelegate!
     
-    var list: List!  {
+    public var list: List!  {
         didSet {
             guard let list = list else { return }
             listsView.selectBy(name: list.name)
         }
     }
     
-    var item: Item? {
+    public var item: Item? {
         didSet {
             guard let item = item else {
                 itemNameView.becomeFirstResponder()
@@ -98,10 +100,12 @@ final class EditItemViewController: UIViewController {
             let itemIsBeingCreated = self?.item == nil
             if itemIsBeingCreated {
                 self?.delegate?.didCreate(itemToSave)
-                Repository.shared.add(itemToSave)
+                // Todo: repository
+                // Repository.shared.add(itemToSave)
             } else if let previousItem = self?.item {
                 self?.delegate?.didUpdate(previousItem, itemToSave)
-                Repository.shared.update(itemToSave)
+                // Todo: repository
+                // Repository.shared.update(itemToSave)
             }
             
             self?.updatePreviousListIfHasChanged(newList: list)
@@ -109,16 +113,17 @@ final class EditItemViewController: UIViewController {
     }
     
     private func updatePreviousListIfHasChanged(newList: List) {
-        let areListsTheSame = newList.id == list.id
-        if !areListsTheSame, let previousList = Repository.shared.getList(by: list.id) {
-            Repository.shared.update(previousList.getWithChangedDate())
-        }
+        // Todo: repository
+        // let areListsTheSame = newList.id == list.id
+        // if !areListsTheSame, let previousList = Repository.shared.getList(by: list.id) {
+            // Repository.shared.update(previousList.getWithChangedDate())
+        // }
     }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
-        validateStartingContract()
-        setupUserInterface()
+        self.validateStartingContract()
+        self.setupView()
     }
     
     private func validateStartingContract() {
@@ -127,7 +132,7 @@ final class EditItemViewController: UIViewController {
         }
     }
     
-    private func setupUserInterface() {
+    private func setupView() {
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.75)
         view.isOpaque = false
         
@@ -139,28 +144,36 @@ final class EditItemViewController: UIViewController {
         ]
         
         view.addSubview(itemNameView)
-        itemNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        itemNameView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        itemNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        itemNameView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        NSLayoutConstraint.activate([
+            itemNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            itemNameView.topAnchor.constraint(equalTo: view.topAnchor),
+            itemNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            itemNameView.heightAnchor.constraint(equalToConstant: 70)
+        ])
         
         view.addSubview(infoView)
-        infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        infoView.topAnchor.constraint(equalTo: itemNameView.bottomAnchor).isActive = true
-        infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        infoView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        NSLayoutConstraint.activate([
+            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            infoView.topAnchor.constraint(equalTo: itemNameView.bottomAnchor),
+            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            infoView.heightAnchor.constraint(equalToConstant: 70)
+        ])
         
         view.addSubview(categoriesView)
-        categoriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        categoriesView.topAnchor.constraint(equalTo: infoView.bottomAnchor).isActive = true
-        categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        categoriesView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        NSLayoutConstraint.activate([
+            categoriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoriesView.topAnchor.constraint(equalTo: infoView.bottomAnchor),
+            categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoriesView.heightAnchor.constraint(equalToConstant: 100)
+        ])
         
         view.addSubview(listsView)
-        listsView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        listsView.topAnchor.constraint(equalTo: categoriesView.bottomAnchor).isActive = true
-        listsView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        listsView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        NSLayoutConstraint.activate([
+            listsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            listsView.topAnchor.constraint(equalTo: categoriesView.bottomAnchor),
+            listsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            listsView.heightAnchor.constraint(equalToConstant: 100)
+        ])
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.cancelsTouchesInView = false
@@ -173,5 +186,25 @@ final class EditItemViewController: UIViewController {
         
         itemNameView.resignFirstResponder()
         infoView.resignFirstResponder()
+    }
+}
+
+extension EditItemViewController: CategoriesForEditItemDelegate {
+    public func categoriesForEditItemDidShowAddCategoryPopup(_ categoriesForEditItem: CategoriesForEditItem) {
+        itemNameView.resignFirstResponder()
+    }
+}
+
+extension EditItemViewController: ListsForEditItemDelegate {
+    public func listsForEditItemDidShowAddCategoryPopup(_ categoriesForEditItem: ListsForEditItem) {
+        itemNameView.resignFirstResponder()
+    }
+}
+
+extension EditItemViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

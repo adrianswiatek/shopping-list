@@ -1,5 +1,5 @@
-struct ListNameGenerator {
-    func generate(from text: String, and lists: [List]) -> String {
+public struct ListNameGenerator {
+    public static func generate(from text: String, and lists: [List]) -> String {
         if text != "" { return text }
         
         let defaultName = "My List"
@@ -11,7 +11,7 @@ struct ListNameGenerator {
         return newListNameNumber == 0 ? defaultName : "\(defaultName) \(newListNameNumber)"
     }
     
-    private func generateDefaultNameNumber(from lists: [List]) -> Int {
+    private static func generateDefaultNameNumber(from lists: [List]) -> Int {
         let defaultListNameNumbers = lists
             .map { $0.name.components(separatedBy: " ").last ?? "0" }
             .map { Int($0) ?? 0 }

@@ -1,18 +1,20 @@
+import ShoppingList_Domain
 import UIKit
 
 struct EditContextualActionBuilder {
     private let viewController: UIViewController
-    private let category: Category
-    private let categories: [Category]
+    private let category: ItemsCategory
+    private let categories: [ItemsCategory]
     private let saved: (String) -> Void
     private let savedDefault: (String) -> Void
     
     init(
         viewController: UIViewController,
-        category: Category,
-        categories: [Category],
+        category: ItemsCategory,
+        categories: [ItemsCategory],
         saved: @escaping (String) -> Void,
-        savedDefault: @escaping (String) -> Void) {
+        savedDefault: @escaping (String) -> Void
+    ) {
         self.viewController = viewController
         self.category = category
         self.categories = categories
@@ -33,7 +35,7 @@ struct EditContextualActionBuilder {
         completionHandler: @escaping (Bool) -> Void) {
         self.showEditPopup(
             saved: {
-                self.category.isDefault() ? self.savedDefault($0) : self.saved($0)
+                self.category.isDefault ? self.savedDefault($0) : self.saved($0)
                 completionHandler(true)
             },
             cancelled: {

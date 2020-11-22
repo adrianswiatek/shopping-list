@@ -1,47 +1,41 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
-final class BasketTableViewCell: UITableViewCell {
-    var item: Item? {
+public final class BasketTableViewCell: UITableViewCell {
+    public var item: Item? {
         didSet {
             itemNameLabel.text = item?.name
         }
     }
     
-    var delegate: RemoveFromBasketDelegate?
+    public var delegate: RemoveFromBasketDelegate?
 
-    private lazy var itemNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .textPrimary
-        label.text = "Item name"
-        label.font = .systemFont(ofSize: 17)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var removeFromBasketButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setListItemButton(with: #imageLiteral(resourceName: "RemoveFromBasket"))
-        button.addTarget(self, action: #selector(removeFromBasket), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    @objc private func removeFromBasket() {
-        guard let item = item else { return }
-        delegate?.removeItemFromBasket(item)
+    private let itemNameLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .textPrimary
+        $0.text = "Item name"
+        $0.font = .systemFont(ofSize: 17)
+        $0.numberOfLines = 0
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    private lazy var removeFromBasketButton: UIButton = configure(.init(type: .system)) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setListItemButton(with: #imageLiteral(resourceName: "RemoveFromBasket"))
+        $0.addTarget(self, action: #selector(removeFromBasket), for: .touchUpInside)
+    }
+
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUserInterface()
+        setupView()
+    }
+
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported.")
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupUserInterface() {
+    private func setupView() {
         contentView.addSubview(removeFromBasketButton)
         NSLayoutConstraint.activate([
             removeFromBasketButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -59,5 +53,11 @@ final class BasketTableViewCell: UITableViewCell {
         ])
 
         contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+    }
+
+    @objc
+    private func removeFromBasket() {
+        guard let item = item else { return }
+        delegate?.removeItemFromBasket(item)
     }
 }

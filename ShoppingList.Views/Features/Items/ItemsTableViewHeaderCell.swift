@@ -1,27 +1,32 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
-final class ItemsTableViewHeaderCell: UIView {
-    var category: Category? {
+public final class ItemsTableViewHeaderCell: UIView {
+    public var category: ItemsCategory? {
         didSet {
             label.text = category?.name
         }
     }
     
-    private let label: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 16)
-        label.textColor = .textSecondary
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let label: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.textColor = .textSecondary
+        $0.numberOfLines = 0
+    }
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUserInterace()
+        self.setupView()
+    }
+
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported.")
     }
     
-    private func setupUserInterace() {
+    private func setupView() {
         backgroundColor = .header
         addSubview(label)
         
@@ -31,9 +36,5 @@ final class ItemsTableViewHeaderCell: UIView {
             label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
         ])
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

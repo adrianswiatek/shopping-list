@@ -1,5 +1,4 @@
 import UIKit
-import ShoppingList_Application
 import ShoppingList_Domain
 import ShoppingList_Shared
 import ShoppingList_ViewModels
@@ -52,7 +51,8 @@ public final class ListsViewController: UIViewController {
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        CommandInvoker.shared.remove(.lists)
+        // Todo: command
+        // CommandInvoker.shared.remove(.lists)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +66,8 @@ public final class ListsViewController: UIViewController {
             tableView.setTextIfEmpty("You have not added any lists yet")
         }
 
-        restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.lists)
+        // Todo: command
+        // restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.lists)
         navigationItem.rightBarButtonItems = [goToSettingsBarButtonItem, restoreBarButtonItem]
     }
 
@@ -97,11 +98,12 @@ public final class ListsViewController: UIViewController {
     }
 
     private func fetchLists() {
-        lists = Repository.shared.getLists().sorted { $0.updateDate > $1.updateDate }
+        // Todo: repository
+        // lists = Repository.shared.getLists().sorted { $0.updateDate > $1.updateDate }
     }
     
     private func getListName(from text: String) -> String {
-        ListNameGenerator().generate(from: text, and: lists)
+        ListNameGenerator.generate(from: text, and: lists)
     }
 
     @objc
@@ -112,10 +114,11 @@ public final class ListsViewController: UIViewController {
 
     @objc
     private func restore() {
-        let invoker = CommandInvoker.shared
-        if invoker.canUndo(.lists) {
-            invoker.undo(.lists)
-        }
+        // Todo: command
+        // let invoker = CommandInvoker.shared
+        // if invoker.canUndo(.lists) {
+        //     invoker.undo(.lists)
+        // }
     }
 
     @objc
@@ -133,7 +136,7 @@ public final class ListsViewController: UIViewController {
 }
 
 extension ListsViewController: ItemsViewControllerDelegate {
-    func itemsViewControllerDidDismiss(_ itemsViewController: ItemsViewController) {
+    public func itemsViewControllerDidDismiss(_ itemsViewController: ItemsViewController) {
         fetchLists()
         tableView.reloadData()
     }
@@ -144,7 +147,8 @@ extension ListsViewController: TextFieldWithCancelDelegate {
         let list = List.withName(getListName(from: text))
 
         lists.insert(list, at: 0)
-        Repository.shared.add(list)
+        // Todo: repository
+        // Repository.shared.add(list)
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         refreshUserInterface()
     }
@@ -168,9 +172,10 @@ extension ListsViewController: UITableViewDelegate {
             style: .destructive,
             title: nil) { [unowned self] (action, sourceView, completionHandler) in
             let currentList = self.lists[indexPath.row]
-            if currentList.getNumberOfItemsToBuy() == 0 {
-                let command = RemoveListCommand(currentList, self)
-                CommandInvoker.shared.execute(command)
+            if currentList.numberOfItemsToBuy() == 0 {
+                // Todo: command
+                // let command = RemoveListCommand(currentList, self)
+                // CommandInvoker.shared.execute(command)
                 completionHandler(true)
                 return
             }
@@ -189,8 +194,9 @@ extension ListsViewController: UITableViewDelegate {
     }
 
     private func deleteList(at indexPath: IndexPath) {
-        let list = lists.remove(at: indexPath.row)
-        Repository.shared.remove(list)
+        // Todo: repository
+        // let list = lists.remove(at: indexPath.row)
+        // Repository.shared.remove(list)
         tableView.deleteRows(at: [indexPath], with: .automatic)
         refreshUserInterface()
     }
@@ -234,8 +240,9 @@ extension ListsViewController: UITableViewDelegate {
 
         let action = UIContextualAction(
             style: .normal,
-            title: nil) { [unowned self] _, _, completionHandler in
-            let updatedList = list.with(accessType: list.accessType == .private ? .shared : .private)
+            title: nil
+        ) { [unowned self] _, _, completionHandler in
+            let updatedList = list.withAccessType(list.accessType == .private ? .shared : .private)
             self.lists[indexPath.row] = updatedList
             completionHandler(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -267,12 +274,13 @@ extension ListsViewController: UITableViewDelegate {
         let existingList = lists[indexPath.row]
         guard existingList.name != newName else { return }
 
-        let listWithChangedName = existingList.getWithChanged(name: getListName(from: newName))
+        let listWithChangedName = existingList.withChangedName(getListName(from: newName))
 
         lists.remove(at: indexPath.row)
         lists.insert(listWithChangedName, at: 0)
 
-        Repository.shared.update(listWithChangedName)
+        // Todo: repository
+        // Repository.shared.update(listWithChangedName)
 
         if indexPath.row == 0 {
             tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -288,7 +296,7 @@ extension ListsViewController: UITableViewDelegate {
 
 extension ListsViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return lists.count
+        lists.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -310,9 +318,12 @@ extension ListsViewController: ListsActionsAlertDelegate {
     private func remove(items: [Item], from list: List) {
         guard let index = lists.firstIndex(where: { $0.id == list.id }) else { return }
 
-        Repository.shared.remove(items)
+        // Todo: repository
+        // Repository.shared.remove(items)
 
-        guard let removedList = Repository.shared.getList(by: list.id) else { return }
+        // Todo: repository
+        // guard let removedList = Repository.shared.getList(by: list.id) else { return }
+        let removedList = List(id: UUID(), name: "", accessType: .private, items: [])
         lists.remove(at: index)
         lists.insert(removedList, at: 0)
 

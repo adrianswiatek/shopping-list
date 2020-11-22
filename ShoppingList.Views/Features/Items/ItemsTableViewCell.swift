@@ -1,9 +1,11 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
-final class ItemsTableViewCell: UITableViewCell {
-    weak var delegate: AddToBasketDelegate?
+public final class ItemsTableViewCell: UITableViewCell {
+    public weak var delegate: AddToBasketDelegate?
     
-    var item: Item? {
+    public var item: Item? {
         didSet {
             itemNameLabel.text = item?.name
             itemInfoLabel.text = item?.info
@@ -23,50 +25,40 @@ final class ItemsTableViewCell: UITableViewCell {
         }
     }
     
-    private lazy var itemNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .textPrimary
-        label.font = .systemFont(ofSize: 17)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var itemInfoLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .textSecondary
-        label.font = .systemFont(ofSize: 14)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var addToBasketButton: UIButton = {
-        let button = UIButton(type: .infoLight)
-        button.setListItemButton(with: #imageLiteral(resourceName: "AddToBasket"))
-        button.addTarget(self, action: #selector(addToBasket), for: UIControl.Event.touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    @objc private func addToBasket() {
-        guard let item = item else { return }
-        delegate?.addItemToBasket(item)
+    private let itemNameLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .textPrimary
+        $0.font = .systemFont(ofSize: 17)
+        $0.numberOfLines = 0
     }
     
+    private let itemInfoLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .textSecondary
+        $0.font = .systemFont(ofSize: 14)
+        $0.numberOfLines = 0
+    }
+    
+    private lazy var addToBasketButton: UIButton = configure(.init(type: .infoLight)) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setListItemButton(with: #imageLiteral(resourceName: "AddToBasket"))
+        $0.addTarget(self, action: #selector(addToBasket), for: UIControl.Event.touchUpInside)
+    }
+
     private var itemNameLabelTopConstraint: NSLayoutConstraint!
     private var itemNameLabelCenterYConstraint: NSLayoutConstraint!
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupUserInterface()
+        self.setupView()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported.")
     }
     
-    private func setupUserInterface() {
+    private func setupView() {
         contentView.addSubview(addToBasketButton)
         NSLayoutConstraint.activate([
             addToBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -96,5 +88,11 @@ final class ItemsTableViewCell: UITableViewCell {
         
         itemNameLabelCenterYConstraint = itemNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         itemNameLabelCenterYConstraint.isActive = true
+    }
+
+    @objc
+    private func addToBasket() {
+        guard let item = item else { return }
+        delegate?.addItemToBasket(item)
     }
 }

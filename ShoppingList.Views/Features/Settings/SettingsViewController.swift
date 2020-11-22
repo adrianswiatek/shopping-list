@@ -1,40 +1,34 @@
+import ShoppingList_Shared
 import UIKit
 
-final class SettingsViewController: UIViewController {    
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.allowsMultipleSelection = false
-        tableView.backgroundColor = .background
-        tableView.tableFooterView = UIView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+public final class SettingsViewController: UIViewController {
+    private lazy var tableView: UITableView =
+        configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.delegate = self
+            $0.dataSource = self
+            $0.allowsMultipleSelection = false
+            $0.backgroundColor = .background
+            $0.tableFooterView = UIView()
+        }
     
-    let manageCategoriesCell: UITableViewCell = {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = "Manage Categories"
-        cell.textLabel?.textColor = .textPrimary
-        cell.backgroundColor = .background
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }()
+    private let manageCategoriesCell: UITableViewCell =
+        configure(.init(style: .default, reuseIdentifier: nil)) {
+            $0.textLabel?.text = "Manage Categories"
+            $0.textLabel?.textColor = .textPrimary
+            $0.backgroundColor = .background
+            $0.accessoryType = .disclosureIndicator
+        }
     
-    lazy var closeBarButtonItem: UIBarButtonItem = {
+    private lazy var closeBarButtonItem: UIBarButtonItem =
         UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeScene))
-    }()
-    
-    @objc private func closeScene() {
-        dismiss(animated: true)
-    }
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
-        initializeUserInterface()
+        self.setupView()
     }
     
-    private func initializeUserInterface() {
+    private func setupView() {
         title = "Settings"
         
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -48,5 +42,31 @@ final class SettingsViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+
+    @objc
+    private func closeScene() {
+        dismiss(animated: true)
+    }
+}
+
+extension SettingsViewController: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let manageCategoriesViewController = ManageCategoriesViewController()
+        navigationController?.pushViewController(manageCategoriesViewController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension SettingsViewController: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0: return manageCategoriesCell
+        default: return UITableViewCell()
+        }
     }
 }

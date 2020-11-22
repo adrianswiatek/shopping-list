@@ -1,7 +1,8 @@
+import ShoppingList_Domain
 import UIKit
 
-struct ListActionsAlertBuilder {
-    var delegate: ListsActionsAlertDelegate?
+public struct ListActionsAlertBuilder {
+    public var delegate: ListsActionsAlertDelegate?
     
     private let list: List
     
@@ -9,14 +10,12 @@ struct ListActionsAlertBuilder {
         self.list = list
     }
     
-    func build() -> UIAlertController {
-        return anyItemsExist()
-            ? buildListsActionsAlertController()
-            : buildEmptyListsActionsAlertController()
+    public func build() -> UIAlertController {
+        anyItemsExist() ? buildListsActionsAlertController() : buildEmptyListsActionsAlertController()
     }
     
     private func anyItemsExist() -> Bool {
-        return list.getNumberOfItemsToBuy() > 0 || list.getNumberOfItemsInBasket() > 0
+        list.numberOfItemsToBuy() > 0 || list.numberOfItemsInBasket() > 0
     }
     
     private func buildListsActionsAlertController() -> UIAlertController {
@@ -32,7 +31,7 @@ struct ListActionsAlertBuilder {
     }
     
     private func addDeleteAllItemsButton(to alertController: UIAlertController) {
-        guard list.getNumberOfItemsToBuy() > 0 else { return }
+        guard list.numberOfItemsToBuy() > 0 else { return }
         
         let action = UIAlertAction(title: "Delete all items", style: .destructive) { _ in
             self.delegate?.deleteAllItemsIn(self.list)
@@ -42,7 +41,7 @@ struct ListActionsAlertBuilder {
     }
     
     private func addEmptyBasketButton(to alertController: UIAlertController) {
-        guard list.getNumberOfItemsInBasket() > 0 else { return }
+        guard list.numberOfItemsInBasket() > 0 else { return }
         
         let action = UIAlertAction(title: "Empty the basket", style: .destructive) { _ in
             self.delegate?.emptyBasketIn(self.list)
@@ -57,18 +56,12 @@ struct ListActionsAlertBuilder {
     }
     
     private func buildEmptyListsActionsAlertController() -> UIAlertController {
-        let alertController = createEmptyAlertController()
-        addOkButton(to: alertController)
+        let alertController = UIAlertController(
+            title: nil,
+            message: "There are no items in the list",
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
         return alertController
-    }
-    
-    private func createEmptyAlertController() -> UIAlertController {
-        let alertMessage = "There are no items in the list"
-        return UIAlertController(title: nil, message: alertMessage, preferredStyle: .alert)
-    }
-    
-    private func addOkButton(to alertController: UIAlertController) {
-        let action = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(action)
     }
 }

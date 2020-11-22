@@ -1,10 +1,10 @@
 import UIKit
 
-struct DeleteListAlertBuilder {
-    var deleteButtonTapped: (() -> ())?
-    var cancelButtonTapped: (() -> ())?
+public struct DeleteListAlertBuilder {
+    public var deleteButtonTapped: (() -> ())?
+    public var cancelButtonTapped: (() -> ())?
     
-    func build() -> UIAlertController {
+    public func build() -> UIAlertController {
         let alertMessage = "There are items in the list, that have not been bought yet. If continue, all list items will be deleted."
         let controller = UIAlertController(title: "Delete list", message: alertMessage, preferredStyle: .actionSheet)
         

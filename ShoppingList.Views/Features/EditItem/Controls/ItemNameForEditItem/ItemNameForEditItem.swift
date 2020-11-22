@@ -1,43 +1,38 @@
+import ShoppingList_Shared
 import UIKit
 
-final class ItemNameForEditItem: UIView {
+public final class ItemNameForEditItem: UIView {
     weak var delegate: ItemNameForEditItemDelegate?
     
     var text: String? {
-        get { return textField.text }
+        get { textField.text }
         set { textField.text = newValue }
     }
     
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        label.text = "ITEM NAME:"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    lazy var label: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        $0.text = "ITEM NAME:"
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
     
-    lazy var textField: TextFieldWithWarning = {
-        let textField = TextFieldWithWarning(viewController)
-        textField.placeholder = "Enter item name..."
-        textField.textColor = .darkGray
-        textField.font = .systemFont(ofSize: 17)
-        textField.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    lazy var textField: TextFieldWithWarning = configure(TextFieldWithWarning(viewController)) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.placeholder = "Enter item name..."
+        $0.textColor = .darkGray
+        $0.font = .systemFont(ofSize: 17)
+        $0.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
+    }
     
     private let viewController: UIViewController
     
-    init(_ viewController: UIViewController) {
+    public init(_ viewController: UIViewController) {
         self.viewController = viewController
-        
         super.init(frame: CGRect.zero)
-
         self.setupUserInterface()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -47,26 +42,32 @@ final class ItemNameForEditItem: UIView {
         backgroundColor = .white
         
         addSubview(label)
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding).isActive = true
-        label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth).isActive = true
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding),
+            label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
         addSubview(textField)
-        textField.leadingAnchor.constraint(equalTo: label.trailingAnchor).isActive = true
-        textField.topAnchor.constraint(equalTo: label.topAnchor).isActive = true
-        textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        textField.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            textField.leadingAnchor.constraint(equalTo: label.trailingAnchor),
+            textField.topAnchor.constraint(equalTo: label.topAnchor),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            textField.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
     }
     
     func isValid() -> Bool {
-        return textField.isValid()
+        textField.isValid()
     }
-    
-    @discardableResult override func becomeFirstResponder() -> Bool {
-        return textField.becomeFirstResponder()
+
+    @discardableResult
+    public override func becomeFirstResponder() -> Bool {
+        textField.becomeFirstResponder()
     }
-    
-    @discardableResult override func resignFirstResponder() -> Bool {
-        return textField.resignFirstResponder()
+
+    @discardableResult
+    public override func resignFirstResponder() -> Bool {
+        textField.resignFirstResponder()
     }
 }

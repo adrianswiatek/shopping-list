@@ -1,12 +1,14 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
-final class CategoriesForEditItem: UIView {
+public final class CategoriesForEditItem: UIView {
     weak var delegate: CategoriesForEditItemDelegate?
     weak var viewController: UIViewController?
     
-    override var backgroundColor: UIColor? {
+    public override var backgroundColor: UIColor? {
         get {
-            return super.backgroundColor
+            super.backgroundColor
         }
         set {
             super.backgroundColor = newValue
@@ -14,14 +16,13 @@ final class CategoriesForEditItem: UIView {
         }
     }
     
-    lazy var categories: [Category] = {
-        return fetchCategories()
-    }()
+    lazy var categories: [ItemsCategory] = fetchCategories()
     
-    private func fetchCategories() -> [Category] {
-        var categories = Repository.shared.getCategories()
-        
-        let defaultCategory = Category.getDefault()
+    private func fetchCategories() -> [ItemsCategory] {
+        // Todo: repository
+        // var categories = Repository.shared.getCategories()
+        var categories = [ItemsCategory]()
+        let defaultCategory = ItemsCategory.default
         if categories.first(where: { $0.id == defaultCategory.id }) == nil {
             categories.append(defaultCategory)
         }
@@ -29,31 +30,25 @@ final class CategoriesForEditItem: UIView {
         return categories.sorted { $0.name < $1.name }
     }
     
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        label.text = "CATEGORY:"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var label: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        $0.text = "CATEGORY:"
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
     
-    lazy var pickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.backgroundColor = .white
-        pickerView.dataSource = self
-        pickerView.delegate = self
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
-        return pickerView
-    }()
+    lazy var pickerView: UIPickerView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .white
+        $0.dataSource = self
+        $0.delegate = self
+    }
 
-    lazy var addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "Add"), for: .normal)
-        button.addTarget(self, action: #selector(showAddCategoryPopup), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    lazy var addButton: UIButton = configure(.init(type: .system)) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setImage(#imageLiteral(resourceName: "Add"), for: .normal)
+        $0.addTarget(self, action: #selector(showAddCategoryPopup), for: .touchUpInside)
+    }
     
     @objc func showAddCategoryPopup() {
         delegate?.categoriesForEditItemDidShowAddCategoryPopup(self)
@@ -69,11 +64,12 @@ final class CategoriesForEditItem: UIView {
     }()
     
     private func categoryAdded(withName name: String) {
-        let category = Category.new(name: name)
+        let category = ItemsCategory.withName(name)
         
         categories.append(category)
-        
-        Repository.shared.add(category)
+
+        // Todo: repository
+        // Repository.shared.add(category)
         
         categories.sort { $0.name < $1.name }
         pickerView.reloadComponent(0)
@@ -81,52 +77,88 @@ final class CategoriesForEditItem: UIView {
         selectBy(name: name)
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUserInterface()
+        self.setupView()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported.")
     }
     
-    private func setupUserInterface() {
+    private func setupView() {
         backgroundColor = .white
         
         addSubview(label)
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding).isActive = true
-        label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth).isActive = true
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding),
+            label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
         addSubview(addButton)
-        addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: 48).isActive = true
-        addButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            addButton.heightAnchor.constraint(equalToConstant: 48),
+            addButton.widthAnchor.constraint(equalToConstant: 48),
+            addButton.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
         addSubview(pickerView)
-        pickerView.leadingAnchor.constraint(equalTo: label.trailingAnchor).isActive = true
-        pickerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        pickerView.trailingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -8).isActive = true
-        pickerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            pickerView.leadingAnchor.constraint(equalTo: label.trailingAnchor),
+            pickerView.topAnchor.constraint(equalTo: topAnchor),
+            pickerView.trailingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -8),
+            pickerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
     func selectDefault() {
-        selectBy(name: Category.getDefault().name)
+        selectBy(name: ItemsCategory.default.name)
     }
     
     func select(by item: Item) {
         selectBy(name: item.categoryName())
+    }
+
+    func getSelected() -> ItemsCategory? {
+        let selectedRow = pickerView.selectedRow(inComponent: 0)
+        let selectedCategory = categories[selectedRow]
+        return selectedCategory.isDefault ? nil : selectedCategory
     }
     
     private func selectBy(name: String) {
         guard let index = categories.firstIndex(where: { $0.name == name }) else { return }
         pickerView.selectRow(index, inComponent: 0, animated: true)
     }
-    
-    func getSelected() -> Category? {
-        let selectedRow = pickerView.selectedRow(inComponent: 0)
-        let selectedCategory = categories[selectedRow]
-        return selectedCategory.isDefault() ? nil : selectedCategory
+}
+
+extension CategoriesForEditItem: UIPickerViewDelegate {
+    public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        24
+    }
+
+    public func pickerView(
+        _ pickerView: UIPickerView,
+        viewForRow row: Int,
+        forComponent component: Int,
+        reusing view: UIView?
+    ) -> UIView {
+        let label = UILabel()
+        label.text = categories[row].name
+        label.font = .systemFont(ofSize: 18)
+        label.textAlignment = .center
+        return label
+    }
+}
+
+extension CategoriesForEditItem: UIPickerViewDataSource {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        categories.count
     }
 }

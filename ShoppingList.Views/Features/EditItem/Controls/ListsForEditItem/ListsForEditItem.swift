@@ -1,12 +1,14 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
-final class ListsForEditItem: UIView {
+public final class ListsForEditItem: UIView {
     weak var delegate: ListsForEditItemDelegate?
     weak var viewController: UIViewController?
     
-    override var backgroundColor: UIColor? {
+    public override var backgroundColor: UIColor? {
         get {
-            return super.backgroundColor
+            super.backgroundColor
         }
         set {
             super.backgroundColor = newValue
@@ -15,40 +17,31 @@ final class ListsForEditItem: UIView {
     }
     
     lazy var lists: [List] = {
-        return Repository.shared.getLists().sorted { $0.name < $1.name }
+        []
+        // Todo: repository
+        // Repository.shared.getLists().sorted { $0.name < $1.name }
     }()
 
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        label.text = "LIST:"
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    lazy var pickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.backgroundColor = .white
-        pickerView.dataSource = self
-        pickerView.delegate = self
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
-        return pickerView
-    }()
-    
-    lazy var addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "Add"), for: .normal)
-        button.addTarget(self, action: #selector(showAddListPopup), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    @objc func showAddListPopup() {
-        delegate?.listsForEditItemDidShowAddCategoryPopup(self)
-        addListPopup.show()
+    private let label: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        $0.text = "LIST:"
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
     }
     
+    lazy var pickerView: UIPickerView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .white
+        $0.dataSource = self
+        $0.delegate = self
+    }
+    
+    lazy var addButton: UIButton = configure(.init(type: .system)) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setImage(#imageLiteral(resourceName: "Add"), for: .normal)
+        $0.addTarget(self, action: #selector(showAddListPopup), for: .touchUpInside)
+    }
+
     lazy var addListPopup: AddListPopupForEditItem = {
         guard let viewController = viewController else {
             fatalError("View Controller must have the value.")
@@ -57,30 +50,17 @@ final class ListsForEditItem: UIView {
         return AddListPopupForEditItem(viewController, completed: listAdded)
     }()
     
-    private func listAdded(withName name: String) {
-        let newName = ListNameGenerator().generate(from: name, and: lists)
-        let list = List.new(name: newName)
-        
-        lists.append(list)
-        
-        Repository.shared.add(list)
-        
-        lists.sort { $0.name < $1.name }
-        pickerView.reloadComponent(0)
-        
-        selectBy(name: newName)
-    }
-    
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUserInterface()
+        self.setupView()
+    }
+
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported.")
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupUserInterface() {
+    private func setupView() {
         backgroundColor = .white
         
         addSubview(label)
@@ -113,5 +93,55 @@ final class ListsForEditItem: UIView {
     func getSelected() -> List {
         let selectedRow = pickerView.selectedRow(inComponent: 0)
         return lists[selectedRow]
+    }
+
+    @objc
+    func showAddListPopup() {
+        delegate?.listsForEditItemDidShowAddCategoryPopup(self)
+        addListPopup.show()
+    }
+
+    private func listAdded(withName name: String) {
+        let newName = ListNameGenerator.generate(from: name, and: lists)
+        let list = List.withName(newName)
+
+        lists.append(list)
+
+        // Todo: repository
+        // Repository.shared.add(list)
+
+        lists.sort { $0.name < $1.name }
+        pickerView.reloadComponent(0)
+
+        selectBy(name: newName)
+    }
+}
+
+extension ListsForEditItem: UIPickerViewDelegate {
+    public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        24
+    }
+
+    public func pickerView(
+        _ pickerView: UIPickerView,
+        viewForRow row: Int,
+        forComponent component: Int,
+        reusing view: UIView?
+    ) -> UIView {
+        let label = UILabel()
+        label.text = lists[row].name
+        label.font = .systemFont(ofSize: 18)
+        label.textAlignment = .center
+        return label
+    }
+}
+
+extension ListsForEditItem: UIPickerViewDataSource {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        lists.count
     }
 }

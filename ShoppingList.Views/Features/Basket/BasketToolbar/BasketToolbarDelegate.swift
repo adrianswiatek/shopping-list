@@ -1,4 +1,4 @@
-protocol BasketToolbarDelegate {
+public protocol BasketToolbarDelegate {
     func editButtonDidTap()
     func actionButtonDidTap()
     func deleteAllButtonDidTap()

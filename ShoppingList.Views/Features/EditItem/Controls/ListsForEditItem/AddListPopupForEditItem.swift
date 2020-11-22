@@ -1,10 +1,10 @@
 import UIKit
 
-final class AddListPopupForEditItem {
+public final class AddListPopupForEditItem {
     private let viewController: UIViewController
     private let completed: (String) -> ()
     
-    init(_ viewController: UIViewController, completed: @escaping (String) -> ()) {
+    public init(_ viewController: UIViewController, completed: @escaping (String) -> ()) {
         self.viewController = viewController
         self.completed = completed
     }

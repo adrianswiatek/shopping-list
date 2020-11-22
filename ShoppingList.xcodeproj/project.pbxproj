@@ -46,21 +46,15 @@
 		A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */; };
 		A739B4952569CE69000B16E3 /* ItemsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A50641A20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift */; };
 		A739B4962569CE69000B16E3 /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */; };
-		A739B49F2569CE70000B16E3 /* EditItemViewController+ListsForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4220E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift */; };
-		A739B4A02569CE70000B16E3 /* EditItemViewController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */; };
 		A739B4A12569CE70000B16E3 /* EditItemViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */; };
 		A739B4A22569CE70000B16E3 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */; };
-		A739B4A32569CE70000B16E3 /* EditItemViewController+CategoriesForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3620E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift */; };
 		A739B4A82569CE78000B16E3 /* AddCategoryPopupForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3A20E947D500E49C17 /* AddCategoryPopupForEditItem.swift */; };
 		A739B4A92569CE78000B16E3 /* CategoriesForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */; };
-		A739B4AA2569CE78000B16E3 /* CategoriesForEditItem+UIPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABFD99020CD9B5E00D0C258 /* CategoriesForEditItem+UIPickerView.swift */; };
 		A739B4AB2569CE78000B16E3 /* CategoriesForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3820E9441900E49C17 /* CategoriesForEditItemDelegate.swift */; };
 		A739B4B02569CEB4000B16E3 /* InfoForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */; };
 		A739B4B12569CEB4000B16E3 /* InfoForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */; };
-		A739B4B22569CEB4000B16E3 /* InfoForEditItem+UITextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */; };
 		A739B4BB2569CF24000B16E3 /* ItemNameForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD2A20E928C700E49C17 /* ItemNameForEditItemDelegate.swift */; };
 		A739B4BC2569CF24000B16E3 /* ItemNameForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD2520E91AF800E49C17 /* ItemNameForEditItem.swift */; };
-		A739B4C52569CF35000B16E3 /* ListsForEditItem+UIPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3E20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift */; };
 		A739B4C62569CF35000B16E3 /* ListsForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */; };
 		A739B4C72569CF35000B16E3 /* AddListPopupForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */; };
 		A739B4C82569CF35000B16E3 /* ListsForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */; };
@@ -72,10 +66,7 @@
 		A739B4E22569CFA5000B16E3 /* WarningAlertBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1EFFD20D45B700066FBF7 /* WarningAlertBuilder.swift */; };
 		A739B4E72569CFAA000B16E3 /* ManageCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */; };
 		A739B4E82569CFAA000B16E3 /* ManageCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */; };
-		A739B4E92569CFAA000B16E3 /* ManageCategoriesViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */; };
-		A739B4EA2569CFAA000B16E3 /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */; };
 		A739B4EF2569CFB1000B16E3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */; };
-		A739B4F02569CFB1000B16E3 /* SettingsViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */; };
 		A739B5062569D1B2000B16E3 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
 		A739B5072569D1B2000B16E3 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A739B5252569D22A000B16E3 /* RemoveItemsFromListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8B0B8C2152F400008E184F /* RemoveItemsFromListCommand.swift */; };
@@ -96,12 +87,9 @@
 		A739B5462569D404000B16E3 /* BasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE81921214EE716009E962F /* BasketCommand.swift */; };
 		A739B5472569D404000B16E3 /* AddItemsBackToListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A818D56214B08F6005BEC5F /* AddItemsBackToListCommand.swift */; };
 		A739B5482569D404000B16E3 /* RemoveItemsFromBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A818D58214B0C1E005BEC5F /* RemoveItemsFromBasketCommand.swift */; };
-		A739B54C2569D4F8000B16E3 /* BasketViewController+RemoveFromBasket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */; };
 		A739B54D2569D4F8000B16E3 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */; };
-		A739B54E2569D4F8000B16E3 /* BasketViewController+BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */; };
 		A739B54F2569D4F8000B16E3 /* RemoveFromBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */; };
 		A739B5502569D4F8000B16E3 /* BasketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A82DC55207D7539006B3885 /* BasketViewController.swift */; };
-		A739B5512569D4F8000B16E3 /* BasketVewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */; };
 		A739B5582569D4FC000B16E3 /* BasketToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */; };
 		A739B5592569D4FC000B16E3 /* BasketToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A54251C20BBD8090095D66A /* BasketToolbar.swift */; };
 		A739B5752569DD52000B16E3 /* ShoppingList_Shared.h in Headers */ = {isa = PBXBuildFile; fileRef = A739B5732569DD52000B16E3 /* ShoppingList_Shared.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,8 +110,6 @@
 		A739B5E22569E5F7000B16E3 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A739B5E52569E606000B16E3 /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
 		A739B5E62569E606000B16E3 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A739B5E92569E60E000B16E3 /* ShoppingList_Persistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; };
-		A739B5EA2569E60E000B16E3 /* ShoppingList_Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7640F4E2569B46A000D882B /* ShoppingList_Views.h in Headers */ = {isa = PBXBuildFile; fileRef = A7640F4C2569B46A000D882B /* ShoppingList_Views.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7640F512569B46A000D882B /* ShoppingList_Views.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; };
 		A7640F532569B46A000D882B /* ShoppingList_Views.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -221,13 +207,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = A739B39E2569BCD7000B16E3;
 			remoteInfo = ShoppingList.Application;
-		};
-		A739B5EB2569E60E000B16E3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A739B43C2569C617000B16E3;
-			remoteInfo = ShoppingList.Persistence;
 		};
 		A7640F4F2569B46A000D882B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -329,7 +308,6 @@
 			files = (
 				A7640F792569B792000D882B /* ShoppingList_ViewModels.framework in Embed Frameworks */,
 				A739B5E62569E606000B16E3 /* ShoppingList_Application.framework in Embed Frameworks */,
-				A739B5EA2569E60E000B16E3 /* ShoppingList_Persistence.framework in Embed Frameworks */,
 				A739B58B2569DD85000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */,
 				A739B5E22569E5F7000B16E3 /* ShoppingList_Domain.framework in Embed Frameworks */,
 			);
@@ -340,19 +318,14 @@
 
 /* Begin PBXFileReference section */
 		3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
-		3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageCategoriesViewController+TextFieldWithCancelDelegate.swift"; sourceTree = "<group>"; };
 		3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
 		3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveFromBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		3A193C8721335F9E00EF6288 /* ListNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNameGenerator.swift; sourceTree = "<group>"; };
-		3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketVewController+UITableView.swift"; sourceTree = "<group>"; };
-		3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+RemoveFromBasket.swift"; sourceTree = "<group>"; };
 		3A31380120D85ADF00635266 /* CategoryEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntityExtensions.swift; sourceTree = "<group>"; };
 		3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsViewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesViewController.swift; sourceTree = "<group>"; };
-		3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManageCategoriesViewController+UITableView.swift"; sourceTree = "<group>"; };
 		3A392E34207A5A3C005857E5 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A392E37207A5A3C005857E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A392E39207A5A3C005857E5 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
@@ -367,7 +340,6 @@
 		3A4E319C214322DD00BE1DCD /* ItemsCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCommand.swift; sourceTree = "<group>"; };
 		3A50641A20E0121000DBB5C4 /* ItemsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3A54251C20BBD8090095D66A /* BasketToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbar.swift; sourceTree = "<group>"; };
-		3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasketViewController+BasketToolbarDelegate.swift"; sourceTree = "<group>"; };
 		3A54252020BBE2D10095D66A /* BasketToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketToolbarDelegate.swift; sourceTree = "<group>"; };
 		3A562A0220E430CE0030732D /* ListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEntityExtensions.swift; sourceTree = "<group>"; };
 		3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationButtonRule.swift; sourceTree = "<group>"; };
@@ -398,12 +370,9 @@
 		3A9EAF41209BBA4900B4A39D /* ItemsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCategory.swift; sourceTree = "<group>"; };
 		3A9EAF43209BBF5300B4A39D /* InMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryRepository.swift; sourceTree = "<group>"; };
 		3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedItemsFormatter.swift; sourceTree = "<group>"; };
-		3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3AAC84FA2112390F00FF3B9E /* ShoppingList 0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShoppingList 0.2.xcdatamodel"; sourceTree = "<group>"; };
 		3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItem.swift; sourceTree = "<group>"; };
-		3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InfoForEditItem+UITextFieldDelegate.swift"; sourceTree = "<group>"; };
 		3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoForEditItemDelegate.swift; sourceTree = "<group>"; };
-		3ABFD99020CD9B5E00D0C258 /* CategoriesForEditItem+UIPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoriesForEditItem+UIPickerView.swift"; sourceTree = "<group>"; };
 		3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithCancel.swift; sourceTree = "<group>"; };
 		3AC6212020C0575900A16F0E /* TextFieldWithCancelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithCancelDelegate.swift; sourceTree = "<group>"; };
 		3AC68B9220E2CF7F000F0487 /* BottomShadowAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomShadowAnimations.swift; sourceTree = "<group>"; };
@@ -416,13 +385,10 @@
 		3ADFCD2520E91AF800E49C17 /* ItemNameForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemNameForEditItem.swift; sourceTree = "<group>"; };
 		3ADFCD2A20E928C700E49C17 /* ItemNameForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemNameForEditItemDelegate.swift; sourceTree = "<group>"; };
 		3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesForEditItem.swift; sourceTree = "<group>"; };
-		3ADFCD3620E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+CategoriesForEditItemDelegate.swift"; sourceTree = "<group>"; };
 		3ADFCD3820E9441900E49C17 /* CategoriesForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesForEditItemDelegate.swift; sourceTree = "<group>"; };
 		3ADFCD3A20E947D500E49C17 /* AddCategoryPopupForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryPopupForEditItem.swift; sourceTree = "<group>"; };
 		3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsForEditItem.swift; sourceTree = "<group>"; };
-		3ADFCD3E20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListsForEditItem+UIPickerView.swift"; sourceTree = "<group>"; };
 		3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsForEditItemDelegate.swift; sourceTree = "<group>"; };
-		3ADFCD4220E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditItemViewController+ListsForEditItemDelegate.swift"; sourceTree = "<group>"; };
 		3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListPopupForEditItem.swift; sourceTree = "<group>"; };
 		3AE3AF712129EB8B00D105FE /* TextFieldWithWarning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithWarning.swift; sourceTree = "<group>"; };
 		3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonValidatable.swift; sourceTree = "<group>"; };
@@ -503,7 +469,6 @@
 			files = (
 				A7640F782569B792000D882B /* ShoppingList_ViewModels.framework in Frameworks */,
 				A739B5E52569E606000B16E3 /* ShoppingList_Application.framework in Frameworks */,
-				A739B5E92569E60E000B16E3 /* ShoppingList_Persistence.framework in Frameworks */,
 				A739B58A2569DD85000B16E3 /* ShoppingList_Shared.framework in Frameworks */,
 				A739B5E12569E5F7000B16E3 /* ShoppingList_Domain.framework in Frameworks */,
 			);
@@ -548,7 +513,6 @@
 			isa = PBXGroup;
 			children = (
 				3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */,
-				3A37694D20D1B3780039DA54 /* SettingsViewController+UITableView.swift */,
 				3A37694F20D1BA730039DA54 /* ManageCategories */,
 			);
 			path = Settings;
@@ -559,8 +523,6 @@
 			children = (
 				3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */,
 				3A37695020D1BA920039DA54 /* ManageCategoriesViewController.swift */,
-				3A043E5E20D6E3470068287B /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift */,
-				3A37695220D1BAD00039DA54 /* ManageCategoriesViewController+UITableView.swift */,
 				3AD1EFFC20D45B360066FBF7 /* AlertBuilders */,
 				3AD1F00320D46C770066FBF7 /* ContextualActionBuilders */,
 			);
@@ -572,7 +534,7 @@
 			children = (
 				3A392E36207A5A3C005857E5 /* ShoppingList */,
 				A7640F4B2569B46A000D882B /* ShoppingList.Views */,
-				A739B3E02569C149000B16E3 /* ShoppingList.InterfaceAdapters */,
+				A739B3E02569C149000B16E3 /* ShoppingList.Infrastructure */,
 				A739B3A02569BCD7000B16E3 /* ShoppingList.Application */,
 				A7640FC52569BC94000D882B /* ShoppingList.Domain */,
 				A739B5722569DD52000B16E3 /* ShoppingList.Shared */,
@@ -668,10 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */,
-				3A2001302097D4D00015111F /* BasketVewController+UITableView.swift */,
 				3A82DC55207D7539006B3885 /* BasketViewController.swift */,
-				3A54251E20BBDE7C0095D66A /* BasketViewController+BasketToolbarDelegate.swift */,
-				3A2001322097D5250015111F /* BasketViewController+RemoveFromBasket.swift */,
 				3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */,
 				3A0BD19020BB67DD00F15DB9 /* BasketToolbar */,
 			);
@@ -682,7 +641,6 @@
 			isa = PBXGroup;
 			children = (
 				3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */,
-				3AB80FD62110FD49002DDC4C /* InfoForEditItem+UITextFieldDelegate.swift */,
 				3AB80FD82110FD70002DDC4C /* InfoForEditItemDelegate.swift */,
 			);
 			path = InfoForEditItem;
@@ -752,7 +710,6 @@
 			children = (
 				3ADFCD3A20E947D500E49C17 /* AddCategoryPopupForEditItem.swift */,
 				3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */,
-				3ABFD99020CD9B5E00D0C258 /* CategoriesForEditItem+UIPickerView.swift */,
 				3ADFCD3820E9441900E49C17 /* CategoriesForEditItemDelegate.swift */,
 			);
 			path = CategoriesForEditItem;
@@ -763,7 +720,6 @@
 			children = (
 				3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */,
 				3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */,
-				3ADFCD3E20E9523900E49C17 /* ListsForEditItem+UIPickerView.swift */,
 				3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */,
 			);
 			path = ListsForEditItem;
@@ -820,13 +776,13 @@
 			path = Controls;
 			sourceTree = "<group>";
 		};
-		A739B3E02569C149000B16E3 /* ShoppingList.InterfaceAdapters */ = {
+		A739B3E02569C149000B16E3 /* ShoppingList.Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
-				A739B43E2569C617000B16E3 /* ShoppingList.Persistence */,
 				A7640F642569B5FD000D882B /* ShoppingList.ViewModels */,
+				A739B43E2569C617000B16E3 /* ShoppingList.Persistence */,
 			);
-			path = ShoppingList.InterfaceAdapters;
+			path = ShoppingList.Infrastructure;
 			sourceTree = "<group>";
 		};
 		A739B43E2569C617000B16E3 /* ShoppingList.Persistence */ = {
@@ -869,9 +825,6 @@
 			isa = PBXGroup;
 			children = (
 				3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */,
-				3ADFCD3620E93EC500E49C17 /* EditItemViewController+CategoriesForEditItemDelegate.swift */,
-				3ADFCD4220E95DAF00E49C17 /* EditItemViewController+ListsForEditItemDelegate.swift */,
-				3AAC84F8211235EE00FF3B9E /* EditItemViewController+UIGestureRecognizerDelegate.swift */,
 				3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */,
 				3ADFCD2420E91AC200E49C17 /* Controls */,
 			);
@@ -1117,7 +1070,6 @@
 				A739B58D2569DD85000B16E3 /* PBXTargetDependency */,
 				A739B5E42569E5F8000B16E3 /* PBXTargetDependency */,
 				A739B5E82569E606000B16E3 /* PBXTargetDependency */,
-				A739B5EC2569E60E000B16E3 /* PBXTargetDependency */,
 			);
 			name = ShoppingList.Views;
 			productName = ShoppingList.Views;
@@ -1337,18 +1289,15 @@
 				A739B4E22569CFA5000B16E3 /* WarningAlertBuilder.swift in Sources */,
 				A739B4C82569CF35000B16E3 /* ListsForEditItemDelegate.swift in Sources */,
 				A739B4752569CAE0000B16E3 /* UIViewExtensions.swift in Sources */,
-				A739B4C52569CF35000B16E3 /* ListsForEditItem+UIPickerView.swift in Sources */,
 				A739B5422569D3E5000B16E3 /* ButtonValidatable.swift in Sources */,
 				A739B4D82569CFA1000B16E3 /* EditContextualActionBuilder.swift in Sources */,
 				A739B4A92569CE78000B16E3 /* CategoriesForEditItem.swift in Sources */,
 				A7640F812569B88F000D882B /* ListsViewController.swift in Sources */,
 				A739B4CD2569CF55000B16E3 /* ItemsToolbar.swift in Sources */,
 				A739B5412569D3E5000B16E3 /* ValidationButtonRule.swift in Sources */,
-				A739B4B22569CEB4000B16E3 /* InfoForEditItem+UITextFieldDelegate.swift in Sources */,
 				A739B4B02569CEB4000B16E3 /* InfoForEditItem.swift in Sources */,
 				A739B3C42569BFA6000B16E3 /* BottomShadowAnimations.swift in Sources */,
 				A739B4952569CE69000B16E3 /* ItemsViewControllerDelegate.swift in Sources */,
-				A739B54C2569D4F8000B16E3 /* BasketViewController+RemoveFromBasket.swift in Sources */,
 				A739B54D2569D4F8000B16E3 /* BasketTableViewCell.swift in Sources */,
 				A739B4A22569CE70000B16E3 /* EditItemViewController.swift in Sources */,
 				A739B5502569D4F8000B16E3 /* BasketViewController.swift in Sources */,
@@ -1364,14 +1313,10 @@
 				A739B4742569CAE0000B16E3 /* UITableViewExtensions.swift in Sources */,
 				A739B4BC2569CF24000B16E3 /* ItemNameForEditItem.swift in Sources */,
 				A739B4C62569CF35000B16E3 /* ListsForEditItem.swift in Sources */,
-				A739B4A02569CE70000B16E3 /* EditItemViewController+UIGestureRecognizerDelegate.swift in Sources */,
 				A7640F8F2569B8EA000D882B /* UIColorExtensions.swift in Sources */,
-				A739B4F02569CFB1000B16E3 /* SettingsViewController+UITableView.swift in Sources */,
 				A739B5582569D4FC000B16E3 /* BasketToolbarDelegate.swift in Sources */,
 				A739B4E82569CFAA000B16E3 /* ManageCategoriesTableViewCell.swift in Sources */,
-				A739B4A32569CE70000B16E3 /* EditItemViewController+CategoriesForEditItemDelegate.swift in Sources */,
 				A739B5592569D4FC000B16E3 /* BasketToolbar.swift in Sources */,
-				A739B5512569D4F8000B16E3 /* BasketVewController+UITableView.swift in Sources */,
 				A739B4E72569CFAA000B16E3 /* ManageCategoriesViewController.swift in Sources */,
 				A739B4B12569CEB4000B16E3 /* InfoForEditItemDelegate.swift in Sources */,
 				A739B3C32569BFA6000B16E3 /* CancelButtonAnimations.swift in Sources */,
@@ -1379,20 +1324,15 @@
 				A739B5312569D386000B16E3 /* PopupWithTextFieldController.swift in Sources */,
 				A739B5382569D3DE000B16E3 /* TextFieldWithWarningDelegate.swift in Sources */,
 				A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */,
-				A739B54E2569D4F8000B16E3 /* BasketViewController+BasketToolbarDelegate.swift in Sources */,
 				A739B4A82569CE78000B16E3 /* AddCategoryPopupForEditItem.swift in Sources */,
-				A739B4E92569CFAA000B16E3 /* ManageCategoriesViewController+UITableView.swift in Sources */,
 				A739B4C72569CF35000B16E3 /* AddListPopupForEditItem.swift in Sources */,
-				A739B4AA2569CE78000B16E3 /* CategoriesForEditItem+UIPickerView.swift in Sources */,
 				A7640F892569B894000D882B /* ListsActionsAlertDelegate.swift in Sources */,
 				A739B54F2569D4F8000B16E3 /* RemoveFromBasketDelegate.swift in Sources */,
 				A739B4722569CAE0000B16E3 /* UIButtonExtensions.swift in Sources */,
-				A739B49F2569CE70000B16E3 /* EditItemViewController+ListsForEditItemDelegate.swift in Sources */,
 				A739B4902569CE69000B16E3 /* SharedItemsFormatter.swift in Sources */,
 				A739B5392569D3DE000B16E3 /* TextFieldWithWarning.swift in Sources */,
 				A739B3C22569BFA6000B16E3 /* TextFieldWithCancel.swift in Sources */,
 				A739B4962569CE69000B16E3 /* ItemsTableViewCell.swift in Sources */,
-				A739B4EA2569CFAA000B16E3 /* ManageCategoriesViewController+TextFieldWithCancelDelegate.swift in Sources */,
 				A739B5402569D3E5000B16E3 /* ValidationButtonAnimations.swift in Sources */,
 				A7640F822569B88F000D882B /* ListsTableViewCell.swift in Sources */,
 				A739B48C2569CE69000B16E3 /* AddToBasketDelegate.swift in Sources */,
@@ -1479,11 +1419,6 @@
 			isa = PBXTargetDependency;
 			target = A739B39E2569BCD7000B16E3 /* ShoppingList.Application */;
 			targetProxy = A739B5E72569E606000B16E3 /* PBXContainerItemProxy */;
-		};
-		A739B5EC2569E60E000B16E3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A739B43C2569C617000B16E3 /* ShoppingList.Persistence */;
-			targetProxy = A739B5EB2569E60E000B16E3 /* PBXContainerItemProxy */;
 		};
 		A7640F502569B46A000D882B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1753,7 +1688,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShoppingList.InterfaceAdapters/ShoppingList.Persistence/Info.plist;
+				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.Persistence/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1785,7 +1720,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShoppingList.InterfaceAdapters/ShoppingList.Persistence/Info.plist;
+				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.Persistence/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1943,7 +1878,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShoppingList.InterfaceAdapters/ShoppingList.ViewModels/Info.plist;
+				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.ViewModels/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1977,7 +1912,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShoppingList.InterfaceAdapters/ShoppingList.ViewModels/Info.plist;
+				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.ViewModels/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
