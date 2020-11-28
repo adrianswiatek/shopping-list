@@ -143,7 +143,7 @@ extension ListsViewController: ItemsViewControllerDelegate {
 }
 
 extension ListsViewController: TextFieldWithCancelDelegate {
-    func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
+    public func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
         let list = List.withName(getListName(from: text))
 
         lists.insert(list, at: 0)

@@ -507,13 +507,15 @@ extension ItemsViewController: ItemsToolbarDelegate {
         }
 
         let moveAllToBasketAction = UIAlertAction(title: "Move all to basket", style: .default) { [unowned self] _ in
-            let command = AddItemsToBasketCommand(self.items.flatMap { $0 }, self)
-            CommandInvoker.shared.execute(command)
+            // TODO: command
+            // let command = AddItemsToBasketCommand(self.items.flatMap { $0 }, self)
+            // CommandInvoker.shared.execute(command)
         }
 
         let deleteAllAction = UIAlertAction(title: "Delete all", style: .destructive) { [unowned self] _ in
-            let command = RemoveItemsFromListCommand(self.items.flatMap { $0 }, self)
-            CommandInvoker.shared.execute(command)
+            // TODO: command
+            // let command = RemoveItemsFromListCommand(self.items.flatMap { $0 }, self)
+            // CommandInvoker.shared.execute(command)
         }
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -530,16 +532,18 @@ extension ItemsViewController: ItemsToolbarDelegate {
         present(alertController, animated: true)
     }
 
-    func deleteAllButtonDidTap() {
+    public func deleteAllButtonDidTap() {
         guard let selectedItems = getSelectedItems() else { return }
-        let command = RemoveItemsFromListCommand(selectedItems, self)
-        CommandInvoker.shared.execute(command)
+        // TODO: command
+        // let command = RemoveItemsFromListCommand(selectedItems, self)
+        // CommandInvoker.shared.execute(command)
     }
 
-    func moveAllToBasketButtonDidTap() {
+    public func moveAllToBasketButtonDidTap() {
         guard let selectedItems = getSelectedItems() else { return }
-        let command = AddItemsToBasketCommand(selectedItems, self)
-        CommandInvoker.shared.execute(command)
+        // TODO: command
+        // let command = AddItemsToBasketCommand(selectedItems, self)
+        // CommandInvoker.shared.execute(command)
     }
 
     private func getSelectedItems() -> [Item]? {
@@ -573,7 +577,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
         present(UIActivityViewController(activityItems: [formattedItems], applicationActivities: nil), animated: true)
     }
 
-    func cancelButtonDidTap() {
+    public func cancelButtonDidTap() {
         tableView.setEditing(false, animated: true)
         toolbar.setRegularMode()
         refreshUserInterface()

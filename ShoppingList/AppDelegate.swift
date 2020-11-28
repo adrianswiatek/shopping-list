@@ -1,15 +1,16 @@
+import ShoppingList_Persistence
 import ShoppingList_ViewModels
+import ShoppingList_Views
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+internal class AppDelegate: UIResponder, UIApplicationDelegate {
+    internal var window: UIWindow?
 
-    var window: UIWindow?
-
-    func application(
+    internal func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         UINavigationBar.appearance().isTranslucent = false
 
         let rootViewController = ListsViewController(viewModel: ListsViewModel())
@@ -22,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
+    internal func applicationWillTerminate(_ application: UIApplication) {
         Repository.shared.save()
     }
 }

@@ -218,7 +218,7 @@ extension ManageCategoriesViewController: UITableViewDataSource {
 }
 
 extension ManageCategoriesViewController: TextFieldWithCancelDelegate {
-    func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
+    public func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
         let category = ItemsCategory.withName(text)
 
         categories.append(category)

@@ -12,7 +12,7 @@ extension ListEntity {
         else { fatalError("Unable to create List") }
         
         let list = List(id: id, name: name, accessType: accessType, items: [], updateDate: updateDate)
-        return list.withAddedItems(items.map { $0.map(with: list) })
+        return list.withTheSameUpdateDateAndWithAddedItems(items.map { $0.map(with: list) })
     }
     
     func update(by list: List, context: NSManagedObjectContext) {

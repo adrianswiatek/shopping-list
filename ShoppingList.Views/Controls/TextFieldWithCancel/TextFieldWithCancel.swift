@@ -1,10 +1,10 @@
 import UIKit
 
-final class TextFieldWithCancel: UIView {
-    weak var delegate: TextFieldWithCancelDelegate?
+public final class TextFieldWithCancel: UIView {
+    public weak var delegate: TextFieldWithCancelDelegate?
     
-    var font: UIFont? {
-        get { return textField.font }
+    public var font: UIFont? {
+        get { textField.font }
         set { textField.font = newValue }
     }
     
@@ -28,7 +28,8 @@ final class TextFieldWithCancel: UIView {
         return button
     }()
     
-    @objc private func cancelHandler() {
+    @objc
+    private func cancelHandler() {
         textField.text = ""
         textField.resignFirstResponder()
         validationButton.alpha = 0
@@ -44,11 +45,13 @@ final class TextFieldWithCancel: UIView {
         return button
     }()
     
-    @objc func handleValidation() {
+    @objc
+    public func handleValidation() {
         let alertController = UIAlertController(
             title: "",
             message: getValidationMessage(),
-            preferredStyle: .alert)
+            preferredStyle: .alert
+        )
         
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
@@ -137,7 +140,8 @@ final class TextFieldWithCancel: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @discardableResult override func becomeFirstResponder() -> Bool {
+    @discardableResult
+    public override func becomeFirstResponder() -> Bool {
         textField.becomeFirstResponder()
         return true
     }
@@ -176,7 +180,7 @@ extension TextFieldWithCancel: ButtonValidatable {
 }
 
 extension TextFieldWithCancel: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
         guard isValid() else { return false }
         
@@ -188,7 +192,7 @@ extension TextFieldWithCancel: UITextFieldDelegate {
         return true
     }
     
-    func textField(
+    public func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String) -> Bool {
@@ -203,18 +207,18 @@ extension TextFieldWithCancel: UITextFieldDelegate {
         return isDirty
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         cancelButtonAnimations.show()
         setupEditingShadow()
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         cancelButtonAnimations.hide()
         validationButtonAnimations.hide()
         setupNormalShadow()
     }
     
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
         validationButtonAnimations.hide()
         return true
     }
