@@ -1,3 +1,4 @@
+import ShoppingList_Domain
 import CoreData
 
 extension ItemsOrderEntity {

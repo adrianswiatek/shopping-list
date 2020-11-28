@@ -1,3 +1,4 @@
+import ShoppingList_Domain
 import Foundation
 
 protocol RepositoryProtocol {
@@ -10,10 +11,10 @@ protocol RepositoryProtocol {
     func remove(_ list: List)
     
     // MARK: - Category
-    func getCategories() -> [Category]
-    func add(_ category: Category)
-    func update(_ category: Category)
-    func remove(_ category: Category)
+    func getCategories() -> [ItemsCategory]
+    func add(_ category: ItemsCategory)
+    func update(_ category: ItemsCategory)
+    func remove(_ category: ItemsCategory)
     
     // MARK: - Item
     func getItems() -> [Item]
@@ -27,8 +28,8 @@ protocol RepositoryProtocol {
     func updateState(of items: [Item], to state: ItemState)
     func updateState(of item: Item, to state: ItemState)
     func update(_ item: Item)
-    func updateCategory(of item: Item, to category: Category)
-    func updateCategory(of items: [Item], to category: Category)
+    func updateCategory(of item: Item, to category: ItemsCategory)
+    func updateCategory(of items: [Item], to category: ItemsCategory)
     
     // MARK: - ItemsOrder
     func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState)

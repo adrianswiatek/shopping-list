@@ -1,35 +1,35 @@
+import ShoppingList_Domain
 import CoreData
 
 extension ListEntity {
     func map() -> List {
         guard
-            let id = self.id,
-            let name = self.name,
-            let accessType = ListAccessType(rawValue: Int(self.accessType)),
-            let items = self.items?.compactMap({ $0 as? ItemEntity }),
-            let updateDate = self.updateDate
+            let id = id,
+            let name = name,
+            let accessType = ListAccessType(rawValue: Int(accessType)),
+            let items = items?.compactMap({ $0 as? ItemEntity }),
+            let updateDate = updateDate
         else { fatalError("Unable to create List") }
         
         let list = List(id: id, name: name, accessType: accessType, items: [], updateDate: updateDate)
-        let mappedItems = items.map({ $0.map(with: list) })
-        return list.getWithTheSameUpdateDateAndWithAdded(items: mappedItems)
+        return list.withAddedItems(items.map { $0.map(with: list) })
     }
     
     func update(by list: List, context: NSManagedObjectContext) {
-        guard self.id == list.id else {
+        guard id == list.id else {
             fatalError("Unable to update Lists that have different ids.")
         }
         
-        if self.name != list.name {
-            self.name = list.name
+        if name != list.name {
+            name = list.name
         }
         
-        if self.accessType != Int32(list.accessType.rawValue) {
-            self.accessType = Int32(list.accessType.rawValue)
+        if accessType != Int32(list.accessType.rawValue) {
+            accessType = Int32(list.accessType.rawValue)
         }
         
-        if self.updateDate != list.updateDate {
-            self.updateDate = list.updateDate
+        if updateDate != list.updateDate {
+            updateDate = list.updateDate
         }
         
         updateItemEntities(by: list.items, context: context)
@@ -72,10 +72,10 @@ extension ListEntity {
 extension List {
     func map(context: NSManagedObjectContext) -> ListEntity {
         let entity = ListEntity(context: context)
-        entity.id = self.id
-        entity.name = self.name
-        entity.accessType = Int32(self.accessType.rawValue)
-        entity.updateDate = self.updateDate
+        entity.id = id
+        entity.name = name
+        entity.accessType = Int32(accessType.rawValue)
+        entity.updateDate = updateDate
         
         let itemEntities = fetchItemEntities(by: self.items.map { $0.id }, context: context)
         entity.items = NSSet(array: itemEntities)

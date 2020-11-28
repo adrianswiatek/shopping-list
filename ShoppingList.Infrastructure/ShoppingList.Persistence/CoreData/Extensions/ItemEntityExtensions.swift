@@ -1,15 +1,17 @@
+import ShoppingList_Domain
+import ShoppingList_Shared
 import CoreData
 
 extension ItemEntity {
     func map() -> Item {
-        guard let list = self.list?.map() else { fatalError("Unable to create Item") }
+        guard let list = list?.map() else { fatalError("Unable to create Item") }
         return map(with: list)
     }
     
     func map(with list: List) -> Item {
         guard
-            let id = self.id,
-            let name = self.name,
+            let id = id,
+            let name = name,
             let state = ItemState(rawValue: Int(self.state))
         else { fatalError("Unable to create Item") }
         
@@ -18,46 +20,45 @@ extension ItemEntity {
     }
     
     func update(by item: Item, context: NSManagedObjectContext) {
-        guard self.id == item.id else {
+        guard id == item.id else {
             fatalError("Unable to update Categories that have different ids.")
         }
         
         var hasBeenUpdated = false
         
-        if self.name != item.name {
-            self.name = item.name
+        if name != item.name {
+            name = item.name
             hasBeenUpdated = true
         }
         
-        if self.info != item.info {
-            self.info = item.info
+        if info != item.info {
+            info = item.info
             hasBeenUpdated = true
         }
         
-        if self.state != Int32(item.state.rawValue) {
-            self.state = Int32(item.state.rawValue)
+        if state != Int32(item.state.rawValue) {
+            state = Int32(item.state.rawValue)
             hasBeenUpdated = true
         }
         
-        if self.category?.id != item.category?.id {
-            self.category = getCategoryEntity(from: item, context: context)
+        if category?.id != item.category.id {
+            category = getCategoryEntity(from: item, context: context)
             hasBeenUpdated = true
         }
         
-        if self.list?.id != item.list.id {
-            self.list = getListEntity(from: item, context: context)
+        if list?.id != item.list.id {
+            list = getListEntity(from: item, context: context)
             hasBeenUpdated = true
         }
         
         if hasBeenUpdated {
-            self.list?.updateDate = Date()
+            list?.updateDate = Date()
         }
     }
     
     private func getCategoryEntity(from item: Item, context: NSManagedObjectContext) -> CategoryEntity? {
-        guard let category = item.category else { return nil }
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", category.id as CVarArg)
+        request.predicate = NSPredicate(format: "id == %@", item.category.id as CVarArg)
         
         do {
             return try context.fetch(request).first
@@ -80,18 +81,14 @@ extension ItemEntity {
 
 extension Item {
     func map(context: NSManagedObjectContext) -> ItemEntity {
-        let entity = ItemEntity(context: context)
-        entity.id = self.id
-        entity.name = self.name
-        entity.info = self.info
-        entity.state = Int32(self.state.rawValue)
-        entity.list = getListEntity(withId: self.list.id, context: context)
-        
-        if let categoryId = self.category?.id {
-            entity.category = getCategoryEntity(withId: categoryId, context: context)
+        configure(.init(context: context)) {
+            $0.id = id
+            $0.name = name
+            $0.info = info
+            $0.state = Int32(state.rawValue)
+            $0.list = getListEntity(withId: list.id, context: context)
+            $0.category = getCategoryEntity(withId: category.id, context: context)
         }
-        
-        return entity
     }
     
     private func getListEntity(withId id: UUID, context: NSManagedObjectContext) -> ListEntity? {

@@ -10,7 +10,6 @@
 		3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E37207A5A3C005857E5 /* AppDelegate.swift */; };
 		3A392E3F207A5A3D005857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E3E207A5A3D005857E5 /* Assets.xcassets */; };
 		3A392E42207A5A3D005857E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E40207A5A3D005857E5 /* LaunchScreen.storyboard */; };
-		3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */; };
 		A739B3A32569BCD7000B16E3 /* ShoppingList_Application.h in Headers */ = {isa = PBXBuildFile; fileRef = A739B3A12569BCD7000B16E3 /* ShoppingList_Application.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A739B3A62569BCD7000B16E3 /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
 		A739B3A72569BCD7000B16E3 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -128,6 +127,11 @@
 		A7640FC82569BC94000D882B /* ShoppingList_Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = A7640FC62569BC94000D882B /* ShoppingList_Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7640FCB2569BC94000D882B /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
 		A7640FCC2569BC94000D882B /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A782B23C2572EFD200638F7D /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
+		A782B23D2572EFD200638F7D /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A782B2412572F06700638F7D /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
+		A782B2422572F06700638F7D /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A782B2472572F09C00638F7D /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +240,20 @@
 			remoteGlobalIDString = A7640FC32569BC94000D882B;
 			remoteInfo = ShoppingList.Domain;
 		};
+		A782B23E2572EFD200638F7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A739B39E2569BCD7000B16E3;
+			remoteInfo = ShoppingList.Application;
+		};
+		A782B2432572F06700638F7D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7640FC32569BC94000D882B;
+			remoteInfo = ShoppingList.Domain;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -269,6 +287,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				A739B5982569DD99000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */,
+				A782B23D2572EFD200638F7D /* ShoppingList_Application.framework in Embed Frameworks */,
+				A782B2422572F06700638F7D /* ShoppingList_Domain.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A739B5972569DD99000B16E3 /* ShoppingList_Shared.framework in Frameworks */,
+				A782B23C2572EFD200638F7D /* ShoppingList_Application.framework in Frameworks */,
+				A782B2412572F06700638F7D /* ShoppingList_Domain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,6 +1051,8 @@
 			);
 			dependencies = (
 				A739B59A2569DD99000B16E3 /* PBXTargetDependency */,
+				A782B23F2572EFD200638F7D /* PBXTargetDependency */,
+				A782B2442572F06700638F7D /* PBXTargetDependency */,
 			);
 			name = ShoppingList.Persistence;
 			productName = ShoppingList.Persistence;
@@ -1235,7 +1259,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
-				3A69E41720BA01AF004D122E /* ShoppingList.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1267,6 +1290,7 @@
 				A739B4582569C639000B16E3 /* ListEntityExtensions.swift in Sources */,
 				A739B4532569C628000B16E3 /* Repository.swift in Sources */,
 				A739B4592569C639000B16E3 /* ItemsOrdersEntityExtensions.swift in Sources */,
+				A782B2472572F09C00638F7D /* ShoppingList.xcdatamodeld in Sources */,
 				A739B4602569C63D000B16E3 /* CoreDataRepository.swift in Sources */,
 				A739B45B2569C639000B16E3 /* CategoryEntityExtensions.swift in Sources */,
 			);
@@ -1439,6 +1463,16 @@
 			isa = PBXTargetDependency;
 			target = A7640FC32569BC94000D882B /* ShoppingList.Domain */;
 			targetProxy = A7640FC92569BC94000D882B /* PBXContainerItemProxy */;
+		};
+		A782B23F2572EFD200638F7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A739B39E2569BCD7000B16E3 /* ShoppingList.Application */;
+			targetProxy = A782B23E2572EFD200638F7D /* PBXContainerItemProxy */;
+		};
+		A782B2442572F06700638F7D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7640FC32569BC94000D882B /* ShoppingList.Domain */;
+			targetProxy = A782B2432572F06700638F7D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

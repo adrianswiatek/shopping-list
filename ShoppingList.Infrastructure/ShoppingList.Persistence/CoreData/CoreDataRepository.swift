@@ -1,3 +1,4 @@
+import ShoppingList_Domain
 import CoreData
 
 final class CoreDataRepository: RepositoryProtocol {
@@ -56,7 +57,7 @@ final class CoreDataRepository: RepositoryProtocol {
     
     // MARK: - Category
     
-    func getCategories() -> [Category] {
+    func getCategories() -> [ItemsCategory] {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         
         do {
@@ -66,18 +67,18 @@ final class CoreDataRepository: RepositoryProtocol {
         }
     }
     
-    func add(_ category: Category) {
+    func add(_ category: ItemsCategory) {
         _ = category.map(context: context)
         save()
     }
     
-    func update(_ category: Category) {
+    func update(_ category: ItemsCategory) {
         guard let entity = getCategoryEntity(by: category) else { return }
         entity.update(by: category)
         save()
     }
     
-    func remove(_ category: Category) {
+    func remove(_ category: ItemsCategory) {
         guard let entity = getCategoryEntity(by: category) else { return }
         context.delete(entity)
         save()
@@ -202,11 +203,11 @@ final class CoreDataRepository: RepositoryProtocol {
         save()
     }
     
-    func updateCategory(of item: Item, to category: Category) {
+    func updateCategory(of item: Item, to category: ItemsCategory) {
         guard let itemEntity = getItemEntity(by: item) else { return }
         
         var categoryEntity: CategoryEntity?
-        if !category.isDefault() {
+        if !category.isDefault {
             categoryEntity = getCategoryEntityOrCreate(from: category)
         }
         
@@ -215,9 +216,9 @@ final class CoreDataRepository: RepositoryProtocol {
         save()
     }
     
-    func updateCategory(of items: [Item], to category: Category) {
+    func updateCategory(of items: [Item], to category: ItemsCategory) {
         var categoryEntity: CategoryEntity?
-        if !category.isDefault() {
+        if !category.isDefault {
             categoryEntity = getCategoryEntityOrCreate(from: category)
         }
         
@@ -301,7 +302,7 @@ final class CoreDataRepository: RepositoryProtocol {
         }
     }
     
-    private func getCategoryEntity(by category: Category) -> CategoryEntity? {
+    private func getCategoryEntity(by category: ItemsCategory) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", category.id as CVarArg)
         
@@ -312,8 +313,8 @@ final class CoreDataRepository: RepositoryProtocol {
         }
     }
     
-    private func getCategoryEntityOrCreate(from category: Category) -> CategoryEntity? {
-        return getCategoryEntity(by: category) ?? category.map(context: context)
+    private func getCategoryEntityOrCreate(from category: ItemsCategory) -> CategoryEntity? {
+        getCategoryEntity(by: category) ?? category.map(context: context)
     }
     
     private func getItemEntity(by item: Item) -> ItemEntity? {

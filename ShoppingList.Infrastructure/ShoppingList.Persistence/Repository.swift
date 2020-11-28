@@ -1,3 +1,4 @@
+import ShoppingList_Domain
 import Foundation
 
 final class Repository: RepositoryProtocol {
@@ -18,10 +19,10 @@ final class Repository: RepositoryProtocol {
     func remove(_ list: List) { repository.remove(list) }
     
     // MARK: - Category
-    func getCategories() -> [Category] { repository.getCategories() }
-    func add(_ category: Category) { repository.add(category) }
-    func update(_ category: Category) { repository.update(category) }
-    func remove(_ category: Category) { repository.remove(category) }
+    func getCategories() -> [ItemsCategory] { repository.getCategories() }
+    func add(_ category: ItemsCategory) { repository.add(category) }
+    func update(_ category: ItemsCategory) { repository.update(category) }
+    func remove(_ category: ItemsCategory) { repository.remove(category) }
 
     // MARK: - Item
     func getItems() -> [Item] { repository.getItems() }
@@ -35,8 +36,8 @@ final class Repository: RepositoryProtocol {
     func updateState(of items: [Item], to state: ItemState) { repository.updateState(of: items, to: state) }
     func updateState(of item: Item, to state: ItemState) { repository.updateState(of: item, to: state) }
     func update(_ item: Item) { repository.update(item) }
-    func updateCategory(of item: Item, to category: Category) { repository.updateCategory(of: item, to: category) }
-    func updateCategory(of items: [Item], to category: Category) { repository.updateCategory(of: items, to: category) }
+    func updateCategory(of item: Item, to category: ItemsCategory) { repository.updateCategory(of: item, to: category) }
+    func updateCategory(of items: [Item], to category: ItemsCategory) { repository.updateCategory(of: items, to: category) }
     
     // MARK: - Items Order
     func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) { repository.setItemsOrder(items, in: list, forState: state) }
@@ -47,11 +48,11 @@ final class Repository: RepositoryProtocol {
 
 extension Repository {
     private var defaultCategoryNameKey: String {
-        return "DefaultCategoryName"
+        "DefaultCategoryName"
     }
     
     var defaultCategoryName: String {
-        get { return UserDefaults.standard.string(forKey: defaultCategoryNameKey) ?? "Other" }
+        get { UserDefaults.standard.string(forKey: defaultCategoryNameKey) ?? "Other" }
         set { UserDefaults.standard.set(newValue, forKey: defaultCategoryNameKey) }
     }
 }
