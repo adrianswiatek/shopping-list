@@ -1,12 +1,12 @@
 import ShoppingList_Domain
 import Foundation
 
-final class InMemoryRepository: RepositoryProtocol {
+public final class InMemoryRepository: RepositoryProtocol {
     private var lists = [List]()
     private var itemsOrders = [ItemsOrder]()
     private var categories = [ItemsCategory]()
     
-    init() {
+    public init() {
         var myList: List = .withName("Daily shopping")
         
         let fruitsCategory: ItemsCategory = .withName("Fruits")
@@ -39,20 +39,20 @@ final class InMemoryRepository: RepositoryProtocol {
     
     // MARK: - List
     
-    func getLists() -> [List] {
+    public func getLists() -> [List] {
         lists
     }
     
-    func getList(by id: UUID) -> List? {
+    public func getList(by id: UUID) -> List? {
         lists.first { $0.id == id }
     }
     
-    func add(_ list: List) {
+    public func add(_ list: List) {
         lists.append(list)
     }
     
-    func update(_ list: List) {
-        guard let index = getIndex(of: list) else {
+    public func update(_ list: List) {
+        guard let index = getIndexOfList(with: list.id) else {
             fatalError("Unable to find index of the given list.")
         }
         
@@ -60,26 +60,26 @@ final class InMemoryRepository: RepositoryProtocol {
         lists.insert(list, at: index)
     }
     
-    func remove(_ list: List) {
-        guard let index = getIndex(of: list) else {
+    public func remove(by id: UUID) {
+        guard let index = getIndexOfList(with: id) else {
             fatalError("Unable to find index of the given list.")
         }
         
         lists.remove(at: index)
-        itemsOrders.removeAll { $0.listId == list.id }
+        itemsOrders.removeAll { $0.listId == id }
     }
     
     // MARK: - Category
     
-    func getCategories() -> [ItemsCategory] {
+    public func getCategories() -> [ItemsCategory] {
         categories
     }
     
-    func add(_ category: ItemsCategory) {
+    public func add(_ category: ItemsCategory) {
         categories.append(category)
     }
 
-    func update(_ category: ItemsCategory) {
+    public func update(_ category: ItemsCategory) {
         if let index = getIndex(of: category) {
             let removedCategory = categories.remove(at: index)
             categories.insert(category, at: index)
@@ -92,7 +92,7 @@ final class InMemoryRepository: RepositoryProtocol {
         }
     }
     
-    func remove(_ category: ItemsCategory) {
+    public func remove(_ category: ItemsCategory) {
         if let index = getIndex(of: category) {
             let removedCategory = categories.remove(at: index)
             
@@ -106,12 +106,12 @@ final class InMemoryRepository: RepositoryProtocol {
     
     // MARK: - Item
     
-    func getItems() -> [Item] {
+    public func getItems() -> [Item] {
         lists.flatMap { $0.items }
     }
     
-    func getItemsWith(state: ItemState, in list: List) -> [Item] {
-        guard let indexOfList = getIndex(of: list) else { return [] }
+    public func getItemsWith(state: ItemState, in list: List) -> [Item] {
+        guard let indexOfList = getIndexOfList(with: list.id) else { return [] }
         
         let unorderedItems = lists[indexOfList].items.filter { $0.state == state }
         let orderedItemsIds = itemsOrders
@@ -122,58 +122,58 @@ final class InMemoryRepository: RepositoryProtocol {
         return ItemsSorter.sort(unorderedItems, by: orderedItemsIds ?? [UUID]())
     }
     
-    func getNumberOfItemsWith(state: ItemState, in list: List) -> Int {
-        guard let indexOfList = getIndex(of: list) else { return 0 }
+    public func getNumberOfItemsWith(state: ItemState, in list: List) -> Int {
+        guard let indexOfList = getIndexOfList(with: list.id) else { return 0 }
         return lists[indexOfList].items.filter { $0.state == state }.count
     }
     
-    func getNumberOfItems(in list: List) -> Int {
-        guard let indexOfList = getIndex(of: list) else { return 0 }
+    public func getNumberOfItems(in list: List) -> Int {
+        guard let indexOfList = getIndexOfList(with: list.id) else { return 0 }
         return lists[indexOfList].items.count
     }
     
-    func add(_ item: Item) {
-        guard let indexOfList = getIndex(of: item.list) else { return }
+    public func add(_ item: Item) {
+        guard let indexOfList = getIndexOfList(with: item.list.id) else { return }
         update(lists[indexOfList].withAddedItem(item))
     }
     
-    func add(_ items: [Item]) {
+    public func add(_ items: [Item]) {
         items.forEach { [weak self] in self?.add($0) }
     }
     
-    func remove(_ items: [Item]) {
+    public func remove(_ items: [Item]) {
         items.forEach { remove($0) }
     }
     
-    func remove(_ item: Item) {
-        guard let indexOfList = getIndex(of: item.list) else { return }
+    public func remove(_ item: Item) {
+        guard let indexOfList = getIndexOfList(with: item.list.id) else { return }
         update(lists[indexOfList].withRemovedItem(item))
     }
     
-    func updateState(of items: [Item], to state: ItemState) {
+    public func updateState(of items: [Item], to state: ItemState) {
         items.forEach { updateState(of: $0, to: state) }
     }
     
-    func updateState(of item: Item, to state: ItemState) {
-        guard let indexOfList = getIndex(of: item.list) else { return}
+    public func updateState(of item: Item, to state: ItemState) {
+        guard let indexOfList = getIndexOfList(with: item.list.id) else { return}
         
         let updatedItem = item.getWithChanged(state: state)
         update(lists[indexOfList].withChangedItem(updatedItem))
     }
     
-    func update(_ item: Item) {
-        guard let indexOfList = getIndex(of: item.list) else { return}
+    public func update(_ item: Item) {
+        guard let indexOfList = getIndexOfList(with: item.list.id) else { return}
         update(lists[indexOfList].withChangedItem(item))
     }
     
-    func updateCategory(of item: Item, to category: ItemsCategory) {
-        guard let indexOfList = getIndex(of: item.list) else { return}
+    public func updateCategory(of item: Item, to category: ItemsCategory) {
+        guard let indexOfList = getIndexOfList(with: item.list.id) else { return}
         
         let updatedItem = item.getWithChanged(category: category)
         update(lists[indexOfList].withChangedItem(updatedItem))
     }
     
-    func updateCategory(of items: [Item], to category: ItemsCategory) {
+    public func updateCategory(of items: [Item], to category: ItemsCategory) {
         items.forEach { updateCategory(of: $0, to: category) }
     }
     
@@ -195,7 +195,7 @@ final class InMemoryRepository: RepositoryProtocol {
     func save() {}
     
     private func getIndex(of item: Item, in list: List) -> Int? {
-        guard let indexOfList = getIndex(of: list) else { return nil }
+        guard let indexOfList = getIndexOfList(with: list.id) else { return nil }
         return lists[indexOfList].items.firstIndex { $0.id == item.id }
     }
     
@@ -203,7 +203,11 @@ final class InMemoryRepository: RepositoryProtocol {
         categories.firstIndex { $0.id == category.id }
     }
     
-    private func getIndex(of list: List) -> Int? {
-        lists.firstIndex { $0.id == list.id }
+//    private func getIndex(of list: List) -> Int? {
+//        lists.firstIndex { $0.id == list.id }
+//    }
+
+    private func getIndexOfList(with id: UUID) -> Int? {
+        lists.firstIndex { $0.id == id }
     }
 }

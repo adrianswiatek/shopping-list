@@ -1,33 +1,19 @@
-import ShoppingList_Domain
+import ShoppingList_ViewModels
 import ShoppingList_Shared
 import UIKit
 
 public final class ListsTableViewCell: UITableViewCell {
-    public var list: List? {
+    public var viewModel: ListViewModel? {
         didSet {
-            guard let list = list else { return }
-            nameLabel.text = list.name
-            accessTypeImageView.image = (list.accessType == .private ? #imageLiteral(resourceName: "Locked") : #imageLiteral(resourceName: "Shared")).withRenderingMode(.alwaysTemplate)
-            accessTypeLabel.text = list.accessType.description
-            numberOfItemsValueLabel.text = String(list.numberOfItemsToBuy())
-            updateDateValueLabel.text = getFormatted(date: list.updateDate)
+            guard let viewModel = viewModel else { return }
+            nameLabel.text = viewModel.name
+            accessTypeImageView.image = (viewModel.isPrivate ? #imageLiteral(resourceName: "Locked") : #imageLiteral(resourceName: "Shared")).withRenderingMode(.alwaysTemplate)
+            accessTypeLabel.text = viewModel.accessType
+            numberOfItemsValueLabel.text = String(viewModel.numberOfItemsToBuy)
+            updateDateValueLabel.text = viewModel.formattedUpdateDate
         }
     }
-    
-    private func getFormatted(date: Date) -> String {
-        let calendar = Calendar.current
-        if calendar.isDateInToday(date) {
-            return "Today"
-        } else if calendar.isDateInYesterday(date) {
-            return "Yesterday"
-        }
-        
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        
-        return formatter.string(from: date)
-    }
-    
+
     private let nameLabel: UILabel = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textColor = .textPrimary
@@ -35,62 +21,48 @@ public final class ListsTableViewCell: UITableViewCell {
         $0.numberOfLines = 0
     }
     
-    private let numberOfItemsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Items to buy:"
-        label.textColor = .textSecondary
-        label.font = .systemFont(ofSize: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let numberOfItemsLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "Items to buy:"
+        $0.textColor = .textSecondary
+        $0.font = .systemFont(ofSize: 14)
+    }
     
-    private let numberOfItemsValueLabel: UILabel = {
-        let label = UILabel()
-        label.text = "0"
-        label.textColor = .textPrimary
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let numberOfItemsValueLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "0"
+        $0.textColor = .textPrimary
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
     
-    private let updateDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Updated:"
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .textSecondary
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let updateDateLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "Updated:"
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .textSecondary
+    }
     
-    private let updateDateValueLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .textPrimary
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let updateDateValueLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .textPrimary
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
     
-    private let accessTypeLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .textSecondary
-        label.font = .systemFont(ofSize: 14)
-        label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let accessTypeLabel: UILabel = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = .textSecondary
+        $0.font = .systemFont(ofSize: 14)
+        $0.textAlignment = .right
+    }
     
-    private let accessTypeImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.tintColor = .textSecondary
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private let accessTypeImageView: UIImageView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.tintColor = .textSecondary
+    }
     
-    private let accessTypeView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let accessTypeView: UIView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

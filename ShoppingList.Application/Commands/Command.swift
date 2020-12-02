@@ -5,3 +5,8 @@ public protocol Command {
     func execute()
     func undo()
 }
+
+public protocol CommandNew {
+    var source: CommandSource { get }
+    func reversed() -> CommandNew?
+}

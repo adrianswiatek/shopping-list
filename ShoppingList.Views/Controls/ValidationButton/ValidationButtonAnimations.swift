@@ -1,40 +1,45 @@
 import UIKit
 
-final class ValidationButtonAnimations {
-    private var viewController: UIViewController
-    private var button: UIButton
-    private var textField: UITextField
-    
-    init(_ viewController: UIViewController, _ button: UIButton, _ textField: UITextField) {
-        self.viewController = viewController
-        self.button = button
-        self.textField = textField
+public final class ValidationButtonAnimations {
+    private let button: UIButton
+    private let textField: UITextField
+    private let view: UIView
+
+    private var textFieldConstraint: NSLayoutConstraint? {
+        textField.findConstraintWith(identifier: "TextFieldTrailingConstraint")
     }
     
-    func show() {
+    public init(_ button: UIButton, _ textField: UITextField, _ view: UIView) {
+        self.button = button
+        self.textField = textField
+        self.view = view
+    }
+    
+    public func show() {
         guard button.alpha == 0 else { return }
         
         UIView.animate(
             withDuration: 0.1,
-            animations: { [weak self] in
-                self?.getTextFieldConstraint()?.constant = -32
-                self?.viewController.view.layoutIfNeeded()
+            animations: {
+                self.textFieldConstraint?.constant = -32
+                self.view.layoutIfNeeded()
             },
-            completion: { [weak self] _ in
+            completion: { _ in
                 UIView.animate(
                     withDuration: 0.25,
-                    animations: { self?.button.alpha = 1
-                })
-        })
+                    animations: { self.button.alpha = 1 }
+                )
+            }
+        )
     }
     
-    func hide() {
+    public func hide() {
         guard button.alpha == 1 else { return }
         
         UIView.animate(
             withDuration: 0.25,
-            animations: { [weak self] in self?.button.alpha = 0 },
-            completion: { [weak self] _ in
+            animations: { self.button.alpha = 0 },
+            completion: { _ in
                 UIView.animate(
                     withDuration: 0.5,
                     delay: 0,
@@ -42,13 +47,9 @@ final class ValidationButtonAnimations {
                     initialSpringVelocity: 1,
                     options: .curveEaseOut,
                     animations: {
-                        self?.getTextFieldConstraint()?.constant = 0
-                        self?.viewController.view.layoutIfNeeded()
+                        self.textFieldConstraint?.constant = 0
+                        self.view.layoutIfNeeded()
                 })
         })
-    }
-    
-    private func getTextFieldConstraint() -> NSLayoutConstraint? {
-        return textField.findConstraintWith(identifier: "TextFieldTrailingConstraint")
     }
 }

@@ -256,7 +256,10 @@ public final class PopupWithTextFieldController: UIViewController {
 }
 
 extension PopupWithTextFieldController: TextFieldWithWarningDelegate {
-    func textFieldWithWarning(_ textFieldWithWarning: TextFieldWithWarning, didReturnWith text: String) {
+    public func textFieldWithWarning(
+        _ textFieldWithWarning: TextFieldWithWarning,
+        didReturnWith text: String
+    ) {
         handleSaveButton()
     }
 }

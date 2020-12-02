@@ -3,18 +3,24 @@ import CoreData
 
 final class CoreDataRepository: RepositoryProtocol {
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "ShoppingList")
+        guard
+            let url = Bundle(for: Self.self).url(forResource: "ShoppingList", withExtension: "momd"),
+            let objectModel = NSManagedObjectModel(contentsOf: url)
+        else {
+            fatalError("Unable to load managed object model.")
+        }
+
+        let container = NSPersistentContainer(name: "ShoppingList", managedObjectModel: objectModel)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        
         return container
     }()
     
     private var context: NSManagedObjectContext {
-        return persistentContainer.viewContext
+        persistentContainer.viewContext
     }
     
     // Mark: - List
@@ -30,7 +36,7 @@ final class CoreDataRepository: RepositoryProtocol {
     }
     
     func getList(by id: UUID) -> List? {
-        return getListEntity(by: id)?.map()
+        getListEntity(by: id)?.map()
     }
     
     func add(_ list: List) {
@@ -44,11 +50,11 @@ final class CoreDataRepository: RepositoryProtocol {
         save()
     }
     
-    func remove(_ list: List) {
-        guard let listEntity = getListEntity(by: list) else { return }
+    func remove(by id: UUID) {
+        guard let listEntity = getListEntity(by: id) else { return }
         context.delete(listEntity)
         
-        if let orderEntity = getItemsOrderEntity(by: list) {
+        if let orderEntity = getItemsOrderEntity(by: id) {
             context.delete(orderEntity)
         }
         
@@ -291,9 +297,9 @@ final class CoreDataRepository: RepositoryProtocol {
         return getListEntity(by: list) ?? list.map(context: context)
     }
     
-    private func getItemsOrderEntity(by list: List) -> ItemsOrderEntity? {
+    private func getItemsOrderEntity(by id: UUID) -> ItemsOrderEntity? {
         let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "listId == %@", list.id as CVarArg)
+        request.predicate = NSPredicate(format: "listId == %@", id as CVarArg)
         
         do {
             return try context.fetch(request).first

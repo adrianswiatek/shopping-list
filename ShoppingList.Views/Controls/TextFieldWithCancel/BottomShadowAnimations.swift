@@ -1,17 +1,17 @@
 import UIKit
 
-struct BottomShadowAnimations {
-    let view: UIView
+public struct BottomShadowAnimations {
+    private let view: UIView
     
-    let opacityAnimation: CABasicAnimation
-    let normalOpacity: Float = 0.1
-    let editOpacity: Float = 0.2
+    private let opacityAnimation: CABasicAnimation
+    private let normalOpacity: Float = 0.1
+    private let editOpacity: Float = 0.2
     
-    let offsetAnimation: CABasicAnimation
-    let normalOffset = CGSize(width: 0, height: 1)
-    let editOffset = CGSize(width: 0, height: 2)
+    private let offsetAnimation: CABasicAnimation
+    private let normalOffset = CGSize(width: 0, height: 1)
+    private let editOffset = CGSize(width: 0, height: 2)
     
-    init(_ view: UIView) {
+    public init(_ view: UIView) {
         self.view = view
         
         self.opacityAnimation = CABasicAnimation(keyPath: "shadowOpacity")
@@ -21,7 +21,7 @@ struct BottomShadowAnimations {
         self.offsetAnimation.duration = 0.2
     }
     
-    func showNormalShadow() {
+    public func showNormalShadow() {
         opacityAnimation.fromValue = editOpacity
         opacityAnimation.toValue = normalOpacity
         view.layer.add(opacityAnimation, forKey: nil)
@@ -33,7 +33,7 @@ struct BottomShadowAnimations {
         view.layer.shadowOffset = normalOffset
     }
     
-    func showEditShadow() {
+    public func showEditShadow() {
         opacityAnimation.fromValue = normalOpacity
         opacityAnimation.toValue = editOpacity
         view.layer.add(opacityAnimation, forKey: nil)

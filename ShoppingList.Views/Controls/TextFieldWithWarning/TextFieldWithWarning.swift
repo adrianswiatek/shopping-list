@@ -1,50 +1,47 @@
+import ShoppingList_Shared
 import UIKit
 
-final class TextFieldWithWarning: UIView {
-    weak var delegate: TextFieldWithWarningDelegate?
+public final class TextFieldWithWarning: UIView {
+    public weak var delegate: TextFieldWithWarningDelegate?
     
-    var font: UIFont? {
-        get { return textField.font }
+    public var font: UIFont? {
+        get { textField.font }
         set { textField.font = newValue }
     }
     
-    var textColor: UIColor? {
-        get { return textField.textColor }
+    public var textColor: UIColor? {
+        get { textField.textColor }
         set { textField.textColor = newValue }
     }
     
-    var text: String? {
-        get { return textField.text }
+    public var text: String? {
+        get { textField.text }
         set { textField.text = newValue }
     }
     
-    var placeholder: String? {
-        get { return textField.placeholder }
+    public var placeholder: String? {
+        get { textField.placeholder }
         set { textField.placeholder = newValue }
     }
     
-    var validationPopupWillAppear: (() -> Void)?
-    var validationPopupWillDisappear: (() -> Void)?
+    public var validationPopupWillAppear: (() -> Void)?
+    public var validationPopupWillDisappear: (() -> Void)?
     
-    private lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = .done
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
-        textField.leftViewMode = .always
-        textField.delegate = self
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    private lazy var textField: UITextField = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.clearButtonMode = .whileEditing
+        $0.returnKeyType = .done
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+        $0.leftViewMode = .always
+        $0.delegate = self
+    }
     
-    private lazy var validationButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "Warning"), for: .normal)
-        button.alpha = 0
-        button.addTarget(self, action: #selector(handleValidation), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private lazy var validationButton: UIButton = configure(.init(type: .system)) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setImage(UIImage(named: "Warning"), for: .normal)
+        $0.alpha = 0
+        $0.addTarget(self, action: #selector(handleValidation), for: .touchUpInside)
+    }
     
     @objc func handleValidation() {
         let alertController = UIAlertController(title: "", message: getValidationMessage(), preferredStyle: .alert)
@@ -64,29 +61,36 @@ final class TextFieldWithWarning: UIView {
     private var validationButtonAnimations: ValidationButtonAnimations!
     private var validationRule: ValidationButtonRule?
     
-    init(_ viewController: UIViewController) {
+    public init(_ viewController: UIViewController) {
         super.init(frame: CGRect.zero)
         
         self.viewController = viewController
-        self.validationButtonAnimations =
-            ValidationButtonAnimations(viewController, validationButton, textField)
-
+        self.validationButtonAnimations = .init(validationButton, textField, self)
         self.setupUserInterface()
+    }
+
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("Not supported.")
     }
     
     private func setupUserInterface() {
         translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(validationButton)
-        validationButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        validationButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        validationButton.widthAnchor.constraint(equalTo: validationButton.heightAnchor).isActive = true
-        validationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
+        NSLayoutConstraint.activate([
+            validationButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            validationButton.heightAnchor.constraint(equalToConstant: 20),
+            validationButton.widthAnchor.constraint(equalTo: validationButton.heightAnchor),
+            validationButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+        ])
         
         addSubview(textField)
-        textField.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        textField.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        textField.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textField.topAnchor.constraint(equalTo: topAnchor),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
         
         let textFieldTrailingConstraint =
             NSLayoutConstraint(
@@ -96,31 +100,30 @@ final class TextFieldWithWarning: UIView {
                 toItem: self,
                 attribute: .trailing,
                 multiplier: 1,
-                constant: 0)
+                constant: 0
+            )
         
         textFieldTrailingConstraint.identifier = "TextFieldTrailingConstraint"
         textFieldTrailingConstraint.isActive = true
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+
+    @discardableResult
+    public override func becomeFirstResponder() -> Bool {
+        textField.becomeFirstResponder()
     }
     
-    @discardableResult override func becomeFirstResponder() -> Bool {
-        return textField.becomeFirstResponder()
-    }
-    
-    @discardableResult override func resignFirstResponder() -> Bool {
-        return textField.resignFirstResponder()
+    @discardableResult
+    public override func resignFirstResponder() -> Bool {
+        textField.resignFirstResponder()
     }
 }
 
 extension TextFieldWithWarning: ButtonValidatable {
-    func set(_ validationRule: ValidationButtonRule) {
+    public func set(_ validationRule: ValidationButtonRule) {
         self.validationRule = validationRule
     }
     
-    func isValid() -> Bool {
+    public func isValid() -> Bool {
         guard let text = textField.text else { return false }
         
         if validationRule == nil {
@@ -136,7 +139,7 @@ extension TextFieldWithWarning: ButtonValidatable {
         return false
     }
     
-    func getValidationMessage() -> String {
+    public func getValidationMessage() -> String {
         guard let text = textField.text else { return "" }
         
         if let validatedRule = validationRule?.validate(with: text) {
@@ -148,7 +151,7 @@ extension TextFieldWithWarning: ButtonValidatable {
 }
 
 extension TextFieldWithWarning: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let text = textField.text else { return false }
         guard isValid() else { return false }
         
@@ -159,7 +162,7 @@ extension TextFieldWithWarning: UITextFieldDelegate {
         return true
     }
     
-    func textField(
+    public func textField(
         _ textField: UITextField,
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String) -> Bool {
@@ -174,11 +177,11 @@ extension TextFieldWithWarning: UITextFieldDelegate {
         return isDirty
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         validationButtonAnimations.hide()
     }
     
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
         validationButtonAnimations.hide()
         return true
     }

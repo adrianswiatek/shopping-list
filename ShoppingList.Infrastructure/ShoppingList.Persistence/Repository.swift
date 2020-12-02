@@ -16,7 +16,7 @@ public final class Repository: RepositoryProtocol {
     public func getList(by id: UUID) -> List? { repository.getList(by: id) }
     public func add(_ list: List) { repository.add(list) }
     public func update(_ list: List) { repository.update(list) }
-    public func remove(_ list: List) { repository.remove(list) }
+    public func remove(by id: UUID) { repository.remove(by: id) }
     
     // MARK: - Category
     public func getCategories() -> [ItemsCategory] { repository.getCategories() }

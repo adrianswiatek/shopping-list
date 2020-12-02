@@ -1,6 +1,4 @@
-import ShoppingList_Persistence
-import ShoppingList_ViewModels
-import ShoppingList_Views
+import ShoppingList_Configuration
 import UIKit
 
 @UIApplicationMain
@@ -12,18 +10,15 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         UINavigationBar.appearance().isTranslucent = false
-
-        let rootViewController = ListsViewController(viewModel: ListsViewModel())
-        let navigationController = UINavigationController(rootViewController: rootViewController)
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = navigationController
+        window?.rootViewController = Configurator().rootViewController()
         
         return true
     }
 
     internal func applicationWillTerminate(_ application: UIApplication) {
-        Repository.shared.save()
+//        Repository.shared.save()
     }
 }

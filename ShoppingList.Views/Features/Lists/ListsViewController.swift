@@ -1,39 +1,44 @@
-import UIKit
-import ShoppingList_Domain
 import ShoppingList_Shared
 import ShoppingList_ViewModels
+import Combine
+import UIKit
 
 public final class ListsViewController: UIViewController {
-    public var lists: [List]
+    private let tableView: ListsTableView
+    private let dataSource: ListsDataSource
 
-    public let tableView: UITableView = configure(UITableView()) {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.tableFooterView = UIView()
-        $0.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler)))
-        $0.rowHeight = UITableView.automaticDimension
-        $0.estimatedRowHeight = 90
-        $0.backgroundColor = .background
-    }
-
-    private lazy var addListTextFieldWithCancel: TextFieldWithCancel = {
-        let textFieldWithCancel = TextFieldWithCancel(viewController: self, placeHolder: "Add new list...")
-        textFieldWithCancel.delegate = self
-        textFieldWithCancel.layer.zPosition = 1
-        textFieldWithCancel.translatesAutoresizingMaskIntoConstraints = false
-        return textFieldWithCancel
-    }()
+    private lazy var addListTextField: TextFieldWithCancel =
+        configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.placeholder = "Add new list..."
+            $0.layer.zPosition = 1
+        }
     
     private lazy var goToSettingsBarButtonItem: UIBarButtonItem =
-        .init(image: #imageLiteral(resourceName: "Settings"), style: .plain, target: self, action: #selector(goToSettingsScene))
+        .init(image: #imageLiteral(resourceName: "Settings"), primaryAction: .init { [weak self] _ in
+            self?.present(
+                UINavigationController(rootViewController: SettingsViewController()),
+                animated: true
+            )
+        })
 
     private lazy var restoreBarButtonItem: UIBarButtonItem =
-        configure(.init(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))) {
+        configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in self?.viewModel.restore() })) {
             $0.isEnabled = false
         }
 
+    private let viewModel: ListsViewModel
+    private var cancellables: [AnyCancellable]
+
     public init(viewModel: ListsViewModel) {
-        self.lists = []
+        self.viewModel = viewModel
+        self.cancellables = []
+
+        self.tableView = .init()
+        self.dataSource = .init(tableView)
+
         super.init(nibName: nil, bundle: nil)
+        self.bind()
     }
 
     @available(*, unavailable)
@@ -43,300 +48,127 @@ public final class ListsViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         self.setupView()
-        self.setupTableView()
-        self.fetchLists()
+        self.viewModel.fetchLists()
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        // Todo: command
-        // CommandInvoker.shared.remove(.lists)
+        self.viewModel.cleanUp()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
-        refreshUserInterface()
+        super.viewWillAppear(animated)
+        self.refreshUserInterface()
     }
 
     public func refreshUserInterface() {
-        if !lists.isEmpty {
+        if viewModel.hasLists {
             tableView.backgroundView = nil
         } else {
             tableView.setTextIfEmpty("You have not added any lists yet")
         }
 
-        // Todo: command
-        // restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.lists)
+        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
         navigationItem.rightBarButtonItems = [goToSettingsBarButtonItem, restoreBarButtonItem]
     }
 
     private func setupView() {
         navigationItem.title = "My lists"
-        
-        view.addSubview(addListTextFieldWithCancel)
+
+        view.addSubview(addListTextField)
         NSLayoutConstraint.activate([
-            addListTextFieldWithCancel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addListTextFieldWithCancel.topAnchor.constraint(equalTo: view.topAnchor),
-            addListTextFieldWithCancel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addListTextFieldWithCancel.heightAnchor.constraint(equalToConstant: 50),
+            addListTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addListTextField.topAnchor.constraint(equalTo: view.topAnchor),
+            addListTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addListTextField.heightAnchor.constraint(equalToConstant: 50),
         ])
 
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: addListTextFieldWithCancel.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: addListTextField.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
-    private func setupTableView() {
-        tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.delegate = self
-        tableView.dataSource = self
+    private func bind() {
+        viewModel.listsPublisher
+            .sink { [weak self] in
+                self?.dataSource.apply($0)
+                self?.refreshUserInterface()
+            }
+            .store(in: &cancellables)
+
+        tableView.onAction
+            .sink { [weak self] in self?.handleTableViewAction($0) }
+            .store(in: &cancellables)
+
+        addListTextField.onAction
+            .sink { [weak self] in self?.handleAddListTextFieldAction($0) }
+            .store(in: &cancellables)
     }
 
-    private func fetchLists() {
-        // Todo: repository
-        // lists = Repository.shared.getLists().sorted { $0.updateDate > $1.updateDate }
-    }
-    
-    private func getListName(from text: String) -> String {
-        ListNameGenerator.generate(from: text, and: lists)
-    }
-
-    @objc
-    private func goToSettingsScene() {
-        let navigationController = UINavigationController(rootViewController: SettingsViewController())
-        present(navigationController, animated: true)
-    }
-
-    @objc
-    private func restore() {
-        // Todo: command
-        // let invoker = CommandInvoker.shared
-        // if invoker.canUndo(.lists) {
-        //     invoker.undo(.lists)
-        // }
+    private func handleTableViewAction(_ action: ListsTableView.Action) {
+        switch action {
+        case let .editList(id, name):
+            showEditPopupForList(with: id, and: name)
+        case let .removeList(id):
+            viewModel.isListEmpty(with: id)
+                ? viewModel.removeEmptyList(with: id)
+                : showRemoveListAlertForList(with: id)
+        case let .clearItemsToBuy(id):
+            viewModel.clearList(with: id)
+        case let .clearBasket(id):
+            viewModel.clearBasketOfList(with: id)
+        }
     }
 
-    @objc
-    private func longPressHandler(_ gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .began else { return }
+    private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {
+        switch action {
+        case let .confirm(text):
+            viewModel.addList(with: text)
+        case let .validationError(text):
+            let controller = UIAlertController(title: "", message: text, preferredStyle: .alert)
+            controller.addAction(.init(title: "OK", style: .default))
+            present(controller, animated: true)
+        }
+    }
 
-        let touchLocation = gesture.location(in: tableView)
-        guard let touchedRow = tableView.indexPathForRow(at: touchLocation)?.row else { return }
+    private func showEditPopupForList(with id: UUID, and name: String) {
+        let controller = PopupWithTextFieldController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.popupTitle = "Edit list name"
+        controller.placeholder = "Enter list name..."
+        controller.text = name
+        controller.saved = {
+            guard !$0.isEmpty else { return }
+            self.viewModel.updateList(with: id, name: $0)
+        }
+        present(controller, animated: true)
+    }
 
-        var alertController = ListActionsAlertBuilder(lists[touchedRow])
-        alertController.delegate = self
+    private func showRemoveListAlertForList(with id: UUID) {
+        let alertMessage = "There are items in the list, that have not been bought yet. If continue, all list items will be removed."
 
-        present(alertController.build(), animated: true)
+        let controller = UIAlertController(
+            title: "Remove list",
+            message: alertMessage,
+            preferredStyle: .actionSheet
+        )
+
+        controller.addAction(.init(title: "Cancel", style: .cancel))
+        controller.addAction(.init(title: "Remove permanently", style: .destructive) { [weak self] _ in
+            self?.viewModel.removeList(with: id) }
+        )
+
+        present(controller, animated: true)
     }
 }
 
 extension ListsViewController: ItemsViewControllerDelegate {
     public func itemsViewControllerDidDismiss(_ itemsViewController: ItemsViewController) {
-        fetchLists()
-        tableView.reloadData()
-    }
-}
-
-extension ListsViewController: TextFieldWithCancelDelegate {
-    public func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
-        let list = List.withName(getListName(from: text))
-
-        lists.insert(list, at: 0)
-        // Todo: repository
-        // Repository.shared.add(list)
-        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        refreshUserInterface()
-    }
-}
-
-extension ListsViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        let itemsViewController = ItemsViewController()
-        itemsViewController.delegate = self
-        itemsViewController.currentList = lists[indexPath.row]
-        navigationController?.pushViewController(itemsViewController, animated: true)
-    }
-
-    public func tableView(
-        _ tableView: UITableView,
-        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(
-            style: .destructive,
-            title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            let currentList = self.lists[indexPath.row]
-            if currentList.numberOfItemsToBuy() == 0 {
-                // Todo: command
-                // let command = RemoveListCommand(currentList, self)
-                // CommandInvoker.shared.execute(command)
-                completionHandler(true)
-                return
-            }
-
-            var builder = DeleteListAlertBuilder()
-            builder.deleteButtonTapped = {
-                self.deleteList(at: indexPath)
-                completionHandler(true)
-            }
-            builder.cancelButtonTapped = { completionHandler(false) }
-            self.present(builder.build(), animated: true)
-        }
-        deleteItemAction.backgroundColor = .delete
-        deleteItemAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [deleteItemAction])
-    }
-
-    private func deleteList(at indexPath: IndexPath) {
-        // Todo: repository
-        // let list = lists.remove(at: indexPath.row)
-        // Repository.shared.remove(list)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-        refreshUserInterface()
-    }
-
-    public func tableView(
-        _ tableView: UITableView,
-        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        return UISwipeActionsConfiguration(actions: [
-            getEditItemAction(for: indexPath),
-            getShareItemAction(for: indexPath)
-        ])
-    }
-
-    private func getEditItemAction(for indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(
-            style: .normal,
-            title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            self.showEditPopup(
-                list: self.lists[indexPath.row],
-                saved: {
-                    guard !$0.isEmpty else {
-                        completionHandler(false)
-                        return
-                    }
-                    self.changeListName(at: indexPath, newName: $0)
-                    completionHandler(true)
-                },
-                cancelled: {
-                    completionHandler(false)
-                })
-        }
-        action.backgroundColor = .edit
-        action.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
-
-        return action
-    }
-
-    private func getShareItemAction(for indexPath: IndexPath) -> UIContextualAction {
-        let list = lists[indexPath.row]
-
-        let action = UIContextualAction(
-            style: .normal,
-            title: nil
-        ) { [unowned self] _, _, completionHandler in
-            let updatedList = list.withAccessType(list.accessType == .private ? .shared : .private)
-            self.lists[indexPath.row] = updatedList
-            completionHandler(true)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.tableView.reloadRows(at: [indexPath], with: .automatic)
-            }
-        }
-        action.backgroundColor = .share
-        action.image = (list.accessType == .private ? #imageLiteral(resourceName: "ShareWith") : #imageLiteral(resourceName: "Locked")).withRenderingMode(.alwaysTemplate)
-
-        return action
-    }
-
-    private func showEditPopup(
-        list: List,
-        saved: @escaping (String) -> Void,
-        cancelled: @escaping () -> Void
-    ) {
-        let controller = PopupWithTextFieldController()
-        controller.modalPresentationStyle = .overFullScreen
-        controller.popupTitle = "Edit List"
-        controller.placeholder = "Enter list name..."
-        controller.text = list.name
-        controller.saved = saved
-        controller.cancelled = cancelled
-        present(controller, animated: true)
-    }
-
-    private func changeListName(at indexPath: IndexPath, newName: String) {
-        let existingList = lists[indexPath.row]
-        guard existingList.name != newName else { return }
-
-        let listWithChangedName = existingList.withChangedName(getListName(from: newName))
-
-        lists.remove(at: indexPath.row)
-        lists.insert(listWithChangedName, at: 0)
-
-        // Todo: repository
-        // Repository.shared.update(listWithChangedName)
-
-        if indexPath.row == 0 {
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        } else {
-            let zeroIndexPath = IndexPath(row: 0, section: 0)
-            tableView.moveRow(at: indexPath, to: zeroIndexPath)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
-                self?.tableView.reloadRows(at: [zeroIndexPath], with: .automatic)
-            }
-        }
-    }
-}
-
-extension ListsViewController: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        lists.count
-    }
-
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ListsTableViewCell
-        cell.list = lists[indexPath.row]
-        return cell
-    }
-}
-
-extension ListsViewController: ListsActionsAlertDelegate {
-    public func deleteAllItemsIn(_ list: List) {
-        remove(items: list.items, from: list)
-    }
-
-    public func emptyBasketIn(_ list: List) {
-        remove(items: list.items.filter { $0.state == .inBasket }, from: list)
-    }
-
-    private func remove(items: [Item], from list: List) {
-        guard let index = lists.firstIndex(where: { $0.id == list.id }) else { return }
-
-        // Todo: repository
-        // Repository.shared.remove(items)
-
-        // Todo: repository
-        // guard let removedList = Repository.shared.getList(by: list.id) else { return }
-        let removedList = List(id: UUID(), name: "", accessType: .private, items: [])
-        lists.remove(at: index)
-        lists.insert(removedList, at: 0)
-
-        let indexPath = IndexPath(row: index, section: 0)
-
-        if index == 0 {
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        } else {
-            let zeroIndexPath = IndexPath(row: 0, section: 0)
-            tableView.moveRow(at: indexPath, to: zeroIndexPath)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
-                self?.tableView.reloadRows(at: [zeroIndexPath], with: .automatic)
-            }
-        }
+        viewModel.fetchLists()
     }
 }

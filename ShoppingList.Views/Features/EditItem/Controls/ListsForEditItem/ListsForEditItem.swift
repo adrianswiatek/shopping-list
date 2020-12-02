@@ -102,7 +102,9 @@ public final class ListsForEditItem: UIView {
     }
 
     private func listAdded(withName name: String) {
-        let newName = ListNameGenerator.generate(from: name, and: lists)
+        // TODO: ListNameGenerator
+        // let newName = ListNameGenerator.generate(from: name, and: lists)
+        let newName = "TODO: ListNameGenerator"
         let list = List.withName(newName)
 
         lists.append(list)

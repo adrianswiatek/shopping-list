@@ -1,70 +1,69 @@
 import ShoppingList_Domain
+import ShoppingList_Shared
 import UIKit
 
 public final class ItemsViewController: UIViewController {
-    let sharedItemsFormatter = SharedItemsFormatter()
-    var delegate: ItemsViewControllerDelegate!
+    private let sharedItemsFormatter = SharedItemsFormatter()
+    private var delegate: ItemsViewControllerDelegate!
     
-    var currentList: List!
+    private var currentList: List!
     
-    var items = [[Item]]()
-    var categories = [ItemsCategory]()
+    private var items = [[Item]]()
+    private var categories = [ItemsCategory]()
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.dragDelegate = self
-        tableView.dropDelegate = self
-        tableView.separatorStyle = .singleLine
-        tableView.allowsSelection = false
-        tableView.allowsMultipleSelectionDuringEditing = true
-        tableView.dragInteractionEnabled = true
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 50
-        tableView.register(ItemsTableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.tableFooterView = UIView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    private lazy var tableView: UITableView = configure(.init()) {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.dataSource = self
+        $0.delegate = self
+        $0.dragDelegate = self
+        $0.dropDelegate = self
+        $0.separatorStyle = .singleLine
+        $0.allowsSelection = false
+        $0.allowsMultipleSelectionDuringEditing = true
+        $0.dragInteractionEnabled = true
+        $0.rowHeight = UITableView.automaticDimension
+        $0.estimatedRowHeight = 50
+        $0.register(ItemsTableViewCell.self, forCellReuseIdentifier: "Cell")
+        $0.tableFooterView = UIView()
+    }
     
-    lazy var addItemTextField: TextFieldWithCancel = {
-        let textField = TextFieldWithCancel(viewController: self, placeHolder: "Add new item...")
-        textField.delegate = self
-        textField.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
-        textField.layer.zPosition = 1
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    private lazy var addItemTextField: TextFieldWithCancel =
+        configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
+            $0.layer.zPosition = 1
+            $0.placeholder = "Add new item..."
+        }
     
-    lazy var toolbar: ItemsToolbar = {
-        let toolbar = ItemsToolbar(viewController: self)
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.delegate = self
-        return toolbar
-    }()
+    private lazy var toolbar: ItemsToolbar =
+        configure(.init(viewController: self)) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.delegate = self
+        }
     
-    lazy var goToFilledBasketBarButtonItem: UIBarButtonItem = {
+    private lazy var goToFilledBasketBarButtonItem: UIBarButtonItem = {
         UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
     }()
     
-    lazy var goToEmptyBasketBarButtonItem: UIBarButtonItem = {
+    private lazy var goToEmptyBasketBarButtonItem: UIBarButtonItem = {
         UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), style: .plain, target: self, action: #selector(goToBasketScene))
     }()
     
-    @objc private func goToBasketScene() {
+    @objc
+    private func goToBasketScene() {
         let basketViewController = BasketViewController()
         basketViewController.list = currentList
         navigationController?.pushViewController(basketViewController, animated: true)
     }
     
-    lazy var restoreBarButtonItem: UIBarButtonItem = {
+    private lazy var restoreBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
         barButtonItem.isEnabled = false
         return barButtonItem
     }()
 
-    @objc private func restore() {
+    @objc
+    private func restore() {
         // Todo: command
         // let invoker = CommandInvoker.shared
         // if invoker.canUndo(.items) {
@@ -148,7 +147,7 @@ public final class ItemsViewController: UIViewController {
         ])
     }
     
-    func refreshUserInterface(after: Double = 0) {
+    private func refreshUserInterface(after: Double = 0) {
         setTopBarButtons()
         
         items.count > 0 ? setSceneAsEditable() : setSceneAsNotEditable()
@@ -201,7 +200,7 @@ public final class ItemsViewController: UIViewController {
         }
     }
     
-    func goToEditItemDetailed(with item: Item? = nil) {
+    private func goToEditItemDetailed(with item: Item? = nil) {
         let viewController = EditItemViewController()
         viewController.delegate = self
         viewController.list = currentList
@@ -213,7 +212,7 @@ public final class ItemsViewController: UIViewController {
         present(navigationController, animated: true)
     }
     
-    func append(_ category: ItemsCategory) {
+    private func append(_ category: ItemsCategory) {
         categories.append(category)
         categories.sort { $0.name < $1.name }
         
@@ -222,11 +221,11 @@ public final class ItemsViewController: UIViewController {
         tableView.insertSections(IndexSet(integer: categoryIndex), with: .automatic)
     }
     
-    func getCategoryIndex(_ item: Item) -> Int {
+    private func getCategoryIndex(_ item: Item) -> Int {
         getCategoryIndex(item.category)
     }
     
-    func getCategoryIndex(_ category: ItemsCategory) -> Int {
+    private func getCategoryIndex(_ category: ItemsCategory) -> Int {
         guard let index =  categories.firstIndex (where: { $0.id == category.id }) else {
             fatalError("Unable to find category index.")
         }
@@ -391,7 +390,7 @@ extension ItemsViewController: UITableViewDelegate {
         let deleteItemAction = UIContextualAction(
             style: .destructive,
             title: nil
-        ) { [unowned self] (action, sourceView, completionHandler) in
+        ) { [weak self] (action, sourceView, completionHandler) in
             // Todo: command
             // let item = self.items[indexPath.section][indexPath.row]
             // let command = RemoveItemsFromListCommand(item, self)

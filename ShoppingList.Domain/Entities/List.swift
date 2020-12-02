@@ -15,6 +15,14 @@ public struct List {
         self.updateDate = updateDate
     }
 
+    public var containsItemsToBuy: Bool {
+        !items.lazy.filter { $0.state == .toBuy }.isEmpty
+    }
+
+    public var containsItemsInBasket: Bool {
+        !items.lazy.filter { $0.state == .inBasket }.isEmpty
+    }
+
     public func numberOfItemsToBuy() -> Int {
         items.filter { $0.state == .toBuy }.count
     }
