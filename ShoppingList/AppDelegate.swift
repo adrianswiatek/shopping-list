@@ -4,6 +4,7 @@ import UIKit
 @UIApplicationMain
 internal class AppDelegate: UIResponder, UIApplicationDelegate {
     internal var window: UIWindow?
+    private let container: Container = .init()
 
     internal func application(
         _ application: UIApplication,
@@ -13,7 +14,7 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = Configurator().rootViewController()
+        window?.rootViewController = container.resolveRootViewController()
         
         return true
     }

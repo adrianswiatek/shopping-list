@@ -118,7 +118,6 @@
 		A7640F8F2569B8EA000D882B /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7640F8E2569B8EA000D882B /* UIColorExtensions.swift */; };
 		A7640FC82569BC94000D882B /* ShoppingList_Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = A7640FC62569BC94000D882B /* ShoppingList_Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A76C1BDF257C53DE0066DB21 /* ListsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C1BDE257C53DE0066DB21 /* ListsTableView.swift */; };
-		A77C971A2578588000E39DBF /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C97192578588000E39DBF /* Configurator.swift */; };
 		A77C971E257859AD00E39DBF /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C971D257859AD00E39DBF /* CategoryRepository.swift */; };
 		A77C9721257859DC00E39DBF /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C9720257859DC00E39DBF /* ItemRepository.swift */; };
 		A77C972725785AF800E39DBF /* RemoveListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C972625785AF800E39DBF /* RemoveListUseCase.swift */; };
@@ -149,6 +148,8 @@
 		A782B2472572F09C00638F7D /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */; };
 		A788610025759BDF00A0684C /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
 		A788610125759BDF00A0684C /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7888B6F257ED0C600D20AE3 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = A7888B6E257ED0C600D20AE3 /* Swinject */; };
+		A7888B72257ED10A00D20AE3 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B71257ED10A00D20AE3 /* Container.swift */; };
 		A79305D025798D4100A3865D /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305CF25798D4100A3865D /* ItemService.swift */; };
 		A79305D425798F0F00A3865D /* ItemUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305D325798F0F00A3865D /* ItemUseCases.swift */; };
 		A79305DD2579993B00A3865D /* ListQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305DC2579993B00A3865D /* ListQueries.swift */; };
@@ -502,7 +503,6 @@
 		A7640FC62569BC94000D882B /* ShoppingList_Domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingList_Domain.h; sourceTree = "<group>"; };
 		A7640FC72569BC94000D882B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A76C1BDE257C53DE0066DB21 /* ListsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableView.swift; sourceTree = "<group>"; };
-		A77C97192578588000E39DBF /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
 		A77C971D257859AD00E39DBF /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
 		A77C9720257859DC00E39DBF /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
 		A77C972625785AF800E39DBF /* RemoveListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListUseCase.swift; sourceTree = "<group>"; };
@@ -516,6 +516,7 @@
 		A781E9FA2578449500367FCF /* InMemoryCommandInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCommandInvoker.swift; sourceTree = "<group>"; };
 		A782634425784DD300E4DA54 /* AddListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListCommandHandler.swift; sourceTree = "<group>"; };
 		A782634B2578517700E4DA54 /* ListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRepository.swift; sourceTree = "<group>"; };
+		A7888B71257ED10A00D20AE3 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		A79305CF25798D4100A3865D /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
 		A79305D325798F0F00A3865D /* ItemUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCases.swift; sourceTree = "<group>"; };
 		A79305DC2579993B00A3865D /* ListQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListQueries.swift; sourceTree = "<group>"; };
@@ -593,6 +594,7 @@
 			files = (
 				A77DFFD425785815001B7B35 /* ShoppingList_Domain.framework in Frameworks */,
 				A77DFFD025785815001B7B35 /* ShoppingList_Application.framework in Frameworks */,
+				A7888B6F257ED0C600D20AE3 /* Swinject in Frameworks */,
 				A77DFFD825785815001B7B35 /* ShoppingList_Persistence.framework in Frameworks */,
 				A77DFFE425785815001B7B35 /* ShoppingList_Views.framework in Frameworks */,
 				A77DFFE025785815001B7B35 /* ShoppingList_ViewModels.framework in Frameworks */,
@@ -1031,7 +1033,7 @@
 			children = (
 				A77DFFC125785804001B7B35 /* ShoppingList_Configuration.h */,
 				A77DFFC225785804001B7B35 /* Info.plist */,
-				A77C97192578588000E39DBF /* Configurator.swift */,
+				A7888B71257ED10A00D20AE3 /* Container.swift */,
 			);
 			path = ShoppingList.Configuration;
 			sourceTree = "<group>";
@@ -1386,6 +1388,9 @@
 				A77DFFE725785815001B7B35 /* PBXTargetDependency */,
 			);
 			name = ShoppingList.Configuration;
+			packageProductDependencies = (
+				A7888B6E257ED0C600D20AE3 /* Swinject */,
+			);
 			productName = ShoppingList.Configuration;
 			productReference = A77DFFBF25785804001B7B35 /* ShoppingList_Configuration.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1438,6 +1443,9 @@
 				Base,
 			);
 			mainGroup = 3A392E2B207A5A3C005857E5;
+			packageReferences = (
+				A7888B6D257ED0C600D20AE3 /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			productRefGroup = 3A392E35207A5A3C005857E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1668,7 +1676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A77C971A2578588000E39DBF /* Configurator.swift in Sources */,
+				A7888B72257ED10A00D20AE3 /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2485,6 +2493,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A7888B6D257ED0C600D20AE3 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A7888B6E257ED0C600D20AE3 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7888B6D257ED0C600D20AE3 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */ = {
