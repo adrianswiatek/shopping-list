@@ -150,6 +150,8 @@
 		A788610125759BDF00A0684C /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7888B6F257ED0C600D20AE3 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = A7888B6E257ED0C600D20AE3 /* Swinject */; };
 		A7888B72257ED10A00D20AE3 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B71257ED10A00D20AE3 /* Container.swift */; };
+		A7888B77257ED65500D20AE3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B76257ED65500D20AE3 /* Coordinator.swift */; };
+		A7888B7F257ED9DB00D20AE3 /* Coordinator+ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B7E257ED9DB00D20AE3 /* Coordinator+ListsViewController.swift */; };
 		A79305D025798D4100A3865D /* ItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305CF25798D4100A3865D /* ItemService.swift */; };
 		A79305D425798F0F00A3865D /* ItemUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305D325798F0F00A3865D /* ItemUseCases.swift */; };
 		A79305DD2579993B00A3865D /* ListQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305DC2579993B00A3865D /* ListQueries.swift */; };
@@ -517,6 +519,8 @@
 		A782634425784DD300E4DA54 /* AddListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListCommandHandler.swift; sourceTree = "<group>"; };
 		A782634B2578517700E4DA54 /* ListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRepository.swift; sourceTree = "<group>"; };
 		A7888B71257ED10A00D20AE3 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		A7888B76257ED65500D20AE3 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		A7888B7E257ED9DB00D20AE3 /* Coordinator+ListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+ListsViewController.swift"; sourceTree = "<group>"; };
 		A79305CF25798D4100A3865D /* ItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemService.swift; sourceTree = "<group>"; };
 		A79305D325798F0F00A3865D /* ItemUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUseCases.swift; sourceTree = "<group>"; };
 		A79305DC2579993B00A3865D /* ListQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListQueries.swift; sourceTree = "<group>"; };
@@ -956,6 +960,7 @@
 				A7640F4D2569B46A000D882B /* Info.plist */,
 				A70B2EF0257AE1310082AAB2 /* ReuseIdentifiable.swift */,
 				A739B3BD2569BF87000B16E3 /* Controls */,
+				A7888B7A257ED6C800D20AE3 /* Coordinators */,
 				A7640F8C2569B8CB000D882B /* Extensions */,
 				A7640F8D2569B8CE000D882B /* Features */,
 			);
@@ -1054,6 +1059,15 @@
 				A781E9F625783E7000367FCF /* RemoveListCommandHandler.swift */,
 			);
 			path = RemoveList;
+			sourceTree = "<group>";
+		};
+		A7888B7A257ED6C800D20AE3 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				A7888B76257ED65500D20AE3 /* Coordinator.swift */,
+				A7888B7E257ED9DB00D20AE3 /* Coordinator+ListsViewController.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		A79305D225798EFA00A3865D /* In */ = {
@@ -1610,6 +1624,7 @@
 				A739B54D2569D4F8000B16E3 /* BasketTableViewCell.swift in Sources */,
 				A739B4A22569CE70000B16E3 /* EditItemViewController.swift in Sources */,
 				A739B5502569D4F8000B16E3 /* BasketViewController.swift in Sources */,
+				A7888B77257ED65500D20AE3 /* Coordinator.swift in Sources */,
 				A739B48F2569CE69000B16E3 /* ItemsViewController.swift in Sources */,
 				A76C1BDF257C53DE0066DB21 /* ListsTableView.swift in Sources */,
 				A739B4AB2569CE78000B16E3 /* CategoriesForEditItemDelegate.swift in Sources */,
@@ -1633,6 +1648,7 @@
 				A739B4A12569CE70000B16E3 /* EditItemViewControllerDelegate.swift in Sources */,
 				A739B5312569D386000B16E3 /* PopupWithTextFieldController.swift in Sources */,
 				A739B5382569D3DE000B16E3 /* TextFieldWithWarningDelegate.swift in Sources */,
+				A7888B7F257ED9DB00D20AE3 /* Coordinator+ListsViewController.swift in Sources */,
 				A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */,
 				A739B4A82569CE78000B16E3 /* AddCategoryPopupForEditItem.swift in Sources */,
 				A739B4C72569CF35000B16E3 /* AddListPopupForEditItem.swift in Sources */,

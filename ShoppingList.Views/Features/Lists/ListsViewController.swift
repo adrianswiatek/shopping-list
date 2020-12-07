@@ -3,7 +3,16 @@ import ShoppingList_ViewModels
 import Combine
 import UIKit
 
+public protocol ListsViewControllerDelegate: class {
+    func goToSettings()
+    func showEditPopupForList(with name: String, completion: @escaping (String) -> Void)
+    func showRemoveListWarning(onAccepted: @escaping () -> Void)
+    func showValidationError(with text: String)
+}
+
 public final class ListsViewController: UIViewController {
+    public weak var delegate: ListsViewControllerDelegate?
+
     private let tableView: ListsTableView
     private let dataSource: ListsDataSource
 
@@ -16,10 +25,7 @@ public final class ListsViewController: UIViewController {
     
     private lazy var goToSettingsBarButtonItem: UIBarButtonItem =
         .init(image: #imageLiteral(resourceName: "Settings"), primaryAction: .init { [weak self] _ in
-            self?.present(
-                UINavigationController(rootViewController: SettingsViewController()),
-                animated: true
-            )
+            self?.delegate?.goToSettings()
         })
 
     private lazy var restoreBarButtonItem: UIBarButtonItem =
@@ -113,11 +119,18 @@ public final class ListsViewController: UIViewController {
     private func handleTableViewAction(_ action: ListsTableView.Action) {
         switch action {
         case let .editList(id, name):
-            showEditPopupForList(with: id, and: name)
+            delegate?.showEditPopupForList(with: name) { [weak self] in
+                guard !$0.isEmpty else { return }
+                self?.viewModel.updateList(with: id, name: $0)
+            }
         case let .removeList(id):
-            viewModel.isListEmpty(with: id)
-                ? viewModel.removeEmptyList(with: id)
-                : showRemoveListAlertForList(with: id)
+            if viewModel.isListEmpty(with: id) {
+                viewModel.removeEmptyList(with: id)
+            } else {
+                delegate?.showRemoveListWarning(onAccepted: { [weak self] in
+                    self?.viewModel.removeList(with: id)
+                })
+            }
         case let .clearItemsToBuy(id):
             viewModel.clearList(with: id)
         case let .clearBasket(id):
@@ -130,40 +143,8 @@ public final class ListsViewController: UIViewController {
         case let .confirm(text):
             viewModel.addList(with: text)
         case let .validationError(text):
-            let controller = UIAlertController(title: "", message: text, preferredStyle: .alert)
-            controller.addAction(.init(title: "OK", style: .default))
-            present(controller, animated: true)
+            delegate?.showValidationError(with: text)
         }
-    }
-
-    private func showEditPopupForList(with id: UUID, and name: String) {
-        let controller = PopupWithTextFieldController()
-        controller.modalPresentationStyle = .overFullScreen
-        controller.popupTitle = "Edit list name"
-        controller.placeholder = "Enter list name..."
-        controller.text = name
-        controller.saved = {
-            guard !$0.isEmpty else { return }
-            self.viewModel.updateList(with: id, name: $0)
-        }
-        present(controller, animated: true)
-    }
-
-    private func showRemoveListAlertForList(with id: UUID) {
-        let alertMessage = "There are items in the list, that have not been bought yet. If continue, all list items will be removed."
-
-        let controller = UIAlertController(
-            title: "Remove list",
-            message: alertMessage,
-            preferredStyle: .actionSheet
-        )
-
-        controller.addAction(.init(title: "Cancel", style: .cancel))
-        controller.addAction(.init(title: "Remove permanently", style: .destructive) { [weak self] _ in
-            self?.viewModel.removeList(with: id) }
-        )
-
-        present(controller, animated: true)
     }
 }
 
