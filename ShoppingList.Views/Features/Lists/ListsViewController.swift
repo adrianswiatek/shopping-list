@@ -5,9 +5,6 @@ import UIKit
 
 public protocol ListsViewControllerDelegate: class {
     func goToSettings()
-    func showEditPopupForList(with name: String, completion: @escaping (String) -> Void)
-    func showRemoveListWarning(onAccepted: @escaping () -> Void)
-    func showValidationError(with text: String)
 }
 
 public final class ListsViewController: UIViewController {
@@ -34,7 +31,7 @@ public final class ListsViewController: UIViewController {
         }
 
     private let viewModel: ListsViewModel
-    private var cancellables: [AnyCancellable]
+    private var cancellables: Set<AnyCancellable>
 
     public init(viewModel: ListsViewModel) {
         self.viewModel = viewModel
@@ -119,17 +116,12 @@ public final class ListsViewController: UIViewController {
     private func handleTableViewAction(_ action: ListsTableView.Action) {
         switch action {
         case let .editList(id, name):
-            delegate?.showEditPopupForList(with: name) { [weak self] in
-                guard !$0.isEmpty else { return }
-                self?.viewModel.updateList(with: id, name: $0)
-            }
+            showEditPopupForList(with: id, and: name)
         case let .removeList(id):
             if viewModel.isListEmpty(with: id) {
                 viewModel.removeEmptyList(with: id)
             } else {
-                delegate?.showRemoveListWarning(onAccepted: { [weak self] in
-                    self?.viewModel.removeList(with: id)
-                })
+                showRemoveListWarningForList(with: id)
             }
         case let .clearItemsToBuy(id):
             viewModel.clearList(with: id)
@@ -143,8 +135,44 @@ public final class ListsViewController: UIViewController {
         case let .confirm(text):
             viewModel.addList(with: text)
         case let .validationError(text):
-            delegate?.showValidationError(with: text)
+            showValidationError(with: text)
         }
+    }
+
+    private func showEditPopupForList(with id: UUID, and name: String) {
+        let controller = PopupWithTextFieldController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.popupTitle = "Edit list name"
+        controller.placeholder = "Enter list name..."
+        controller.text = name
+        controller.saved = { [weak self] in
+            guard !$0.isEmpty else { return }
+            self?.viewModel.updateList(with: id, name: $0)
+        }
+        present(controller, animated: true)
+    }
+
+    private func showRemoveListWarningForList(with id: UUID) {
+        let alertMessage = "There are items in the list, that have not been bought yet. If continue, all list items will be removed."
+
+        let controller = UIAlertController(
+            title: "Remove list",
+            message: alertMessage,
+            preferredStyle: .actionSheet
+        )
+
+        controller.addAction(.init(title: "Cancel", style: .cancel))
+        controller.addAction(.init(title: "Remove permanently", style: .destructive) { [weak self] _ in
+            self?.viewModel.removeList(with: id)
+        })
+
+        present(controller, animated: true)
+    }
+
+    private func showValidationError(with text: String) {
+        let controller = UIAlertController(title: "", message: text, preferredStyle: .alert)
+        controller.addAction(.init(title: "OK", style: .default))
+        present(controller, animated: true)
     }
 }
 

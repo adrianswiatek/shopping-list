@@ -1,37 +1,46 @@
 import ShoppingList_Shared
+import ShoppingList_ViewModels
+
+import Combine
 import UIKit
 
+public protocol SettingsViewControllerDelegate: class {
+    func close()
+    func openSetting()
+}
+
 public final class SettingsViewController: UIViewController {
-    private lazy var tableView: UITableView =
-        configure(.init()) {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.delegate = self
-            $0.dataSource = self
-            $0.allowsMultipleSelection = false
-            $0.backgroundColor = .background
-            $0.tableFooterView = UIView()
-        }
-    
-    private let manageCategoriesCell: UITableViewCell =
-        configure(.init(style: .default, reuseIdentifier: nil)) {
-            $0.textLabel?.text = "Manage Categories"
-            $0.textLabel?.textColor = .textPrimary
-            $0.backgroundColor = .background
-            $0.accessoryType = .disclosureIndicator
-        }
-    
+    public weak var delegate: SettingsViewControllerDelegate?
+
+    private let tableView: SettingsTableView
+
     private lazy var closeBarButtonItem: UIBarButtonItem =
-        UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeScene))
+        .init(title: "Close", primaryAction: .init { [ weak self] _ in self?.delegate?.close() })
+
+    private let viewModel: SettingsViewModel
+    private var cancellables: Set<AnyCancellable>
+
+    public init(viewModel: SettingsViewModel) {
+        self.viewModel = viewModel
+        self.tableView = .init(viewModel)
+        self.cancellables = []
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    public required init?(coder: NSCoder) {
+        fatalError("Not supported.")
+    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        self.bind()
     }
     
     private func setupView() {
         title = "Settings"
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
+
         navigationController?.navigationBar.backgroundColor = .background
         navigationItem.leftBarButtonItem = closeBarButtonItem
         
@@ -44,29 +53,9 @@ public final class SettingsViewController: UIViewController {
         ])
     }
 
-    @objc
-    private func closeScene() {
-        dismiss(animated: true)
-    }
-}
-
-extension SettingsViewController: UITableViewDelegate {
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let manageCategoriesViewController = ManageCategoriesViewController()
-        navigationController?.pushViewController(manageCategoriesViewController, animated: true)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-extension SettingsViewController: UITableViewDataSource {
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0: return manageCategoriesCell
-        default: return UITableViewCell()
-        }
+    private func bind() {
+        tableView.selectedRowAtIndex
+            .sink { [weak self] _ in self?.delegate?.openSetting() }
+            .store(in: &cancellables)
     }
 }

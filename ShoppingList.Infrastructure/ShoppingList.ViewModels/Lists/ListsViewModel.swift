@@ -3,7 +3,7 @@ import ShoppingList_Domain
 import ShoppingList_Shared
 import Combine
 
-public final class ListsViewModel {
+public final class ListsViewModel: ViewModel {
     public var listsPublisher: AnyPublisher<[ListViewModel], Never> {
         listsSubject.map { [weak self] in self?.mapListsToViewModels($0) ?? [] }.eraseToAnyPublisher()
     }

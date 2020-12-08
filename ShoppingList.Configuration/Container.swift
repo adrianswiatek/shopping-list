@@ -20,29 +20,23 @@ public final class Container {
         registerOtherObjects()
     }
 
+    public func startDisplaying() {
+        container.resolve(AppCoordinator.self)?.start()
+    }
+
     public func resolveRootViewController() -> UIViewController {
-        UINavigationController(rootViewController: ListsViewController(
-            viewModel: container.resolve(ListsViewModel.self)!
-        ))
+        container.resolve(AppCoordinator.self)!.navigationController
     }
 
     private func registerQueries() {
         container.register(ListQueries.self) {
-            ListService(
-                listRepository: $0.resolve(ListRepository.self)!,
-                itemRepository: $0.resolve(ItemRepository.self)!,
-                listNameGenerator: .init()
-            )
+            $0.resolve(ListService.self)!
         }
     }
 
     private func registerUseCases() {
         container.register(ListUseCases.self) {
-            ListService(
-                listRepository: $0.resolve(ListRepository.self)!,
-                itemRepository: $0.resolve(ItemRepository.self)!,
-                listNameGenerator: .init()
-            )
+            $0.resolve(ListService.self)!
         }
     }
 
@@ -64,6 +58,10 @@ public final class Container {
                 commandInvoker: $0.resolve(CommandInvoker.self)!
             )
         }
+
+        container.register(SettingsViewModel.self) { _ in
+            SettingsViewModel()
+        }
     }
 
     private func registerOtherObjects() {
@@ -73,5 +71,24 @@ public final class Container {
                 RemoveListCommandHandler(Repository.shared)
             ])
         }.inObjectScope(.container)
+
+        container.register(ListService.self) {
+            ListService(
+                listRepository: $0.resolve(ListRepository.self)!,
+                itemRepository: $0.resolve(ItemRepository.self)!,
+                listNameGenerator: .init()
+            )
+        }
+
+        container.register(AppCoordinator.self) {
+            AppCoordinator($0.resolve(ViewModelsFactory.self)!)
+        }.inObjectScope(.container)
+
+        container.register(ViewModelsFactory.self) { resolver in
+            ViewModelsFactory(providers: [
+                .lists: { resolver.resolve(ListsViewModel.self)! },
+                .settings: { resolver.resolve(SettingsViewModel.self)! }
+            ])
+        }
     }
 }

@@ -11,10 +11,11 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         UINavigationBar.appearance().isTranslucent = false
-        
+
         window = UIWindow()
         window?.makeKeyAndVisible()
         window?.rootViewController = container.resolveRootViewController()
+        container.startDisplaying()
         
         return true
     }

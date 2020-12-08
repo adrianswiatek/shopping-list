@@ -1,13 +1,14 @@
 import UIKit
 
-public final class Coordinator {
-    public let rootViewController: UIViewController
+public protocol Coordinator: class {
+    var navigationController: UINavigationController { get }
+    var childCoordinators: [Coordinator] { get }
 
-    public init(_ rootViewController: UIViewController) {
-        self.rootViewController = rootViewController
-    }
+    func start()
+}
 
-    public func start() {
-//        rootViewController.present
+internal extension Array where Element == Coordinator {
+    mutating func remove(_ coordinator: Coordinator) {
+        removeAll { $0 === coordinator }
     }
 }
