@@ -1,4 +1,4 @@
-public final class InMemoryCommandInvoker: CommandInvoker {
+public final class CommandBus {
     private var commands: [CommandSource: CommandNew]
     private let commandHandlers: [CommandHandler]
 
@@ -11,7 +11,10 @@ public final class InMemoryCommandInvoker: CommandInvoker {
         let commandHandler = commandHandlers.first { $0.canExecute(command) }
         guard commandHandler != nil else { return }
 
-        commands[command.source] = command
+        if command.reversed() != nil {
+            commands[command.source] = command
+        }
+
         commandHandler!.execute(command)
     }
 

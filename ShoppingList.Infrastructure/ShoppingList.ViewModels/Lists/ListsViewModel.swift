@@ -9,29 +9,22 @@ public final class ListsViewModel: ViewModel {
     }
 
     public var isRestoreButtonEnabled: Bool {
-        commandInvoker.canUndo(.lists)
+        commandBus.canUndo(.lists)
     }
 
     public var hasLists: Bool {
         !listsSubject.value.isEmpty
     }
 
+    private let commandBus: CommandBus
     private let listQueries: ListQueries
-    private let listUseCases: ListUseCases
     private let dateFormatter: DateFormatter
-
-    private let commandInvoker: CommandInvoker
 
     private let listsSubject: CurrentValueSubject<[List], Never>
 
-    public init(
-        listQueries: ListQueries,
-        listUseCases: ListUseCases,
-        commandInvoker: CommandInvoker
-    ) {
+    public init(listQueries: ListQueries, commandBus: CommandBus) {
         self.listQueries = listQueries
-        self.listUseCases = listUseCases
-        self.commandInvoker = commandInvoker
+        self.commandBus = commandBus
 
         self.listsSubject = .init([])
 
@@ -39,12 +32,12 @@ public final class ListsViewModel: ViewModel {
     }
 
     public func cleanUp() {
-        commandInvoker.remove(.lists)
+        commandBus.remove(.lists)
     }
 
     public func restore() {
-        if commandInvoker.canUndo(.lists) {
-            commandInvoker.undo(.lists)
+        if commandBus.canUndo(.lists) {
+            commandBus.undo(.lists)
             fetchLists()
         }
     }
@@ -62,7 +55,7 @@ public final class ListsViewModel: ViewModel {
     }
 
     public func addList(with name: String) {
-        listUseCases.addList(with: name)
+        commandBus.execute(AddListCommand(name))
         fetchLists()
     }
 
@@ -70,12 +63,7 @@ public final class ListsViewModel: ViewModel {
         let existingName = listsSubject.value.first { $0.id == id }.map { $0.name }
         guard existingName != name else { return }
 
-        listUseCases.updateList(with: id, newName: name)
-        fetchLists()
-    }
-
-    public func removeList(with id: UUID) {
-        listUseCases.removeList(with: id)
+        commandBus.execute(UpdateListCommand(id, name))
         fetchLists()
     }
 
@@ -85,17 +73,17 @@ public final class ListsViewModel: ViewModel {
             .map { RemoveListCommand($0) }
 
         guard let removeListCommand = command else { return }
-        commandInvoker.execute(removeListCommand)
+        commandBus.execute(removeListCommand)
 
         fetchLists()
     }
 
     public func clearList(with id: UUID) {
-        listUseCases.clearList(with: id)
+        commandBus.execute(ClearListCommand(id))
     }
 
     public func clearBasketOfList(with id: UUID) {
-        listUseCases.clearBasketOfList(with: id)
+        commandBus.execute(ClearBasketOfListCommand(id))
     }
 
     public func isListEmpty(with id: UUID) -> Bool {

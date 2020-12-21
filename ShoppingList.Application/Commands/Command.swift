@@ -10,3 +10,9 @@ public protocol CommandNew {
     var source: CommandSource { get }
     func reversed() -> CommandNew?
 }
+
+extension CommandNew {
+    public func reversed() -> CommandNew? {
+        nil
+    }
+}

@@ -13,30 +13,46 @@ public final class Container {
     public init() {
         container = .init()
 
+        registerCommandHandlers()
         registerQueries()
-        registerUseCases()
         registerRepositories()
         registerViewModels()
         registerOtherObjects()
     }
 
     public func startDisplaying() {
-        container.resolve(AppCoordinator.self)?.start()
+        container.resolve(AppCoordinator.self)!.start()
     }
 
     public func resolveRootViewController() -> UIViewController {
         container.resolve(AppCoordinator.self)!.navigationController
     }
 
-    private func registerQueries() {
-        container.register(ListQueries.self) {
-            $0.resolve(ListService.self)!
+    private func registerCommandHandlers() {
+        container.register(AddListCommandHandler.self) {
+            AddListCommandHandler($0.resolve(ListRepository.self)!, .init())
+        }
+
+        container.register(ClearBasketOfListCommandHandler.self) {
+            ClearBasketOfListCommandHandler($0.resolve(ListRepository.self)!, $0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(ClearListCommandHandler.self) {
+            ClearListCommandHandler($0.resolve(ListRepository.self)!, $0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(RemoveListCommandHandler.self) {
+            RemoveListCommandHandler($0.resolve(ListRepository.self)!)
+        }
+
+        container.register(UpdateListCommandHandler.self) {
+            UpdateListCommandHandler($0.resolve(ListRepository.self)!)
         }
     }
 
-    private func registerUseCases() {
-        container.register(ListUseCases.self) {
-            $0.resolve(ListService.self)!
+    private func registerQueries() {
+        container.register(ListQueries.self) {
+            $0.resolve(ListsService.self)!
         }
     }
 
@@ -54,8 +70,7 @@ public final class Container {
         container.register(ListsViewModel.self) {
             ListsViewModel(
                 listQueries: $0.resolve(ListQueries.self)!,
-                listUseCases: $0.resolve(ListUseCases.self)!,
-                commandInvoker: $0.resolve(CommandInvoker.self)!
+                commandBus: $0.resolve(CommandBus.self)!
             )
         }
 
@@ -65,19 +80,18 @@ public final class Container {
     }
 
     private func registerOtherObjects() {
-        container.register(CommandInvoker.self) { _ in
-            InMemoryCommandInvoker(commandHandlers: [
-                AddListCommandHandler(Repository.shared),
-                RemoveListCommandHandler(Repository.shared)
+        container.register(CommandBus.self) {
+            CommandBus(commandHandlers: [
+                $0.resolve(AddListCommandHandler.self)!,
+                $0.resolve(ClearBasketOfListCommandHandler.self)!,
+                $0.resolve(ClearListCommandHandler.self)!,
+                $0.resolve(RemoveListCommandHandler.self)!,
+                $0.resolve(UpdateListCommandHandler.self)!
             ])
         }.inObjectScope(.container)
 
-        container.register(ListService.self) {
-            ListService(
-                listRepository: $0.resolve(ListRepository.self)!,
-                itemRepository: $0.resolve(ItemRepository.self)!,
-                listNameGenerator: .init()
-            )
+        container.register(ListsService.self) {
+            ListsService(listRepository: $0.resolve(ListRepository.self)!)
         }
 
         container.register(AppCoordinator.self) {

@@ -10,7 +10,7 @@ public struct RemoveListCommand: CommandNew {
     }
 
     public func reversed() -> CommandNew? {
-        AddListCommand(list)
+        AddListCommand(list.name)
     }
 }
 

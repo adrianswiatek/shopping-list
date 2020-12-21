@@ -163,7 +163,7 @@ public final class ListsViewController: UIViewController {
 
         controller.addAction(.init(title: "Cancel", style: .cancel))
         controller.addAction(.init(title: "Remove permanently", style: .destructive) { [weak self] _ in
-            self?.viewModel.removeList(with: id)
+            self?.viewModel.removeEmptyList(with: id)
         })
 
         present(controller, animated: true)
