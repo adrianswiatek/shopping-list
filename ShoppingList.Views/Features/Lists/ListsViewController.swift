@@ -26,7 +26,7 @@ public final class ListsViewController: UIViewController {
         })
 
     private lazy var restoreBarButtonItem: UIBarButtonItem =
-        configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in self?.viewModel.restore() })) {
+        configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in self?.viewModel.restoreList() })) {
             $0.isEnabled = false
         }
 
@@ -41,6 +41,7 @@ public final class ListsViewController: UIViewController {
         self.dataSource = .init(tableView)
 
         super.init(nibName: nil, bundle: nil)
+
         self.bind()
     }
 
@@ -119,7 +120,7 @@ public final class ListsViewController: UIViewController {
             showEditPopupForList(with: id, and: name)
         case let .removeList(id):
             if viewModel.isListEmpty(with: id) {
-                viewModel.removeEmptyList(with: id)
+                viewModel.removeList(with: id)
             } else {
                 showRemoveListWarningForList(with: id)
             }
@@ -163,7 +164,7 @@ public final class ListsViewController: UIViewController {
 
         controller.addAction(.init(title: "Cancel", style: .cancel))
         controller.addAction(.init(title: "Remove permanently", style: .destructive) { [weak self] _ in
-            self?.viewModel.removeEmptyList(with: id)
+            self?.viewModel.removeList(with: id)
         })
 
         present(controller, animated: true)

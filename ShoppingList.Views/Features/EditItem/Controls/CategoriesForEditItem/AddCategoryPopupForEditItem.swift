@@ -27,7 +27,7 @@ public final class AddCategoryPopupForEditItem {
     }
     
     private func getValidationButtonRule() -> ValidationButtonRule {
-        let notEmptyRule = ValidationButtonRuleLeaf.getNotEmptyCategoryRule()
+        let notEmptyRule = ValidationButtonRuleLeaf.notEmptyCategoryRule
         let uniqueRule = ValidationButtonRuleLeaf(
             message: "Category with given name already exists.",
             predicate: { [unowned self] text in self.getCategories().allSatisfy { $0.name != text } }

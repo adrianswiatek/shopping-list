@@ -35,11 +35,13 @@ public final class ListsViewModel: ViewModel {
         commandBus.remove(.lists)
     }
 
-    public func restore() {
-        if commandBus.canUndo(.lists) {
-            commandBus.undo(.lists)
-            fetchLists()
+    public func restoreList() {
+        guard commandBus.canUndo(.lists) else {
+            return
         }
+
+        commandBus.undo(.lists)
+        fetchLists()
     }
 
     public func listViewModel(at index: Int) -> ListViewModel {
@@ -67,7 +69,7 @@ public final class ListsViewModel: ViewModel {
         fetchLists()
     }
 
-    public func removeEmptyList(with id: UUID) {
+    public func removeList(with id: UUID) {
         let command = listsSubject.value
             .first { $0.id == id }
             .map { RemoveListCommand($0) }
@@ -90,7 +92,7 @@ public final class ListsViewModel: ViewModel {
         listsSubject.value.first { $0.id == id }?.containsItemsToBuy == false
     }
 
-    private func mapListsToViewModels(_ list: [List]) -> [ListViewModel] {
-        list.map { .init($0, dateFormatter) }
+    private func mapListsToViewModels(_ lists: [List]) -> [ListViewModel] {
+        lists.map { .init($0, dateFormatter) }
     }
 }

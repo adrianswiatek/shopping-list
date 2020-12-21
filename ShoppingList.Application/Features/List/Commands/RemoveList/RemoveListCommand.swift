@@ -1,8 +1,8 @@
 import ShoppingList_Domain
 
 public struct RemoveListCommand: CommandNew {
-    public let source: CommandSource
     public let list: List
+    public let source: CommandSource
 
     public init(_ list: List) {
         self.list = list

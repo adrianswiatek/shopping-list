@@ -1,15 +1,16 @@
 import ShoppingList_Domain
+import ShoppingList_ViewModels
 import ShoppingList_Shared
 import UIKit
 
 public final class ManageCategoriesTableViewCell: UITableViewCell {
-    public var category: ItemsCategory? {
+    public var viewModel: ItemsCategoryViewModel? {
         didSet {
-            if let categoryName = category?.name {
+            if let categoryName = viewModel?.name {
                 categoryNameLabel.text = categoryName
             }
             
-            defaultCategoryImageView.image = category?.isDefault == true
+            defaultCategoryImageView.image = viewModel?.isDefault == true
                 ? #imageLiteral(resourceName: "Star").withRenderingMode(.alwaysTemplate)
                 : nil
         }
@@ -54,25 +55,53 @@ public final class ManageCategoriesTableViewCell: UITableViewCell {
 
         contentView.addSubview(defaultCategoryImageView)
         NSLayoutConstraint.activate([
-            defaultCategoryImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            defaultCategoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            defaultCategoryImageView.heightAnchor.constraint(equalToConstant: 24),
-            defaultCategoryImageView.widthAnchor.constraint(equalTo: defaultCategoryImageView.heightAnchor)
+            defaultCategoryImageView.centerYAnchor.constraint(
+                equalTo: contentView.centerYAnchor
+            ),
+            defaultCategoryImageView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -16
+            ),
+            defaultCategoryImageView.heightAnchor.constraint(
+                equalToConstant: 24
+            ),
+            defaultCategoryImageView.widthAnchor.constraint(
+                equalTo: defaultCategoryImageView.heightAnchor
+            )
         ])
 
         contentView.addSubview(categoryNameLabel)
         NSLayoutConstraint.activate([
-            categoryNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            categoryNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            categoryNameLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.leadingAnchor, constant: -8)
+            categoryNameLabel.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 16
+            ),
+            categoryNameLabel.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: 12
+            ),
+            categoryNameLabel.trailingAnchor.constraint(
+                equalTo: defaultCategoryImageView.leadingAnchor,
+                constant: -8
+            )
         ])
 
         contentView.addSubview(numberOfItemsInCategoryLabel)
         NSLayoutConstraint.activate([
-            numberOfItemsInCategoryLabel.leadingAnchor.constraint(equalTo: categoryNameLabel.leadingAnchor),
-            numberOfItemsInCategoryLabel.topAnchor.constraint(equalTo: categoryNameLabel.bottomAnchor, constant: 4),
-            numberOfItemsInCategoryLabel.trailingAnchor.constraint(equalTo: categoryNameLabel.trailingAnchor),
-            numberOfItemsInCategoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            numberOfItemsInCategoryLabel.leadingAnchor.constraint(
+                equalTo: categoryNameLabel.leadingAnchor
+            ),
+            numberOfItemsInCategoryLabel.topAnchor.constraint(
+                equalTo: categoryNameLabel.bottomAnchor,
+                constant: 4
+            ),
+            numberOfItemsInCategoryLabel.trailingAnchor.constraint(
+                equalTo: categoryNameLabel.trailingAnchor
+            ),
+            numberOfItemsInCategoryLabel.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -8
+            )
         ])
     }
 }

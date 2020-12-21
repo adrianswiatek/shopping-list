@@ -48,15 +48,31 @@ public final class Container {
         container.register(UpdateListCommandHandler.self) {
             UpdateListCommandHandler($0.resolve(ListRepository.self)!)
         }
+
+        container.register(AddItemsCategoryCommandHandler.self) {
+            AddItemsCategoryCommandHandler($0.resolve(ItemsCategoryRepository.self)!)
+        }
+
+        container.register(RemoveItemsCategoryCommandHandler.self) {
+            RemoveItemsCategoryCommandHandler($0.resolve(ItemsCategoryRepository.self)!)
+        }
     }
 
     private func registerQueries() {
         container.register(ListQueries.self) {
             $0.resolve(ListsService.self)!
         }
+
+        container.register(ItemsCategoryQueries.self) {
+            $0.resolve(ItemsCategoryService.self)!
+        }
     }
 
     private func registerRepositories() {
+        container.register(ItemsCategoryRepository.self) { _ in
+            Repository.shared
+        }
+
         container.register(ListRepository.self) { _ in
             Repository.shared
         }
@@ -74,6 +90,14 @@ public final class Container {
             )
         }
 
+        container.register(ManageCategoriesViewModel.self) {
+            ManageCategoriesViewModel(
+                categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                itemRepository: $0.resolve(ItemRepository.self)!,
+                commandBus: $0.resolve(CommandBus.self)!
+            )
+        }
+
         container.register(SettingsViewModel.self) { _ in
             SettingsViewModel()
         }
@@ -82,16 +106,25 @@ public final class Container {
     private func registerOtherObjects() {
         container.register(CommandBus.self) {
             CommandBus(commandHandlers: [
+                // Lists
                 $0.resolve(AddListCommandHandler.self)!,
                 $0.resolve(ClearBasketOfListCommandHandler.self)!,
                 $0.resolve(ClearListCommandHandler.self)!,
                 $0.resolve(RemoveListCommandHandler.self)!,
-                $0.resolve(UpdateListCommandHandler.self)!
+                $0.resolve(UpdateListCommandHandler.self)!,
+
+                // ItemsCategories
+                $0.resolve(AddItemsCategoryCommandHandler.self)!,
+                $0.resolve(RemoveItemsCategoryCommandHandler.self)!
             ])
         }.inObjectScope(.container)
 
         container.register(ListsService.self) {
             ListsService(listRepository: $0.resolve(ListRepository.self)!)
+        }
+
+        container.register(ItemsCategoryService.self) {
+            ItemsCategoryService($0.resolve(ItemsCategoryRepository.self)!)
         }
 
         container.register(AppCoordinator.self) {
@@ -101,6 +134,7 @@ public final class Container {
         container.register(ViewModelsFactory.self) { resolver in
             ViewModelsFactory(providers: [
                 .lists: { resolver.resolve(ListsViewModel.self)! },
+                .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])
         }

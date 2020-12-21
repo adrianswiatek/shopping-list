@@ -21,7 +21,7 @@ public final class ItemNameForEditItem: UIView {
         $0.placeholder = "Enter item name..."
         $0.textColor = .darkGray
         $0.font = .systemFont(ofSize: 17)
-        $0.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
+        $0.set(ValidationButtonRuleLeaf.notEmptyItemRule)
     }
     
     private let viewController: UIViewController

@@ -30,7 +30,7 @@ public final class ItemsViewController: UIViewController {
     private lazy var addItemTextField: TextFieldWithCancel =
         configure(.init()) {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.set(ValidationButtonRuleLeaf.getNotEmptyItemRule())
+            $0.set(ValidationButtonRuleLeaf.notEmptyItemRule)
             $0.layer.zPosition = 1
             $0.placeholder = "Add new item..."
         }

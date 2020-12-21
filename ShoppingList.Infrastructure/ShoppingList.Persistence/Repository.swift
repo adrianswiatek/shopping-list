@@ -22,7 +22,7 @@ public final class Repository: RepositoryProtocol {
     public func getCategories() -> [ItemsCategory] { repository.getCategories() }
     public func add(_ category: ItemsCategory) { repository.add(category) }
     public func update(_ category: ItemsCategory) { repository.update(category) }
-    public func remove(_ category: ItemsCategory) { repository.remove(category) }
+    public func remove(by category: ItemsCategory) { repository.remove(by: category.id) }
 
     // MARK: - Item
     public func getItems() -> [Item] { repository.getItems() }

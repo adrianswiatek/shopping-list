@@ -18,6 +18,7 @@ public final class ViewModelsFactory {
 public extension ViewModelsFactory {
     enum `Type` {
         case lists
+        case manageCategories
         case settings
     }
 }
@@ -29,5 +30,9 @@ public extension ViewModelsFactory {
 
     func settingsViewModel() -> SettingsViewModel {
         create(for: .settings) as! SettingsViewModel
+    }
+
+    func manageCategoriesViewModel() -> ManageCategoriesViewModel {
+        create(for: .manageCategories) as! ManageCategoriesViewModel
     }
 }

@@ -1,6 +1,6 @@
+import ShoppingList_ViewModels
 import Combine
 import UIKit
-import ShoppingList_ViewModels
 
 public final class ListsTableView: UITableView {
     public var onAction: AnyPublisher<Action, Never> {

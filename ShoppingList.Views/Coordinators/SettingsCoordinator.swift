@@ -34,7 +34,9 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
 
     public func openSetting() {
-        let viewController = ManageCategoriesViewController()
+        let viewController = ManageCategoriesViewController(
+            viewModel: viewModelsFactory.manageCategoriesViewModel()
+        )
         navigationController.pushViewController(viewController, animated: true)
     }
 }
