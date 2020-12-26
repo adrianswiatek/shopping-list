@@ -8,7 +8,7 @@ public final class ItemsCategoryService: ItemsCategoryQueries {
     }
 
     public func fetchCategories() -> [ItemsCategory] {
-        var categories = categoryRepository.getCategories()
+        var categories = categoryRepository.allCategories()
 
         let containsDefault = categories.contains { $0.id == ItemsCategory.default.id }
         if !containsDefault {

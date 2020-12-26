@@ -18,7 +18,7 @@ public final class AddListCommandHandler: CommandHandler {
             return
         }
 
-        let lists = listRepository.getLists()
+        let lists = listRepository.allLists()
         let listName = provideListName(basedOn: command.name, and: lists)
         listRepository.add(.withName(listName))
     }

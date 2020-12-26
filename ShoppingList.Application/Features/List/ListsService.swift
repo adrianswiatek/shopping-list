@@ -8,10 +8,10 @@ public final class ListsService: ListQueries {
     }
 
     public func fetchLists() -> [List] {
-        listRepository.getLists().sorted { $0.updateDate > $1.updateDate }
+        listRepository.allLists().sorted { $0.updateDate > $1.updateDate }
     }
 
     public func fetchList(by id: UUID) -> List? {
-        listRepository.getList(by: id)
+        listRepository.list(by: id)
     }
 }

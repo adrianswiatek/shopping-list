@@ -1,11 +1,9 @@
 import ShoppingList_Domain
 
 public final class ClearBasketOfListCommandHandler: CommandHandler {
-    private let listRepository: ListRepository
     private let itemRepository: ItemRepository
 
-    public init(_ listRepository: ListRepository, _ itemRepository: ItemRepository) {
-        self.listRepository = listRepository
+    public init(_ itemRepository: ItemRepository) {
         self.itemRepository = itemRepository
     }
 
@@ -14,15 +12,11 @@ public final class ClearBasketOfListCommandHandler: CommandHandler {
     }
 
     public func execute(_ command: CommandNew) {
-        guard
-            canExecute(command),
-            let command = command as? ClearBasketOfListCommand,
-            let list = listRepository.getList(by: command.id)
-        else {
+        guard canExecute(command), let command = command as? ClearBasketOfListCommand else {
             return
         }
 
-        let items = itemRepository.getItemsWith(state: .inBasket, in: list)
+        let items = itemRepository.itemsWith(state: .inBasket, inListWithId: command.id)
         itemRepository.remove(items)
     }
 }

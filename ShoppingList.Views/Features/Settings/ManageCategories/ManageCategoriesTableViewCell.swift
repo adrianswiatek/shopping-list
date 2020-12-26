@@ -13,12 +13,8 @@ public final class ManageCategoriesTableViewCell: UITableViewCell {
             defaultCategoryImageView.image = viewModel?.isDefault == true
                 ? #imageLiteral(resourceName: "Star").withRenderingMode(.alwaysTemplate)
                 : nil
-        }
-    }
-    
-    public var itemsInCategory: Int? {
-        didSet {
-            numberOfItemsInCategoryLabel.text = "Items in category: \(itemsInCategory ?? 0)"
+
+            numberOfItemsInCategoryLabel.text = "Items in category: \(viewModel?.itemsInCategory ?? 0)"
         }
     }
     

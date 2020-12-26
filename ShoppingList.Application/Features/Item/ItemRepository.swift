@@ -1,10 +1,10 @@
 import ShoppingList_Domain
 
 public protocol ItemRepository {
-    func getItems() -> [Item]
-    func getItemsWith(state: ItemState, in list: List) -> [Item]
-    func getNumberOfItemsWith(state: ItemState, in list: List) -> Int
-    func getNumberOfItems(in list: List) -> Int
+    func allItems() -> [Item]
+    func itemsWith(state: ItemState, inListWithId listId: UUID) -> [Item]
+    func numberOfItemsWith(state: ItemState, inListWithId listId: UUID) -> Int
+    func numberOfItemsInList(with id: UUID) -> Int
     func add(_ item: Item)
     func add(_ items: [Item])
     func remove(_ items: [Item])
@@ -14,4 +14,6 @@ public protocol ItemRepository {
     func update(_ item: Item)
     func updateCategory(of item: Item, to category: ItemsCategory)
     func updateCategory(of items: [Item], to category: ItemsCategory)
+
+    func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState)
 }

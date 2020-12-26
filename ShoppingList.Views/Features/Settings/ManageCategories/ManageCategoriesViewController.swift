@@ -99,6 +99,10 @@ public final class ManageCategoriesViewController: UIViewController {
             .sink { [weak self] in self?.handleAddListTextFieldAction($0) }
             .store(in: &cancellables)
 
+        tableView.onAction
+            .sink { [weak self] in self?.handleTableViewAction($0) }
+            .store(in: &cancellables)
+
         viewModel.categoriesPublisher
             .sink { [weak self] in self?.dataSource.apply($0) }
             .store(in: &cancellables)
@@ -111,6 +115,15 @@ public final class ManageCategoriesViewController: UIViewController {
             predicate: { [weak self] in self?.viewModel.hasCategory(with: $0) == true }
         )
         return ValidationButtonRuleComposite(rules: notEmptyRule, uniqueRule)
+    }
+
+    private func handleTableViewAction(_ action: ManageCategoriesTableView.Action) {
+        switch action {
+        case .editCategory:
+            break
+        case .removeCategory(let id):
+            viewModel.removeCategory(with: id)
+        }
     }
 
     private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {

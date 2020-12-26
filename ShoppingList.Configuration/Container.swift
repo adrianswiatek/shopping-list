@@ -34,11 +34,11 @@ public final class Container {
         }
 
         container.register(ClearBasketOfListCommandHandler.self) {
-            ClearBasketOfListCommandHandler($0.resolve(ListRepository.self)!, $0.resolve(ItemRepository.self)!)
+            ClearBasketOfListCommandHandler($0.resolve(ItemRepository.self)!)
         }
 
         container.register(ClearListCommandHandler.self) {
-            ClearListCommandHandler($0.resolve(ListRepository.self)!, $0.resolve(ItemRepository.self)!)
+            ClearListCommandHandler($0.resolve(ItemRepository.self)!)
         }
 
         container.register(RemoveListCommandHandler.self) {
@@ -69,16 +69,16 @@ public final class Container {
     }
 
     private func registerRepositories() {
-        container.register(ItemsCategoryRepository.self) { _ in
-            Repository.shared
+        container.register(ListRepository.self) {
+            CoreDataListRepository($0.resolve(CoreDataStack.self)!)
         }
 
-        container.register(ListRepository.self) { _ in
-            Repository.shared
+        container.register(ItemsCategoryRepository.self) {
+            CoreDataItemsCategoryRepository($0.resolve(CoreDataStack.self)!)
         }
 
-        container.register(ItemRepository.self) { _ in
-            Repository.shared
+        container.register(ItemRepository.self) {
+            CoreDataItemRepository($0.resolve(CoreDataStack.self)!)
         }
     }
 
@@ -117,6 +117,10 @@ public final class Container {
                 $0.resolve(AddItemsCategoryCommandHandler.self)!,
                 $0.resolve(RemoveItemsCategoryCommandHandler.self)!
             ])
+        }.inObjectScope(.container)
+
+        container.register(CoreDataStack.self) { _ in
+            CoreDataStack()
         }.inObjectScope(.container)
 
         container.register(ListsService.self) {

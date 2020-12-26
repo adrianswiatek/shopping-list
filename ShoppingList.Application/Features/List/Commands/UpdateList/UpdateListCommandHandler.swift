@@ -12,11 +12,12 @@ public final class UpdateListCommandHandler: CommandHandler {
     }
 
     public func execute(_ command: CommandNew) {
-        guard canExecute(command), let command = command as? UpdateListCommand else {
-            return
-        }
-
-        guard let list = listRepository.getList(by: command.id), list.name != command.name else {
+        guard
+            canExecute(command),
+            let command = command as? UpdateListCommand,
+            let list = listRepository.list(by: command.id),
+            list.name != command.name
+        else {
             return
         }
 
