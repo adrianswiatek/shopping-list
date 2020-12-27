@@ -15,7 +15,8 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         window?.rootViewController = container.resolveRootViewController()
-        container.startDisplaying()
+
+        container.initialize()
         
         return true
     }

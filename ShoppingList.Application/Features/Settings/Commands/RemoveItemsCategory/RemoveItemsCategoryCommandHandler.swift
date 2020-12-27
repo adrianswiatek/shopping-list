@@ -6,7 +6,10 @@ public final class RemoveItemsCategoryCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: CommandNew) -> Bool {
-        command is RemoveItemsCategoryCommand
+        guard let command = command as? RemoveItemsCategoryCommand else {
+            return false
+        }
+        return !command.itemsCategory.isDefault
     }
 
     public func execute(_ command: CommandNew) {

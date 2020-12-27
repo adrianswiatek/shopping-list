@@ -119,8 +119,8 @@ public final class ManageCategoriesViewController: UIViewController {
 
     private func handleTableViewAction(_ action: ManageCategoriesTableView.Action) {
         switch action {
-        case .editCategory:
-            break
+        case .editCategory(let category):
+            showEditPopupForCategory(category)
         case .removeCategory(let id):
             viewModel.removeCategory(with: id)
         }
@@ -133,6 +133,19 @@ public final class ManageCategoriesViewController: UIViewController {
         case let .validationError(text):
             showValidationError(with: text)
         }
+    }
+
+    private func showEditPopupForCategory(_ category: ItemsCategoryViewModel) {
+        let controller = PopupWithTextFieldController()
+        controller.modalPresentationStyle = .overFullScreen
+        controller.popupTitle = "Edit Category"
+        controller.placeholder = "Enter category name..."
+        controller.text = category.name
+        controller.saved = { [weak self] in
+            self?.viewModel.updateCategory(with: category.id, name: $0)
+        }
+        controller.set(validationButtonRule())
+        present(controller, animated: true)
     }
 
     private func showValidationError(with text: String) {

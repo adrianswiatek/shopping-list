@@ -167,32 +167,40 @@ public final class PopupWithTextFieldController: UIViewController {
     
     private func setupHeader() {
         popupView.addSubview(headerView)
-        headerView.leadingAnchor.constraint(equalTo: popupView.leadingAnchor).isActive = true
-        headerView.topAnchor.constraint(equalTo: popupView.topAnchor).isActive = true
-        headerView.trailingAnchor.constraint(equalTo: popupView.trailingAnchor).isActive = true
-        headerView.heightAnchor.constraint(equalToConstant: 65).isActive = true
+        NSLayoutConstraint.activate([
+            headerView.leadingAnchor.constraint(equalTo: popupView.leadingAnchor),
+            headerView.topAnchor.constraint(equalTo: popupView.topAnchor),
+            headerView.trailingAnchor.constraint(equalTo: popupView.trailingAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 65)
+        ])
         
         headerView.addSubview(titleLabel)
-        titleLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor).isActive = true
-        titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+        ])
     }
     
     private func setupFooter() {
         popupView.addSubview(footerView)
-        footerView.leadingAnchor.constraint(equalTo: popupView.leadingAnchor).isActive = true
-        footerView.trailingAnchor.constraint(equalTo: popupView.trailingAnchor).isActive = true
-        footerView.bottomAnchor.constraint(equalTo: popupView.bottomAnchor).isActive = true
-        footerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        NSLayoutConstraint.activate([
+            footerView.leadingAnchor.constraint(equalTo: popupView.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: popupView.trailingAnchor),
+            footerView.bottomAnchor.constraint(equalTo: popupView.bottomAnchor),
+            footerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
         
         let buttonsStackView = UIStackView(arrangedSubviews: [cancelButton, saveButton])
         buttonsStackView.distribution = .fillEqually
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
         
         footerView.addSubview(buttonsStackView)
-        buttonsStackView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor).isActive = true
-        buttonsStackView.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
-        buttonsStackView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor).isActive = true
-        buttonsStackView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            buttonsStackView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
+            buttonsStackView.topAnchor.constraint(equalTo: footerView.topAnchor),
+            buttonsStackView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
+            buttonsStackView.bottomAnchor.constraint(equalTo: footerView.bottomAnchor)
+        ])
         
         let dividerViewColor = UIColor(white: 0, alpha: 0.1)
         
@@ -201,44 +209,54 @@ public final class PopupWithTextFieldController: UIViewController {
         topDividerView.translatesAutoresizingMaskIntoConstraints = false
         
         footerView.addSubview(topDividerView)
-        topDividerView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor).isActive = true
-        topDividerView.topAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
-        topDividerView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor).isActive = true
-        topDividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        NSLayoutConstraint.activate([
+            topDividerView.leadingAnchor.constraint(equalTo: footerView.leadingAnchor),
+            topDividerView.topAnchor.constraint(equalTo: footerView.topAnchor),
+            topDividerView.trailingAnchor.constraint(equalTo: footerView.trailingAnchor),
+            topDividerView.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
         
         let cancelDividerView = UIView()
         cancelDividerView.backgroundColor = dividerViewColor
         cancelDividerView.translatesAutoresizingMaskIntoConstraints = false
         
         cancelButton.addSubview(cancelDividerView)
-        cancelDividerView.topAnchor.constraint(equalTo: cancelButton.topAnchor).isActive = true
-        cancelDividerView.trailingAnchor.constraint(equalTo: cancelButton.trailingAnchor).isActive = true
-        cancelDividerView.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor).isActive = true
-        cancelDividerView.widthAnchor.constraint(equalToConstant: 0.25).isActive = true
+        NSLayoutConstraint.activate([
+            cancelDividerView.topAnchor.constraint(equalTo: cancelButton.topAnchor),
+            cancelDividerView.trailingAnchor.constraint(equalTo: cancelButton.trailingAnchor),
+            cancelDividerView.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor),
+            cancelDividerView.widthAnchor.constraint(equalToConstant: 0.25)
+        ])
         
         let saveDividerView = UIView()
         saveDividerView.backgroundColor = dividerViewColor
         saveDividerView.translatesAutoresizingMaskIntoConstraints = false
         
         saveButton.addSubview(saveDividerView)
-        saveDividerView.leadingAnchor.constraint(equalTo: saveButton.leadingAnchor).isActive = true
-        saveDividerView.topAnchor.constraint(equalTo: saveButton.topAnchor).isActive = true
-        saveDividerView.bottomAnchor.constraint(equalTo: saveButton.bottomAnchor).isActive = true
-        saveDividerView.widthAnchor.constraint(equalToConstant: 0.25).isActive = true
+        NSLayoutConstraint.activate([
+            saveDividerView.leadingAnchor.constraint(equalTo: saveButton.leadingAnchor),
+            saveDividerView.topAnchor.constraint(equalTo: saveButton.topAnchor),
+            saveDividerView.bottomAnchor.constraint(equalTo: saveButton.bottomAnchor),
+            saveDividerView.widthAnchor.constraint(equalToConstant: 0.25)
+        ])
     }
     
     private func setupContent() {
         popupView.addSubview(contentView)
-        contentView.leadingAnchor.constraint(equalTo: popupView.leadingAnchor).isActive = true
-        contentView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: popupView.trailingAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: footerView.topAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: popupView.leadingAnchor),
+            contentView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            contentView.trailingAnchor.constraint(equalTo: popupView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: footerView.topAnchor)
+        ])
         
         contentView.addSubview(textField)
-        textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12).isActive = true
-        textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12).isActive = true
-        textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        textField.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        NSLayoutConstraint.activate([
+            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            textField.heightAnchor.constraint(equalToConstant: 32)
+        ])
     }
 
     @objc

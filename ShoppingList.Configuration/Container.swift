@@ -13,49 +13,21 @@ public final class Container {
     public init() {
         container = .init()
 
-        registerCommandHandlers()
+        CommandsRegisterer(container).register()
+
         registerQueries()
         registerRepositories()
         registerViewModels()
         registerOtherObjects()
     }
 
-    public func startDisplaying() {
-        container.resolve(AppCoordinator.self)!.start()
-    }
-
     public func resolveRootViewController() -> UIViewController {
         container.resolve(AppCoordinator.self)!.navigationController
     }
 
-    private func registerCommandHandlers() {
-        container.register(AddListCommandHandler.self) {
-            AddListCommandHandler($0.resolve(ListRepository.self)!, .init())
-        }
-
-        container.register(ClearBasketOfListCommandHandler.self) {
-            ClearBasketOfListCommandHandler($0.resolve(ItemRepository.self)!)
-        }
-
-        container.register(ClearListCommandHandler.self) {
-            ClearListCommandHandler($0.resolve(ItemRepository.self)!)
-        }
-
-        container.register(RemoveListCommandHandler.self) {
-            RemoveListCommandHandler($0.resolve(ListRepository.self)!)
-        }
-
-        container.register(UpdateListCommandHandler.self) {
-            UpdateListCommandHandler($0.resolve(ListRepository.self)!)
-        }
-
-        container.register(AddItemsCategoryCommandHandler.self) {
-            AddItemsCategoryCommandHandler($0.resolve(ItemsCategoryRepository.self)!)
-        }
-
-        container.register(RemoveItemsCategoryCommandHandler.self) {
-            RemoveItemsCategoryCommandHandler($0.resolve(ItemsCategoryRepository.self)!)
-        }
+    public func initialize() {
+        container.resolve(CommandBus.self)!.execute(AddDefaultItemsCategoryCommand())
+        container.resolve(AppCoordinator.self)!.start()
     }
 
     private func registerQueries() {
@@ -104,21 +76,6 @@ public final class Container {
     }
 
     private func registerOtherObjects() {
-        container.register(CommandBus.self) {
-            CommandBus(commandHandlers: [
-                // Lists
-                $0.resolve(AddListCommandHandler.self)!,
-                $0.resolve(ClearBasketOfListCommandHandler.self)!,
-                $0.resolve(ClearListCommandHandler.self)!,
-                $0.resolve(RemoveListCommandHandler.self)!,
-                $0.resolve(UpdateListCommandHandler.self)!,
-
-                // ItemsCategories
-                $0.resolve(AddItemsCategoryCommandHandler.self)!,
-                $0.resolve(RemoveItemsCategoryCommandHandler.self)!
-            ])
-        }.inObjectScope(.container)
-
         container.register(CoreDataStack.self) { _ in
             CoreDataStack()
         }.inObjectScope(.container)
@@ -128,7 +85,14 @@ public final class Container {
         }
 
         container.register(ItemsCategoryService.self) {
-            ItemsCategoryService($0.resolve(ItemsCategoryRepository.self)!)
+            ItemsCategoryService(
+                $0.resolve(ItemsCategoryRepository.self)!,
+                $0.resolve(LocalPreferences.self)!
+            )
+        }
+
+        container.register(LocalPreferences.self) { _ in
+            UserDefaultsAdapter(.standard)
         }
 
         container.register(AppCoordinator.self) {

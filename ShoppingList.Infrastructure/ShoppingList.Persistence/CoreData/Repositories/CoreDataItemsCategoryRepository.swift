@@ -14,6 +14,10 @@ public final class CoreDataItemsCategoryRepository: ItemsCategoryRepository {
         return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
     }
 
+    public func category(with id: UUID) -> ItemsCategory? {
+        categoryEntity(with: id)?.map()
+    }
+
     public func add(_ category: ItemsCategory) {
         let entity = category.map(context: coreData.context)
         coreData.context.insert(entity)

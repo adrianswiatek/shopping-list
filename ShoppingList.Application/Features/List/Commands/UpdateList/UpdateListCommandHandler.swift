@@ -15,7 +15,7 @@ public final class UpdateListCommandHandler: CommandHandler {
         guard
             canExecute(command),
             let command = command as? UpdateListCommand,
-            let list = listRepository.list(by: command.id),
+            let list = listRepository.list(with: command.id),
             list.name != command.name
         else {
             return

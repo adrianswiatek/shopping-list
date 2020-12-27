@@ -12,6 +12,6 @@ public final class ListsService: ListQueries {
     }
 
     public func fetchList(by id: UUID) -> List? {
-        listRepository.list(by: id)
+        listRepository.list(with: id)
     }
 }

@@ -9,7 +9,7 @@ public struct ItemsCategory: Hashable {
     }
 
     public static var `default`: ItemsCategory {
-        .init(id: Constant.defaultUuid, name: Constant.defaultName)
+        .init(id: Constant.defaultUuid, name: "")
     }
 
     public init(id: UUID, name: String) {
@@ -29,6 +29,5 @@ public struct ItemsCategory: Hashable {
 private extension ItemsCategory {
     enum Constant {
         static let defaultUuid = UUID(uuidString: "a5ebf554-e318-48a4-b944-24eb450a4b46")!
-        static let defaultName = "DefaultCategoryName"
     }
 }

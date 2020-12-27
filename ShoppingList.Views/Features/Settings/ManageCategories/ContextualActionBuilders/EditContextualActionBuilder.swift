@@ -28,7 +28,7 @@ public struct EditContextualActionBuilder {
         action.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
         return action
     }
-    
+
     private func handler(
         action: UIContextualAction,
         sourceView: UIView,

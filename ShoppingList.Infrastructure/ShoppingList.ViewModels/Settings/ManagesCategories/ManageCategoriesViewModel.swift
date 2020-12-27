@@ -52,6 +52,11 @@ public final class ManageCategoriesViewModel: ViewModel {
         fetchCategories()
     }
 
+    public func updateCategory(with id: UUID, name: String) {
+        commandBus.execute(UpdateItemsCategoryCommand(id, name))
+        fetchCategories()
+    }
+
     public func removeCategory(with id: UUID) {
         let command = categoriesSubject.value
             .first { $0.id == id }

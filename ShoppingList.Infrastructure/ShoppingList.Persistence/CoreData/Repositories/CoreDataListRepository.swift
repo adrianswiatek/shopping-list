@@ -14,7 +14,7 @@ public final class CoreDataListRepository: ListRepository {
         return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
     }
 
-    public func list(by id: UUID) -> List? {
+    public func list(with id: UUID) -> List? {
         listEntity(with: id)?.map()
     }
 

@@ -52,7 +52,7 @@ extension ManageCategoriesTableView: UITableViewDelegate {
     private func editActionForCategory(at index: Int) -> UIAction? {
         guard let category = categoryForCell(at: index) else { return nil }
         return UIAction(title: "Edit category", image: UIImage(systemName: "pencil"), attributes: []) { [weak self] _ in
-            self?.onActionSubject.send(.editCategory(id: category.id, name: category.name))
+            self?.onActionSubject.send(.editCategory(category))
         }
     }
 
@@ -156,7 +156,7 @@ extension ManageCategoriesTableView: UITableViewDelegate {
 
 extension ManageCategoriesTableView {
     public enum Action {
-        case editCategory(id: UUID, name: String)
+        case editCategory(_ category: ItemsCategoryViewModel)
         case removeCategory(id: UUID)
     }
 }
