@@ -44,6 +44,13 @@ public final class CoreDataItemRepository: ItemRepository {
         }
     }
 
+    public func items(in category: ItemsCategory) -> [Item] {
+        let categoryEntity = self.categoryEntity(from: category)
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category == %@", categoryEntity)
+        return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
+    }
+
     public func numberOfItemsWith(state: ItemState, inListWithId listId: UUID) -> Int {
         let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         request.predicate = NSCompoundPredicate(type: .and, subpredicates: [

@@ -25,7 +25,7 @@ public final class ManageCategoriesTableView: UITableView {
         backgroundColor = .background
         allowsSelection = false
         rowHeight = UITableView.automaticDimension
-        estimatedRowHeight = 60
+        estimatedRowHeight = UITableView.automaticDimension
         tableFooterView = UIView()
         delegate = self
 
@@ -50,14 +50,21 @@ extension ManageCategoriesTableView: UITableViewDelegate {
     }
 
     private func editActionForCategory(at index: Int) -> UIAction? {
-        guard let category = categoryForCell(at: index) else { return nil }
-        return UIAction(title: "Edit category", image: UIImage(systemName: "pencil"), attributes: []) { [weak self] _ in
+        guard let category = categoryForCell(at: index) else {
+            return nil
+        }
+
+        return UIAction(
+            title: "Edit category name",
+            image: UIImage(systemName: "pencil"),
+            attributes: []
+        ) { [weak self] _ in
             self?.onActionSubject.send(.editCategory(category))
         }
     }
 
     private func removeActionForCategory(at index: Int) -> UIAction? {
-        guard let category = categoryForCell(at: index) else { return nil }
+        guard let category = categoryForCell(at: index), !category.isDefault else { return nil }
         let image = UIImage(systemName: "trash.fill")
         return UIAction(title: "Remove category", image: image, attributes: .destructive) { [weak self] _ in
             self?.onActionSubject.send(.removeCategory(id: category.id))

@@ -66,17 +66,6 @@ public final class ListsViewController: UIViewController {
         self.refreshUserInterface()
     }
 
-    public func refreshUserInterface() {
-        if viewModel.hasLists {
-            tableView.backgroundView = nil
-        } else {
-            tableView.setTextIfEmpty("You have not added any lists yet")
-        }
-
-        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
-        navigationItem.rightBarButtonItems = [goToSettingsBarButtonItem, restoreBarButtonItem]
-    }
-
     private func setupView() {
         navigationItem.title = "My lists"
 
@@ -174,6 +163,17 @@ public final class ListsViewController: UIViewController {
         let controller = UIAlertController(title: "", message: text, preferredStyle: .alert)
         controller.addAction(.init(title: "OK", style: .default))
         present(controller, animated: true)
+    }
+
+    private func refreshUserInterface() {
+        if viewModel.hasLists {
+            tableView.backgroundView = nil
+        } else {
+            tableView.setTextIfEmpty("You have not added any lists yet")
+        }
+
+        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
+        navigationItem.rightBarButtonItems = [goToSettingsBarButtonItem, restoreBarButtonItem]
     }
 }
 

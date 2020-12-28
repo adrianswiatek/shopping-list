@@ -65,7 +65,10 @@ public final class CommandsRegisterer {
         }
 
         container.register(RemoveItemsCategoryCommandHandler.self) {
-            RemoveItemsCategoryCommandHandler($0.resolve(ItemsCategoryRepository.self)!)
+            RemoveItemsCategoryCommandHandler(
+                $0.resolve(ItemsCategoryRepository.self)!,
+                $0.resolve(ItemRepository.self)!
+            )
         }
 
         container.register(UpdateItemsCategoryCommandHandler.self) {

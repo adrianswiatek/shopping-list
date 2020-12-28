@@ -51,53 +51,25 @@ public final class ManageCategoriesTableViewCell: UITableViewCell {
 
         contentView.addSubview(defaultCategoryImageView)
         NSLayoutConstraint.activate([
-            defaultCategoryImageView.centerYAnchor.constraint(
-                equalTo: contentView.centerYAnchor
-            ),
-            defaultCategoryImageView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -16
-            ),
-            defaultCategoryImageView.heightAnchor.constraint(
-                equalToConstant: 24
-            ),
-            defaultCategoryImageView.widthAnchor.constraint(
-                equalTo: defaultCategoryImageView.heightAnchor
-            )
+            defaultCategoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            defaultCategoryImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            defaultCategoryImageView.heightAnchor.constraint(equalToConstant: 24),
+            defaultCategoryImageView.widthAnchor.constraint(equalToConstant: 24)
         ])
 
         contentView.addSubview(categoryNameLabel)
         NSLayoutConstraint.activate([
-            categoryNameLabel.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: 16
-            ),
-            categoryNameLabel.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: 12
-            ),
-            categoryNameLabel.trailingAnchor.constraint(
-                equalTo: defaultCategoryImageView.leadingAnchor,
-                constant: -8
-            )
+            categoryNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            categoryNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            categoryNameLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.leadingAnchor, constant: -8),
+            categoryNameLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
 
         contentView.addSubview(numberOfItemsInCategoryLabel)
         NSLayoutConstraint.activate([
-            numberOfItemsInCategoryLabel.leadingAnchor.constraint(
-                equalTo: categoryNameLabel.leadingAnchor
-            ),
-            numberOfItemsInCategoryLabel.topAnchor.constraint(
-                equalTo: categoryNameLabel.bottomAnchor,
-                constant: 4
-            ),
-            numberOfItemsInCategoryLabel.trailingAnchor.constraint(
-                equalTo: categoryNameLabel.trailingAnchor
-            ),
-            numberOfItemsInCategoryLabel.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor,
-                constant: -8
-            )
+            numberOfItemsInCategoryLabel.topAnchor.constraint(equalTo: categoryNameLabel.bottomAnchor, constant: 4),
+            numberOfItemsInCategoryLabel.leadingAnchor.constraint(equalTo: categoryNameLabel.leadingAnchor),
+            numberOfItemsInCategoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
 }

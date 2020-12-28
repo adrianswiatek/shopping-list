@@ -5,8 +5,6 @@ import Combine
 import UIKit
 
 public final class ManageCategoriesViewController: UIViewController {
-    private var items = [Item]()
-
     private let tableView: ManageCategoriesTableView
     private let dataSource: ManageCategoriesDataSource
 
@@ -19,7 +17,10 @@ public final class ManageCategoriesViewController: UIViewController {
         }
     
     private lazy var restoreBarButtonItem: UIBarButtonItem =
-        configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in self?.viewModel.restoreCategory() })) {
+        configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in
+            self?.viewModel.restoreCategory()
+            self?.refreshUserInterface()
+        })) {
             $0.isEnabled = false
         }
 
@@ -51,24 +52,12 @@ public final class ManageCategoriesViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fetchItems()
-        self.tableView.reloadData()
         self.refreshUserInterface()
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.viewModel.cleanUp()
-    }
-    
-    public func refreshUserInterface() {
-        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
-        navigationItem.rightBarButtonItem = restoreBarButtonItem
-    }
-    
-    public func fetchItems() {
-        // Todo: repository
-        // items = Repository.shared.getItems()
     }
 
     private func setupView() {
@@ -123,6 +112,7 @@ public final class ManageCategoriesViewController: UIViewController {
             showEditPopupForCategory(category)
         case .removeCategory(let id):
             viewModel.removeCategory(with: id)
+            refreshUserInterface()
         }
     }
 
@@ -131,14 +121,14 @@ public final class ManageCategoriesViewController: UIViewController {
         case let .confirm(text):
             viewModel.addCategory(with: text)
         case let .validationError(text):
-            showValidationError(with: text)
+            showInfoPopup(with: text)
         }
     }
 
     private func showEditPopupForCategory(_ category: ItemsCategoryViewModel) {
         let controller = PopupWithTextFieldController()
         controller.modalPresentationStyle = .overFullScreen
-        controller.popupTitle = "Edit Category"
+        controller.popupTitle = "Edit Category Name"
         controller.placeholder = "Enter category name..."
         controller.text = category.name
         controller.saved = { [weak self] in
@@ -148,9 +138,14 @@ public final class ManageCategoriesViewController: UIViewController {
         present(controller, animated: true)
     }
 
-    private func showValidationError(with text: String) {
+    private func showInfoPopup(with text: String) {
         let controller = UIAlertController(title: "", message: text, preferredStyle: .alert)
         controller.addAction(.init(title: "OK", style: .default))
         present(controller, animated: true)
+    }
+
+    private func refreshUserInterface() {
+        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
+        navigationItem.rightBarButtonItem = restoreBarButtonItem
     }
 }

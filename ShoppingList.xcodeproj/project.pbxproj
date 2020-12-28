@@ -983,8 +983,8 @@
 			children = (
 				A739B43F2569C617000B16E3 /* ShoppingList_Persistence.h */,
 				A739B4402569C617000B16E3 /* Info.plist */,
-				3A69E41820BA01BC004D122E /* CoreData */,
 				A706FE822599367D00E79CF5 /* UserDefaultsAdapter.swift */,
+				3A69E41820BA01BC004D122E /* CoreData */,
 			);
 			path = ShoppingList.Persistence;
 			sourceTree = "<group>";

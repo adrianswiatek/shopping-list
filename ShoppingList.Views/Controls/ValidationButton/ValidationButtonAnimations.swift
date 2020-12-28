@@ -49,7 +49,9 @@ public final class ValidationButtonAnimations {
                     animations: {
                         self.textFieldConstraint?.constant = 0
                         self.view.layoutIfNeeded()
-                })
-        })
+                    }
+                )
+            }
+        )
     }
 }
