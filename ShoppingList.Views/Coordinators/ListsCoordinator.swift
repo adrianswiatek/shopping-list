@@ -8,9 +8,12 @@ public final class ListsCoordinator: Coordinator {
 
     private let viewModelsFactory: ViewModelsFactory
 
-    public init(_ viewModelsFactory: ViewModelsFactory) {
+    public init(
+        _ viewModelsFactory: ViewModelsFactory,
+        _ navigationController: UINavigationController = .init()
+    ) {
         self.viewModelsFactory = viewModelsFactory
-        self.navigationController = UINavigationController()
+        self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .fullScreen
         self.childCoordinators = []
     }
@@ -34,5 +37,16 @@ extension ListsCoordinator: ListsViewControllerDelegate {
 
         childCoordinators.append(settingsCoordinator)
         navigationController.present(settingsCoordinator.navigationController, animated: true)
+    }
+
+    public func goToItems(from list: ListViewModel) {
+        let itemsCoordinator = ItemsCoordinator(viewModelsFactory, navigationController)
+        itemsCoordinator.stop = { [weak self] in
+            self?.childCoordinators.remove($0)
+        }
+        itemsCoordinator.set(list)
+        itemsCoordinator.start()
+
+        childCoordinators.append(itemsCoordinator)
     }
 }

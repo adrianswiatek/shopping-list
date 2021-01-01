@@ -97,8 +97,8 @@ public final class CoreDataItemRepository: ItemRepository {
         coreData.save()
     }
     
-    public func updateState(of items: [Item], to state: ItemState) {
-        let entities = itemEntities(with: items.map { $0.id })
+    public func updateStateOfItems(with ids: [UUID], to state: ItemState) {
+        let entities = itemEntities(with: ids)
         entities.first?.list?.updateDate = Date()
         entities.forEach { $0.state = Int32(state.rawValue) }
         coreData.save()

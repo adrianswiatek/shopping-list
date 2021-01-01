@@ -5,10 +5,10 @@ import UIKit
 public final class ItemsTableViewCell: UITableViewCell {
     public weak var delegate: AddToBasketDelegate?
     
-    public var item: Item? {
+    public var viewModel: ItemViewModel? {
         didSet {
-            itemNameLabel.text = item?.name
-            itemInfoLabel.text = item?.info
+            itemNameLabel.text = viewModel?.name
+            itemInfoLabel.text = viewModel?.info
             setItemNameLabelBottomConstraint()
         }
     }
@@ -92,7 +92,7 @@ public final class ItemsTableViewCell: UITableViewCell {
 
     @objc
     private func addToBasket() {
-        guard let item = item else { return }
+        guard let item = viewModel else { return }
         delegate?.addItemToBasket(item)
     }
 }

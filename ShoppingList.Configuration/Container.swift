@@ -62,6 +62,12 @@ public final class Container {
             )
         }
 
+        container.register(ItemsViewModel.self) {
+            ItemsViewModel(
+                commandBus: $0.resolve(CommandBus.self)!
+            )
+        }
+
         container.register(ManageCategoriesViewModel.self) {
             ManageCategoriesViewModel(
                 categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
@@ -101,6 +107,7 @@ public final class Container {
 
         container.register(ViewModelsFactory.self) { resolver in
             ViewModelsFactory(providers: [
+                .items: { resolver.resolve(ItemsViewModel.self)! },
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }

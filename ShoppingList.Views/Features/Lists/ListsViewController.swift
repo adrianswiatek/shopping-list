@@ -5,6 +5,7 @@ import UIKit
 
 public protocol ListsViewControllerDelegate: class {
     func goToSettings()
+    func goToItems(from list: ListViewModel)
 }
 
 public final class ListsViewController: UIViewController {
@@ -105,18 +106,20 @@ public final class ListsViewController: UIViewController {
 
     private func handleTableViewAction(_ action: ListsTableView.Action) {
         switch action {
-        case let .editList(id, name):
+        case .clearBasket(let id):
+            viewModel.clearBasketOfList(with: id)
+        case .clearItemsToBuy(let id):
+            viewModel.clearList(with: id)
+        case .editList(let id, let name):
             showEditPopupForList(with: id, and: name)
-        case let .removeList(id):
+        case .removeList(let id):
             if viewModel.isListEmpty(with: id) {
                 viewModel.removeList(with: id)
             } else {
                 showRemoveListWarningForList(with: id)
             }
-        case let .clearItemsToBuy(id):
-            viewModel.clearList(with: id)
-        case let .clearBasket(id):
-            viewModel.clearBasketOfList(with: id)
+        case .selectList(let list):
+            delegate?.goToItems(from: list)
         }
     }
 
@@ -174,11 +177,5 @@ public final class ListsViewController: UIViewController {
 
         restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
         navigationItem.rightBarButtonItems = [goToSettingsBarButtonItem, restoreBarButtonItem]
-    }
-}
-
-extension ListsViewController: ItemsViewControllerDelegate {
-    public func itemsViewControllerDidDismiss(_ itemsViewController: ItemsViewController) {
-        viewModel.fetchLists()
     }
 }

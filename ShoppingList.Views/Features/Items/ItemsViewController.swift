@@ -1,31 +1,22 @@
 import ShoppingList_Domain
 import ShoppingList_Shared
+import ShoppingList_ViewModels
 import UIKit
 
+public protocol ItemsViewControllerDelegate: class {
+    func goToBasket()
+    func didDismiss()
+}
+
 public final class ItemsViewController: UIViewController {
+    public weak var delegate: ItemsViewControllerDelegate?
+
     private let sharedItemsFormatter = SharedItemsFormatter()
-    private var delegate: ItemsViewControllerDelegate!
-    
-    private var currentList: List!
-    
+
     private var items = [[Item]]()
     private var categories = [ItemsCategory]()
-    
-    private lazy var tableView: UITableView = configure(.init()) {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.dataSource = self
-        $0.delegate = self
-        $0.dragDelegate = self
-        $0.dropDelegate = self
-        $0.separatorStyle = .singleLine
-        $0.allowsSelection = false
-        $0.allowsMultipleSelectionDuringEditing = true
-        $0.dragInteractionEnabled = true
-        $0.rowHeight = UITableView.automaticDimension
-        $0.estimatedRowHeight = 50
-        $0.register(ItemsTableViewCell.self, forCellReuseIdentifier: "Cell")
-        $0.tableFooterView = UIView()
-    }
+
+    private let tableView: ItemsTableView
     
     private lazy var addItemTextField: TextFieldWithCancel =
         configure(.init()) {
@@ -40,27 +31,41 @@ public final class ItemsViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.delegate = self
         }
+
+    private let bottomView: UIView =
+        configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.backgroundColor = .white
+        }
     
-    private lazy var goToFilledBasketBarButtonItem: UIBarButtonItem = {
-        UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), style: .plain, target: self, action: #selector(goToBasketScene))
-    }()
+    private lazy var goToFilledBasketBarButtonItem: UIBarButtonItem =
+        UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), primaryAction: .init { [weak self] _ in
+            self?.delegate?.goToBasket()
+        })
     
-    private lazy var goToEmptyBasketBarButtonItem: UIBarButtonItem = {
-        UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), style: .plain, target: self, action: #selector(goToBasketScene))
-    }()
-    
-    @objc
-    private func goToBasketScene() {
-        let basketViewController = BasketViewController()
-        basketViewController.list = currentList
-        navigationController?.pushViewController(basketViewController, animated: true)
-    }
+    private lazy var goToEmptyBasketBarButtonItem: UIBarButtonItem =
+        UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), primaryAction: .init { [weak self] _ in
+            self?.delegate?.goToBasket()
+        })
     
     private lazy var restoreBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
         barButtonItem.isEnabled = false
         return barButtonItem
     }()
+
+    private let viewModel: ItemsViewModel
+
+    public init(viewModel: ItemsViewModel) {
+        self.viewModel = viewModel
+        self.tableView = .init()
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    public required init?(coder: NSCoder) {
+        fatalError("Not supported.")
+    }
 
     @objc
     private func restore() {
@@ -73,15 +78,7 @@ public final class ItemsViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        validateStartingContract()
-        setupUserInterface()
-    }
-    
-    private func validateStartingContract() {
-        guard delegate != nil, currentList != nil else {
-            fatalError("Found nil in starting contract.")
-        }
+        self.setupUserInterface()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -97,11 +94,10 @@ public final class ItemsViewController: UIViewController {
         super.viewDidDisappear(animated)
 
         if isMovingFromParent {
-            delegate.itemsViewControllerDidDismiss(self)
+            self.delegate?.didDismiss()
         }
 
-        // Todo: command
-        // CommandInvoker.shared.remove(.items)
+        self.viewModel.cleanUp()
     }
     
     public func fetchItems() {
@@ -120,7 +116,7 @@ public final class ItemsViewController: UIViewController {
     }
     
     private func setupUserInterface() {
-        navigationItem.title = currentList.name
+        navigationItem.title = viewModel.title
 
         view.addSubview(addItemTextField)
         NSLayoutConstraint.activate([
@@ -136,6 +132,14 @@ public final class ItemsViewController: UIViewController {
             toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             toolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             toolbar.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
+        view.addSubview(bottomView)
+        NSLayoutConstraint.activate([
+            bottomView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         view.addSubview(tableView)
@@ -186,7 +190,7 @@ public final class ItemsViewController: UIViewController {
     
     private func clearCategoriesIfNeeded() {
         if items.count == 0 {
-            let range = 0..<categories.count
+            let range = 0 ..< categories.count
             categories.removeAll()
             tableView.deleteSections(IndexSet(range), with: .middle)
         } else {
@@ -203,7 +207,7 @@ public final class ItemsViewController: UIViewController {
     private func goToEditItemDetailed(with item: Item? = nil) {
         let viewController = EditItemViewController()
         viewController.delegate = self
-        viewController.list = currentList
+//        viewController.list = currentList
         viewController.item = item
         
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -336,28 +340,29 @@ extension ItemsViewController: EditItemViewControllerDelegate {
 }
 
 extension ItemsViewController: AddToBasketDelegate {
-    public func addItemToBasket(_ item: Item) {
-        // TODO: command
-        // let command = AddItemsToBasketCommand(item, self)
-        // CommandInvoker.shared.execute(command)
+    public func addItemToBasket(_ item: ItemViewModel) {
+        viewModel.addToBasketItem(with: item.id)
     }
 }
 
 extension ItemsViewController: TextFieldWithCancelDelegate {
-    public func textFieldWithCancel(_ textFieldWithCancel: TextFieldWithCancel, didReturnWith text: String) {
-        let item = Item.toBuy(name: text, info: "", list: currentList)
+    public func textFieldWithCancel(
+        _ textFieldWithCancel: TextFieldWithCancel,
+        didReturnWith text: String
+    ) {
+//        let item = Item.toBuy(name: text, info: "", list: currentList)
 
         let containsDefaultCategory = categories.first { $0.id == ItemsCategory.default.id } != nil
         if !containsDefaultCategory {
             append(.default)
         }
 
-        let categoryIndex = getCategoryIndex(item)
-        items[categoryIndex].insert(item, at: 0)
+//        let categoryIndex = getCategoryIndex(item)
+//        items[categoryIndex].insert(item, at: 0)
 
-        let indexPath = IndexPath(row: 0, section: categoryIndex)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+//        let indexPath = IndexPath(row: 0, section: categoryIndex)
+//        tableView.insertRows(at: [indexPath], with: .automatic)
+//        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
 
         // Todo: repository
         // Repository.shared.add(item)
@@ -366,70 +371,19 @@ extension ItemsViewController: TextFieldWithCancelDelegate {
     }
 }
 
-extension ItemsViewController: UITableViewDelegate {
-    public func tableView(
-        _ tableView: UITableView,
-        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(
-            style: .normal,
-            title: nil) { [unowned self] (action, sourceView, completionHandler) in
-            let item = self.items[indexPath.section][indexPath.row]
-            self.goToEditItemDetailed(with: item)
-            completionHandler(true)
-        }
-        editItemAction.backgroundColor = .edit
-        editItemAction.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [editItemAction])
-    }
-
-    public func tableView(
-        _ tableView: UITableView,
-        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(
-            style: .destructive,
-            title: nil
-        ) { [weak self] (action, sourceView, completionHandler) in
-            // Todo: command
-            // let item = self.items[indexPath.section][indexPath.row]
-            // let command = RemoveItemsFromListCommand(item, self)
-            // CommandInvoker.shared.execute(command)
-            completionHandler(true)
-        }
-        deleteItemAction.backgroundColor = .delete
-        deleteItemAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [deleteItemAction])
-    }
-
-    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerCell = ItemsTableViewHeaderCell()
-        headerCell.category = categories[section]
-        return headerCell
-    }
-
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
-    }
-
-    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
-    }
-}
-
 extension ItemsViewController: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return categories.count
+        categories.count
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count > 0 ? items[section].count : 0
+        items.count > 0 ? items[section].count : 0
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ItemsTableViewCell
 
-        cell.item = items[indexPath.section][indexPath.row]
+//        cell.viewModel = items[indexPath.section][indexPath.row]
         cell.delegate = self
 
         return cell
@@ -444,9 +398,9 @@ extension ItemsViewController: UITableViewDataSource {
 
         if sourceIndexPath.section != destinationIndexPath.section {
             let destinationCategory = categories[destinationIndexPath.section]
-            item = item.getWithChanged(category: destinationCategory)
+            item = item.withChanged(category: destinationCategory)
             let cell = tableView.cellForRow(at: sourceIndexPath) as! ItemsTableViewCell
-            cell.item = item
+//            cell.item = item
             // Todo: repository
             // Repository.shared.updateCategory(of: item, to: destinationCategory)
         }
@@ -457,36 +411,16 @@ extension ItemsViewController: UITableViewDataSource {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [unowned self] in
             let sectionIndex = sourceIndexPath.section
-            if tableView.numberOfRows(inSection: sectionIndex) == 0 {
-                self.items.remove(at: sectionIndex)
-                self.categories.remove(at: sectionIndex)
-                tableView.deleteSections(IndexSet(integer: sectionIndex), with: .middle)
-            }
+            guard tableView.numberOfRows(inSection: sectionIndex) == 0 else { return }
+
+            self.items.remove(at: sectionIndex)
+            self.categories.remove(at: sectionIndex)
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .middle)
         }
     }
 
     public func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-}
-
-extension ItemsViewController: UITableViewDragDelegate {
-    public func tableView(
-        _ tableView: UITableView,
-        itemsForBeginning session: UIDragSession,
-        at indexPath: IndexPath) -> [UIDragItem] {
-        return [UIDragItem(itemProvider: NSItemProvider())]
-    }
-}
-
-extension ItemsViewController: UITableViewDropDelegate {
-    public func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {}
-
-    public func tableView(
-        _ tableView: UITableView,
-        dropSessionDidUpdate session: UIDropSession,
-        withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        true
     }
 }
 

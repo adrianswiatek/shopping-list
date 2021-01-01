@@ -25,11 +25,11 @@ public struct Item {
          category.name
     }
 
-    public func getWithChanged(state: ItemState) -> Item {
+    public func withChanged(state: ItemState) -> Item {
         Item(id: id, name: name, info: info, state: state, category: category, list: list)
     }
     
-    public func getWithChanged(category: ItemsCategory) -> Item {
+    public func withChanged(category: ItemsCategory) -> Item {
         Item(id: id, name: name, info: info, state: state, category: category, list: list)
     }
 }

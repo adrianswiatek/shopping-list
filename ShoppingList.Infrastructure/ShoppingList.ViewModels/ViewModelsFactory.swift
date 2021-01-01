@@ -1,3 +1,4 @@
+import ShoppingList_Shared
 import UIKit
 
 public final class ViewModelsFactory {
@@ -18,6 +19,7 @@ public final class ViewModelsFactory {
 public extension ViewModelsFactory {
     enum `Type` {
         case lists
+        case items
         case manageCategories
         case settings
     }
@@ -26,6 +28,12 @@ public extension ViewModelsFactory {
 public extension ViewModelsFactory {
     func listsViewModel() -> ListsViewModel {
         create(for: .lists) as! ListsViewModel
+    }
+
+    func itemsViewModel(for list: ListViewModel) -> ItemsViewModel {
+        configure(create(for: .items) as! ItemsViewModel) {
+            $0.setList(list)
+        }
     }
 
     func settingsViewModel() -> SettingsViewModel {

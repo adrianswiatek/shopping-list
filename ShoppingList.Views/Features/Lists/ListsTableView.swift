@@ -34,11 +34,9 @@ public final class ListsTableView: UITableView {
 extension ListsTableView: UITableViewDelegate {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        TODO: Navigation
-//        let itemsViewController = ItemsViewController()
-//        itemsViewController.delegate = self
-//        itemsViewController.currentList = lists[indexPath.row]
-//        navigationController?.pushViewController(itemsViewController, animated: true)
+
+        guard let list = listForCell(at: indexPath.row) else { return }
+        onActionSubject.send(.selectList(id: list))
     }
 
     public func tableView(
@@ -96,9 +94,10 @@ extension ListsTableView: UITableViewDelegate {
 
 extension ListsTableView {
     public enum Action {
+        case clearBasket(id: UUID)
+        case clearItemsToBuy(id: UUID)
         case editList(id: UUID, name: String)
         case removeList(id: UUID)
-        case clearItemsToBuy(id: UUID)
-        case clearBasket(id: UUID)
+        case selectList(id: ListViewModel)
     }
 }
