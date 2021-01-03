@@ -35,6 +35,10 @@ public final class Container {
             $0.resolve(ListsService.self)!
         }
 
+        container.register(ItemQueries.self) {
+            $0.resolve(ItemsService.self)!
+        }
+
         container.register(ItemsCategoryQueries.self) {
             $0.resolve(ItemsCategoryService.self)!
         }
@@ -64,6 +68,7 @@ public final class Container {
 
         container.register(ItemsViewModel.self) {
             ItemsViewModel(
+                itemQueries: $0.resolve(ItemQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!
             )
         }
@@ -88,6 +93,10 @@ public final class Container {
 
         container.register(ListsService.self) {
             ListsService(listRepository: $0.resolve(ListRepository.self)!)
+        }
+
+        container.register(ItemsService.self) {
+            ItemsService(itemRepository: $0.resolve(ItemRepository.self)!)
         }
 
         container.register(ItemsCategoryService.self) {

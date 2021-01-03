@@ -52,8 +52,8 @@ public final class ListsViewModel: ViewModel {
         listsSubject.send(listQueries.fetchLists())
     }
 
-    public func fetchList(by id: UUID) -> List? {
-        listQueries.fetchList(by: id)
+    public func fetchList(by uuid: UUID) -> List? {
+        listQueries.fetchList(by: .fromUuid(uuid))
     }
 
     public func addList(with name: String) {
@@ -61,17 +61,17 @@ public final class ListsViewModel: ViewModel {
         fetchLists()
     }
 
-    public func updateList(with id: UUID, name: String) {
-        let existingName = listsSubject.value.first { $0.id == id }.map { $0.name }
+    public func updateList(with uuid: UUID, name: String) {
+        let existingName = listsSubject.value.first { $0.id.toUuid() == uuid }.map { $0.name }
         guard existingName != name else { return }
 
-        commandBus.execute(UpdateListCommand(id, name))
+        commandBus.execute(UpdateListCommand(.fromUuid(uuid), name))
         fetchLists()
     }
 
-    public func removeList(with id: UUID) {
+    public func removeList(with uuid: UUID) {
         let command = listsSubject.value
-            .first { $0.id == id }
+            .first { $0.id.toUuid() == uuid }
             .map { RemoveListCommand($0) }
 
         guard let removeListCommand = command else { return }
@@ -80,16 +80,16 @@ public final class ListsViewModel: ViewModel {
         fetchLists()
     }
 
-    public func clearList(with id: UUID) {
-        commandBus.execute(ClearListCommand(id))
+    public func clearList(with uuid: UUID) {
+        commandBus.execute(ClearListCommand(.fromUuid(uuid)))
     }
 
-    public func clearBasketOfList(with id: UUID) {
-        commandBus.execute(ClearBasketOfListCommand(id))
+    public func clearBasketOfList(with uuid: UUID) {
+        commandBus.execute(ClearBasketOfListCommand(.fromUuid(uuid)))
     }
 
-    public func isListEmpty(with id: UUID) -> Bool {
-        listsSubject.value.first { $0.id == id }?.containsItemsToBuy == false
+    public func isListEmpty(with uuid: UUID) -> Bool {
+        listsSubject.value.first { $0.id.toUuid() == uuid }?.containsItemsToBuy == false
     }
 
     private func mapListsToViewModels(_ lists: [List]) -> [ListViewModel] {

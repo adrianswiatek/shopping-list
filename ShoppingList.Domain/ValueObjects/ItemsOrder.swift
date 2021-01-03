@@ -1,11 +1,9 @@
-import Foundation
-
 public struct ItemsOrder {
     public let itemsState: ItemState
-    public let listId: UUID
-    public let itemsIds: [UUID]
+    public let listId: Id<List>
+    public let itemsIds: [Id<Item>]
     
-    public init(_ itemsState: ItemState, _ list: List, _ itemsIds: [UUID]) {
+    public init(_ itemsState: ItemState, _ list: List, _ itemsIds: [Id<Item>]) {
         self.init(itemsState, list.id, itemsIds)
     }
     
@@ -13,13 +11,13 @@ public struct ItemsOrder {
         self.init(itemsState, list.id, items)
     }
     
-    public init(_ itemsState: ItemState, _ listId: UUID, _ itemsIds: [UUID]) {
+    public init(_ itemsState: ItemState, _ listId: Id<List>, _ itemsIds: [Id<Item>]) {
         self.itemsState = itemsState
         self.listId = listId
         self.itemsIds = itemsIds
     }
     
-    public init(_ itemsState: ItemState, _ listId: UUID, _ items: [Item]) {
+    public init(_ itemsState: ItemState, _ listId: Id<List>, _ items: [Item]) {
         self.itemsState = itemsState
         self.listId = listId
         self.itemsIds = items.map { $0.id }

@@ -14,7 +14,7 @@ public final class CoreDataItemsCategoryRepository: ItemsCategoryRepository {
         return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
     }
 
-    public func category(with id: UUID) -> ItemsCategory? {
+    public func category(with id: Id<Category>) -> ItemsCategory? {
         categoryEntity(with: id)?.map()
     }
 
@@ -30,15 +30,15 @@ public final class CoreDataItemsCategoryRepository: ItemsCategoryRepository {
         coreData.save()
     }
 
-    public func remove(by id: UUID) {
+    public func remove(by id: Id<Category>) {
         guard let entity = categoryEntity(with: id) else { return }
         coreData.context.delete(entity)
         coreData.save()
     }
 
-    private func categoryEntity(with id: UUID) -> CategoryEntity? {
+    private func categoryEntity(with id: Id<Category>) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? coreData.context.fetch(request).first
     }
 }

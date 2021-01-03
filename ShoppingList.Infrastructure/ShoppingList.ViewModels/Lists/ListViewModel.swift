@@ -2,7 +2,7 @@ import ShoppingList_Domain
 import ShoppingList_Shared
 
 public struct ListViewModel: Hashable {
-    public let id: UUID
+    public let uuid: UUID
     public let name: String
     public let accessType: String
     public let isPrivate: Bool
@@ -29,7 +29,7 @@ public struct ListViewModel: Hashable {
     private let dateFormatter: DateFormatter
 
     public init(_ list: List, _ dateFormatter: DateFormatter) {
-        self.id = list.id
+        self.uuid = list.id.toUuid()
         self.name = list.name
         self.accessType = list.accessType.description
         self.isPrivate = list.accessType == .private

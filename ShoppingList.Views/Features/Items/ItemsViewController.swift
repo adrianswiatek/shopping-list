@@ -38,18 +38,20 @@ public final class ItemsViewController: UIViewController {
             $0.backgroundColor = .white
         }
     
-    private lazy var goToFilledBasketBarButtonItem: UIBarButtonItem =
+    private lazy var filledBasketBarButtonItem: UIBarButtonItem =
         UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), primaryAction: .init { [weak self] _ in
             self?.delegate?.goToBasket()
         })
     
-    private lazy var goToEmptyBasketBarButtonItem: UIBarButtonItem =
+    private lazy var emptyBasketBarButtonItem: UIBarButtonItem =
         UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), primaryAction: .init { [weak self] _ in
             self?.delegate?.goToBasket()
         })
     
     private lazy var restoreBarButtonItem: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), style: .plain, target: self, action: #selector(restore))
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in
+            self?.viewModel.restoreItem()
+        })
         barButtonItem.isEnabled = false
         return barButtonItem
     }()
@@ -65,15 +67,6 @@ public final class ItemsViewController: UIViewController {
     @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError("Not supported.")
-    }
-
-    @objc
-    private func restore() {
-        // Todo: command
-        // let invoker = CommandInvoker.shared
-        // if invoker.canUndo(.items) {
-        //     invoker.undo(.items)
-        // }
     }
 
     public override func viewDidLoad() {
@@ -163,17 +156,11 @@ public final class ItemsViewController: UIViewController {
     }
     
     private func setTopBarButtons() {
-        // Todo: repository
-        // let numberOfItemsInBasket = Repository.shared.getNumberOfItemsWith(state: .inBasket, in: currentList)
-        let numberOfItemsInBasket = 0
-        let basketBarButtonItem = numberOfItemsInBasket > 0
-            ? goToFilledBasketBarButtonItem
-            : goToEmptyBasketBarButtonItem
-
-        // Todo: command
-        // restoreBarButtonItem.isEnabled = CommandInvoker.shared.canUndo(.items)
-        
-        navigationItem.rightBarButtonItems = [ basketBarButtonItem, restoreBarButtonItem ]
+        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
+        navigationItem.rightBarButtonItems = [
+            viewModel.hasItemsInBasket() ? filledBasketBarButtonItem : emptyBasketBarButtonItem,
+            restoreBarButtonItem
+        ]
     }
     
     private func setSceneAsEditable() {

@@ -13,10 +13,10 @@ extension ItemsOrderEntity {
         
         if let itemsIdsData = self.itemsIds,
             let itemsIds = try? JSONDecoder().decode([UUID].self, from: itemsIdsData) {
-            return ItemsOrder(itemsState, listId, itemsIds)
+            return ItemsOrder(itemsState, .fromUuid(listId), itemsIds.map { .fromUuid($0) })
         }
         
-        return ItemsOrder(itemsState, listId, [Item]())
+        return ItemsOrder(itemsState, .fromUuid(listId), [Item]())
     }
 }
 
@@ -24,9 +24,9 @@ extension ItemsOrder {
     func map(context: NSManagedObjectContext) -> ItemsOrderEntity {
         let entity = ItemsOrderEntity(context: context)
         entity.itemsState = Int32(self.itemsState.rawValue)
-        entity.listId = self.listId
+        entity.listId = self.listId.toUuid()
         
-        if let itemsIdsData = try? JSONEncoder().encode(self.itemsIds) {
+        if let itemsIdsData = try? JSONEncoder().encode(self.itemsIds.map { $0.toUuid() }) {
             entity.itemsIds = itemsIdsData
         }
         

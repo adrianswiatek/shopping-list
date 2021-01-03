@@ -1,13 +1,13 @@
 import Foundation
 
 public struct List {
-    public let id: UUID
+    public let id: Id<List>
     public let name: String
     public let accessType: ListAccessType
     public let items: [Item]
     public let updateDate: Date
 
-    public init(id: UUID, name: String, accessType: ListAccessType, items: [Item], updateDate: Date = Date()) {
+    public init(id: Id<List>, name: String, accessType: ListAccessType, items: [Item], updateDate: Date = Date()) {
         self.id = id
         self.name = name
         self.accessType = accessType
@@ -83,6 +83,6 @@ public struct List {
     }
     
     public static func withName(_ name: String) -> List {
-        List(id: UUID(), name: name, accessType: .private, items: [Item](), updateDate: Date())
+        List(id: .random(), name: name, accessType: .private, items: [Item](), updateDate: Date())
     }
 }

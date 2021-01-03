@@ -60,14 +60,14 @@ extension ListsTableView: UITableViewDelegate {
         guard let list = listForCell(at: index) else { return nil }
         let image = UIImage(systemName: "trash.fill")
         return UIAction(title: "Remove list", image: image, attributes: .destructive) { [weak self] _ in
-            self?.onActionSubject.send(.removeList(id: list.id))
+            self?.onActionSubject.send(.removeList(id: list.uuid))
             }
     }
 
     private func editActionForList(at index: Int) -> UIAction? {
         guard let list = listForCell(at: index) else { return nil }
         return UIAction(title: "Edit list", image: UIImage(systemName: "pencil"), attributes: []) { [weak self] _ in
-            self?.onActionSubject.send(.editList(id: list.id, name: list.name))
+            self?.onActionSubject.send(.editList(id: list.uuid, name: list.name))
         }
     }
 
@@ -75,7 +75,7 @@ extension ListsTableView: UITableViewDelegate {
         guard let list = listForCell(at: index) else { return nil }
         let attributes: UIMenuElement.Attributes = list.hasItemsToBuy ? .destructive : .hidden
         return UIAction(title: "Clear items to buy", image: nil, attributes: attributes) { [weak self] _ in
-            self?.onActionSubject.send(.clearItemsToBuy(id: list.id))
+            self?.onActionSubject.send(.clearItemsToBuy(id: list.uuid))
         }
     }
 
@@ -83,7 +83,7 @@ extension ListsTableView: UITableViewDelegate {
         guard let list = listForCell(at: index) else { return nil }
         let attributes: UIMenuElement.Attributes = list.hasItemsInBasket ? .destructive : .hidden
         return UIAction(title: "Clear items in the basket", image: nil, attributes: attributes) { [weak self] _ in
-            self?.onActionSubject.send(.clearBasket(id: list.id))
+            self?.onActionSubject.send(.clearBasket(id: list.uuid))
         }
     }
 

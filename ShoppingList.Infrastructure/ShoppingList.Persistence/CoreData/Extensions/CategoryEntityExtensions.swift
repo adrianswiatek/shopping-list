@@ -5,14 +5,14 @@ import CoreData
 extension CategoryEntity {
     func map() -> ItemsCategory {
         guard let id = id, let name = name else {
-            fatalError("Unable to create Category")
+            fatalError("Unable to create Category.")
         }
         
-        return ItemsCategory(id: id, name: name)
+        return ItemsCategory(id: .fromUuid(id), name: name)
     }
     
     func update(by category: ItemsCategory) {
-        guard self.id == category.id else {
+        guard id == category.id.toUuid() else {
             fatalError("Unable to update Categories that have different ids.")
         }
         
@@ -23,7 +23,7 @@ extension CategoryEntity {
 extension ItemsCategory {
     func map(context: NSManagedObjectContext) -> CategoryEntity {
         configure(.init(context: context)) {
-            $0.id = id
+            $0.id = id.toUuid()
             $0.name = name
         }
     }

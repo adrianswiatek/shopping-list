@@ -7,7 +7,7 @@ public struct ItemsCategoryViewModel: Hashable {
     public let itemsInCategory: Int
 
     public init(_ itemsCategory: ItemsCategory) {
-        id = itemsCategory.id
+        id = itemsCategory.id.toUuid()
         name = itemsCategory.name
         isDefault = itemsCategory.isDefault
         itemsInCategory = 0

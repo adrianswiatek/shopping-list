@@ -1,14 +1,12 @@
-import Foundation
-
 public struct Item {
-    public let id: UUID
+    public let id: Id<Item>
     public let name: String
     public let info: String?
     public let state: ItemState
     public let category: ItemsCategory
     public let list: List
 
-    public init(id: UUID, name: String, info: String?, state: ItemState, category: ItemsCategory?, list: List) {
+    public init(id: Id<Item>, name: String, info: String?, state: ItemState, category: ItemsCategory?, list: List) {
         self.id = id
         self.name = name
         self.info = info
@@ -18,7 +16,7 @@ public struct Item {
     }
     
     public static func toBuy(name: String, info: String?, list: List, category: ItemsCategory? = nil) -> Item {
-        self.init(id: UUID(), name: name, info: info, state: .toBuy, category: category, list: list)
+        self.init(id: .random(), name: name, info: info, state: .toBuy, category: category, list: list)
     }
     
     public func categoryName() -> String {

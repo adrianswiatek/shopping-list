@@ -1,9 +1,11 @@
+import ShoppingList_Domain
+
 public final class UpdateListCommand: CommandNew {
-    public let id: UUID
+    public let id: Id<List>
     public let name: String
     public let source: CommandSource
 
-    public init(_ id: UUID, _ name: String) {
+    public init(_ id: Id<List>, _ name: String) {
         self.id = id
         self.name = name
         self.source = .lists

@@ -13,14 +13,16 @@ extension ItemEntity {
             let id = id,
             let name = name,
             let state = ItemState(rawValue: Int(self.state))
-        else { fatalError("Unable to create Item") }
+        else {
+            fatalError("Unable to create Item")
+        }
         
         let category = self.category?.map()
-        return Item(id: id, name: name, info: self.info, state: state, category: category, list: list)
+        return Item(id: .fromUuid(id), name: name, info: self.info, state: state, category: category, list: list)
     }
     
     func update(by item: Item, context: NSManagedObjectContext) {
-        guard id == item.id else {
+        guard id == item.id.toUuid() else {
             fatalError("Unable to update Categories that have different ids.")
         }
         
@@ -41,13 +43,13 @@ extension ItemEntity {
             hasBeenUpdated = true
         }
         
-        if category?.id != item.category.id {
-            category = getCategoryEntity(from: item, context: context)
+        if category?.id != item.category.id.toUuid() {
+            category = categoryEntity(from: item, context: context)
             hasBeenUpdated = true
         }
         
-        if list?.id != item.list.id {
-            list = getListEntity(from: item, context: context)
+        if list?.id != item.list.id.toUuid() {
+            list = listEntity(from: item, context: context)
             hasBeenUpdated = true
         }
         
@@ -56,9 +58,9 @@ extension ItemEntity {
         }
     }
     
-    private func getCategoryEntity(from item: Item, context: NSManagedObjectContext) -> CategoryEntity? {
+    private func categoryEntity(from item: Item, context: NSManagedObjectContext) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", item.category.id as CVarArg)
+        request.predicate = NSPredicate(format: "id == %@", item.category.id.toString())
         
         do {
             return try context.fetch(request).first
@@ -67,49 +69,34 @@ extension ItemEntity {
         }
     }
     
-    private func getListEntity(from item: Item, context: NSManagedObjectContext) -> ListEntity? {
+    private func listEntity(from item: Item, context: NSManagedObjectContext) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", item.list.id as CVarArg)
-        
-        do {
-            return try context.fetch(request).first
-        } catch {
-            fatalError("Unable to fetch List: \(error)")
-        }
+        request.predicate = NSPredicate(format: "id == %@", item.list.id.toString())
+        return try? context.fetch(request).first
     }
 }
 
 extension Item {
     func map(context: NSManagedObjectContext) -> ItemEntity {
         configure(.init(context: context)) {
-            $0.id = id
+            $0.id = id.toUuid()
             $0.name = name
             $0.info = info
             $0.state = Int32(state.rawValue)
-            $0.list = getListEntity(withId: list.id, context: context)
-            $0.category = getCategoryEntity(withId: category.id, context: context)
+            $0.list = listEntity(withId: list.id, context: context)
+            $0.category = categoryEntity(withId: category.id, context: context)
         }
     }
     
-    private func getListEntity(withId id: UUID, context: NSManagedObjectContext) -> ListEntity? {
+    private func listEntity(withId id: Id<List>, context: NSManagedObjectContext) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        
-        do {
-            return try context.fetch(request).first
-        } catch {
-            fatalError("Unable to fetch List")
-        }
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
+        return try? context.fetch(request).first
     }
     
-    private func getCategoryEntity(withId id: UUID, context: NSManagedObjectContext) -> CategoryEntity? {
+    private func categoryEntity(withId id: Id<Category>, context: NSManagedObjectContext) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        
-        do {
-            return try context.fetch(request).first
-        } catch {
-            fatalError("Unable to fetch Category")
-        }
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
+        return try? context.fetch(request).first
     }
 }

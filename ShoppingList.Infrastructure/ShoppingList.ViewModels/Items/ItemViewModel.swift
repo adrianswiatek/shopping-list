@@ -6,7 +6,7 @@ public struct ItemViewModel {
     public let info: String
 
     public init(_ item: Item) {
-        self.id = item.id
+        self.id = item.id.toUuid()
         self.name = item.name
         self.info = item.info ?? ""
     }

@@ -14,7 +14,7 @@ public final class CoreDataListRepository: ListRepository {
         return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
     }
 
-    public func list(with id: UUID) -> List? {
+    public func list(with id: Id<List>) -> List? {
         listEntity(with: id)?.map()
     }
 
@@ -30,7 +30,7 @@ public final class CoreDataListRepository: ListRepository {
         coreData.save()
     }
 
-    public func remove(by id: UUID) {
+    public func remove(by id: Id<List>) {
         guard let listEntity = listEntity(with: id) else { return }
         coreData.context.delete(listEntity)
 
@@ -41,9 +41,9 @@ public final class CoreDataListRepository: ListRepository {
         coreData.save()
     }
 
-    private func listEntity(with id: UUID) -> ListEntity? {
+    private func listEntity(with id: Id<List>) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? coreData.context.fetch(request).first
     }
 

@@ -11,7 +11,7 @@ public final class ListsService: ListQueries {
         listRepository.allLists().sorted { $0.updateDate > $1.updateDate }
     }
 
-    public func fetchList(by id: UUID) -> List? {
+    public func fetchList(by id: Id<List>) -> List? {
         listRepository.list(with: id)
     }
 }

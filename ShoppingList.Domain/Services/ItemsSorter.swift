@@ -1,7 +1,7 @@
 import Foundation
 
 public struct ItemsSorter {
-    public static func sort(_ items: [Item], by orderedItemsIds: [UUID]) -> [Item] {
+    public static func sort(_ items: [Item], by orderedItemsIds: [Id<Item>]) -> [Item] {
         var unorderedItems = items
         var result = [Item]()
         

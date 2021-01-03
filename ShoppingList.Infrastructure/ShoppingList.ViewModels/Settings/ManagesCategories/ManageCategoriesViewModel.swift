@@ -52,14 +52,14 @@ public final class ManageCategoriesViewModel: ViewModel {
         fetchCategories()
     }
 
-    public func updateCategory(with id: UUID, name: String) {
-        commandBus.execute(UpdateItemsCategoryCommand(id, name))
+    public func updateCategory(with uuid: UUID, name: String) {
+        commandBus.execute(UpdateItemsCategoryCommand(.fromUuid(uuid), name))
         fetchCategories()
     }
 
-    public func removeCategory(with id: UUID) {
+    public func removeCategory(with uuid: UUID) {
         let command = categoriesSubject.value
-            .first { $0.id == id }
+            .first { $0.id.toUuid() == uuid }
             .map { RemoveItemsCategoryCommand($0) }
 
         guard let removeItemsCategoryCommand = command else { return }
