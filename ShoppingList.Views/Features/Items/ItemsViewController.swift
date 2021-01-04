@@ -5,6 +5,8 @@ import UIKit
 
 public protocol ItemsViewControllerDelegate: class {
     func goToBasket()
+    func goToEditItem(_ item: ItemViewModel, for list: ListViewModel)
+    func goToCreateItem(for list: ListViewModel)
     func didDismiss()
 }
 
@@ -109,7 +111,7 @@ public final class ItemsViewController: UIViewController {
     }
     
     private func setupUserInterface() {
-        navigationItem.title = viewModel.title
+        navigationItem.title = viewModel.list.name
 
         view.addSubview(addItemTextField)
         NSLayoutConstraint.activate([
@@ -189,18 +191,6 @@ public final class ItemsViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    private func goToEditItemDetailed(with item: Item? = nil) {
-        let viewController = EditItemViewController()
-        viewController.delegate = self
-//        viewController.list = currentList
-        viewController.item = item
-        
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .overCurrentContext
-        
-        present(navigationController, animated: true)
     }
     
     private func append(_ category: ItemsCategory) {
@@ -418,7 +408,7 @@ extension ItemsViewController: ItemsToolbarDelegate {
     }
 
     public func addButtonDidTap() {
-        goToEditItemDetailed()
+        delegate?.goToCreateItem(for: viewModel.list)
     }
 
     public func actionButtonDidTap() {

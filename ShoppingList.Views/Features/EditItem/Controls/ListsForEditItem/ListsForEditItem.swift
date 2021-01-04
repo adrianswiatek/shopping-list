@@ -46,7 +46,6 @@ public final class ListsForEditItem: UIView {
         guard let viewController = viewController else {
             fatalError("View Controller must have the value.")
         }
-
         return AddListPopupForEditItem(viewController, completed: listAdded)
     }()
     
@@ -64,21 +63,33 @@ public final class ListsForEditItem: UIView {
         backgroundColor = .white
         
         addSubview(label)
-        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding).isActive = true
-        label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth).isActive = true
-        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: EditItemViewController.labelsLeftPadding
+            ),
+            label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
         addSubview(addButton)
-        addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: 48).isActive = true
-        addButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            addButton.heightAnchor.constraint(equalToConstant: 48),
+            addButton.widthAnchor.constraint(equalToConstant: 48),
+            addButton.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
         
         addSubview(pickerView)
-        pickerView.leadingAnchor.constraint(equalTo: label.trailingAnchor).isActive = true
-        pickerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        pickerView.trailingAnchor.constraint(equalTo: addButton.leadingAnchor, constant: -8).isActive = true
-        pickerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            pickerView.leadingAnchor.constraint(equalTo: label.trailingAnchor),
+            pickerView.topAnchor.constraint(equalTo: topAnchor),
+            pickerView.trailingAnchor.constraint(
+                equalTo: addButton.leadingAnchor,
+                constant: -8
+            ),
+            pickerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 
     func select(by item: Item) {
@@ -90,9 +101,8 @@ public final class ListsForEditItem: UIView {
         pickerView.selectRow(index, inComponent: 0, animated: true)
     }
     
-    func getSelected() -> List {
-        let selectedRow = pickerView.selectedRow(inComponent: 0)
-        return lists[selectedRow]
+    func selected() -> List {
+        lists[pickerView.selectedRow(inComponent: 0)]
     }
 
     @objc
@@ -120,7 +130,10 @@ public final class ListsForEditItem: UIView {
 }
 
 extension ListsForEditItem: UIPickerViewDelegate {
-    public func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    public func pickerView(
+        _ pickerView: UIPickerView,
+        rowHeightForComponent component: Int
+    ) -> CGFloat {
         24
     }
 
@@ -130,11 +143,11 @@ extension ListsForEditItem: UIPickerViewDelegate {
         forComponent component: Int,
         reusing view: UIView?
     ) -> UIView {
-        let label = UILabel()
-        label.text = lists[row].name
-        label.font = .systemFont(ofSize: 18)
-        label.textAlignment = .center
-        return label
+        configure(UILabel()) {
+            $0.text = lists[row].name
+            $0.font = .systemFont(ofSize: 18)
+            $0.textAlignment = .center
+        }
     }
 }
 
@@ -143,7 +156,10 @@ extension ListsForEditItem: UIPickerViewDataSource {
         1
     }
 
-    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(
+        _ pickerView: UIPickerView,
+        numberOfRowsInComponent component: Int
+    ) -> Int {
         lists.count
     }
 }

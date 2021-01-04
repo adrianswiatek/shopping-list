@@ -7,7 +7,7 @@ public final class ItemsCoordinator: Coordinator {
 
     public var stop: ((Coordinator) -> Void)?
 
-    private var currentList: ListViewModel?
+    private var currentList: ListViewModel!
     private let viewModelsFactory: ViewModelsFactory
 
     public init(
@@ -21,7 +21,7 @@ public final class ItemsCoordinator: Coordinator {
 
     public func start() {
         guard let currentList = currentList else {
-            preconditionFailure("CurrentList must be set.")
+            preconditionFailure("currentList must be set.")
         }
 
         let viewController = ItemsViewController(
@@ -40,6 +40,35 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
     public func goToBasket() {
         let basketViewController = BasketViewController()
         navigationController.pushViewController(basketViewController, animated: true)
+    }
+
+    public func goToEditItem(_ item: ItemViewModel, for list: ListViewModel) {
+        let viewModel = viewModelsFactory.editItemViewModel(for: list)
+        viewModel.setItem(item)
+
+        let viewController = EditItemViewController(viewModel: viewModel)
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .overCurrentContext
+
+        self.navigationController.viewControllers.first?.present(
+            navigationController,
+            animated: true
+        )
+    }
+
+    public func goToCreateItem(for list: ListViewModel) {
+        let viewController = EditItemViewController(
+            viewModel: viewModelsFactory.editItemViewModel(for: list)
+        )
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .overCurrentContext
+
+        self.navigationController.viewControllers.first?.present(
+            navigationController,
+            animated: true
+        )
     }
 
     public func didDismiss() {

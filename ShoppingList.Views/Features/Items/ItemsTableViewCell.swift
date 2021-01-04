@@ -1,5 +1,6 @@
 import ShoppingList_Domain
 import ShoppingList_Shared
+import ShoppingList_ViewModels
 import UIKit
 
 public final class ItemsTableViewCell: UITableViewCell {
@@ -83,10 +84,15 @@ public final class ItemsTableViewCell: UITableViewCell {
 
         contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 
-        itemNameLabelTopConstraint = itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10)
+        itemNameLabelTopConstraint = itemNameLabel.topAnchor.constraint(
+            equalTo: contentView.topAnchor,
+            constant: 10
+        )
         itemNameLabelTopConstraint.isActive = false
         
-        itemNameLabelCenterYConstraint = itemNameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        itemNameLabelCenterYConstraint = itemNameLabel.centerYAnchor.constraint(
+            equalTo: contentView.centerYAnchor
+        )
         itemNameLabelCenterYConstraint.isActive = true
     }
 

@@ -1,5 +1,6 @@
 import ShoppingList_Domain
 import ShoppingList_Shared
+import ShoppingList_ViewModels
 import UIKit
 
 public final class CategoriesForEditItem: UIView {
@@ -74,7 +75,7 @@ public final class CategoriesForEditItem: UIView {
         categories.sort { $0.name < $1.name }
         pickerView.reloadComponent(0)
         
-        selectBy(name: name)
+        selectByName(name)
     }
     
     public override init(frame: CGRect) {
@@ -115,21 +116,23 @@ public final class CategoriesForEditItem: UIView {
     }
     
     func selectDefault() {
-        selectBy(name: ItemsCategory.default.name)
+        selectByName(ItemsCategory.default.name)
     }
     
-    func select(by item: Item) {
-        selectBy(name: item.categoryName())
+    func selectCategory(by name: String) {
+        selectByName(name)
     }
 
-    func getSelected() -> ItemsCategory? {
+    func selected() -> ItemsCategory? {
         let selectedRow = pickerView.selectedRow(inComponent: 0)
         let selectedCategory = categories[selectedRow]
         return selectedCategory.isDefault ? nil : selectedCategory
     }
     
-    private func selectBy(name: String) {
-        guard let index = categories.firstIndex(where: { $0.name == name }) else { return }
+    private func selectByName(_ name: String) {
+        guard let index = categories.firstIndex(where: { $0.name == name }) else {
+            return
+        }
         pickerView.selectRow(index, inComponent: 0, animated: true)
     }
 }

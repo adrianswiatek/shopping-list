@@ -1,15 +1,12 @@
 import ShoppingList_Application
 
 public final class ItemsViewModel: ViewModel {
-    public var title: String {
-        list.name
-    }
+    public var list: ListViewModel!
 
     public var isRestoreButtonEnabled: Bool {
         commandBus.canUndo(.items)
     }
 
-    private var list: ListViewModel!
     private var itemQueries: ItemQueries
     private let commandBus: CommandBus
 

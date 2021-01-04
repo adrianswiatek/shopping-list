@@ -1,83 +1,63 @@
 import ShoppingList_Domain
 import ShoppingList_Shared
+import ShoppingList_ViewModels
+import Combine
 import UIKit
 
 public final class EditItemViewController: UIViewController {
-    static let labelsWidth: CGFloat = 100
-    static let labelsLeftPadding: CGFloat = 16
+    internal static let labelsWidth: CGFloat = 100
+    internal static let labelsLeftPadding: CGFloat = 16
     
     public var delegate: EditItemViewControllerDelegate!
     
-    public var list: List!  {
+    public var list: List! {
         didSet {
             guard let list = list else { return }
             listsView.selectBy(name: list.name)
         }
     }
     
-    public var item: Item? {
-        didSet {
-            guard let item = item else {
-                itemNameView.becomeFirstResponder()
-                categoriesView.selectDefault()
-                listsView.isHidden = true
-                return
-            }
-            
-            itemNameView.text = item.name
-            infoView.text = item.info
-            categoriesView.select(by: item)
-        }
-    }
+    public var item: Item?
 
-    lazy var itemNameView: ItemNameForEditItem = {
-        let itemName = ItemNameForEditItem(self)
-        itemName.translatesAutoresizingMaskIntoConstraints = false
-        return itemName
-    }()
+    private lazy var itemNameView: ItemNameForEditItem =
+        configure(.init(self)) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     
-    lazy var infoView: InfoForEditItem = {
-        let info = InfoForEditItem()
-        info.translatesAutoresizingMaskIntoConstraints = false
-        return info
-    }()
+    private var infoView: InfoForEditItem =
+        configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     
-    lazy var categoriesView: CategoriesForEditItem = {
-        let categories = CategoriesForEditItem()
-        categories.delegate = self
-        categories.viewController = self
-        categories.translatesAutoresizingMaskIntoConstraints = false
-        return categories
-    }()
+    private lazy var categoriesView: CategoriesForEditItem =
+        configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.delegate = self
+            $0.viewController = self
+        }
     
-    lazy var listsView: ListsForEditItem = {
-        let lists = ListsForEditItem()
-        lists.delegate = self
-        lists.viewController = self
-        lists.translatesAutoresizingMaskIntoConstraints = false
-        return lists
-    }()
+    private lazy var listsView: ListsForEditItem =
+        configure(.init()) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.delegate = self
+            $0.viewController = self
+        }
     
-    private lazy var cancelBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
-    }()
+    private lazy var cancelBarButtonItem: UIBarButtonItem =
+        .init(systemItem: .cancel, primaryAction: .init { [weak self] _ in self?.dismiss(animated: true) })
     
-    @objc private func dismissViewController() {
-        dismiss(animated: true)
-    }
+    private lazy var saveBarButtonItem: UIBarButtonItem =
+        .init(barButtonSystemItem: .save, target: self, action: #selector(save))
     
-    private lazy var saveBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
-    }()
-    
-    @objc private func save() {
+    @objc
+    private func save() {
         guard let itemName = itemNameView.text else { return }
         guard itemNameView.isValid() else { return }
         
-        let list = listsView.getSelected()
-        let category = categoriesView.getSelected()
+        let list = listsView.selected()
+        let category = categoriesView.selected()
         let info = infoView.text ?? ""
-        
+
         var itemToSave: Item
         
         if let existingItem = self.item {
@@ -87,13 +67,15 @@ public final class EditItemViewController: UIViewController {
                 info: info,
                 state: existingItem.state,
                 category: category,
-                list: list)
+                list: list
+            )
         } else {
-            itemToSave = Item.toBuy(
+            itemToSave = .toBuy(
                 name: itemName,
                 info: info,
                 list: list,
-                category: category)
+                category: category
+            )
         }
 
         dismiss(animated: true) { [weak self] in
@@ -120,16 +102,26 @@ public final class EditItemViewController: UIViewController {
         // }
     }
 
+    private let viewModel: EditItemViewModel
+    private var cancellables: Set<AnyCancellable>
+
+    public init(viewModel: EditItemViewModel) {
+        self.viewModel = viewModel
+        self.cancellables = []
+
+        super.init(nibName: nil, bundle: nil)
+
+        self.bind()
+    }
+
+    @available(*, unavailable)
+    public required init?(coder: NSCoder) {
+        fatalError("Not supported.")
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.validateStartingContract()
         self.setupView()
-    }
-    
-    private func validateStartingContract() {
-        guard delegate != nil, list != nil else {
-            fatalError("Found nil in starting contract.")
-        }
     }
     
     private func setupView() {
@@ -180,8 +172,26 @@ public final class EditItemViewController: UIViewController {
         tapGesture.delegate = self
         view.addGestureRecognizer(tapGesture)
     }
+
+    private func bind() {
+        viewModel.statePublisher
+            .sink { [weak self] in
+                switch $0 {
+                case .create:
+                    self?.itemNameView.becomeFirstResponder()
+                    self?.categoriesView.selectDefault()
+                    self?.listsView.isHidden = true
+                case .edit(let item):
+                    self?.itemNameView.text = item.name
+                    self?.infoView.text = item.info
+                    self?.categoriesView.selectCategory(by: item.categoryName)
+                }
+            }
+            .store(in: &cancellables)
+    }
     
-    @objc private func handleTapGesture(gesture: UITapGestureRecognizer) {
+    @objc
+    private func handleTapGesture(gesture: UITapGestureRecognizer) {
         guard gesture.state == .ended else { return }
         
         itemNameView.resignFirstResponder()
@@ -204,7 +214,8 @@ extension EditItemViewController: ListsForEditItemDelegate {
 extension EditItemViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
         return true
     }
 }
