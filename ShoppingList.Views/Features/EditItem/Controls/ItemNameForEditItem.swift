@@ -1,49 +1,79 @@
 import ShoppingList_Shared
+import Combine
 import UIKit
 
 public final class ItemNameForEditItem: UIView {
-    weak var delegate: ItemNameForEditItemDelegate?
-    
-    var text: String? {
+    public var onAction: AnyPublisher<Action, Never> {
+        textField.onAction
+            .compactMap { action -> Action? in
+                guard case .showValidationPopup(let alertController) = action else {
+                    return nil
+                }
+                return .showViewController(alertController)
+            }
+            .eraseToAnyPublisher()
+    }
+
+    public var text: String? {
         get { textField.text }
         set { textField.text = newValue }
     }
     
-    lazy var label: UILabel = configure(.init()) {
+    private let label: UILabel = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         $0.text = "ITEM NAME:"
         $0.font = .systemFont(ofSize: 14, weight: .semibold)
     }
     
-    lazy var textField: TextFieldWithWarning = configure(TextFieldWithWarning(viewController)) {
+    private let textField: TextFieldWithWarning = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.placeholder = "Enter item name..."
         $0.textColor = .darkGray
         $0.font = .systemFont(ofSize: 17)
         $0.set(ValidationButtonRuleLeaf.notEmptyItemRule)
     }
-    
-    private let viewController: UIViewController
-    
-    public init(_ viewController: UIViewController) {
-        self.viewController = viewController
-        super.init(frame: CGRect.zero)
-        self.setupUserInterface()
+
+    private var cancellables: Set<AnyCancellable>
+
+    public init() {
+        self.cancellables = []
+
+        super.init(frame: .zero)
+
+        self.setupView()
+        self.bind()
     }
-    
+
+    @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("Not supported.")
+    }
+
+    public func isValid() -> Bool {
+        textField.isValid()
+    }
+
+    @discardableResult
+    public override func becomeFirstResponder() -> Bool {
+        textField.becomeFirstResponder()
+    }
+
+    @discardableResult
+    public override func resignFirstResponder() -> Bool {
+        textField.resignFirstResponder()
     }
     
-    private func setupUserInterface() {
+    private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        
         backgroundColor = .white
         
         addSubview(label)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding),
+            label.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: EditItemViewController.labelsLeftPadding
+            ),
             label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
@@ -56,18 +86,14 @@ public final class ItemNameForEditItem: UIView {
             textField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
-    
-    func isValid() -> Bool {
-        textField.isValid()
-    }
 
-    @discardableResult
-    public override func becomeFirstResponder() -> Bool {
-        textField.becomeFirstResponder()
-    }
+    private func bind() {
 
-    @discardableResult
-    public override func resignFirstResponder() -> Bool {
-        textField.resignFirstResponder()
+    }
+}
+
+extension ItemNameForEditItem {
+    public enum Action {
+        case showViewController(_ viewController: UIViewController)
     }
 }

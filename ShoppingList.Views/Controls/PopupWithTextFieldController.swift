@@ -1,4 +1,5 @@
 import ShoppingList_Shared
+import Combine
 import UIKit
 
 public final class PopupWithTextFieldController: UIViewController {
@@ -23,7 +24,7 @@ public final class PopupWithTextFieldController: UIViewController {
     public var saved: ((String) -> Void)?
     public var cancelled: (() -> Void)?
 
-    private lazy var popupView: UIView = configure(.init()) {
+    private let popupView: UIView = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.backgroundColor = UIColor(white: 1, alpha: 0.98)
         $0.layer.cornerRadius = 16
@@ -58,17 +59,11 @@ public final class PopupWithTextFieldController: UIViewController {
         }, for: .touchUpInside)
     }
 
-    private lazy var textField: TextFieldWithWarning = configure(.init(self)) {
-        $0.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var textField: TextFieldWithWarning = configure(.init()) {
         $0.backgroundColor = .white
         $0.textColor = .darkGray
         $0.font = .systemFont(ofSize: 15)
         $0.becomeFirstResponder()
-        $0.validationPopupWillAppear = { [weak self] in self?.popupView.alpha = 0 }
-        $0.validationPopupWillDisappear = { [weak self] in
-            UIView.animate(withDuration: 0.2) { self?.popupView.alpha = 1 }
-        }
-        $0.delegate = self
         $0.layer.cornerRadius = 8
         $0.layer.borderColor = UIColor(white: 0.75, alpha: 1).cgColor
         $0.layer.borderWidth = 0.25
@@ -90,39 +85,29 @@ public final class PopupWithTextFieldController: UIViewController {
     private var popupViewCenterYConstraint: NSLayoutConstraint!
 
     private var colorForHighlightedButton: UIColor {
-        UIColor(red: 84 / 255, green: 152 / 255, blue: 252 / 255, alpha: 1)
+        .init(red: 84 / 255, green: 152 / 255, blue: 252 / 255, alpha: 1)
     }
 
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    private var cancellables: Set<AnyCancellable>
+
+    public init() {
+        self.cancellables = []
+
+        super.init(nibName: nil, bundle: nil)
+
         self.modalTransitionStyle = .crossDissolve
-        
-        self.setupKeyboardEventsObservers()
-        self.setupUserInterface()
+
+        self.setupView()
+        self.bind()
     }
 
-    public override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+    @available(*, unavailable)
+    public required init?(coder: NSCoder) {
+        fatalError("Not supported.")
     }
 
     public func set(_ validationRules: ValidationButtonRule) {
         textField.set(validationRules)
-    }
-
-    private func setupKeyboardEventsObservers() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification,
-            object: nil)
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(keyboardWilldHide),
-            name: UIResponder.keyboardWillHideNotification,
-            object: nil)
     }
 
     @objc
@@ -142,7 +127,7 @@ public final class PopupWithTextFieldController: UIViewController {
     }
 
     @objc
-    private func keyboardWilldHide(_ notification: Notification) {
+    private func keyboardWillHide(_ notification: Notification) {
         guard popupViewCenterYConstraint.constant != 0 else { return }
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
             self.popupViewCenterYConstraint.constant = 0
@@ -150,20 +135,46 @@ public final class PopupWithTextFieldController: UIViewController {
         })
     }
 
-    private func setupUserInterface() {
+    private func setupView() {
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
 
         view.addSubview(popupView)
         popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         popupViewCenterYConstraint.isActive = true
-        
-        popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48).isActive = true
-        popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48).isActive = true
-        popupView.heightAnchor.constraint(equalToConstant: popupViewHeight).isActive = true
+
+        NSLayoutConstraint.activate([
+            popupView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48),
+            popupView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -48),
+            popupView.heightAnchor.constraint(equalToConstant: popupViewHeight)
+        ])
         
         setupHeader()
         setupFooter()
         setupContent()
+    }
+
+    private func bind() {
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+            .sink { [weak self] in self?.keyboardWillShow($0) }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .sink { [weak self] in self?.keyboardWillHide($0) }
+            .store(in: &cancellables)
+
+        textField.onAction
+            .sink { [weak self] in
+                switch $0 {
+                case .didFinishEditing:
+                    self?.handleSave()
+                case .showValidationPopup(let viewController):
+                    self?.popupView.alpha = 0
+                    self?.present(viewController, animated: true)
+                case .validationPopupDidHide:
+                    UIView.animate(withDuration: 0.2) { self?.popupView.alpha = 1 }
+                }
+            }
+            .store(in: &cancellables)
     }
 
     private func setupHeader() {
@@ -261,17 +272,11 @@ public final class PopupWithTextFieldController: UIViewController {
     }
 
     private func handleSave() {
-        guard textField.isValid() else { return }
+        guard textField.isValid() else {
+            return
+        }
+
         saved?(textField.text ?? "")
         dismiss(animated: true)
-    }
-}
-
-extension PopupWithTextFieldController: TextFieldWithWarningDelegate {
-    public func textFieldWithWarning(
-        _ textFieldWithWarning: TextFieldWithWarning,
-        didReturnWith text: String
-    ) {
-        handleSave()
     }
 }

@@ -43,7 +43,7 @@ public final class TextFieldWithCancel: UIView {
         $0.alpha = 0
         $0.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
-            self.onActionSubject.send(.validationError(self.getValidationMessage()))
+            self.onActionSubject.send(.validationError(self.validationMessage()))
         }, for: .touchUpInside)
     }
 
@@ -155,7 +155,7 @@ extension TextFieldWithCancel: ButtonValidatable {
         return false
     }
     
-    public func getValidationMessage() -> String {
+    public func validationMessage() -> String {
         textField.text.flatMap { validationRule?.validate(with: $0) }.map { $0.message } ?? ""
     }
 }

@@ -8,7 +8,14 @@ public final class AddItemsCategoryCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: CommandNew) -> Bool {
-        command is AddItemsCategoryCommand
+        guard let command = command as? AddItemsCategoryCommand else {
+            return false
+        }
+
+        let categoryWithGivenName = categoryRepository.allCategories().first {
+            $0.name == command.name
+        }
+        return categoryWithGivenName == nil
     }
 
     public func execute(_ command: CommandNew) {

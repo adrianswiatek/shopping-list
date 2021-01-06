@@ -2,21 +2,19 @@ import ShoppingList_Shared
 import UIKit
 
 public final class InfoForEditItem: UIView {
-    weak var delegate: InfoForEditItemDelegate?
-    
-    var text: String? {
+    public var text: String? {
         get { textField.text }
         set { textField.text = newValue }
     }
     
-    lazy var label: UILabel = configure(.init()) {
+    public let label: UILabel = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         $0.text = "INFO:"
         $0.font = .systemFont(ofSize: 14, weight: .semibold)
     }
     
-    lazy var textField: UITextField = configure(.init()) {
+    public lazy var textField: UITextField = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.placeholder = "Enter additional info..."
         $0.textColor = .darkGray
@@ -39,11 +37,15 @@ public final class InfoForEditItem: UIView {
     }
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         
         addSubview(label)
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: EditItemViewController.labelsLeftPadding),
+            label.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: EditItemViewController.labelsLeftPadding
+            ),
             label.widthAnchor.constraint(equalToConstant: EditItemViewController.labelsWidth),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
@@ -69,10 +71,6 @@ public final class InfoForEditItem: UIView {
 }
 
 extension InfoForEditItem: UITextFieldDelegate {
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
-        delegate?.descriptionDidBeginEditing(self)
-    }
-
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

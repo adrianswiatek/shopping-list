@@ -16,38 +16,26 @@ public final class EditItemViewController: UIViewController {
             listsView.selectBy(name: list.name)
         }
     }
-    
+
     public var item: Item?
 
-    private lazy var itemNameView: ItemNameForEditItem =
-        configure(.init(self)) {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-    
-    private var infoView: InfoForEditItem =
-        configure(.init()) {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-    
-    private lazy var categoriesView: CategoriesForEditItem =
-        configure(.init()) {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.delegate = self
-            $0.viewController = self
-        }
+    private let itemNameView: ItemNameForEditItem = .init()
+    private let infoView: InfoForEditItem = .init()
+    private let categoriesView: CategoriesForEditItem = .init()
     
     private lazy var listsView: ListsForEditItem =
         configure(.init()) {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.delegate = self
             $0.viewController = self
         }
     
     private lazy var cancelBarButtonItem: UIBarButtonItem =
-        .init(systemItem: .cancel, primaryAction: .init { [weak self] _ in self?.dismiss(animated: true) })
+        .init(systemItem: .cancel, primaryAction: .init { [weak self] _ in
+            self?.dismiss(animated: true)
+        })
     
     private lazy var saveBarButtonItem: UIBarButtonItem =
-        .init(barButtonSystemItem: .save, target: self, action: #selector(save))
+        .init(systemItem: .save, primaryAction: .init { [weak self] _ in self?.save() })
     
     @objc
     private func save() {
@@ -55,7 +43,8 @@ public final class EditItemViewController: UIViewController {
         guard itemNameView.isValid() else { return }
         
         let list = listsView.selected()
-        let category = categoriesView.selected()
+        // let category = categoriesView.selected()
+        let category = ItemsCategory(id: .random(), name: "")
         let info = infoView.text ?? ""
 
         var itemToSave: Item
@@ -111,6 +100,7 @@ public final class EditItemViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
+        self.setupView()
         self.bind()
     }
 
@@ -121,7 +111,7 @@ public final class EditItemViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
+        self.viewModel.fetchData()
     }
     
     private func setupView() {
@@ -174,20 +164,51 @@ public final class EditItemViewController: UIViewController {
     }
 
     private func bind() {
-        viewModel.statePublisher
+        viewModel.state
             .sink { [weak self] in
                 switch $0 {
                 case .create:
                     self?.itemNameView.becomeFirstResponder()
-                    self?.categoriesView.selectDefault()
                     self?.listsView.isHidden = true
                 case .edit(let item):
                     self?.itemNameView.text = item.name
                     self?.infoView.text = item.info
-                    self?.categoriesView.selectCategory(by: item.categoryName)
                 }
             }
             .store(in: &cancellables)
+
+        viewModel.categories
+            .combineLatest(viewModel.selectedCategory)
+            .sink { [weak self] in
+                self?.categoriesView.setCategories($0)
+                self?.categoriesView.selectCategory($1)
+            }
+            .store(in: &cancellables)
+
+        itemNameView.onAction
+            .sink { [weak self] action in
+                guard case .showViewController(let viewController) = action else {
+                    return
+                }
+                self?.present(viewController, animated: true)
+            }
+            .store(in: &cancellables)
+
+        categoriesView.onAction
+            .sink { [weak self] in self?.handleAction($0) }
+            .store(in: &cancellables)
+    }
+
+    private func handleAction(_ action: CategoriesForEditItem.Action) {
+        switch action {
+        case .addCategory(let name):
+            viewModel.addCategory(with: name)
+        case .selectCategory(let name):
+            viewModel.selectCategory(with: name)
+        case .showViewController(let viewController):
+            itemNameView.resignFirstResponder()
+            present(viewController, animated: true)
+        }
     }
     
     @objc
@@ -196,12 +217,6 @@ public final class EditItemViewController: UIViewController {
         
         itemNameView.resignFirstResponder()
         infoView.resignFirstResponder()
-    }
-}
-
-extension EditItemViewController: CategoriesForEditItemDelegate {
-    public func categoriesForEditItemDidShowAddCategoryPopup(_ categoriesForEditItem: CategoriesForEditItem) {
-        itemNameView.resignFirstResponder()
     }
 }
 

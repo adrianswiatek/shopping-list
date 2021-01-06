@@ -60,6 +60,7 @@ public final class ListsForEditItem: UIView {
     }
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         
         addSubview(label)
