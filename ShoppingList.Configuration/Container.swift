@@ -75,6 +75,7 @@ public final class Container {
 
         container.register(EditItemViewModel.self) {
             EditItemViewModel(
+                listQueries: $0.resolve(ListQueries.self)!,
                 categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!
             )

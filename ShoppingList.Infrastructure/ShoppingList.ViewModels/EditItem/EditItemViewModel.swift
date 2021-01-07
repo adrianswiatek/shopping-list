@@ -1,5 +1,6 @@
 import ShoppingList_Application
 import ShoppingList_Domain
+import ShoppingList_Shared
 import Combine
 
 public final class EditItemViewModel: ViewModel {
@@ -8,37 +9,57 @@ public final class EditItemViewModel: ViewModel {
     }
 
     public var selectedCategory: AnyPublisher<ItemsCategoryViewModel, Never> {
-        selectedCategorySubject.map { .init($0) }.eraseToAnyPublisher()
+        selectedCategorySubject.eraseToAnyPublisher()
     }
 
     public var categories: AnyPublisher<[ItemsCategoryViewModel], Never> {
-        categoriesSubject.map { $0.compactMap { .init($0) } }.eraseToAnyPublisher()
+        categoriesSubject.eraseToAnyPublisher()
     }
 
-    private var currentList: ListViewModel!
+    public var selectedList: AnyPublisher<ListViewModel, Never> {
+        selectedListSubject.eraseToAnyPublisher()
+    }
+
+    public var lists: AnyPublisher<[ListViewModel], Never> {
+        listsSubject.eraseToAnyPublisher()
+    }
 
     private var stateSubject: CurrentValueSubject<State, Never>
-    private let selectedCategorySubject: CurrentValueSubject<ItemsCategory, Never>
-    private let categoriesSubject: CurrentValueSubject<[ItemsCategory], Never>
+    private var selectedListSubject: CurrentValueSubject<ListViewModel, Never>
+    private let listsSubject: CurrentValueSubject<[ListViewModel], Never>
+    private let selectedCategorySubject: CurrentValueSubject<ItemsCategoryViewModel, Never>
+    private let categoriesSubject: CurrentValueSubject<[ItemsCategoryViewModel], Never>
 
+    private let listQueries: ListQueries
     private let categoryQueries: ItemsCategoryQueries
     private let commandBus: CommandBus
+    private let dateFormatter: DateFormatter
 
-    public init(categoryQueries: ItemsCategoryQueries, commandBus: CommandBus) {
+    public init(
+        listQueries: ListQueries,
+        categoryQueries: ItemsCategoryQueries,
+        commandBus: CommandBus
+    ) {
+        self.listQueries = listQueries
         self.categoryQueries = categoryQueries
         self.commandBus = commandBus
+        self.dateFormatter = configure(.init()) { $0.dateStyle = .medium }
 
         self.stateSubject = .init(.create)
-        self.selectedCategorySubject = .init(.default)
+        self.selectedListSubject = .init(.init(.withName(""), dateFormatter))
+        self.listsSubject = .init([])
+        self.selectedCategorySubject = .init(.init(.default))
         self.categoriesSubject = .init([])
     }
 
     public func fetchData() {
-        categoriesSubject.send(categoryQueries.fetchCategories())
-    }
+        categoriesSubject.send(
+            categoryQueries.fetchCategories().map { .init($0) }
+        )
 
-    public func setList(_ list: ListViewModel) {
-        currentList = list
+        listsSubject.send(
+            listQueries.fetchLists().map { .init($0, dateFormatter) }
+        )
     }
 
     public func setItem(_ item: ItemViewModel) {
@@ -56,6 +77,19 @@ public final class EditItemViewModel: ViewModel {
         categoriesSubject.value
             .first { $0.name == name }
             .map { selectedCategorySubject.value = $0 }
+    }
+
+    public func addList(with name: String) {
+        commandBus.execute(AddListCommand(name))
+
+        fetchData()
+        selectList(with: name)
+    }
+
+    public func selectList(with name: String) {
+        listsSubject.value
+            .first { $0.name == name }
+            .map { selectedListSubject.value = $0 }
     }
 }
 

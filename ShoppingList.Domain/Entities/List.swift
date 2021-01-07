@@ -7,7 +7,13 @@ public struct List {
     public let items: [Item]
     public let updateDate: Date
 
-    public init(id: Id<List>, name: String, accessType: ListAccessType, items: [Item], updateDate: Date = Date()) {
+    public init(
+        id: Id<List>,
+        name: String,
+        accessType: ListAccessType,
+        items: [Item],
+        updateDate: Date = Date()
+    ) {
         self.id = id
         self.name = name
         self.accessType = accessType

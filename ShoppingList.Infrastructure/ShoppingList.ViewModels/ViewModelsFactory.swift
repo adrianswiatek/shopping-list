@@ -39,7 +39,7 @@ public extension ViewModelsFactory {
 
     func editItemViewModel(for list: ListViewModel) -> EditItemViewModel {
         configure(create(for: .editItem) as! EditItemViewModel) {
-            $0.setList(list)
+            $0.selectList(with: list.name)
         }
     }
 

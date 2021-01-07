@@ -37,7 +37,9 @@ public final class CategoriesForEditItem: UIView {
     public init() {
         self.categories = []
         self.onActionSubject = .init()
+
         super.init(frame: .zero)
+
         self.setupView()
     }
 

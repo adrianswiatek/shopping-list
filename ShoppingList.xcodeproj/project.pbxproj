@@ -62,8 +62,6 @@
 		A739B4B02569CEB4000B16E3 /* InfoForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */; };
 		A739B4BC2569CF24000B16E3 /* ItemNameForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD2520E91AF800E49C17 /* ItemNameForEditItem.swift */; };
 		A739B4C62569CF35000B16E3 /* ListsForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */; };
-		A739B4C72569CF35000B16E3 /* AddListPopupForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */; };
-		A739B4C82569CF35000B16E3 /* ListsForEditItemDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */; };
 		A739B4CD2569CF55000B16E3 /* ItemsToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */; };
 		A739B4CE2569CF55000B16E3 /* ItemsToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */; };
 		A739B4D72569CFA1000B16E3 /* DeleteContextualActionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD1F00620D476A20066FBF7 /* DeleteContextualActionBuilder.swift */; };
@@ -483,8 +481,6 @@
 		3ADFCD2520E91AF800E49C17 /* ItemNameForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemNameForEditItem.swift; sourceTree = "<group>"; };
 		3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesForEditItem.swift; sourceTree = "<group>"; };
 		3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsForEditItem.swift; sourceTree = "<group>"; };
-		3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsForEditItemDelegate.swift; sourceTree = "<group>"; };
-		3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListPopupForEditItem.swift; sourceTree = "<group>"; };
 		3AE3AF712129EB8B00D105FE /* TextFieldWithWarning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithWarning.swift; sourceTree = "<group>"; };
 		3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonValidatable.swift; sourceTree = "<group>"; };
 		3AE81921214EE716009E962F /* BasketCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCommand.swift; sourceTree = "<group>"; };
@@ -843,22 +839,12 @@
 		3ADFCD2420E91AC200E49C17 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */,
 				3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */,
 				3ADFCD2520E91AF800E49C17 /* ItemNameForEditItem.swift */,
-				3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */,
-				3ADFCD3520E93B3000E49C17 /* ListsForEditItem */,
+				3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */,
 			);
 			path = Controls;
-			sourceTree = "<group>";
-		};
-		3ADFCD3520E93B3000E49C17 /* ListsForEditItem */ = {
-			isa = PBXGroup;
-			children = (
-				3ADFCD4420E964F200E49C17 /* AddListPopupForEditItem.swift */,
-				3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */,
-				3ADFCD4020E95D0900E49C17 /* ListsForEditItemDelegate.swift */,
-			);
-			path = ListsForEditItem;
 			sourceTree = "<group>";
 		};
 		3AEDFEE820BC9D370002B6F7 /* ItemsToolbar */ = {
@@ -1748,7 +1734,6 @@
 				A7D3967A25A11C940077F10E /* ItemsTableView.swift in Sources */,
 				A70C677A2580278B00C0846F /* SettingsCoordinator.swift in Sources */,
 				A739B4E22569CFA5000B16E3 /* WarningAlertBuilder.swift in Sources */,
-				A739B4C82569CF35000B16E3 /* ListsForEditItemDelegate.swift in Sources */,
 				A739B4752569CAE0000B16E3 /* UIViewExtensions.swift in Sources */,
 				A739B5422569D3E5000B16E3 /* ButtonValidatable.swift in Sources */,
 				A739B4D82569CFA1000B16E3 /* EditContextualActionBuilder.swift in Sources */,
@@ -1786,7 +1771,6 @@
 				A739B5312569D386000B16E3 /* PopupWithTextFieldController.swift in Sources */,
 				A7295DF5258038DD001B5963 /* Coordinator.swift in Sources */,
 				A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */,
-				A739B4C72569CF35000B16E3 /* AddListPopupForEditItem.swift in Sources */,
 				A79917012582E0BE001A277A /* SettingsTableView.swift in Sources */,
 				A739B54F2569D4F8000B16E3 /* RemoveFromBasketDelegate.swift in Sources */,
 				A7517811259410D800757672 /* ManageCategoriesDataSource.swift in Sources */,

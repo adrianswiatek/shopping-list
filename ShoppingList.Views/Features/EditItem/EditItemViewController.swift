@@ -9,25 +9,13 @@ public final class EditItemViewController: UIViewController {
     internal static let labelsLeftPadding: CGFloat = 16
     
     public var delegate: EditItemViewControllerDelegate!
-    
-    public var list: List! {
-        didSet {
-            guard let list = list else { return }
-            listsView.selectBy(name: list.name)
-        }
-    }
 
     public var item: Item?
 
     private let itemNameView: ItemNameForEditItem = .init()
     private let infoView: InfoForEditItem = .init()
     private let categoriesView: CategoriesForEditItem = .init()
-    
-    private lazy var listsView: ListsForEditItem =
-        configure(.init()) {
-            $0.delegate = self
-            $0.viewController = self
-        }
+    private let listsView: ListsForEditItem = .init()
     
     private lazy var cancelBarButtonItem: UIBarButtonItem =
         .init(systemItem: .cancel, primaryAction: .init { [weak self] _ in
@@ -42,7 +30,8 @@ public final class EditItemViewController: UIViewController {
         guard let itemName = itemNameView.text else { return }
         guard itemNameView.isValid() else { return }
         
-        let list = listsView.selected()
+//        let list = listsView.selected()
+        let list = List(id: .random(), name: "", accessType: .private, items: [])
         // let category = categoriesView.selected()
         let category = ItemsCategory(id: .random(), name: "")
         let info = infoView.text ?? ""
@@ -185,6 +174,14 @@ public final class EditItemViewController: UIViewController {
             }
             .store(in: &cancellables)
 
+        viewModel.lists
+            .combineLatest(viewModel.selectedList)
+            .sink { [weak self] in
+                self?.listsView.setLists($0)
+                self?.listsView.selectList($1)
+            }
+            .store(in: &cancellables)
+
         itemNameView.onAction
             .sink { [weak self] action in
                 guard case .showViewController(let viewController) = action else {
@@ -195,6 +192,10 @@ public final class EditItemViewController: UIViewController {
             .store(in: &cancellables)
 
         categoriesView.onAction
+            .sink { [weak self] in self?.handleAction($0) }
+            .store(in: &cancellables)
+
+        listsView.onAction
             .sink { [weak self] in self?.handleAction($0) }
             .store(in: &cancellables)
     }
@@ -210,6 +211,18 @@ public final class EditItemViewController: UIViewController {
             present(viewController, animated: true)
         }
     }
+
+    private func handleAction(_ action: ListsForEditItem.Action) {
+        switch action {
+        case .addList(let name):
+            viewModel.addList(with: name)
+        case .selectList(let name):
+            viewModel.selectList(with: name)
+        case .showViewController(let viewController):
+            itemNameView.resignFirstResponder()
+            present(viewController, animated: true)
+        }
+    }
     
     @objc
     private func handleTapGesture(gesture: UITapGestureRecognizer) {
@@ -217,12 +230,6 @@ public final class EditItemViewController: UIViewController {
         
         itemNameView.resignFirstResponder()
         infoView.resignFirstResponder()
-    }
-}
-
-extension EditItemViewController: ListsForEditItemDelegate {
-    public func listsForEditItemDidShowAddCategoryPopup(_ categoriesForEditItem: ListsForEditItem) {
-        itemNameView.resignFirstResponder()
     }
 }
 

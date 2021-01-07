@@ -10,7 +10,14 @@ public final class AddListCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: CommandNew) -> Bool {
-        command is AddListCommand
+        guard let command = command as? AddListCommand else {
+            return false
+        }
+
+        let listWithGivenName = listRepository.allLists().first {
+            $0.name == command.name
+        }
+        return listWithGivenName == nil
     }
 
     public func execute(_ command: CommandNew) {
