@@ -67,7 +67,7 @@ extension ManageCategoriesTableView: UITableViewDelegate {
         guard let category = categoryForCell(at: index), !category.isDefault else { return nil }
         let image = UIImage(systemName: "trash.fill")
         return UIAction(title: "Remove category", image: image, attributes: .destructive) { [weak self] _ in
-            self?.onActionSubject.send(.removeCategory(id: category.id))
+            self?.onActionSubject.send(.removeCategory(id: category.uuid))
         }
     }
 

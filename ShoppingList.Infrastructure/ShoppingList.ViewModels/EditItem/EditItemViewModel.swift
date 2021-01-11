@@ -66,6 +66,20 @@ public final class EditItemViewModel: ViewModel {
         stateSubject.send(.edit(item: item))
     }
 
+    public func saveItem(name: String, info: String) {
+        let categoryUuid = selectedCategorySubject.value.uuid
+        let listUuid = selectedListSubject.value.uuid
+
+        let command: CommandNew
+        if case .edit(let item) = stateSubject.value {
+            command = UpdateItemCommand(item.id, name, info, categoryUuid, listUuid)
+        } else {
+            command = AddItemCommand(name, info, categoryUuid, listUuid)
+        }
+
+        commandBus.execute(command)
+    }
+
     public func addCategory(with name: String) {
         commandBus.execute(AddItemsCategoryCommand(name))
 

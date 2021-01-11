@@ -1,7 +1,7 @@
 import Foundation
 
 public struct ItemsCategory: Hashable {
-    public let id: Id<Category>
+    public let id: Id<ItemsCategory>
     public let name: String
 
     public var isDefault: Bool {
@@ -12,7 +12,7 @@ public struct ItemsCategory: Hashable {
         .init(id: .fromUuid(Constant.defaultUuid), name: "")
     }
 
-    public init(id: Id<Category>, name: String) {
+    public init(id: Id<ItemsCategory>, name: String) {
         self.id = id
         self.name = name
     }

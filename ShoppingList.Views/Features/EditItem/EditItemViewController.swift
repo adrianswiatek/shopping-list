@@ -29,46 +29,11 @@ public final class EditItemViewController: UIViewController {
     private func save() {
         guard let itemName = itemNameView.text else { return }
         guard itemNameView.isValid() else { return }
-        
-//        let list = listsView.selected()
-        let list = List(id: .random(), name: "", accessType: .private, items: [])
-        // let category = categoriesView.selected()
-        let category = ItemsCategory(id: .random(), name: "")
-        let info = infoView.text ?? ""
 
-        var itemToSave: Item
-        
-        if let existingItem = self.item {
-            itemToSave = Item(
-                id: existingItem.id,
-                name: itemName,
-                info: info,
-                state: existingItem.state,
-                category: category,
-                list: list
-            )
-        } else {
-            itemToSave = .toBuy(
-                name: itemName,
-                info: info,
-                list: list,
-                category: category
-            )
-        }
+        viewModel.saveItem(name: itemName, info: infoView.text ?? "")
 
-        dismiss(animated: true) { [weak self] in
-            let itemIsBeingCreated = self?.item == nil
-            if itemIsBeingCreated {
-                self?.delegate?.didCreate(itemToSave)
-                // Todo: repository
-                // Repository.shared.add(itemToSave)
-            } else if let previousItem = self?.item {
-                self?.delegate?.didUpdate(previousItem, itemToSave)
-                // Todo: repository
-                // Repository.shared.update(itemToSave)
-            }
-            
-            self?.updatePreviousListIfHasChanged(newList: list)
+        dismiss(animated: true) {
+//            self?.updatePreviousListIfHasChanged(newList: list)
         }
     }
     

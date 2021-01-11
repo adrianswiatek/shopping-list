@@ -4,11 +4,14 @@ import CoreData
 
 extension ItemEntity {
     func map() -> Item {
-        guard let list = list?.map() else { fatalError("Unable to create Item") }
-        return map(with: list)
+        guard let list = list?.map() else {
+            fatalError("Unable to create Item")
+        }
+
+        return map(with: list.id)
     }
     
-    func map(with list: List) -> Item {
+    func map(with listId: Id<List>) -> Item {
         guard
             let id = id,
             let name = name,
@@ -16,9 +19,15 @@ extension ItemEntity {
         else {
             fatalError("Unable to create Item")
         }
-        
-        let category = self.category?.map()
-        return Item(id: .fromUuid(id), name: name, info: self.info, state: state, category: category, list: list)
+
+        return Item(
+            id: .fromUuid(id),
+            name: name,
+            info: info,
+            state: state,
+            categoryId: category?.map().id,
+            listId: listId
+        )
     }
     
     func update(by item: Item, context: NSManagedObjectContext) {
@@ -43,12 +52,12 @@ extension ItemEntity {
             hasBeenUpdated = true
         }
         
-        if category?.id != item.category.id.toUuid() {
+        if category?.id != item.categoryId.toUuid() {
             category = categoryEntity(from: item, context: context)
             hasBeenUpdated = true
         }
         
-        if list?.id != item.list.id.toUuid() {
+        if list?.id != item.listId.toUuid() {
             list = listEntity(from: item, context: context)
             hasBeenUpdated = true
         }
@@ -60,7 +69,7 @@ extension ItemEntity {
     
     private func categoryEntity(from item: Item, context: NSManagedObjectContext) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", item.category.id.toString())
+        request.predicate = NSPredicate(format: "id == %@", item.categoryId.toString())
         
         do {
             return try context.fetch(request).first
@@ -71,7 +80,7 @@ extension ItemEntity {
     
     private func listEntity(from item: Item, context: NSManagedObjectContext) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", item.list.id.toString())
+        request.predicate = NSPredicate(format: "id == %@", item.listId.toString())
         return try? context.fetch(request).first
     }
 }
@@ -83,8 +92,8 @@ extension Item {
             $0.name = name
             $0.info = info
             $0.state = Int32(state.rawValue)
-            $0.list = listEntity(withId: list.id, context: context)
-            $0.category = categoryEntity(withId: category.id, context: context)
+            $0.list = listEntity(withId: listId, context: context)
+            $0.category = categoryEntity(withId: categoryId, context: context)
         }
     }
     
@@ -94,7 +103,7 @@ extension Item {
         return try? context.fetch(request).first
     }
     
-    private func categoryEntity(withId id: Id<Category>, context: NSManagedObjectContext) -> CategoryEntity? {
+    private func categoryEntity(withId id: Id<ItemsCategory>, context: NSManagedObjectContext) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? context.fetch(request).first

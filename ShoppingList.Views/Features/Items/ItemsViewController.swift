@@ -98,16 +98,16 @@ public final class ItemsViewController: UIViewController {
     public func fetchItems() {
         // Todo: repository
         // let allItems = Repository.shared.getItemsWith(state: .toBuy, in: currentList)
-        let allItems: [Item] = []
-        var items = [[Item]]()
-        self.categories = Set(allItems.map { $0.category }).sorted { $0.name < $1.name }
+//        let allItems: [Item] = []
+//        var items = [[Item]]()
+//        self.categories = Set(allItems.map { $0.category }).sorted { $0.name < $1.name }
         
-        for category in categories {
-            let itemsInCategory = allItems.filter { $0.categoryName() == category.name }
-            items.append(itemsInCategory)
-        }
+//        for category in categories {
+//            let itemsInCategory = allItems.filter { $0.categoryName() == category.name }
+//            items.append(itemsInCategory)
+//        }
         
-        self.items = items
+//        self.items = items
     }
     
     private func setupUserInterface() {
@@ -197,17 +197,17 @@ public final class ItemsViewController: UIViewController {
         categories.append(category)
         categories.sort { $0.name < $1.name }
         
-        let categoryIndex = getCategoryIndex(category)
+        let categoryIndex = getIndexOfCategory(with: category.id)
         items.insert([Item](), at: categoryIndex)
         tableView.insertSections(IndexSet(integer: categoryIndex), with: .automatic)
     }
     
     private func getCategoryIndex(_ item: Item) -> Int {
-        getCategoryIndex(item.category)
+        getIndexOfCategory(with: item.categoryId)
     }
     
-    private func getCategoryIndex(_ category: ItemsCategory) -> Int {
-        guard let index =  categories.firstIndex (where: { $0.id == category.id }) else {
+    private func getIndexOfCategory(with id: Id<ItemsCategory>) -> Int {
+        guard let index =  categories.firstIndex (where: { $0.id == id }) else {
             fatalError("Unable to find category index.")
         }
         
@@ -229,13 +229,13 @@ extension ItemsViewController: EditItemViewControllerDelegate {
 
     public func didUpdate(_ previousItem: Item, _ newItem: Item) {
         didSave(newItem) {
-            let isBeingUpdatedInTheSameList = previousItem.list.id == newItem.list.id
+            let isBeingUpdatedInTheSameList = previousItem.listId == newItem.listId
             if !isBeingUpdatedInTheSameList {
                 moveToOtherList(previousItem)
                 return
             }
 
-            let isBeingUpdatedInTheSameCategory = previousItem.category.id == newItem.category.id
+            let isBeingUpdatedInTheSameCategory = previousItem.categoryId == newItem.categoryId
             isBeingUpdatedInTheSameCategory
                 ? updateItemInTheSameCategory(newItem)
                 : updateItemInDifferentCategories(previousItem, newItem)
@@ -244,7 +244,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
 
     private func moveToOtherList(_ item: Item) {
         guard
-            let categoryIndex = categories.firstIndex(where: { $0.id == item.category.id }),
+            let categoryIndex = categories.firstIndex(where: { $0.id == item.categoryId }),
             let itemIndex = items[categoryIndex].firstIndex(where: { $0.id == item.id })
         else { return }
 
@@ -257,7 +257,7 @@ extension ItemsViewController: EditItemViewControllerDelegate {
 
     private func updateItemInTheSameCategory(_ item: Item) {
         guard
-            let categoryIndex = categories.firstIndex(where: { $0.id == item.category.id }),
+            let categoryIndex = categories.firstIndex(where: { $0.id == item.categoryId }),
             let itemIndex = items[categoryIndex].firstIndex(where: { $0.id == item.id })
         else { return }
 
@@ -270,9 +270,9 @@ extension ItemsViewController: EditItemViewControllerDelegate {
 
     private func updateItemInDifferentCategories(_ previousItem: Item, _ newItem: Item) {
         guard
-            let previousCategoryIndex = categories.firstIndex(where: { $0.id == previousItem.category.id }),
+            let previousCategoryIndex = categories.firstIndex(where: { $0.id == previousItem.categoryId }),
             let previousItemIndex = items[previousCategoryIndex].firstIndex(where: { $0.id == previousItem.id }),
-            let newCategoryIndex = categories.firstIndex(where: { $0.id == newItem.category.id })
+            let newCategoryIndex = categories.firstIndex(where: { $0.id == newItem.categoryId })
         else { return }
 
         updatePreviousItem(at: previousItemIndex, and: previousCategoryIndex)
@@ -307,12 +307,12 @@ extension ItemsViewController: EditItemViewControllerDelegate {
     }
 
     private func didSave(_ item: Item, setItemsAndTableView: () -> ()) {
-        if !categories.contains(item.category) {
-            append(item.category)
-        }
-
-        setItemsAndTableView()
-        refreshUserInterface()
+//        if !categories.contains(item.category) {
+//            append(item.category)
+//        }
+//
+//        setItemsAndTableView()
+//        refreshUserInterface()
     }
 }
 
@@ -375,7 +375,7 @@ extension ItemsViewController: UITableViewDataSource {
 
         if sourceIndexPath.section != destinationIndexPath.section {
             let destinationCategory = categories[destinationIndexPath.section]
-            item = item.withChanged(category: destinationCategory)
+            item = item.withChanged(categoryId: destinationCategory.id)
             let cell = tableView.cellForRow(at: sourceIndexPath) as! ItemsTableViewCell
 //            cell.item = item
             // Todo: repository

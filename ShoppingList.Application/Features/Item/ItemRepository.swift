@@ -2,8 +2,12 @@ import ShoppingList_Domain
 
 public protocol ItemRepository {
     func allItems() -> [Item]
+
+    func item(with id: Id<Item>) -> Item?
+
     func itemsWith(state: ItemState, inListWithId id: Id<List>) -> [Item]
     func items(in category: ItemsCategory) -> [Item]
+
     func numberOfItemsWith(state: ItemState, inListWithId id: Id<List>) -> Int
     func numberOfItemsInList(with id: Id<List>) -> Int
     func add(_ item: Item)

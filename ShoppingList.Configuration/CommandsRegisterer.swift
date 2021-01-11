@@ -26,6 +26,7 @@ public final class CommandsRegisterer {
                 $0.resolve(UpdateListCommandHandler.self)!,
 
                 // Items
+                $0.resolve(AddItemCommandHandler.self)!,
                 $0.resolve(AddItemsToBasketCommandHandler.self)!,
 
                 // ItemsCategories
@@ -60,6 +61,10 @@ public final class CommandsRegisterer {
     }
 
     private func registerItemCommandHandlers() {
+        container.register(AddItemCommandHandler.self) {
+            AddItemCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+
         container.register(AddItemsToBasketCommandHandler.self) {
             AddItemsToBasketCommandHandler($0.resolve(ItemRepository.self)!)
         }

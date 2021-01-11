@@ -14,7 +14,7 @@ extension ListEntity {
         }
         
         let list = List(id: .fromUuid(id), name: name, accessType: accessType, items: [], updateDate: updateDate)
-        return list.withTheSameUpdateDateAndWithAddedItems(items.map { $0.map(with: list) })
+        return list.withTheSameUpdateDateAndWithAddedItems(items.map { $0.map(with: list.id) })
     }
     
     func update(by list: List, context: NSManagedObjectContext) {

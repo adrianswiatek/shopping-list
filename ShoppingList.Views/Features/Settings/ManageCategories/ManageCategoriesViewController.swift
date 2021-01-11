@@ -132,7 +132,7 @@ public final class ManageCategoriesViewController: UIViewController {
         controller.placeholder = "Enter category name..."
         controller.text = category.name
         controller.saved = { [weak self] in
-            self?.viewModel.updateCategory(with: category.id, name: $0)
+            self?.viewModel.updateCategory(with: category.uuid, name: $0)
         }
         controller.set(validationButtonRule())
         present(controller, animated: true)

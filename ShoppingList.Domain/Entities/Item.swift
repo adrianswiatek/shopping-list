@@ -3,31 +3,50 @@ public struct Item {
     public let name: String
     public let info: String?
     public let state: ItemState
-    public let category: ItemsCategory
-    public let list: List
+    public let categoryId: Id<ItemsCategory>
+    public let listId: Id<List>
 
-    public init(id: Id<Item>, name: String, info: String?, state: ItemState, category: ItemsCategory?, list: List) {
+    public init(
+        id: Id<Item>,
+        name: String,
+        info: String?,
+        state: ItemState,
+        categoryId: Id<ItemsCategory>?,
+        listId: Id<List>
+    ) {
         self.id = id
         self.name = name
         self.info = info
         self.state = state
-        self.category = category ?? .default
-        self.list = list
+        self.categoryId = categoryId ?? ItemsCategory.default.id
+        self.listId = listId
     }
     
-    public static func toBuy(name: String, info: String?, list: List, category: ItemsCategory? = nil) -> Item {
-        self.init(id: .random(), name: name, info: info, state: .toBuy, category: category, list: list)
-    }
-    
-    public func categoryName() -> String {
-         category.name
+    public static func toBuy(
+        name: String,
+        info: String?,
+        listId: Id<List>,
+        categoryId: Id<ItemsCategory>? = nil
+    ) -> Item {
+        self.init(
+            id: .random(),
+            name: name,
+            info: info,
+            state: .toBuy,
+            categoryId: categoryId,
+            listId: listId
+        )
     }
 
     public func withChanged(state: ItemState) -> Item {
-        Item(id: id, name: name, info: info, state: state, category: category, list: list)
+        Item(id: id, name: name, info: info, state: state, categoryId: categoryId, listId: listId)
     }
-    
-    public func withChanged(category: ItemsCategory) -> Item {
-        Item(id: id, name: name, info: info, state: state, category: category, list: list)
+
+    public func withChanged(listId: Id<List>) -> Item {
+        Item(id: id, name: name, info: info, state: state, categoryId: categoryId, listId: listId)
+    }
+
+    public func withChanged(categoryId: Id<ItemsCategory>) -> Item {
+        Item(id: id, name: name, info: info, state: state, categoryId: categoryId, listId: listId)
     }
 }
