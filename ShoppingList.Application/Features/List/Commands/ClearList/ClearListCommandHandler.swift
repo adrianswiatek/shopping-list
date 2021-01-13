@@ -7,11 +7,11 @@ public final class ClearListCommandHandler: CommandHandler {
         self.itemRepository = itemRepository
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         command is ClearListCommand
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? ClearListCommand else {
             return
         }

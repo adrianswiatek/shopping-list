@@ -5,11 +5,11 @@ public final class RemoveListCommandHandler: CommandHandler {
         self.listRepository = listRepository
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         (command as? RemoveListCommand) != nil
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? RemoveListCommand else {
             return
         }

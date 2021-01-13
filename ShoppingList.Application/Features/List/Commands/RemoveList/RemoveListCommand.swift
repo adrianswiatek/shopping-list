@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public struct RemoveListCommand: CommandNew {
+public struct RemoveListCommand: Command {
     public let list: List
     public let source: CommandSource
 
@@ -9,7 +9,7 @@ public struct RemoveListCommand: CommandNew {
         self.source = .lists
     }
 
-    public func reversed() -> CommandNew? {
+    public func reversed() -> Command? {
         AddListCommand(list.name)
     }
 }

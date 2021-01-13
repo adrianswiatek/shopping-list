@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public final class UpdateListCommand: CommandNew {
+public final class UpdateListCommand: Command {
     public let id: Id<List>
     public let name: String
     public let source: CommandSource

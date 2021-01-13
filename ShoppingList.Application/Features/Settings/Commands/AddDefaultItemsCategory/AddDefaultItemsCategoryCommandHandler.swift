@@ -7,11 +7,11 @@ public final class AddDefaultItemsCategoryCommandHandler: CommandHandler {
         self.categoryRepository = categoryRepository
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         command is AddDefaultItemsCategoryCommand
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard canExecute(command), !alreadyExists() else {
             return
         }

@@ -1,4 +1,4 @@
-public struct AddDefaultItemsCategoryCommand: CommandNew {
+public struct AddDefaultItemsCategoryCommand: Command {
     public let source: CommandSource
 
     public init() {

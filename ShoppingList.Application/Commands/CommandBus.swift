@@ -1,5 +1,5 @@
 public final class CommandBus {
-    private var commands: [CommandSource: CommandNew]
+    private var commands: [CommandSource: Command]
     private let commandHandlers: [CommandHandler]
 
     public init(commandHandlers: [CommandHandler]) {
@@ -7,7 +7,7 @@ public final class CommandBus {
         self.commands = [:]
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         let commandHandler = commandHandlers.first { $0.canExecute(command) }
         guard commandHandler != nil else { return }
 
@@ -34,7 +34,7 @@ public final class CommandBus {
     }
 
     @discardableResult
-    public func remove(_ source: CommandSource) -> CommandNew? {
+    public func remove(_ source: CommandSource) -> Command? {
         commands.removeValue(forKey: source)
     }
 }

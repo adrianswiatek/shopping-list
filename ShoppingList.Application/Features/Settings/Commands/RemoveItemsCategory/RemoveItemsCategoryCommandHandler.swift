@@ -12,14 +12,14 @@ public final class RemoveItemsCategoryCommandHandler: CommandHandler {
         self.itemRepository = itemRepository
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         guard let command = command as? RemoveItemsCategoryCommand else {
             return false
         }
         return !command.itemsCategory.isDefault
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? RemoveItemsCategoryCommand else {
             return
         }

@@ -18,6 +18,7 @@ public final class Container {
         registerQueries()
         registerRepositories()
         registerViewModels()
+        registerListeners()
         registerOtherObjects()
     }
 
@@ -28,6 +29,8 @@ public final class Container {
     public func initialize() {
         container.resolve(CommandBus.self)!.execute(AddDefaultItemsCategoryCommand())
         container.resolve(AppCoordinator.self)!.start()
+        container.resolve(CoreDataChangeListener.self)!.start()
+        container.resolve(ConsoleEventListener.self)!.start()
     }
 
     private func registerQueries() {
@@ -62,14 +65,16 @@ public final class Container {
         container.register(ListsViewModel.self) {
             ListsViewModel(
                 listQueries: $0.resolve(ListQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
             )
         }
 
         container.register(ItemsViewModel.self) {
             ItemsViewModel(
                 itemQueries: $0.resolve(ItemQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
             )
         }
 
@@ -77,7 +82,8 @@ public final class Container {
             EditItemViewModel(
                 listQueries: $0.resolve(ListQueries.self)!,
                 categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
             )
         }
 
@@ -94,7 +100,28 @@ public final class Container {
         }
     }
 
+    private func registerListeners() {
+        container.register(ConsoleEventListener.self) {
+            ConsoleEventListener(eventBus: $0.resolve(EventBus.self)!)
+        }.inObjectScope(.container)
+
+        container.register(CoreDataChangeListener.self) {
+            CoreDataChangeListener(
+                notificationCenter: $0.resolve(NotificationCenter.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }.inObjectScope(.container)
+    }
+
     private func registerOtherObjects() {
+        container.register(EventBus.self) { _ in
+            EventBus()
+        }.inObjectScope(.container)
+
+        container.register(NotificationCenter.self) { _ in
+            .default
+        }.inObjectScope(.container)
+
         container.register(CoreDataStack.self) { _ in
             CoreDataStack()
         }.inObjectScope(.container)

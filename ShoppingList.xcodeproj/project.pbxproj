@@ -58,7 +58,6 @@
 		A739B4902569CE69000B16E3 /* SharedItemsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */; };
 		A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */; };
 		A739B4962569CE69000B16E3 /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */; };
-		A739B4A12569CE70000B16E3 /* EditItemViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */; };
 		A739B4A22569CE70000B16E3 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */; };
 		A739B4A92569CE78000B16E3 /* CategoriesForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */; };
 		A739B4B02569CEB4000B16E3 /* InfoForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */; };
@@ -79,7 +78,6 @@
 		A739B5262569D22A000B16E3 /* CommandSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E319721430F0800BE1DCD /* CommandSource.swift */; };
 		A739B5282569D22A000B16E3 /* ItemsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E319C214322DD00BE1DCD /* ItemsCommand.swift */; };
 		A739B52A2569D22A000B16E3 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E318D2142F8A600BE1DCD /* Command.swift */; };
-		A739B52B2569D22A000B16E3 /* RemoveCategoryCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A818D54214B00E3005BEC5F /* RemoveCategoryCommand.swift */; };
 		A739B52C2569D22A000B16E3 /* RemoveListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A92DFDA2149BA7B009EA5B7 /* RemoveListCommand.swift */; };
 		A739B5302569D386000B16E3 /* ButtonWithHighlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */; };
 		A739B5312569D386000B16E3 /* PopupWithTextFieldController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */; };
@@ -87,8 +85,6 @@
 		A739B5402569D3E5000B16E3 /* ValidationButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFBF9692128DDC500FEAB55 /* ValidationButtonAnimations.swift */; };
 		A739B5412569D3E5000B16E3 /* ValidationButtonRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A56DE91212CB1BF00F269F3 /* ValidationButtonRule.swift */; };
 		A739B5422569D3E5000B16E3 /* ButtonValidatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */; };
-		A739B5462569D404000B16E3 /* BasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE81921214EE716009E962F /* BasketCommand.swift */; };
-		A739B5472569D404000B16E3 /* AddItemsBackToListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A818D56214B08F6005BEC5F /* AddItemsBackToListCommand.swift */; };
 		A739B5482569D404000B16E3 /* RemoveItemsFromBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A818D58214B0C1E005BEC5F /* RemoveItemsFromBasketCommand.swift */; };
 		A739B54D2569D4F8000B16E3 /* BasketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */; };
 		A739B54F2569D4F8000B16E3 /* RemoveFromBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A135670207E993D006A7414 /* RemoveFromBasketDelegate.swift */; };
@@ -178,6 +174,19 @@
 		A7B209FA257857CB003FAAFB /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7B8EF8D25A3C00800495C1E /* EditItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B8EF8C25A3C00800495C1E /* EditItemViewModel.swift */; };
 		A7B8EF9125A3C82C00495C1E /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3967D25A126DC0077F10E /* ItemViewModel.swift */; };
+		A7CDD3F025AF776300FF776A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD3EF25AF776300FF776A /* Event.swift */; };
+		A7CDD3F325AF776B00FF776A /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD3F225AF776B00FF776A /* EventBus.swift */; };
+		A7CDD3FA25AF796500FF776A /* CoreDataChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD3F625AF795D00FF776A /* CoreDataChangeListener.swift */; };
+		A7CDD3FE25AF888800FF776A /* ItemRemovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD3FD25AF888800FF776A /* ItemRemovedEvent.swift */; };
+		A7CDD40125AF888F00FF776A /* ListRemovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD40025AF888F00FF776A /* ListRemovedEvent.swift */; };
+		A7CDD40425AF890800FF776A /* ItemsCategoryRemovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD40325AF890800FF776A /* ItemsCategoryRemovedEvent.swift */; };
+		A7CDD40B25AF89CA00FF776A /* ListUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD40A25AF89CA00FF776A /* ListUpdatedEvent.swift */; };
+		A7CDD40F25AF8A0700FF776A /* ItemUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD40E25AF8A0700FF776A /* ItemUpdatedEvent.swift */; };
+		A7CDD41225AF8A2900FF776A /* ItemsCategoryUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD41125AF8A2900FF776A /* ItemsCategoryUpdatedEvent.swift */; };
+		A7CDD41825AF8A8B00FF776A /* ListAddedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD41725AF8A8B00FF776A /* ListAddedEvent.swift */; };
+		A7CDD41D25AF8AC400FF776A /* ItemsCategoryAddedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD41C25AF8AC400FF776A /* ItemsCategoryAddedEvent.swift */; };
+		A7CDD42125AF8AF400FF776A /* ItemAddedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD42025AF8AF400FF776A /* ItemAddedEvent.swift */; };
+		A7CDD42625AF8B7700FF776A /* ConsoleEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CDD42525AF8B7700FF776A /* ConsoleEventListener.swift */; };
 		A7D3967A25A11C940077F10E /* ItemsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3967925A11C940077F10E /* ItemsTableView.swift */; };
 		A7D3968225A128C40077F10E /* AddItemsToBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3968125A128C40077F10E /* AddItemsToBasketCommand.swift */; };
 		A7D3968625A128EB0077F10E /* AddItemsToBasketCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3968525A128EB0077F10E /* AddItemsToBasketCommandHandler.swift */; };
@@ -442,7 +451,6 @@
 		3A392E3E207A5A3D005857E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A392E41207A5A3D005857E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A392E43207A5A3D005857E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewControllerDelegate.swift; sourceTree = "<group>"; };
 		3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewHeaderCell.swift; sourceTree = "<group>"; };
 		3A4E318D2142F8A600BE1DCD /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		3A4E319721430F0800BE1DCD /* CommandSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandSource.swift; sourceTree = "<group>"; };
@@ -455,8 +463,6 @@
 		3A69E40D20B9ECE7004D122E /* CoreDataItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataItemRepository.swift; sourceTree = "<group>"; };
 		3A69E41620BA01AF004D122E /* ShoppingList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShoppingList.xcdatamodel; sourceTree = "<group>"; };
 		3A69E41C20BA1C37004D122E /* ItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEntityExtensions.swift; sourceTree = "<group>"; };
-		3A818D54214B00E3005BEC5F /* RemoveCategoryCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveCategoryCommand.swift; sourceTree = "<group>"; };
-		3A818D56214B08F6005BEC5F /* AddItemsBackToListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsBackToListCommand.swift; sourceTree = "<group>"; };
 		3A818D58214B0C1E005BEC5F /* RemoveItemsFromBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveItemsFromBasketCommand.swift; sourceTree = "<group>"; };
 		3A82DC4D207D5296006B3885 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		3A82DC4F207D52BC006B3885 /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
@@ -487,7 +493,6 @@
 		3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsForEditItem.swift; sourceTree = "<group>"; };
 		3AE3AF712129EB8B00D105FE /* TextFieldWithWarning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithWarning.swift; sourceTree = "<group>"; };
 		3AE3AF73212A07D800D105FE /* ButtonValidatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonValidatable.swift; sourceTree = "<group>"; };
-		3AE81921214EE716009E962F /* BasketCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCommand.swift; sourceTree = "<group>"; };
 		3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbar.swift; sourceTree = "<group>"; };
 		3AEDFEF320BC9FE30002B6F7 /* ItemsToolbarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsToolbarDelegate.swift; sourceTree = "<group>"; };
 		3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesTableViewCell.swift; sourceTree = "<group>"; };
@@ -573,6 +578,19 @@
 		A7AF6B8925ACFB2000D8A147 /* UpdateItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemCommand.swift; sourceTree = "<group>"; };
 		A7AF6B8C25ACFB9300D8A147 /* UpdateItemCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemCommandHandler.swift; sourceTree = "<group>"; };
 		A7B8EF8C25A3C00800495C1E /* EditItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewModel.swift; sourceTree = "<group>"; };
+		A7CDD3EF25AF776300FF776A /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		A7CDD3F225AF776B00FF776A /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
+		A7CDD3F625AF795D00FF776A /* CoreDataChangeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataChangeListener.swift; sourceTree = "<group>"; };
+		A7CDD3FD25AF888800FF776A /* ItemRemovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRemovedEvent.swift; sourceTree = "<group>"; };
+		A7CDD40025AF888F00FF776A /* ListRemovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRemovedEvent.swift; sourceTree = "<group>"; };
+		A7CDD40325AF890800FF776A /* ItemsCategoryRemovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCategoryRemovedEvent.swift; sourceTree = "<group>"; };
+		A7CDD40A25AF89CA00FF776A /* ListUpdatedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUpdatedEvent.swift; sourceTree = "<group>"; };
+		A7CDD40E25AF8A0700FF776A /* ItemUpdatedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemUpdatedEvent.swift; sourceTree = "<group>"; };
+		A7CDD41125AF8A2900FF776A /* ItemsCategoryUpdatedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCategoryUpdatedEvent.swift; sourceTree = "<group>"; };
+		A7CDD41725AF8A8B00FF776A /* ListAddedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddedEvent.swift; sourceTree = "<group>"; };
+		A7CDD41C25AF8AC400FF776A /* ItemsCategoryAddedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCategoryAddedEvent.swift; sourceTree = "<group>"; };
+		A7CDD42025AF8AF400FF776A /* ItemAddedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAddedEvent.swift; sourceTree = "<group>"; };
+		A7CDD42525AF8B7700FF776A /* ConsoleEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleEventListener.swift; sourceTree = "<group>"; };
 		A7D3967925A11C940077F10E /* ItemsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableView.swift; sourceTree = "<group>"; };
 		A7D3967D25A126DC0077F10E /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
 		A7D3968125A128C40077F10E /* AddItemsToBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsToBasketCommand.swift; sourceTree = "<group>"; };
@@ -750,14 +768,11 @@
 		3A4E31992143167200BE1DCD /* Commands */ = {
 			isa = PBXGroup;
 			children = (
-				3A818D56214B08F6005BEC5F /* AddItemsBackToListCommand.swift */,
-				3AE81921214EE716009E962F /* BasketCommand.swift */,
 				3A4E318D2142F8A600BE1DCD /* Command.swift */,
 				A781E9F325783E4D00367FCF /* CommandHandler.swift */,
 				A781E9FA2578449500367FCF /* CommandBus.swift */,
 				3A4E319721430F0800BE1DCD /* CommandSource.swift */,
 				3A4E319C214322DD00BE1DCD /* ItemsCommand.swift */,
-				3A818D54214B00E3005BEC5F /* RemoveCategoryCommand.swift */,
 				3A818D58214B0C1E005BEC5F /* RemoveItemsFromBasketCommand.swift */,
 				3A8B0B8C2152F400008E184F /* RemoveItemsFromListCommand.swift */,
 			);
@@ -785,6 +800,7 @@
 		3A69E41820BA01BC004D122E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				A7CDD3F625AF795D00FF776A /* CoreDataChangeListener.swift */,
 				A75510212597D6AB0070EB62 /* CoreDataStack.swift */,
 				3A69E41B20BA1C26004D122E /* Extensions */,
 				A75510312597F3A20070EB62 /* Repositories */,
@@ -907,6 +923,7 @@
 				A739B3A22569BCD7000B16E3 /* Info.plist */,
 				A706FE7E25992F0200E79CF5 /* LocalPreferences.swift */,
 				3A4E31992143167200BE1DCD /* Commands */,
+				A7CDD3EE25AF773700FF776A /* Events */,
 				A7941CDA25798B130057B6B4 /* Features */,
 			);
 			path = ShoppingList.Application;
@@ -992,7 +1009,6 @@
 			isa = PBXGroup;
 			children = (
 				3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */,
-				3A3B54AE20D05D310039CDCC /* EditItemViewControllerDelegate.swift */,
 				3ADFCD2420E91AC200E49C17 /* Controls */,
 			);
 			path = EditItem;
@@ -1239,6 +1255,49 @@
 				A7B8EF8C25A3C00800495C1E /* EditItemViewModel.swift */,
 			);
 			path = EditItem;
+			sourceTree = "<group>";
+		};
+		A7CDD3EE25AF773700FF776A /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				A7CDD3EF25AF776300FF776A /* Event.swift */,
+				A7CDD3F225AF776B00FF776A /* EventBus.swift */,
+				A7CDD42525AF8B7700FF776A /* ConsoleEventListener.swift */,
+				A7CDD41625AF8A7500FF776A /* ItemEvents */,
+				A7CDD41525AF8A7100FF776A /* ItemsCategoryEvents */,
+				A7CDD41425AF8A6E00FF776A /* ListEvents */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		A7CDD41425AF8A6E00FF776A /* ListEvents */ = {
+			isa = PBXGroup;
+			children = (
+				A7CDD41725AF8A8B00FF776A /* ListAddedEvent.swift */,
+				A7CDD40025AF888F00FF776A /* ListRemovedEvent.swift */,
+				A7CDD40A25AF89CA00FF776A /* ListUpdatedEvent.swift */,
+			);
+			path = ListEvents;
+			sourceTree = "<group>";
+		};
+		A7CDD41525AF8A7100FF776A /* ItemsCategoryEvents */ = {
+			isa = PBXGroup;
+			children = (
+				A7CDD41C25AF8AC400FF776A /* ItemsCategoryAddedEvent.swift */,
+				A7CDD40325AF890800FF776A /* ItemsCategoryRemovedEvent.swift */,
+				A7CDD41125AF8A2900FF776A /* ItemsCategoryUpdatedEvent.swift */,
+			);
+			path = ItemsCategoryEvents;
+			sourceTree = "<group>";
+		};
+		A7CDD41625AF8A7500FF776A /* ItemEvents */ = {
+			isa = PBXGroup;
+			children = (
+				A7CDD42025AF8AF400FF776A /* ItemAddedEvent.swift */,
+				A7CDD3FD25AF888800FF776A /* ItemRemovedEvent.swift */,
+				A7CDD40E25AF8A0700FF776A /* ItemUpdatedEvent.swift */,
+			);
+			path = ItemEvents;
 			sourceTree = "<group>";
 		};
 		A7D3968025A128B20077F10E /* Commands */ = {
@@ -1689,15 +1748,17 @@
 				A76CA547258ED44B00C1F878 /* UpdateListCommand.swift in Sources */,
 				A781E9F725783E7000367FCF /* RemoveListCommandHandler.swift in Sources */,
 				A7AF6B8A25ACFB2000D8A147 /* UpdateItemCommand.swift in Sources */,
+				A7CDD40425AF890800FF776A /* ItemsCategoryRemovedEvent.swift in Sources */,
 				A7AF6B8D25ACFB9300D8A147 /* UpdateItemCommandHandler.swift in Sources */,
-				A739B52B2569D22A000B16E3 /* RemoveCategoryCommand.swift in Sources */,
-				A739B5472569D404000B16E3 /* AddItemsBackToListCommand.swift in Sources */,
 				A739B5252569D22A000B16E3 /* RemoveItemsFromListCommand.swift in Sources */,
 				A739B5262569D22A000B16E3 /* CommandSource.swift in Sources */,
 				A739B5282569D22A000B16E3 /* ItemsCommand.swift in Sources */,
+				A7CDD40F25AF8A0700FF776A /* ItemUpdatedEvent.swift in Sources */,
+				A7CDD41D25AF8AC400FF776A /* ItemsCategoryAddedEvent.swift in Sources */,
 				A782634C2578517700E4DA54 /* ListRepository.swift in Sources */,
 				A739B5482569D404000B16E3 /* RemoveItemsFromBasketCommand.swift in Sources */,
 				A706FE7C259927D800E79CF5 /* UpdateItemsCategoryCommandHandler.swift in Sources */,
+				A7CDD42125AF8AF400FF776A /* ItemAddedEvent.swift in Sources */,
 				A79305DD2579993B00A3865D /* ListQueries.swift in Sources */,
 				A70F360D2596B53600279242 /* ItemsCategoryService.swift in Sources */,
 				A782634525784DD300E4DA54 /* AddListCommandHandler.swift in Sources */,
@@ -1706,11 +1767,14 @@
 				A77C9721257859DC00E39DBF /* ItemRepository.swift in Sources */,
 				A706FE8B25994DDE00E79CF5 /* AddDefaultItemsCategoryCommandHandler.swift in Sources */,
 				A7F6332225913E0D0032888B /* ClearListCommandHandler.swift in Sources */,
+				A7CDD41225AF8A2900FF776A /* ItemsCategoryUpdatedEvent.swift in Sources */,
 				A781E9FB2578449500367FCF /* CommandBus.swift in Sources */,
 				A70F36042596AFC500279242 /* RemoveItemsCategoryCommand.swift in Sources */,
+				A7CDD42625AF8B7700FF776A /* ConsoleEventListener.swift in Sources */,
 				A713C28525ABA68700DD5D33 /* AddItemCommandHandler.swift in Sources */,
 				A739B52C2569D22A000B16E3 /* RemoveListCommand.swift in Sources */,
 				A746C73225967F0A00D3CE30 /* AddItemsCategoryCommandHandler.swift in Sources */,
+				A7CDD3F325AF776B00FF776A /* EventBus.swift in Sources */,
 				A7D3968225A128C40077F10E /* AddItemsToBasketCommand.swift in Sources */,
 				A7F63326259140FA0032888B /* ClearBasketOfListCommand.swift in Sources */,
 				A7F6331F25913E050032888B /* ClearListCommand.swift in Sources */,
@@ -1719,15 +1783,19 @@
 				A7F63329259141040032888B /* ClearBasketOfListCommandHandler.swift in Sources */,
 				A7D3968625A128EB0077F10E /* AddItemsToBasketCommandHandler.swift in Sources */,
 				A781E9F425783E4D00367FCF /* CommandHandler.swift in Sources */,
+				A7CDD40B25AF89CA00FF776A /* ListUpdatedEvent.swift in Sources */,
 				A746C72E25967EB800D3CE30 /* AddItemsCategoryCommand.swift in Sources */,
 				A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */,
+				A7CDD41825AF8A8B00FF776A /* ListAddedEvent.swift in Sources */,
+				A7CDD40125AF888F00FF776A /* ListRemovedEvent.swift in Sources */,
+				A7CDD3FE25AF888800FF776A /* ItemRemovedEvent.swift in Sources */,
 				A706FE7F25992F0200E79CF5 /* LocalPreferences.swift in Sources */,
 				A77C972C25785C1A00E39DBF /* ListsService.swift in Sources */,
 				A739B52A2569D22A000B16E3 /* Command.swift in Sources */,
 				A70F36012596AEDB00279242 /* RemoveItemsCategoryCommandHandler.swift in Sources */,
 				A77C971E257859AD00E39DBF /* ItemsCategoryRepository.swift in Sources */,
 				A70F36092596B4C000279242 /* ItemsCategoryQueries.swift in Sources */,
-				A739B5462569D404000B16E3 /* BasketCommand.swift in Sources */,
+				A7CDD3F025AF776300FF776A /* Event.swift in Sources */,
 				A781E9F025783DCF00367FCF /* AddListCommand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1738,6 +1806,7 @@
 			files = (
 				A739B45A2569C639000B16E3 /* ItemEntityExtensions.swift in Sources */,
 				A739B4582569C639000B16E3 /* ListEntityExtensions.swift in Sources */,
+				A7CDD3FA25AF796500FF776A /* CoreDataChangeListener.swift in Sources */,
 				A75510222597D6AB0070EB62 /* CoreDataStack.swift in Sources */,
 				A739B4592569C639000B16E3 /* ItemsOrdersEntityExtensions.swift in Sources */,
 				A782B2472572F09C00638F7D /* ShoppingList.xcdatamodeld in Sources */,
@@ -1799,7 +1868,6 @@
 				A739B5592569D4FC000B16E3 /* BasketToolbar.swift in Sources */,
 				A739B4E72569CFAA000B16E3 /* ManageCategoriesViewController.swift in Sources */,
 				A739B3C32569BFA6000B16E3 /* CancelButtonAnimations.swift in Sources */,
-				A739B4A12569CE70000B16E3 /* EditItemViewControllerDelegate.swift in Sources */,
 				A739B5312569D386000B16E3 /* PopupWithTextFieldController.swift in Sources */,
 				A7295DF5258038DD001B5963 /* Coordinator.swift in Sources */,
 				A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */,

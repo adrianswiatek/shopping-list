@@ -139,9 +139,7 @@ extension ListsForEditItem: UIPickerViewDelegate {
         didSelectRow row: Int,
         inComponent component: Int
     ) {
-        onActionSubject.send(
-            .selectList(name: lists[row].name)
-        )
+        onActionSubject.send(.selectList(uuid: lists[row].uuid))
     }
 }
 
@@ -161,7 +159,7 @@ extension ListsForEditItem: UIPickerViewDataSource {
 extension ListsForEditItem {
     public enum Action {
         case addList(name: String)
-        case selectList(name: String)
+        case selectList(uuid: UUID)
         case showViewController(_ viewController: UIViewController)
     }
 }

@@ -8,8 +8,6 @@ public final class EditItemViewController: UIViewController {
     internal static let labelsWidth: CGFloat = 100
     internal static let labelsLeftPadding: CGFloat = 16
     
-    public var delegate: EditItemViewControllerDelegate!
-
     public var item: Item?
 
     private let itemNameView: ItemNameForEditItem = .init()
@@ -31,10 +29,6 @@ public final class EditItemViewController: UIViewController {
         guard itemNameView.isValid() else { return }
 
         viewModel.saveItem(name: itemName, info: infoView.text ?? "")
-
-        dismiss(animated: true) {
-//            self?.updatePreviousListIfHasChanged(newList: list)
-        }
     }
     
     private func updatePreviousListIfHasChanged(newList: List) {
@@ -67,7 +61,7 @@ public final class EditItemViewController: UIViewController {
         super.viewDidLoad()
         self.viewModel.fetchData()
     }
-    
+
     private func setupView() {
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.75)
         view.isOpaque = false
@@ -147,6 +141,10 @@ public final class EditItemViewController: UIViewController {
             }
             .store(in: &cancellables)
 
+        viewModel.dismiss
+            .sink { [weak self] in self?.dismiss(animated: true) }
+            .store(in: &cancellables)
+
         itemNameView.onAction
             .sink { [weak self] action in
                 guard case .showViewController(let viewController) = action else {
@@ -169,8 +167,8 @@ public final class EditItemViewController: UIViewController {
         switch action {
         case .addCategory(let name):
             viewModel.addCategory(with: name)
-        case .selectCategory(let name):
-            viewModel.selectCategory(with: name)
+        case .selectCategory(let uuid):
+            viewModel.selectCategory(with: uuid)
         case .showViewController(let viewController):
             itemNameView.resignFirstResponder()
             present(viewController, animated: true)
@@ -181,8 +179,8 @@ public final class EditItemViewController: UIViewController {
         switch action {
         case .addList(let name):
             viewModel.addList(with: name)
-        case .selectList(let name):
-            viewModel.selectList(with: name)
+        case .selectList(let uuid):
+            viewModel.selectList(with: uuid)
         case .showViewController(let viewController):
             itemNameView.resignFirstResponder()
             present(viewController, animated: true)

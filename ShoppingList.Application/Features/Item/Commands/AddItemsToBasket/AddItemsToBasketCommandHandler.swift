@@ -7,11 +7,11 @@ public final class AddItemsToBasketCommandHandler: CommandHandler {
         self.itemRepository = itemRepository
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         command is AddItemsToBasketCommand
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? AddItemsToBasketCommand else {
             return
         }

@@ -7,7 +7,7 @@ public final class AddItemsCategoryCommandHandler: CommandHandler {
         self.categoryRepository = categoryRepository
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         guard let command = command as? AddItemsCategoryCommand else {
             return false
         }
@@ -18,7 +18,7 @@ public final class AddItemsCategoryCommandHandler: CommandHandler {
         return categoryWithGivenName == nil
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? AddItemsCategoryCommand else {
             return
         }

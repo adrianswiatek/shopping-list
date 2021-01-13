@@ -7,11 +7,11 @@ public final class UpdateListCommandHandler: CommandHandler {
         self.listRepository = listRepository
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         (command as? UpdateListCommand) != nil
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard
             canExecute(command),
             let command = command as? UpdateListCommand,

@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public struct AddItemsToBasketCommand: CommandNew {
+public struct AddItemsToBasketCommand: Command {
     public let ids: [Id<Item>]
     public let source: CommandSource
 

@@ -152,7 +152,7 @@ extension CategoriesForEditItem: UIPickerViewDataSource {
         inComponent component: Int
     ) {
         onActionSubject.send(
-            .selectCategory(name: categories[row].name)
+            .selectCategory(uuid: categories[row].uuid)
         )
     }
 }
@@ -160,7 +160,7 @@ extension CategoriesForEditItem: UIPickerViewDataSource {
 extension CategoriesForEditItem {
     public enum Action {
         case addCategory(name: String)
-        case selectCategory(name: String)
+        case selectCategory(uuid: UUID)
         case showViewController(_ viewController: UIViewController)
     }
 }

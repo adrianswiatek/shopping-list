@@ -1,4 +1,4 @@
-public struct AddItemsCategoryCommand: CommandNew {
+public struct AddItemsCategoryCommand: Command {
     public let name: String
     public let source: CommandSource
 

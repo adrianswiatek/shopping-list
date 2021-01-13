@@ -9,7 +9,7 @@ public final class AddListCommandHandler: CommandHandler {
         self.listNameGenerator = listNameGenerator
     }
 
-    public func canExecute(_ command: CommandNew) -> Bool {
+    public func canExecute(_ command: Command) -> Bool {
         guard let command = command as? AddListCommand else {
             return false
         }
@@ -20,7 +20,7 @@ public final class AddListCommandHandler: CommandHandler {
         return listWithGivenName == nil
     }
 
-    public func execute(_ command: CommandNew) {
+    public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? AddListCommand else {
             return
         }

@@ -1,18 +1,10 @@
 public protocol Command {
     var source: CommandSource { get }
-    
-    func canExecute() -> Bool
-    func execute()
-    func undo()
+    func reversed() -> Command?
 }
 
-public protocol CommandNew {
-    var source: CommandSource { get }
-    func reversed() -> CommandNew?
-}
-
-extension CommandNew {
-    public func reversed() -> CommandNew? {
+extension Command {
+    public func reversed() -> Command? {
         nil
     }
 }

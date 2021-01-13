@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public struct ClearBasketOfListCommand: CommandNew {
+public struct ClearBasketOfListCommand: Command {
     public let id: Id<List>
     public let source: CommandSource
 

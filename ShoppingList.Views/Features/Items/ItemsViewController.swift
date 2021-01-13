@@ -215,7 +215,7 @@ public final class ItemsViewController: UIViewController {
     }
 }
 
-extension ItemsViewController: EditItemViewControllerDelegate {
+extension ItemsViewController {
     public func didCreate(_ item: Item) {
         didSave(item) {
             let categoryIndex = getCategoryIndex(item)

@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public struct AddListCommand: CommandNew {
+public struct AddListCommand: Command {
     public let name: String
     public let source: CommandSource
 

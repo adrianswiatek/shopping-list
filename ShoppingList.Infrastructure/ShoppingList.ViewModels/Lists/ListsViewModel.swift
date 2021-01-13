@@ -16,19 +16,24 @@ public final class ListsViewModel: ViewModel {
         !listsSubject.value.isEmpty
     }
 
-    private let commandBus: CommandBus
     private let listQueries: ListQueries
+    private let commandBus: CommandBus
+    private let eventBus: EventBus
     private let dateFormatter: DateFormatter
 
     private let listsSubject: CurrentValueSubject<[List], Never>
+    private var cancellables: Set<AnyCancellable>
 
-    public init(listQueries: ListQueries, commandBus: CommandBus) {
+    public init(listQueries: ListQueries, commandBus: CommandBus, eventBus: EventBus) {
         self.listQueries = listQueries
         self.commandBus = commandBus
+        self.eventBus = eventBus
+        self.dateFormatter = configure(.init()) { $0.dateStyle = .medium }
 
         self.listsSubject = .init([])
+        self.cancellables = []
 
-        self.dateFormatter = configure(.init()) { $0.dateStyle = .medium }
+        self.bind()
     }
 
     public func cleanUp() {
@@ -41,7 +46,6 @@ public final class ListsViewModel: ViewModel {
         }
 
         commandBus.undo(.lists)
-        fetchLists()
     }
 
     public func listViewModel(at index: Int) -> ListViewModel {
@@ -58,7 +62,6 @@ public final class ListsViewModel: ViewModel {
 
     public func addList(with name: String) {
         commandBus.execute(AddListCommand(name))
-        fetchLists()
     }
 
     public func updateList(with uuid: UUID, name: String) {
@@ -66,7 +69,6 @@ public final class ListsViewModel: ViewModel {
         guard existingName != name else { return }
 
         commandBus.execute(UpdateListCommand(.fromUuid(uuid), name))
-        fetchLists()
     }
 
     public func removeList(with uuid: UUID) {
@@ -76,8 +78,6 @@ public final class ListsViewModel: ViewModel {
 
         guard let removeListCommand = command else { return }
         commandBus.execute(removeListCommand)
-
-        fetchLists()
     }
 
     public func clearList(with uuid: UUID) {
@@ -90,6 +90,13 @@ public final class ListsViewModel: ViewModel {
 
     public func isListEmpty(with uuid: UUID) -> Bool {
         listsSubject.value.first { $0.id.toUuid() == uuid }?.containsItemsToBuy == false
+    }
+
+    private func bind() {
+        eventBus.events
+            .filter { $0 is ListAddedEvent || $0 is ListRemovedEvent || $0 is ListUpdatedEvent }
+            .sink { [weak self] _ in self?.fetchLists() }
+            .store(in: &cancellables)
     }
 
     private func mapListsToViewModels(_ lists: [List]) -> [ListViewModel] {
