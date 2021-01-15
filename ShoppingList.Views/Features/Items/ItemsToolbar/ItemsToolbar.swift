@@ -2,7 +2,7 @@ import ShoppingList_Shared
 import UIKit
 
 public final class ItemsToolbar: UIView {
-    public var delegate: ItemsToolbarDelegate?
+    public weak var delegate: ItemsToolbarDelegate?
     
     // MARK: - Regular toolbar
     
@@ -82,8 +82,8 @@ public final class ItemsToolbar: UIView {
         $0.backgroundColor = .line
     }
 
-    public init(viewController: UIViewController) {
-        super.init(frame: CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 50))
+    public init() {
+        super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         self.setupView()
     }
 

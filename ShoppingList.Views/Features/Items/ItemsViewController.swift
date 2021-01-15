@@ -29,7 +29,7 @@ public final class ItemsViewController: UIViewController {
         }
     
     private lazy var toolbar: ItemsToolbar =
-        configure(.init(viewController: self)) {
+        configure(.init()) {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.delegate = self
         }
@@ -78,13 +78,10 @@ public final class ItemsViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        fetchItems()
-        tableView.reloadData()
-        
-        refreshUserInterface()
+        self.tableView.reloadData()
+        self.refreshUserInterface()
     }
-    
+
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
@@ -93,21 +90,6 @@ public final class ItemsViewController: UIViewController {
         }
 
         self.viewModel.cleanUp()
-    }
-    
-    public func fetchItems() {
-        // Todo: repository
-        // let allItems = Repository.shared.getItemsWith(state: .toBuy, in: currentList)
-//        let allItems: [Item] = []
-//        var items = [[Item]]()
-//        self.categories = Set(allItems.map { $0.category }).sorted { $0.name < $1.name }
-        
-//        for category in categories {
-//            let itemsInCategory = allItems.filter { $0.categoryName() == category.name }
-//            items.append(itemsInCategory)
-//        }
-        
-//        self.items = items
     }
     
     private func setupUserInterface() {

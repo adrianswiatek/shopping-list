@@ -1,4 +1,4 @@
-public protocol ItemsToolbarDelegate {
+public protocol ItemsToolbarDelegate: class {
     func editButtonDidTap()
     func addButtonDidTap()
     func actionButtonDidTap()

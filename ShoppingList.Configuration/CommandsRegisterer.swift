@@ -24,6 +24,7 @@ public final class CommandsRegisterer {
                 $0.resolve(ClearListCommandHandler.self)!,
                 $0.resolve(RemoveListCommandHandler.self)!,
                 $0.resolve(UpdateListCommandHandler.self)!,
+                $0.resolve(UpdateListsDateCommandHandler.self)!,
 
                 // Items
                 $0.resolve(AddItemCommandHandler.self)!,
@@ -57,6 +58,10 @@ public final class CommandsRegisterer {
 
         container.register(UpdateListCommandHandler.self) {
             UpdateListCommandHandler($0.resolve(ListRepository.self)!)
+        }
+
+        container.register(UpdateListsDateCommandHandler.self) {
+            UpdateListsDateCommandHandler($0.resolve(ListRepository.self)!)
         }
     }
 

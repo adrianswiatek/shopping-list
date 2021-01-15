@@ -30,6 +30,7 @@ public final class Container {
         container.resolve(CommandBus.self)!.execute(AddDefaultItemsCategoryCommand())
         container.resolve(AppCoordinator.self)!.start()
         container.resolve(CoreDataChangeListener.self)!.start()
+        container.resolve(UpdateListDateListener.self)!.start()
         container.resolve(ConsoleEventListener.self)!.start()
     }
 
@@ -108,6 +109,14 @@ public final class Container {
         container.register(CoreDataChangeListener.self) {
             CoreDataChangeListener(
                 notificationCenter: $0.resolve(NotificationCenter.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }.inObjectScope(.container)
+
+        container.register(UpdateListDateListener.self) {
+            UpdateListDateListener(
+                itemRepository: $0.resolve(ItemRepository.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
         }.inObjectScope(.container)

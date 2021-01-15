@@ -145,6 +145,9 @@
 		A77DFFE125785815001B7B35 /* ShoppingList_ViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A77DFFE425785815001B7B35 /* ShoppingList_Views.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; platformFilter = ios; };
 		A77DFFE525785815001B7B35 /* ShoppingList_Views.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A77EE6DB25B2377700A258B4 /* UpdateListDateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EE6DA25B2377700A258B4 /* UpdateListDateListener.swift */; };
+		A77EE6DF25B2396D00A258B4 /* UpdateListsDateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EE6DE25B2396D00A258B4 /* UpdateListsDateCommand.swift */; };
+		A77EE6E225B239D600A258B4 /* UpdateListsDateCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EE6E125B239D600A258B4 /* UpdateListsDateCommandHandler.swift */; };
 		A7813FF4258181D600C70E9C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7813FF3258181D600C70E9C /* SettingsViewModel.swift */; };
 		A781E9F025783DCF00367FCF /* AddListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A781E9EF25783DCF00367FCF /* AddListCommand.swift */; };
 		A781E9F425783E4D00367FCF /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A781E9F325783E4D00367FCF /* CommandHandler.swift */; };
@@ -558,6 +561,9 @@
 		A77DFFBF25785804001B7B35 /* ShoppingList_Configuration.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_Configuration.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A77DFFC125785804001B7B35 /* ShoppingList_Configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingList_Configuration.h; sourceTree = "<group>"; };
 		A77DFFC225785804001B7B35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A77EE6DA25B2377700A258B4 /* UpdateListDateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDateListener.swift; sourceTree = "<group>"; };
+		A77EE6DE25B2396D00A258B4 /* UpdateListsDateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListsDateCommand.swift; sourceTree = "<group>"; };
+		A77EE6E125B239D600A258B4 /* UpdateListsDateCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListsDateCommandHandler.swift; sourceTree = "<group>"; };
 		A7813FF3258181D600C70E9C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		A781E9EF25783DCF00367FCF /* AddListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListCommand.swift; sourceTree = "<group>"; };
 		A781E9F325783E4D00367FCF /* CommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandHandler.swift; sourceTree = "<group>"; };
@@ -925,6 +931,7 @@
 				3A4E31992143167200BE1DCD /* Commands */,
 				A7CDD3EE25AF773700FF776A /* Events */,
 				A7941CDA25798B130057B6B4 /* Features */,
+				A77EE6D925B2372900A258B4 /* Listeners */,
 			);
 			path = ShoppingList.Application;
 			sourceTree = "<group>";
@@ -1145,6 +1152,7 @@
 				A7F6331D25913DF20032888B /* ClearList */,
 				A7826349257850CC00E4DA54 /* RemoveList */,
 				A76CA545258ED41A00C1F878 /* UpdateList */,
+				A77EE6DD25B2395A00A258B4 /* UpdateListsDate */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -1167,6 +1175,23 @@
 				A706FE8E2599532600E79CF5 /* CommandsRegisterer.swift */,
 			);
 			path = ShoppingList.Configuration;
+			sourceTree = "<group>";
+		};
+		A77EE6D925B2372900A258B4 /* Listeners */ = {
+			isa = PBXGroup;
+			children = (
+				A77EE6DA25B2377700A258B4 /* UpdateListDateListener.swift */,
+			);
+			path = Listeners;
+			sourceTree = "<group>";
+		};
+		A77EE6DD25B2395A00A258B4 /* UpdateListsDate */ = {
+			isa = PBXGroup;
+			children = (
+				A77EE6DE25B2396D00A258B4 /* UpdateListsDateCommand.swift */,
+				A77EE6E125B239D600A258B4 /* UpdateListsDateCommandHandler.swift */,
+			);
+			path = UpdateListsDate;
 			sourceTree = "<group>";
 		};
 		A7813FF2258181C300C70E9C /* Settings */ = {
@@ -1784,15 +1809,18 @@
 				A7D3968625A128EB0077F10E /* AddItemsToBasketCommandHandler.swift in Sources */,
 				A781E9F425783E4D00367FCF /* CommandHandler.swift in Sources */,
 				A7CDD40B25AF89CA00FF776A /* ListUpdatedEvent.swift in Sources */,
+				A77EE6DB25B2377700A258B4 /* UpdateListDateListener.swift in Sources */,
 				A746C72E25967EB800D3CE30 /* AddItemsCategoryCommand.swift in Sources */,
 				A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */,
 				A7CDD41825AF8A8B00FF776A /* ListAddedEvent.swift in Sources */,
 				A7CDD40125AF888F00FF776A /* ListRemovedEvent.swift in Sources */,
 				A7CDD3FE25AF888800FF776A /* ItemRemovedEvent.swift in Sources */,
 				A706FE7F25992F0200E79CF5 /* LocalPreferences.swift in Sources */,
+				A77EE6DF25B2396D00A258B4 /* UpdateListsDateCommand.swift in Sources */,
 				A77C972C25785C1A00E39DBF /* ListsService.swift in Sources */,
 				A739B52A2569D22A000B16E3 /* Command.swift in Sources */,
 				A70F36012596AEDB00279242 /* RemoveItemsCategoryCommandHandler.swift in Sources */,
+				A77EE6E225B239D600A258B4 /* UpdateListsDateCommandHandler.swift in Sources */,
 				A77C971E257859AD00E39DBF /* ItemsCategoryRepository.swift in Sources */,
 				A70F36092596B4C000279242 /* ItemsCategoryQueries.swift in Sources */,
 				A7CDD3F025AF776300FF776A /* Event.swift in Sources */,

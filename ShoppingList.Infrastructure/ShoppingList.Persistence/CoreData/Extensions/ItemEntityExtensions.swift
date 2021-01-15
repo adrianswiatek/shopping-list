@@ -15,7 +15,7 @@ extension ItemEntity {
         guard
             let id = id,
             let name = name,
-            let state = ItemState(rawValue: Int(self.state))
+            let state = ItemState(rawValue: Int(state))
         else {
             fatalError("Unable to create Item")
         }

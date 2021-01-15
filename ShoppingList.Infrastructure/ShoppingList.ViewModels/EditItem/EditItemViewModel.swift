@@ -73,6 +73,11 @@ public final class EditItemViewModel: ViewModel {
         fetchCategories()
     }
 
+    public func setList(_ list: ListViewModel) {
+        listsSubject.value += [list]
+        selectedListSubject.value = list
+    }
+
     public func setItem(_ item: ItemViewModel) {
         stateSubject.send(.edit(item: item))
     }
@@ -103,12 +108,6 @@ public final class EditItemViewModel: ViewModel {
 
     public func addList(with name: String) {
         commandBus.execute(AddListCommand(name))
-    }
-
-    private func selectList(with name: String) {
-        listsSubject.value
-            .first { $0.name == name }
-            .map { selectedListSubject.value = $0 }
     }
 
     public func selectList(with uuid: UUID) {
