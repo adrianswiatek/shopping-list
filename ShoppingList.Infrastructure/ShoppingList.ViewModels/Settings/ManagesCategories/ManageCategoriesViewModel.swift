@@ -9,25 +9,27 @@ public final class ManageCategoriesViewModel: ViewModel {
             .eraseToAnyPublisher()
     }
 
+    public var onAction: AnyPublisher<Action, Never> {
+        onActionSubject.eraseToAnyPublisher()
+    }
+
     public var isRestoreButtonEnabled: Bool {
         commandBus.canUndo(.categories)
     }
 
     private let categoryQueries: ItemsCategoryQueries
-    private let itemRepository: ItemRepository
     private let commandBus: CommandBus
 
     private let categoriesSubject: CurrentValueSubject<[ItemsCategory], Never>
+    private let onActionSubject: PassthroughSubject<Action, Never>
 
-    public init(
-        categoryQueries: ItemsCategoryQueries,
-        itemRepository: ItemRepository,
-        commandBus: CommandBus
-    ) {
+    public init(categoryQueries: ItemsCategoryQueries, commandBus: CommandBus) {
         self.categoryQueries = categoryQueries
-        self.itemRepository = itemRepository
+
         self.commandBus = commandBus
+
         self.categoriesSubject = .init([])
+        self.onActionSubject = .init()
     }
 
     public func fetchCategories() {
@@ -58,9 +60,17 @@ public final class ManageCategoriesViewModel: ViewModel {
     }
 
     public func removeCategory(with uuid: UUID) {
-        let command = categoriesSubject.value
-            .first { $0.id.toUuid() == uuid }
-            .map { RemoveItemsCategoryCommand($0) }
+        let numberOfItems = category(with: uuid)?.itemsCount ?? 0
+
+        numberOfItems == 0
+            ? removeCategoryWithItems(with: uuid)
+            : onActionSubject.send(.showRemoveCategoryPopup(uuid))
+    }
+
+    public func removeCategoryWithItems(with uuid: UUID) {
+        let command = category(with: uuid).map {
+            RemoveItemsCategoryCommand($0)
+        }
 
         guard let removeItemsCategoryCommand = command else { return }
         commandBus.execute(removeItemsCategoryCommand)
@@ -72,9 +82,19 @@ public final class ManageCategoriesViewModel: ViewModel {
         categoriesSubject.value.allSatisfy { $0.name != name }
     }
 
+    private func category(with uuid: UUID) -> ItemsCategory? {
+        categoriesSubject.value.first { $0.id.toUuid() == uuid }
+    }
+
     private func mapCategoriesToViewModels(
         _ itemsCategories: [ItemsCategory]
     ) -> [ItemsCategoryViewModel] {
         itemsCategories.map { .init($0) }
+    }
+}
+
+public extension ManageCategoriesViewModel {
+    enum Action {
+        case showRemoveCategoryPopup(_ uuid: UUID)
     }
 }

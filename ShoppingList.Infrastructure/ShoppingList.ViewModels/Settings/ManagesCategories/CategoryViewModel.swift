@@ -10,6 +10,6 @@ public struct ItemsCategoryViewModel: Hashable {
         uuid = itemsCategory.id.toUuid()
         name = itemsCategory.name
         isDefault = itemsCategory.isDefault
-        itemsInCategory = 0
+        itemsInCategory = itemsCategory.itemsCount
     }
 }

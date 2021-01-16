@@ -8,7 +8,7 @@ extension CategoryEntity {
             fatalError("Unable to create Category.")
         }
         
-        return ItemsCategory(id: .fromUuid(id), name: name)
+        return ItemsCategory(id: .fromUuid(id), name: name, itemsCount: items?.count ?? 0)
     }
     
     func update(by category: ItemsCategory) {

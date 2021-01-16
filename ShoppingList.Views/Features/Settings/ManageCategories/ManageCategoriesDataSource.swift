@@ -14,10 +14,10 @@ public final class ManageCategoriesDataSource: UITableViewDiffableDataSource<Man
         }
     }
 
-    public func apply(_ lists: [ItemsCategoryViewModel]) {
+    public func apply(_ categories: [ItemsCategoryViewModel]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, ItemsCategoryViewModel>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(lists, toSection: .main)
+        snapshot.appendItems(categories, toSection: .main)
         apply(snapshot)
     }
 }

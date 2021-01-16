@@ -1,4 +1,3 @@
-import ShoppingList_Domain
 import ShoppingList_ViewModels
 import ShoppingList_Shared
 import UIKit

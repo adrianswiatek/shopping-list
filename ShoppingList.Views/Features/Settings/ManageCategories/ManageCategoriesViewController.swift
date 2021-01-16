@@ -19,7 +19,6 @@ public final class ManageCategoriesViewController: UIViewController {
     private lazy var restoreBarButtonItem: UIBarButtonItem =
         configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in
             self?.viewModel.restoreCategory()
-            self?.refreshUserInterface()
         })) {
             $0.isEnabled = false
         }
@@ -48,11 +47,6 @@ public final class ManageCategoriesViewController: UIViewController {
         super.viewDidLoad()
         self.setupView()
         self.viewModel.fetchCategories()
-    }
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.refreshUserInterface()
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
@@ -93,7 +87,14 @@ public final class ManageCategoriesViewController: UIViewController {
             .store(in: &cancellables)
 
         viewModel.categoriesPublisher
-            .sink { [weak self] in self?.dataSource.apply($0) }
+            .sink { [weak self] in
+                self?.dataSource.apply($0)
+                self?.refreshUserInterface()
+            }
+            .store(in: &cancellables)
+
+        viewModel.onAction
+            .sink { [weak self] in self?.handleViewModelAction($0) }
             .store(in: &cancellables)
     }
 
@@ -112,7 +113,6 @@ public final class ManageCategoriesViewController: UIViewController {
             showEditPopupForCategory(category)
         case .removeCategory(let id):
             viewModel.removeCategory(with: id)
-            refreshUserInterface()
         }
     }
 
@@ -122,6 +122,13 @@ public final class ManageCategoriesViewController: UIViewController {
             viewModel.addCategory(with: text)
         case let .validationError(text):
             showInfoPopup(with: text)
+        }
+    }
+
+    private func handleViewModelAction(_ action: ManageCategoriesViewModel.Action) {
+        switch action {
+        case .showRemoveCategoryPopup(let uuid):
+            showRemoveCategoryPopup(forCategoryWith: uuid)
         }
     }
 
@@ -141,6 +148,24 @@ public final class ManageCategoriesViewController: UIViewController {
     private func showInfoPopup(with text: String) {
         let controller = UIAlertController(title: "", message: text, preferredStyle: .alert)
         controller.addAction(.init(title: "OK", style: .default))
+        present(controller, animated: true)
+    }
+
+    private func showRemoveCategoryPopup(forCategoryWith uuid: UUID) {
+        let alertMessage = "There are items related with this category. " +
+            "If continue, all category items will be swapped to default category."
+
+        let controller = UIAlertController(
+            title: "Remove category",
+            message: alertMessage,
+            preferredStyle: .actionSheet
+        )
+
+        controller.addAction(.init(title: "Cancel", style: .cancel))
+        controller.addAction(.init(title: "Remove", style: .destructive) { [weak self] _ in
+            self?.viewModel.removeCategoryWithItems(with: uuid)
+        })
+
         present(controller, animated: true)
     }
 
