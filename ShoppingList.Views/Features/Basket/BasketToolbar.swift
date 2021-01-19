@@ -1,16 +1,23 @@
 import ShoppingList_Shared
+import Combine
 import UIKit
 
 public final class BasketToolbar: UIView {
-    public var delegate: BasketToolbarDelegate?
-    
+    public var onAction: AnyPublisher<Action, Never> {
+        onActionSubject.eraseToAnyPublisher()
+    }
+
     // MARK: - Regular toolbar
     
     private lazy var editButton: UIBarButtonItem =
-        UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: #selector(editButtonHandler))
+        .init(systemItem: .edit, primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.edit)
+        })
     
     private lazy var actionButton: UIBarButtonItem =
-        UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButtonHandler))
+        .init(systemItem: .action, primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.action)
+        })
     
     private lazy var regularToolbar: UIToolbar = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -25,23 +32,18 @@ public final class BasketToolbar: UIView {
     
     // MARK: - Edit toolbar
     
-    private lazy var deleteAllButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(
-            image: #imageLiteral(resourceName: "Trash"),
-            style: .plain,
-            target: self,
-            action: #selector(deleteAllButtonHandler))
+    private lazy var removeButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "Trash"), primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.remove)
+        })
         button.isEnabled = false
         return button
     }()
 
-    private lazy var restoreAllButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(
-            image: #imageLiteral(resourceName: "RemoveFromBasket"),
-            style: .plain,
-            target: self,
-            action: #selector(restoreAllButtonHandler)
-        )
+    private lazy var moveToListButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "RemoveFromBasket"), primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.moveToList)
+        })
         button.isEnabled = false
         return button
     }()
@@ -50,18 +52,21 @@ public final class BasketToolbar: UIView {
         let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedSpace.width = 16
         
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
+        let flexibleSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+
         let cancelButton = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(cancelButtonHandler)
+            systemItem: .cancel,
+            primaryAction: .init { [weak self] _ in self?.onActionSubject.send(.cancel) }
         )
         cancelButton.style = .done
         
         return configure(.init()) {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.setItems([cancelButton, flexibleSpace, deleteAllButton, fixedSpace, restoreAllButton], animated: true)
+            $0.setItems([cancelButton, flexibleSpace, removeButton, fixedSpace, moveToListButton], animated: true)
             $0.alpha = 0
             $0.barTintColor = .background
             $0.isTranslucent = false
@@ -73,8 +78,11 @@ public final class BasketToolbar: UIView {
         $0.backgroundColor = .line
     }
 
-    public init(viewController: UIViewController) {
-        super.init(frame: CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 50))
+    private let onActionSubject: PassthroughSubject<Action, Never>
+
+    public init() {
+        self.onActionSubject = .init()
+        super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         self.setupView()
     }
 
@@ -86,15 +94,15 @@ public final class BasketToolbar: UIView {
     public func setRegularMode() {
         regularToolbar.alpha = 1
         editToolbar.alpha = 0
-        deleteAllButton.isEnabled = false
-        restoreAllButton.isEnabled = false
+        removeButton.isEnabled = false
+        moveToListButton.isEnabled = false
     }
 
     public func setEditMode() {
         regularToolbar.alpha = 0
         editToolbar.alpha = 1
-        deleteAllButton.isEnabled = false
-        restoreAllButton.isEnabled = false
+        removeButton.isEnabled = false
+        moveToListButton.isEnabled = false
     }
 
     public func setButtonsAs(enabled: Bool) {
@@ -103,12 +111,14 @@ public final class BasketToolbar: UIView {
             editButton.isEnabled = enabled
             actionButton.isEnabled = enabled
         } else {
-            deleteAllButton.isEnabled = enabled
-            restoreAllButton.isEnabled = enabled
+            removeButton.isEnabled = enabled
+            moveToListButton.isEnabled = enabled
         }
     }
 
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
+
         addSubview(regularToolbar)
         NSLayoutConstraint.activate([
             regularToolbar.topAnchor.constraint(equalTo: topAnchor),
@@ -133,29 +143,14 @@ public final class BasketToolbar: UIView {
             topLineView.heightAnchor.constraint(equalToConstant: 0.5)
         ])
     }
+}
 
-    @objc
-    private func editButtonHandler() {
-        delegate?.editButtonDidTap()
-    }
-
-    @objc
-    private func actionButtonHandler() {
-        delegate?.actionButtonDidTap()
-    }
-
-    @objc
-    private func cancelButtonHandler() {
-        delegate?.cancelButtonDidTap()
-    }
-
-    @objc
-    private func deleteAllButtonHandler() {
-        delegate?.deleteAllButtonDidTap()
-    }
-
-    @objc
-    private func restoreAllButtonHandler() {
-        delegate?.restoreAllButtonDidTap()
+public extension BasketToolbar {
+    enum Action {
+        case action
+        case cancel
+        case edit
+        case moveToList
+        case remove
     }
 }

@@ -19,12 +19,3 @@ extension CategoryEntity {
         name = category.name
     }
 }
-
-extension ItemsCategory {
-    func map(context: NSManagedObjectContext) -> CategoryEntity {
-        configure(.init(context: context)) {
-            $0.id = id.toUuid()
-            $0.name = name
-        }
-    }
-}

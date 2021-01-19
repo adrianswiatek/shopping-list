@@ -21,10 +21,11 @@ public final class RemoveItemsCategoryCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? RemoveItemsCategoryCommand else {
+            assertionFailure("Cannot execute given command.")
             return
         }
 
-        let items = itemRepository.items(in: command.itemsCategory)
+        let items = itemRepository.itemsInCategory(command.itemsCategory)
         itemRepository.updateCategory(of: items, to: .default)
 
         categoryRepository.remove(by: command.itemsCategory.id)

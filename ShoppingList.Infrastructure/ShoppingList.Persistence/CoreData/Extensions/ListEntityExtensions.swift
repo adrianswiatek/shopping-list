@@ -2,7 +2,7 @@ import ShoppingList_Domain
 import CoreData
 
 extension ListEntity {
-    func map() -> List {
+    func toList() -> List {
         guard
             let id = id,
             let name = name,
@@ -14,7 +14,7 @@ extension ListEntity {
         }
         
         let list = List(id: .fromUuid(id), name: name, accessType: accessType, items: [], updateDate: updateDate)
-        return list.withTheSameUpdateDateAndWithAddedItems(items.map { $0.map(with: list.id) })
+        return list.withTheSameUpdateDateAndWithAddedItems(items.map { $0.toItem() })
     }
     
     func update(by list: List, context: NSManagedObjectContext) {
@@ -55,34 +55,13 @@ extension ListEntity {
             }
         }
         
-        itemsToUpdate.forEach { _ = $0.map(context: context) }
+//        itemsToUpdate.forEach { _ = $0.map(context: context) }
         entitiesToUpdate.forEach { context.delete($0) }
     }
     
     private func getItemEntities(by items: [Item], context: NSManagedObjectContext) -> [ItemEntity] {
         let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id IN %@", items.map { $0.id.toString() })
-        return (try? context.fetch(request)) ?? []
-    }
-}
-
-extension List {
-    func map(context: NSManagedObjectContext) -> ListEntity {
-        let entity = ListEntity(context: context)
-        entity.id = id.toUuid()
-        entity.name = name
-        entity.accessType = Int32(accessType.rawValue)
-        entity.updateDate = updateDate
-        
-        let itemEntities = self.itemEntities(by: items.map { $0.id }, context: context)
-        entity.items = NSSet(array: itemEntities)
-        
-        return entity
-    }
-    
-    private func itemEntities(by ids: [Id<Item>], context: NSManagedObjectContext) -> [ItemEntity] {
-        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id in %@", ids.map { $0.toString() })
         return (try? context.fetch(request)) ?? []
     }
 }

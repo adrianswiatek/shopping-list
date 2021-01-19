@@ -11,15 +11,23 @@ public final class CoreDataListRepository: ListRepository {
 
     public func allLists() -> [List] {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
+        return (try? coreData.context.fetch(request).map { $0.toList() }) ?? []
     }
 
     public func list(with id: Id<List>) -> List? {
-        listEntity(with: id)?.map()
+        listEntity(with: id)?.toList()
     }
 
     public func add(_ list: List) {
-        let entity = list.map(context: coreData.context)
+        let entity = ListEntity(context: coreData.context)
+        entity.id = list.id.toUuid()
+        entity.name = list.name
+        entity.accessType = Int32(list.accessType.rawValue)
+        entity.updateDate = list.updateDate
+
+        let itemEntities = self.itemEntities(by: list.items.map { $0.id })
+        entity.items = NSSet(array: itemEntities)
+
         coreData.context.insert(entity)
         coreData.save()
     }
@@ -51,5 +59,11 @@ public final class CoreDataListRepository: ListRepository {
         let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
         request.predicate = NSPredicate(format: "listId == %@", id as CVarArg)
         return try? coreData.context.fetch(request).first
+    }
+
+    private func itemEntities(by ids: [Id<Item>]) -> [ItemEntity] {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id in %@", ids.map { $0.toString() })
+        return (try? coreData.context.fetch(request)) ?? []
     }
 }

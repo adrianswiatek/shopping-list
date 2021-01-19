@@ -6,7 +6,7 @@ import UIKit
 public final class ItemsTableViewCell: UITableViewCell {
     public weak var delegate: AddToBasketDelegate?
     
-    public var viewModel: ItemViewModel? {
+    public var viewModel: ItemToBuyViewModel? {
         didSet {
             itemNameLabel.text = viewModel?.name
             itemInfoLabel.text = viewModel?.info

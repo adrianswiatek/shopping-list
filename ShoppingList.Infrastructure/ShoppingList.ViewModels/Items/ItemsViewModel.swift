@@ -2,7 +2,7 @@ import ShoppingList_Application
 import Combine
 
 public final class ItemsViewModel: ViewModel {
-    public var list: ListViewModel!
+    public private(set) var list: ListViewModel!
 
     public var isRestoreButtonEnabled: Bool {
         commandBus.canUndo(.items)
@@ -40,8 +40,8 @@ public final class ItemsViewModel: ViewModel {
         commandBus.undo(.items)
     }
 
-    public func addToBasketItem(with id: UUID) {
-        let command = AddItemsToBasketCommand([])
+    public func moveToBasketItem(with uuid: UUID) {
+        let command = MoveItemsToBasketCommand([])
         commandBus.execute(command)
     }
 

@@ -78,7 +78,7 @@ public final class EditItemViewModel: ViewModel {
         selectedListSubject.value = list
     }
 
-    public func setItem(_ item: ItemViewModel) {
+    public func setItem(_ item: ItemToBuyViewModel) {
         stateSubject.send(.edit(item: item))
     }
 
@@ -88,7 +88,7 @@ public final class EditItemViewModel: ViewModel {
 
         let command: Command
         if case .edit(let item) = stateSubject.value {
-            command = UpdateItemCommand(item.id, name, info, categoryUuid, listUuid)
+            command = UpdateItemCommand(item.uuid, name, info, categoryUuid, listUuid)
         } else {
             command = AddItemCommand(name, info, categoryUuid, listUuid)
         }
@@ -148,6 +148,6 @@ public final class EditItemViewModel: ViewModel {
 extension EditItemViewModel {
     public enum State {
         case create
-        case edit(item: ItemViewModel)
+        case edit(item: ItemToBuyViewModel)
     }
 }

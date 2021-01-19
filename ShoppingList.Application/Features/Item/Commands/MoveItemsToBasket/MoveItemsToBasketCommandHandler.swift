@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public final class ClearListCommandHandler: CommandHandler {
+public final class MoveItemsToBasketCommandHandler: CommandHandler {
     private let itemRepository: ItemRepository
 
     public init(_ itemRepository: ItemRepository) {
@@ -8,16 +8,15 @@ public final class ClearListCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: Command) -> Bool {
-        command is ClearListCommand
+        command is MoveItemsToBasketCommand
     }
 
     public func execute(_ command: Command) {
-        guard canExecute(command), let command = command as? ClearListCommand else {
+        guard canExecute(command), let command = command as? MoveItemsToBasketCommand else {
             assertionFailure("Cannot execute given command.")
             return
         }
 
-        let items = itemRepository.itemsWithState(.toBuy, inListWithId: command.id)
-        itemRepository.removeItems(with: items.map { $0.id })
-    }
+        itemRepository.updateStateOfItems(with: command.ids, to: .inBasket)
+    }    
 }

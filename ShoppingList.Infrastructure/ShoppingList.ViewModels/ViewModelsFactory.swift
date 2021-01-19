@@ -18,6 +18,7 @@ public final class ViewModelsFactory {
 
 public extension ViewModelsFactory {
     enum `Type` {
+        case basket
         case editItem
         case items
         case lists
@@ -27,12 +28,8 @@ public extension ViewModelsFactory {
 }
 
 public extension ViewModelsFactory {
-    func listsViewModel() -> ListsViewModel {
-        create(for: .lists) as! ListsViewModel
-    }
-
-    func itemsViewModel(for list: ListViewModel) -> ItemsViewModel {
-        configure(create(for: .items) as! ItemsViewModel) {
+    func basketViewModel(for list: ListViewModel) -> BasketViewModel {
+        configure(create(for: .basket) as! BasketViewModel) {
             $0.setList(list)
         }
     }
@@ -43,11 +40,21 @@ public extension ViewModelsFactory {
         }
     }
 
-    func settingsViewModel() -> SettingsViewModel {
-        create(for: .settings) as! SettingsViewModel
+    func itemsViewModel(for list: ListViewModel) -> ItemsViewModel {
+        configure(create(for: .items) as! ItemsViewModel) {
+            $0.setList(list)
+        }
+    }
+
+    func listsViewModel() -> ListsViewModel {
+        create(for: .lists) as! ListsViewModel
     }
 
     func manageCategoriesViewModel() -> ManageCategoriesViewModel {
         create(for: .manageCategories) as! ManageCategoriesViewModel
+    }
+
+    func settingsViewModel() -> SettingsViewModel {
+        create(for: .settings) as! SettingsViewModel
     }
 }

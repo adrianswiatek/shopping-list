@@ -1,5 +1,5 @@
-import ShoppingList_Domain
+import ShoppingList_ViewModels
 
 public protocol RemoveFromBasketDelegate: class {
-    func removeItemFromBasket(_ item: Item)
+    func removeItemFromBasket(_ item: ItemInBasketViewModel)
 }

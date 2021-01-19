@@ -19,7 +19,10 @@ public final class CoreDataItemsCategoryRepository: ItemsCategoryRepository {
     }
 
     public func add(_ category: ItemsCategory) {
-        let entity = category.map(context: coreData.context)
+        let entity = CategoryEntity(context: coreData.context)
+        entity.id = category.id.toUuid()
+        entity.name = category.name
+
         coreData.context.insert(entity)
         coreData.save()
     }

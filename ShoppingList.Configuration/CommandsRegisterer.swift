@@ -28,11 +28,15 @@ public final class CommandsRegisterer {
 
                 // Items
                 $0.resolve(AddItemCommandHandler.self)!,
-                $0.resolve(AddItemsToBasketCommandHandler.self)!,
+                $0.resolve(MoveItemsToBasketCommandHandler.self)!,
+                $0.resolve(MoveItemsToListCommandHandler.self)!,
+                $0.resolve(RemoveItemsFromBasketCommandHandler.self)!,
+                $0.resolve(RestoreItemsToBasketCommandHandler.self)!,
 
                 // ItemsCategories
                 $0.resolve(AddDefaultItemsCategoryCommandHandler.self)!,
                 $0.resolve(AddItemsCategoryCommandHandler.self)!,
+                $0.resolve(ReclaimItemsCategoryCommandHandler.self)!,
                 $0.resolve(RemoveItemsCategoryCommandHandler.self)!,
                 $0.resolve(UpdateItemsCategoryCommandHandler.self)!
             ])
@@ -70,8 +74,20 @@ public final class CommandsRegisterer {
             AddItemCommandHandler($0.resolve(ItemRepository.self)!)
         }
 
-        container.register(AddItemsToBasketCommandHandler.self) {
-            AddItemsToBasketCommandHandler($0.resolve(ItemRepository.self)!)
+        container.register(MoveItemsToBasketCommandHandler.self) {
+            MoveItemsToBasketCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(MoveItemsToListCommandHandler.self) {
+            MoveItemsToListCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(RemoveItemsFromBasketCommandHandler.self) {
+            RemoveItemsFromBasketCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(RestoreItemsToBasketCommandHandler.self) {
+            RestoreItemsToBasketCommandHandler($0.resolve(ItemRepository.self)!)
         }
     }
 
@@ -86,6 +102,13 @@ public final class CommandsRegisterer {
 
         container.register(RemoveItemsCategoryCommandHandler.self) {
             RemoveItemsCategoryCommandHandler(
+                $0.resolve(ItemsCategoryRepository.self)!,
+                $0.resolve(ItemRepository.self)!
+            )
+        }
+
+        container.register(ReclaimItemsCategoryCommandHandler.self) {
+            ReclaimItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
                 $0.resolve(ItemRepository.self)!
             )

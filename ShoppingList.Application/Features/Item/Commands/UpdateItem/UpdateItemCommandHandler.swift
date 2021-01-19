@@ -20,7 +20,7 @@ public final class UpdateItemCommandHandler: CommandHandler {
             return
         }
 
-        itemRepository.update(Item(
+        itemRepository.updateItem(Item(
             id: command.id,
             name: command.name,
             info: command.info,

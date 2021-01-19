@@ -37,12 +37,14 @@ public final class ItemsCoordinator: Coordinator {
 }
 
 extension ItemsCoordinator: ItemsViewControllerDelegate {
-    public func goToBasket() {
-        let basketViewController = BasketViewController()
+    public func goToBasket(for list: ListViewModel) {
+        let basketViewController = BasketViewController(
+            viewModel: viewModelsFactory.basketViewModel(for: list)
+        )
         navigationController.pushViewController(basketViewController, animated: true)
     }
 
-    public func goToEditItem(_ item: ItemViewModel, for list: ListViewModel) {
+    public func goToEditItem(_ item: ItemToBuyViewModel, for list: ListViewModel) {
         let viewModel = viewModelsFactory.editItemViewModel(for: list)
         viewModel.setItem(item)
 

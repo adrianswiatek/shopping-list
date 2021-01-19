@@ -4,8 +4,8 @@ import ShoppingList_ViewModels
 import UIKit
 
 public protocol ItemsViewControllerDelegate: class {
-    func goToBasket()
-    func goToEditItem(_ item: ItemViewModel, for list: ListViewModel)
+    func goToBasket(for list: ListViewModel)
+    func goToEditItem(_ item: ItemToBuyViewModel, for list: ListViewModel)
     func goToCreateItem(for list: ListViewModel)
     func didDismiss()
 }
@@ -37,18 +37,14 @@ public final class ItemsViewController: UIViewController {
     private let bottomView: UIView =
         configure(.init()) {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.backgroundColor = .white
+            $0.backgroundColor = .background
         }
     
     private lazy var filledBasketBarButtonItem: UIBarButtonItem =
-        UIBarButtonItem(image: #imageLiteral(resourceName: "Basket"), primaryAction: .init { [weak self] _ in
-            self?.delegate?.goToBasket()
-        })
+        .init(image: #imageLiteral(resourceName: "Basket"), primaryAction: .init { [weak self] _ in self?.goToBasket() })
     
     private lazy var emptyBasketBarButtonItem: UIBarButtonItem =
-        UIBarButtonItem(image: #imageLiteral(resourceName: "EmptyBasket"), primaryAction: .init { [weak self] _ in
-            self?.delegate?.goToBasket()
-        })
+        .init(image: #imageLiteral(resourceName: "EmptyBasket"), primaryAction: .init { [weak self] _ in self?.goToBasket() })
     
     private lazy var restoreBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in
@@ -63,6 +59,7 @@ public final class ItemsViewController: UIViewController {
     public init(viewModel: ItemsViewModel) {
         self.viewModel = viewModel
         self.tableView = .init()
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -157,6 +154,10 @@ public final class ItemsViewController: UIViewController {
         toolbar.setRegularMode()
         toolbar.setButtonsAs(enabled: false)
         tableView.setTextIfEmpty("Your shopping list is empty")
+    }
+
+    private func goToBasket() {
+        delegate?.goToBasket(for: viewModel.list)
     }
     
     private func clearCategoriesIfNeeded() {
@@ -299,8 +300,8 @@ extension ItemsViewController {
 }
 
 extension ItemsViewController: AddToBasketDelegate {
-    public func addItemToBasket(_ item: ItemViewModel) {
-        viewModel.addToBasketItem(with: item.id)
+    public func addItemToBasket(_ item: ItemToBuyViewModel) {
+        viewModel.moveToBasketItem(with: item.uuid)
     }
 }
 

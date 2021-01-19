@@ -11,6 +11,7 @@ public final class RemoveListCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? RemoveListCommand else {
+            assertionFailure("Cannot execute given command.")
             return
         }
 

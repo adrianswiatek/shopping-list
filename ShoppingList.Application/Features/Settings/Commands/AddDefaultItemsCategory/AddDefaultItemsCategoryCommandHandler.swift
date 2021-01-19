@@ -15,6 +15,7 @@ public final class AddDefaultItemsCategoryCommandHandler: CommandHandler {
         guard canExecute(command), !alreadyExists() else {
             return
         }
+
         categoryRepository.add(.default)
     }
 

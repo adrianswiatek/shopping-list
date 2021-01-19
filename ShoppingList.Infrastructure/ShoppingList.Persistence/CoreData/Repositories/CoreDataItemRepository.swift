@@ -9,18 +9,13 @@ public final class CoreDataItemRepository: ItemRepository {
         self.coreData = coreData
     }
 
-    public func allItems() -> [Item] {
-        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
-    }
-
     public func item(with id: Id<Item>) -> Item? {
         let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id.toString())
-        return try? coreData.context.fetch(request).first?.map()
+        return try? coreData.context.fetch(request).first?.toItem()
     }
     
-    public func itemsWith(state: ItemState, inListWithId id: Id<List>) -> [Item] {
+    public func itemsWithState(_ state: ItemState, inListWithId id: Id<List>) -> [Item] {
         let itemsRequest: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         itemsRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
             NSPredicate(format: "state == %@", state.rawValue.description),
@@ -35,7 +30,7 @@ public final class CoreDataItemRepository: ItemRepository {
         
         do {
             let itemsEntities = try coreData.context.fetch(itemsRequest)
-            let unorderedItems = itemsEntities.map { $0.map() }
+            let unorderedItems = itemsEntities.map { $0.toItem() }
             var orderedItemsIds = [Id<Item>]()
             
             let itemsOrdersEntities = try coreData.context.fetch(itemsOrdersRequest)
@@ -50,11 +45,16 @@ public final class CoreDataItemRepository: ItemRepository {
         }
     }
 
-    public func items(in category: ItemsCategory) -> [Item] {
-        let categoryEntity = self.categoryEntity(from: category)
+    public func itemsInCategory(_ category: ItemsCategory) -> [Item] {
         let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "category == %@", categoryEntity)
-        return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
+        request.predicate = NSPredicate(format: "category.id == %@", category.id.toString())
+        return (try? coreData.context.fetch(request).map { $0.toItem() }) ?? []
+    }
+
+    public func items(with ids: [Id<Item>]) -> [Item] {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id IN %@", ids.map { $0.toString() })
+        return (try? coreData.context.fetch(request).map { $0.toItem() }) ?? []
     }
 
     public func numberOfItemsWith(state: ItemState, inListWithId id: Id<List>) -> Int {
@@ -71,41 +71,38 @@ public final class CoreDataItemRepository: ItemRepository {
         request.predicate = NSPredicate(format: "list.id == $@", id.toString())
         return (try? coreData.context.count(for: request)) ?? 0
     }
-    
-    public func add(_ item: Item) {
-        let entity = item.map(context: coreData.context)
-        entity.list?.updateDate = Date()
-        coreData.context.insert(entity)
-        coreData.save()
-    }
-    
-    public func add(_ items: [Item]) {
+
+    public func addItems(_ items: [Item]) {
+        let listEntitiesRequest: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
+        listEntitiesRequest.predicate = NSPredicate(format: "id IN %@", items.map { $0.listId.toString() })
+        let listEntities = (try? coreData.context.fetch(listEntitiesRequest)) ?? []
+
+        let categoryEntitiesRequest: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        categoryEntitiesRequest.predicate = NSPredicate(format: "id IN %@", items.map { $0.categoryId.toString() })
+        let categoryEntities = (try? coreData.context.fetch(categoryEntitiesRequest)) ?? []
+
         for item in items {
-            let entity = item.map(context: coreData.context)
-            entity.list?.updateDate = Date()
+            let entity = ItemEntity(context: coreData.context)
+            entity.id = item.id.toUuid()
+            entity.name = item.name
+            entity.info = item.info
+            entity.state = Int32(item.state.rawValue)
+            entity.list = listEntities.first { $0.id == item.listId.toUuid() }
+            entity.category = categoryEntities.first { $0.id == item.categoryId.toUuid() }
             coreData.context.insert(entity)
         }
 
         coreData.save()
     }
     
-    public func remove(_ items: [Item]) {
-        let entities = itemEntities(with: items.map { $0.id })
-        entities.first?.list?.updateDate = Date()
+    public func removeItems(with ids: [Id<Item>]) {
+        let entities = itemEntities(with: ids)
         entities.forEach { coreData.context.delete($0) }
-        coreData.save()
-    }
-    
-    public func remove(_ item: Item) {
-        guard let entity = itemEntity(with: item.id) else { return }
-        entity.list?.updateDate = Date()
-        coreData.context.delete(entity)
         coreData.save()
     }
     
     public func updateStateOfItems(with ids: [Id<Item>], to state: ItemState) {
         let entities = itemEntities(with: ids)
-        entities.first?.list?.updateDate = Date()
         entities.forEach { $0.state = Int32(state.rawValue) }
         coreData.save()
     }
@@ -113,11 +110,10 @@ public final class CoreDataItemRepository: ItemRepository {
     public func updateState(of item: Item, to state: ItemState) {
         guard let entity = itemEntity(with: item.id) else { return }
         entity.state = Int32(state.rawValue)
-        entity.list?.updateDate = Date()
         coreData.save()
     }
 
-    public func update(_ item: Item) {
+    public func updateItem(_ item: Item) {
         guard let entity = itemEntity(with: item.id) else { return }
         entity.update(by: item, context: coreData.context)
         coreData.save()
@@ -132,7 +128,6 @@ public final class CoreDataItemRepository: ItemRepository {
         }
         
         itemEntity.category = categoryEntity
-        itemEntity.list?.updateDate = Date()
 
         coreData.save()
     }
@@ -144,7 +139,6 @@ public final class CoreDataItemRepository: ItemRepository {
         }
         
         let itemEntities = self.itemEntities(with: items.map { $0.id })
-        itemEntities.first?.list?.updateDate = Date()
         itemEntities.forEach { $0.category = categoryEntity }
 
         coreData.save()
@@ -162,16 +156,13 @@ public final class CoreDataItemRepository: ItemRepository {
         return (try? coreData.context.fetch(request)) ?? []
     }
 
-    private func categoryEntity(from category: ItemsCategory) -> CategoryEntity {
+    private func categoryEntity(from category: ItemsCategory) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", category.id.toString())
-        return (try? coreData.context.fetch(request).first) ?? category.map(context: coreData.context)
+        return try? coreData.context.fetch(request).first
     }
 
     public func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) {
-        guard let listEntity = listEntity(from: list) else { return }
-        listEntity.updateDate = Date()
-
         let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
         request.predicate = NSCompoundPredicate(type: .and, subpredicates: [
             NSPredicate(format: "itemsState == %@", state.rawValue.description),
@@ -195,9 +186,15 @@ public final class CoreDataItemRepository: ItemRepository {
         }
     }
 
-    private func listEntity(from list: List) -> ListEntity? {
+    private func listEntity(from id: Id<List>) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", list.id.toString())
-        return try? coreData.context.fetch(request).first ?? list.map(context: coreData.context)
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
+        return try? coreData.context.fetch(request).first
+    }
+
+    private func itemEntities(by ids: [Id<Item>], context: NSManagedObjectContext) -> [ItemEntity] {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id in %@", ids.map { $0.toString() })
+        return (try? context.fetch(request)) ?? []
     }
 }

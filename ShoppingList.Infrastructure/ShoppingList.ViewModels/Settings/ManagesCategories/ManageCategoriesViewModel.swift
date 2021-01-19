@@ -18,18 +18,32 @@ public final class ManageCategoriesViewModel: ViewModel {
     }
 
     private let categoryQueries: ItemsCategoryQueries
+    private let itemQueries: ItemQueries
     private let commandBus: CommandBus
+    private let eventBus: EventBus
 
     private let categoriesSubject: CurrentValueSubject<[ItemsCategory], Never>
     private let onActionSubject: PassthroughSubject<Action, Never>
 
-    public init(categoryQueries: ItemsCategoryQueries, commandBus: CommandBus) {
-        self.categoryQueries = categoryQueries
+    private var cancellables: Set<AnyCancellable>
 
+    public init(
+        categoryQueries: ItemsCategoryQueries,
+        itemQueries: ItemQueries,
+        commandBus: CommandBus,
+        eventBus: EventBus
+    ) {
+        self.categoryQueries = categoryQueries
+        self.itemQueries = itemQueries
+        self.eventBus = eventBus
         self.commandBus = commandBus
 
         self.categoriesSubject = .init([])
         self.onActionSubject = .init()
+
+        self.cancellables = []
+
+        self.bind()
     }
 
     public func fetchCategories() {
@@ -44,19 +58,15 @@ public final class ManageCategoriesViewModel: ViewModel {
         guard commandBus.canUndo(.categories) else {
             return
         }
-
         commandBus.undo(.categories)
-        fetchCategories()
     }
 
     public func addCategory(with name: String) {
         commandBus.execute(AddItemsCategoryCommand(name))
-        fetchCategories()
     }
 
     public func updateCategory(with uuid: UUID, name: String) {
         commandBus.execute(UpdateItemsCategoryCommand(.fromUuid(uuid), name))
-        fetchCategories()
     }
 
     public func removeCategory(with uuid: UUID) {
@@ -68,18 +78,28 @@ public final class ManageCategoriesViewModel: ViewModel {
     }
 
     public func removeCategoryWithItems(with uuid: UUID) {
-        let command = category(with: uuid).map {
-            RemoveItemsCategoryCommand($0)
-        }
+        guard let selectedCategory = category(with: uuid) else { return }
 
-        guard let removeItemsCategoryCommand = command else { return }
-        commandBus.execute(removeItemsCategoryCommand)
-
-        fetchCategories()
+        let itemIds = itemQueries.fetchItemsInCategory(selectedCategory).map { $0.id }
+        commandBus.execute(RemoveItemsCategoryCommand(selectedCategory, itemIds))
     }
 
     public func hasCategory(with name: String) -> Bool {
         categoriesSubject.value.allSatisfy { $0.name != name }
+    }
+
+    private func bind() {
+        eventBus.events
+            .filter {
+                switch $0 {
+                case is ItemsCategoryAddedEvent, is ItemsCategoryUpdatedEvent, is ItemsCategoryRemovedEvent:
+                    return true
+                default:
+                    return false
+                }
+            }
+            .sink { [weak self] _ in self?.fetchCategories() }
+            .store(in: &cancellables)
     }
 
     private func category(with uuid: UUID) -> ItemsCategory? {

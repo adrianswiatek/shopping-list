@@ -13,10 +13,11 @@ public final class ClearBasketOfListCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? ClearBasketOfListCommand else {
+            assertionFailure("Cannot execute given command.")
             return
         }
 
-        let items = itemRepository.itemsWith(state: .inBasket, inListWithId: command.id)
-        itemRepository.remove(items)
+        let items = itemRepository.itemsWithState(.inBasket, inListWithId: command.id)
+        itemRepository.removeItems(with: items.map { $0.id })
     }
 }

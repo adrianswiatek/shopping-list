@@ -11,7 +11,7 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="state" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryEntity" inverseName="items" inverseEntity="CategoryEntity"/>
-        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListEntity" inverseName="items" inverseEntity="ListEntity"/>
+        <relationship name="list" maxCount="1" deletionRule="Nullify" destinationEntity="ListEntity" inverseName="items" inverseEntity="ListEntity"/>
     </entity>
     <entity name="ItemsOrderEntity" representedClassName="ItemsOrderEntity" syncable="YES" codeGenerationType="class">
         <attribute name="itemsIds" optional="YES" attributeType="Binary"/>
@@ -29,7 +29,7 @@
     </entity>
     <elements>
         <element name="CategoryEntity" positionX="173.54150390625" positionY="291.5316162109375" width="128" height="90"/>
-        <element name="ItemEntity" positionX="-71.125732421875" positionY="261.5643310546875" width="128" height="135"/>
+        <element name="ItemEntity" positionX="-71.125732421875" positionY="261.5643310546875" width="128" height="119"/>
         <element name="ItemsOrderEntity" positionX="-399.2838134765625" positionY="475.5992126464844" width="128" height="89"/>
         <element name="ListEntity" positionX="-356.259521484375" positionY="276.4484252929688" width="128" height="119"/>
     </elements>

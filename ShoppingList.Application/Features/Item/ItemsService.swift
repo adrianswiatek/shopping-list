@@ -7,8 +7,16 @@ public final class ItemsService: ItemQueries {
         self.itemRepository = itemRepository
     }
 
-    public func fetchItemsFromList(with id: Id<List>) -> [Item] {
-        itemRepository.itemsWith(state: .toBuy, inListWithId: id)
+    public func fetchItemsToBuyFromList(with id: Id<List>) -> [Item] {
+        itemRepository.itemsWithState(.toBuy, inListWithId: id)
+    }
+
+    public func fetchItemsInBasketFromList(with id: Id<List>) -> [Item] {
+        itemRepository.itemsWithState(.inBasket, inListWithId: id)
+    }
+
+    public func fetchItemsInCategory(_ category: ItemsCategory) -> [Item] {
+        itemRepository.itemsInCategory(category)
     }
 
     public func hasItemsInBasketOfList(with id: Id<List>) -> Bool {

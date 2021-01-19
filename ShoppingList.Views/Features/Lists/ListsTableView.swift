@@ -36,7 +36,7 @@ extension ListsTableView: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         guard let list = listForCell(at: indexPath.row) else { return }
-        onActionSubject.send(.selectList(id: list))
+        onActionSubject.send(.selectList(list))
     }
 
     public func tableView(
@@ -46,9 +46,9 @@ extension ListsTableView: UITableViewDelegate {
     ) -> UIContextMenuConfiguration? {
         .init(identifier: "ListsContextMenu" as NSCopying, previewProvider: nil) { [weak self] _ in
             let actions: [UIAction] = [
+                self?.editActionForList(at: indexPath.row),
                 self?.clearItemsToBuyForList(at: indexPath.row),
                 self?.clearBasketForList(at: indexPath.row),
-                self?.editActionForList(at: indexPath.row),
                 self?.removeActionForList(at: indexPath.row)
             ].compactMap { $0 }
 
@@ -56,18 +56,10 @@ extension ListsTableView: UITableViewDelegate {
         }
     }
 
-    private func removeActionForList(at index: Int) -> UIAction? {
-        guard let list = listForCell(at: index) else { return nil }
-        let image = UIImage(systemName: "trash.fill")
-        return UIAction(title: "Remove list", image: image, attributes: .destructive) { [weak self] _ in
-            self?.onActionSubject.send(.removeList(id: list.uuid))
-            }
-    }
-
     private func editActionForList(at index: Int) -> UIAction? {
         guard let list = listForCell(at: index) else { return nil }
         return UIAction(title: "Edit list", image: UIImage(systemName: "pencil"), attributes: []) { [weak self] _ in
-            self?.onActionSubject.send(.editList(id: list.uuid, name: list.name))
+            self?.onActionSubject.send(.editList(uuid: list.uuid, name: list.name))
         }
     }
 
@@ -75,7 +67,7 @@ extension ListsTableView: UITableViewDelegate {
         guard let list = listForCell(at: index) else { return nil }
         let attributes: UIMenuElement.Attributes = list.hasItemsToBuy ? .destructive : .hidden
         return UIAction(title: "Clear items to buy", image: nil, attributes: attributes) { [weak self] _ in
-            self?.onActionSubject.send(.clearItemsToBuy(id: list.uuid))
+            self?.onActionSubject.send(.clearItemsToBuy(uuid: list.uuid))
         }
     }
 
@@ -83,7 +75,15 @@ extension ListsTableView: UITableViewDelegate {
         guard let list = listForCell(at: index) else { return nil }
         let attributes: UIMenuElement.Attributes = list.hasItemsInBasket ? .destructive : .hidden
         return UIAction(title: "Clear items in the basket", image: nil, attributes: attributes) { [weak self] _ in
-            self?.onActionSubject.send(.clearBasket(id: list.uuid))
+            self?.onActionSubject.send(.clearBasket(uuid: list.uuid))
+        }
+    }
+
+    private func removeActionForList(at index: Int) -> UIAction? {
+        guard let list = listForCell(at: index) else { return nil }
+        let image = UIImage(systemName: "trash.fill")
+        return UIAction(title: "Remove list", image: image, attributes: .destructive) { [weak self] _ in
+            self?.onActionSubject.send(.removeList(uuid: list.uuid))
         }
     }
 
@@ -94,10 +94,10 @@ extension ListsTableView: UITableViewDelegate {
 
 extension ListsTableView {
     public enum Action {
-        case clearBasket(id: UUID)
-        case clearItemsToBuy(id: UUID)
-        case editList(id: UUID, name: String)
-        case removeList(id: UUID)
-        case selectList(id: ListViewModel)
+        case clearBasket(uuid: UUID)
+        case clearItemsToBuy(uuid: UUID)
+        case editList(uuid: UUID, name: String)
+        case removeList(uuid: UUID)
+        case selectList(_ list: ListViewModel)
     }
 }

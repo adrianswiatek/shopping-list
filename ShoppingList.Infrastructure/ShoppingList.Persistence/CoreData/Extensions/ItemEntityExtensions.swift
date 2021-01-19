@@ -3,33 +3,26 @@ import ShoppingList_Shared
 import CoreData
 
 extension ItemEntity {
-    func map() -> Item {
-        guard let list = list?.map() else {
-            fatalError("Unable to create Item")
-        }
-
-        return map(with: list.id)
-    }
-    
-    func map(with listId: Id<List>) -> Item {
+    func toItem() -> Item {
         guard
-            let id = id,
+            let uuid = id,
             let name = name,
-            let state = ItemState(rawValue: Int(state))
+            let state = ItemState(rawValue: Int(state)),
+            let listUuid = list?.id
         else {
             fatalError("Unable to create Item")
         }
 
         return Item(
-            id: .fromUuid(id),
+            id: .fromUuid(uuid),
             name: name,
             info: info,
             state: state,
             categoryId: category?.map().id,
-            listId: listId
+            listId: .fromUuid(listUuid)
         )
     }
-    
+
     func update(by item: Item, context: NSManagedObjectContext) {
         guard id == item.id.toUuid() else {
             fatalError("Unable to update Categories that have different ids.")
@@ -81,31 +74,6 @@ extension ItemEntity {
     private func listEntity(from item: Item, context: NSManagedObjectContext) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", item.listId.toString())
-        return try? context.fetch(request).first
-    }
-}
-
-extension Item {
-    func map(context: NSManagedObjectContext) -> ItemEntity {
-        configure(.init(context: context)) {
-            $0.id = id.toUuid()
-            $0.name = name
-            $0.info = info
-            $0.state = Int32(state.rawValue)
-            $0.list = listEntity(withId: listId, context: context)
-            $0.category = categoryEntity(withId: categoryId, context: context)
-        }
-    }
-    
-    private func listEntity(withId id: Id<List>, context: NSManagedObjectContext) -> ListEntity? {
-        let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id.toString())
-        return try? context.fetch(request).first
-    }
-    
-    private func categoryEntity(withId id: Id<ItemsCategory>, context: NSManagedObjectContext) -> CategoryEntity? {
-        let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? context.fetch(request).first
     }
 }
