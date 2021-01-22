@@ -7,6 +7,10 @@ public final class BasketViewModel: ViewModel {
         itemsSubject.map { $0.map { .init($0) } }.eraseToAnyPublisher()
     }
 
+    public var statePublisher: AnyPublisher<State, Never> {
+        stateSubject.removeDuplicates().eraseToAnyPublisher()
+    }
+
     public var isRestoreButtonEnabled: Bool {
         commandBus.canUndo(.basket)
     }
@@ -20,7 +24,9 @@ public final class BasketViewModel: ViewModel {
     private let eventBus: EventBus
 
     private var list: ListViewModel!
+
     private let itemsSubject: CurrentValueSubject<[Item], Never>
+    private let stateSubject: CurrentValueSubject<State, Never>
     private var cancellables: Set<AnyCancellable>
 
     public init(itemQueries: ItemQueries, commandBus: CommandBus, eventBus: EventBus) {
@@ -29,6 +35,7 @@ public final class BasketViewModel: ViewModel {
         self.eventBus = eventBus
 
         self.itemsSubject = .init([])
+        self.stateSubject = .init(.regular)
         self.cancellables = []
 
         self.bind()
@@ -86,10 +93,24 @@ public final class BasketViewModel: ViewModel {
         )
     }
 
+    public func setState(_ state: State) {
+        stateSubject.send(state)
+    }
+
     private func bind() {
         eventBus.events
             .filter { $0 is ItemAddedEvent || $0 is ItemRemovedEvent || $0 is ItemUpdatedEvent }
-            .sink { [weak self] _ in self?.fetchItems() }
+            .sink { [weak self] _ in
+                self?.fetchItems()
+                self?.stateSubject.send(.regular)
+            }
             .store(in: &cancellables)
+    }
+}
+
+public extension BasketViewModel {
+    enum State {
+        case editing
+        case regular
     }
 }

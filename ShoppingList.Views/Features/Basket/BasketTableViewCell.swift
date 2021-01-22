@@ -4,8 +4,8 @@ import Combine
 import UIKit
 
 public final class BasketTableViewCell: UITableViewCell {
-    public var onAction: AnyPublisher<Action, Never> {
-        onActionSubject.eraseToAnyPublisher()
+    public var moveToListTapped: AnyPublisher<ItemInBasketViewModel, Never> {
+        moveToListSubject.eraseToAnyPublisher()
     }
 
     public var viewModel: ItemInBasketViewModel? {
@@ -27,15 +27,15 @@ public final class BasketTableViewCell: UITableViewCell {
         $0.setListItemButton(with: #imageLiteral(resourceName: "RemoveFromBasket"))
         $0.addAction(.init { [weak self] _ in
             guard let item = self?.viewModel else { return }
-            self?.onActionSubject.send(.moveItemToList(uuid: item.uuid))
+            self?.moveToListSubject.send(item)
         }, for: .touchUpInside)
     }
 
-    private let onActionSubject: PassthroughSubject<Action, Never>
-    private var cancellable: AnyCancellable?
+    private let moveToListSubject: PassthroughSubject<ItemInBasketViewModel, Never>
+    private var moveToListCancellable: AnyCancellable?
 
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        self.onActionSubject = .init()
+        self.moveToListSubject = .init()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
     }
@@ -46,7 +46,7 @@ public final class BasketTableViewCell: UITableViewCell {
     }
 
     public func setCancellable(_ cancellable: AnyCancellable?) {
-        self.cancellable = cancellable
+        moveToListCancellable = cancellable
     }
 
     private func setupView() {
@@ -65,11 +65,5 @@ public final class BasketTableViewCell: UITableViewCell {
             itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             itemNameLabel.trailingAnchor.constraint(equalTo: moveToListButton.leadingAnchor, constant: -4)
         ])
-    }
-}
-
-extension BasketTableViewCell {
-    public enum Action {
-        case moveItemToList(uuid: UUID)
     }
 }

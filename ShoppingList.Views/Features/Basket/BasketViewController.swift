@@ -96,6 +96,19 @@ public final class BasketViewController: UIViewController {
             }
             .store(in: &cancellables)
 
+        viewModel.statePublisher
+            .sink { [weak self] in
+                switch $0 {
+                case .editing:
+                    self?.tableView.setEditing(true, animated: true)
+                    self?.toolbar.setEditMode()
+                case .regular:
+                    self?.tableView.setEditing(false, animated: true)
+                    self?.toolbar.setRegularMode()
+                }
+            }
+            .store(in: &cancellables)
+
         tableView.onAction
             .sink { [weak self] in self?.handleTableViewAction($0) }
             .store(in: &cancellables)
@@ -120,7 +133,7 @@ public final class BasketViewController: UIViewController {
         }
     }
 
-    private func handleDataSourceAction(_ action: BasketTableViewCell.Action) {
+    private func handleDataSourceAction(_ action: BasketDataSource.Action) {
         switch action {
         case .moveItemToList(let uuid):
             viewModel.moveToListItems(with: [uuid])
@@ -132,12 +145,9 @@ public final class BasketViewController: UIViewController {
         case .action:
             showActionPopup()
         case .cancel:
-            tableView.setEditing(false, animated: true)
-            toolbar.setRegularMode()
-            refreshUserInterface()
+            viewModel.setState(.regular)
         case .edit:
-            toolbar.setEditMode()
-            tableView.setEditing(true, animated: true)
+            viewModel.setState(.editing)
         case .moveToList:
             let selectedItems = tableView.selectedItems()
             viewModel.moveToListItems(with: selectedItems.map { $0.uuid })

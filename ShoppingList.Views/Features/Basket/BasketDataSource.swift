@@ -3,14 +3,14 @@ import Combine
 import UIKit
 
 public final class BasketDataSource {
-    private let onActionSubject: PassthroughSubject<BasketTableViewCell.Action, Never>
-    public var onAction: AnyPublisher<BasketTableViewCell.Action, Never> {
+    private let onActionSubject: PassthroughSubject<Action, Never>
+    public var onAction: AnyPublisher<Action, Never> {
         onActionSubject.eraseToAnyPublisher()
     }
 
     private let tableView: UITableView
-    private lazy var dataSource: UITableViewDiffableDataSource<BasketDataSource.Section, ItemInBasketViewModel> = {
-        .init(tableView: tableView) { tableView, indexPath, item in
+    private lazy var dataSource: DataSource =
+        .init(tableView) { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: BasketTableViewCell.identifier,
                 for: indexPath
@@ -18,14 +18,13 @@ public final class BasketDataSource {
 
             cell?.viewModel = item
 
-            let cancellable = cell?.onAction.sink { [weak self] in
-                self?.onActionSubject.send($0)
+            let cancellable = cell?.moveToListTapped.sink { [weak self] in
+                self?.onActionSubject.send(.moveItemToList(uuid: $0.uuid))
             }
             cell?.setCancellable(cancellable)
 
             return cell
         }
-    }()
 
     public init(_ tableView: UITableView) {
         self.tableView = tableView
@@ -43,5 +42,24 @@ public final class BasketDataSource {
 public extension BasketDataSource {
     enum Section {
         case main
+    }
+
+    enum Action {
+        case moveItemToList(uuid: UUID)
+    }
+}
+
+private extension BasketDataSource {
+    final class DataSource: UITableViewDiffableDataSource<BasketDataSource.Section, ItemInBasketViewModel> {
+        public init(
+            _ tableView: UITableView,
+            _ cellProvider: @escaping UITableViewDiffableDataSource<BasketDataSource.Section, ItemInBasketViewModel>.CellProvider
+        ) {
+            super.init(tableView: tableView, cellProvider: cellProvider)
+        }
+
+        override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+            true
+        }
     }
 }
