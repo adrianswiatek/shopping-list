@@ -15,7 +15,7 @@ public final class ItemsToolbar: UIView {
     private lazy var actionButton: UIBarButtonItem =
         UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButtonHandler))
     
-    private lazy var regularToolbar: UIToolbar = configure(.init()) {
+    private lazy var regularToolbar: UIToolbar = configure(.init(frame: Metrics.toolbarsFrame)) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setItems([
             editButton,
@@ -51,10 +51,7 @@ public final class ItemsToolbar: UIView {
     }()
 
     private lazy var editToolbar: UIToolbar = {
-        let fixedSpace = UIBarButtonItem(
-            barButtonSystemItem: .fixedSpace,
-            target: nil,
-            action: nil)
+        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
         fixedSpace.width = 16
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -62,14 +59,18 @@ public final class ItemsToolbar: UIView {
         let cancelButton = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
-            action: #selector(cancelButtonHandler))
+            action: #selector(cancelButtonHandler)
+        )
         cancelButton.style = .done
         
-        let toolbar = UIToolbar()
-        toolbar.setItems(
-            [cancelButton, flexibleSpace, deleteAllButton, fixedSpace, moveAllToBasketButton],
-            animated: true
-        )
+        let toolbar = UIToolbar(frame: Metrics.toolbarsFrame)
+        toolbar.setItems([
+            cancelButton,
+            flexibleSpace,
+            deleteAllButton,
+            fixedSpace,
+            moveAllToBasketButton
+        ], animated: true)
         toolbar.alpha = 0
         toolbar.barTintColor = .background
         toolbar.isTranslucent = false
@@ -171,5 +172,11 @@ public final class ItemsToolbar: UIView {
     @objc
     private func cancelButtonHandler() {
         delegate?.cancelButtonDidTap()
+    }
+}
+
+private extension ItemsToolbar {
+    enum Metrics {
+        static let toolbarsFrame: CGRect = .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
     }
 }

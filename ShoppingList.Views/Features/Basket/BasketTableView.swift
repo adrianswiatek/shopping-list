@@ -28,7 +28,6 @@ public final class BasketTableView: UITableView {
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         allowsSelection = false
-        dragInteractionEnabled = true
         allowsMultipleSelectionDuringEditing = true
         rowHeight = UITableView.automaticDimension
         estimatedRowHeight = UITableView.automaticDimension

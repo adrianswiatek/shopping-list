@@ -29,7 +29,8 @@ public final class CoreDataItemsCategoryRepository: ItemsCategoryRepository {
 
     public func update(_ category: ItemsCategory) {
         guard let entity = categoryEntity(with: category.id) else { return }
-        entity.update(by: category)
+        precondition(entity.id == category.id.toUuid(), "Unable to update Categories that have different ids.")
+        entity.name = category.name
         coreData.save()
     }
 

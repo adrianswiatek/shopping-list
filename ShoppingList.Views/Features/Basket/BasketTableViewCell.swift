@@ -48,7 +48,7 @@ public final class BasketTableViewCell: UITableViewCell {
     public func setCancellable(_ cancellable: AnyCancellable?) {
         self.cancellable = cancellable
     }
-    
+
     private func setupView() {
         contentView.addSubview(moveToListButton)
         NSLayoutConstraint.activate([

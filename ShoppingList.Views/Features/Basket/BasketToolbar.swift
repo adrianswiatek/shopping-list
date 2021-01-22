@@ -19,12 +19,12 @@ public final class BasketToolbar: UIView {
             self?.onActionSubject.send(.action)
         })
     
-    private lazy var regularToolbar: UIToolbar = configure(.init()) {
+    private lazy var regularToolbar: UIToolbar = configure(.init(frame: Metrics.toolbarsFrame)) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setItems([
             editButton,
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            actionButton,
+            actionButton
         ], animated: true)
         $0.barTintColor = .background
         $0.isTranslucent = false
@@ -64,7 +64,7 @@ public final class BasketToolbar: UIView {
         )
         cancelButton.style = .done
         
-        return configure(.init()) {
+        return configure(.init(frame: Metrics.toolbarsFrame)) {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.setItems([cancelButton, flexibleSpace, removeButton, fixedSpace, moveToListButton], animated: true)
             $0.alpha = 0
@@ -119,6 +119,10 @@ public final class BasketToolbar: UIView {
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
 
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 50)
+        ])
+
         addSubview(regularToolbar)
         NSLayoutConstraint.activate([
             regularToolbar.topAnchor.constraint(equalTo: topAnchor),
@@ -152,5 +156,11 @@ public extension BasketToolbar {
         case edit
         case moveToList
         case remove
+    }
+}
+
+private extension BasketToolbar {
+    enum Metrics {
+        static let toolbarsFrame: CGRect = .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
     }
 }
