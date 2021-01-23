@@ -66,7 +66,13 @@ public final class BasketToolbar: UIView {
         
         return configure(.init(frame: Metrics.toolbarsFrame)) {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.setItems([cancelButton, flexibleSpace, removeButton, fixedSpace, moveToListButton], animated: true)
+            $0.setItems([
+                cancelButton,
+                flexibleSpace,
+                removeButton,
+                fixedSpace,
+                moveToListButton
+            ], animated: true)
             $0.alpha = 0
             $0.barTintColor = .background
             $0.isTranslucent = false

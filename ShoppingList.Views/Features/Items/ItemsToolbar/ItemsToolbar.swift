@@ -1,19 +1,28 @@
 import ShoppingList_Shared
+import Combine
 import UIKit
 
 public final class ItemsToolbar: UIView {
-    public weak var delegate: ItemsToolbarDelegate?
+    public var onAction: AnyPublisher<Action, Never> {
+        onActionSubject.eraseToAnyPublisher()
+    }
     
     // MARK: - Regular toolbar
     
     private lazy var editButton: UIBarButtonItem =
-        UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonHandler))
+        .init(systemItem: .edit, primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.edit)
+        })
     
     private lazy var addButton: UIBarButtonItem =
-        UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonHandler))
+        .init(systemItem: .add, primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.add)
+        })
     
     private lazy var actionButton: UIBarButtonItem =
-        UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(actionButtonHandler))
+        .init(systemItem: .action, primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.action)
+        })
     
     private lazy var regularToolbar: UIToolbar = configure(.init(frame: Metrics.toolbarsFrame)) {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -30,22 +39,18 @@ public final class ItemsToolbar: UIView {
     
     // MARK: - Edit toolbar
     
-    private lazy var deleteAllButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(
-            image: #imageLiteral(resourceName: "Trash"),
-            style: .plain,
-            target: self,
-            action: #selector(deleteAllButtonHandler))
+    private lazy var removeButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "Trash"), primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.remove)
+        })
         button.isEnabled = false
         return button
     }()
 
-    private lazy var moveAllToBasketButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(
-            image: #imageLiteral(resourceName: "AddToBasket"),
-            style: .plain,
-            target: self,
-            action: #selector(moveAllToBasketButtonHandler))
+    private lazy var moveToListButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "RemoveFromBasket"), primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.moveToList)
+        })
         button.isEnabled = false
         return button
     }()
@@ -57,25 +62,24 @@ public final class ItemsToolbar: UIView {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         let cancelButton = UIBarButtonItem(
-            barButtonSystemItem: .cancel,
-            target: self,
-            action: #selector(cancelButtonHandler)
+            systemItem: .cancel,
+            primaryAction: .init { [weak self] _ in self?.onActionSubject.send(.cancel) }
         )
         cancelButton.style = .done
         
-        let toolbar = UIToolbar(frame: Metrics.toolbarsFrame)
-        toolbar.setItems([
-            cancelButton,
-            flexibleSpace,
-            deleteAllButton,
-            fixedSpace,
-            moveAllToBasketButton
-        ], animated: true)
-        toolbar.alpha = 0
-        toolbar.barTintColor = .background
-        toolbar.isTranslucent = false
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        return toolbar
+        return configure(.init(frame: Metrics.toolbarsFrame)) {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.setItems([
+                cancelButton,
+                flexibleSpace,
+                removeButton,
+                fixedSpace,
+                moveToListButton
+            ], animated: true)
+            $0.alpha = 0
+            $0.barTintColor = .background
+            $0.isTranslucent = false
+        }
     }()
 
     private let topLineView: UIView = configure(.init()) {
@@ -83,7 +87,10 @@ public final class ItemsToolbar: UIView {
         $0.backgroundColor = .line
     }
 
+    private let onActionSubject: PassthroughSubject<Action, Never>
+
     public init() {
+        self.onActionSubject = .init()
         super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         self.setupView()
     }
@@ -96,15 +103,15 @@ public final class ItemsToolbar: UIView {
     public func setRegularMode() {
         regularToolbar.alpha = 1
         editToolbar.alpha = 0
-        deleteAllButton.isEnabled = false
-        moveAllToBasketButton.isEnabled = false
+        removeButton.isEnabled = false
+        moveToListButton.isEnabled = false
     }
 
     public func setEditMode() {
         regularToolbar.alpha = 0
         editToolbar.alpha = 1
-        deleteAllButton.isEnabled = false
-        moveAllToBasketButton.isEnabled = false
+        removeButton.isEnabled = false
+        moveToListButton.isEnabled = false
     }
 
     public func setButtonsAs(enabled: Bool) {
@@ -113,8 +120,8 @@ public final class ItemsToolbar: UIView {
             editButton.isEnabled = enabled
             actionButton.isEnabled = enabled
         } else {
-            deleteAllButton.isEnabled = enabled
-            moveAllToBasketButton.isEnabled = enabled
+            removeButton.isEnabled = enabled
+            moveToListButton.isEnabled = enabled
         }
     }
     
@@ -143,35 +150,16 @@ public final class ItemsToolbar: UIView {
             topLineView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
+}
 
-    @objc
-    private func editButtonHandler() {
-        delegate?.editButtonDidTap()
-    }
-
-    @objc
-    private func addButtonHandler() {
-        delegate?.addButtonDidTap()
-    }
-
-    @objc
-    private func actionButtonHandler() {
-        delegate?.actionButtonDidTap()
-    }
-
-    @objc
-    private func deleteAllButtonHandler() {
-        delegate?.deleteAllButtonDidTap()
-    }
-
-    @objc
-    private func moveAllToBasketButtonHandler() {
-        delegate?.moveAllToBasketButtonDidTap()
-    }
-
-    @objc
-    private func cancelButtonHandler() {
-        delegate?.cancelButtonDidTap()
+public extension ItemsToolbar {
+    enum Action {
+        case action
+        case add
+        case cancel
+        case edit
+        case moveToList
+        case remove
     }
 }
 

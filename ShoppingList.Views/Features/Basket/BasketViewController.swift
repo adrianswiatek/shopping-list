@@ -48,21 +48,21 @@ public final class BasketViewController: UIViewController {
         self.setupView()
         self.viewModel.fetchItems()
     }
-    
+
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.refreshUserInterface()
         self.tableView.reloadData()
     }
-    
+
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.viewModel.cleanUp()
     }
-    
+
     private func setupView() {
         title = "Basket"
-        
+
         view.addSubview(toolbar)
         NSLayoutConstraint.activate([
             toolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
