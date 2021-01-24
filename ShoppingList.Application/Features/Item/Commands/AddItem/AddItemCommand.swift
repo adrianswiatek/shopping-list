@@ -19,4 +19,12 @@ public struct AddItemCommand: Command {
         self.listId = .fromUuid(listUuid)
         self.source = .items
     }
+
+    public static func withDefaultCategory(
+        _ name: String,
+        _ info: String,
+        _ listUuid: UUID
+    ) -> AddItemCommand {
+        .init(name, info, ItemsCategory.default.id.toUuid(), listUuid)
+    }
 }

@@ -11,8 +11,11 @@ public final class BasketViewModel: ViewModel {
         stateSubject.removeDuplicates().eraseToAnyPublisher()
     }
 
-    public var isRestoreButtonEnabled: Bool {
-        commandBus.canUndo(.basket)
+    public var isRestoreButtonEnabledPublisher: AnyPublisher<Bool, Never> {
+        itemsPublisher
+            .compactMap { [weak self] _ in self?.commandBus.canUndo(.basket) }
+            .eraseToAnyPublisher()
+
     }
 
     public var isEmpty: Bool {

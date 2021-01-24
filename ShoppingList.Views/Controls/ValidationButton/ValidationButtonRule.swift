@@ -35,11 +35,11 @@ public final class ValidationButtonRuleLeaf: ValidationButtonRule {
     }
     
     public static var notEmptyCategoryRule: ValidationButtonRule {
-        notEmptyRule(message: "Please provide the Name for the Category")
+        notEmptyRule(message: "Please provide name for the Category")
     }
     
     public static var notEmptyItemRule: ValidationButtonRule {
-        notEmptyRule(message: "Please provide the Name for the Item")
+        notEmptyRule(message: "Please provide name for the Item")
     }
     
     private static func notEmptyRule(message: String) -> ValidationButtonRule {

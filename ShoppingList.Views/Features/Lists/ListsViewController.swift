@@ -172,7 +172,7 @@ public final class ListsViewController: UIViewController {
         if viewModel.hasLists {
             tableView.backgroundView = nil
         } else {
-            tableView.setTextIfEmpty("You have not added any lists yet")
+            tableView.setBackgroundLabel("You have not added any lists yet")
         }
 
         restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled

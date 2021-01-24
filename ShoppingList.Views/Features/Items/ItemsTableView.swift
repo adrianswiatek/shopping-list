@@ -19,11 +19,19 @@ public final class ItemsTableView: UITableView {
         fatalError("Not supported.")
     }
 
+    public func refreshBackground() {
+        if visibleCells.isEmpty {
+            setBackgroundLabel("Your shopping list is empty")
+        } else {
+            backgroundView = nil
+        }
+    }
+
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         separatorStyle = .singleLine
         allowsSelection = false
-        allowsMultipleSelectionDuringEditing = false
+        allowsMultipleSelectionDuringEditing = true
         rowHeight = UITableView.automaticDimension
         estimatedRowHeight = 50
         tableFooterView = UIView()
@@ -37,13 +45,21 @@ public final class ItemsTableView: UITableView {
 }
 
 extension ItemsTableView: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onActionSubject.send(.rowTapped)
+    }
+
+    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        onActionSubject.send(.rowTapped)
+    }
+
     public func tableView(
         _ tableView: UITableView,
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let editItemAction = UIContextualAction(
             style: .normal,
-            title: nil) { [unowned self] (action, sourceView, completionHandler) in
+            title: nil) { action, sourceView, completionHandler in
 //            let item = self.items[indexPath.section][indexPath.row]
 //            self.goToEditItemDetailed(with: item)
             completionHandler(true)
@@ -60,7 +76,7 @@ extension ItemsTableView: UITableViewDelegate {
         let deleteItemAction = UIContextualAction(
             style: .destructive,
             title: nil
-        ) { [weak self] (action, sourceView, completionHandler) in
+        ) { action, sourceView, completionHandler in
             // Todo: command
             // let item = self.items[indexPath.section][indexPath.row]
             // let command = RemoveItemsFromListCommand(item, self)
@@ -79,14 +95,6 @@ extension ItemsTableView: UITableViewDelegate {
         let headerCell = ItemsTableViewHeaderCell()
 //        headerCell.category = categories[section]
         return headerCell
-    }
-
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
-    }
-
-    public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
     }
 }
 
@@ -114,6 +122,6 @@ extension ItemsTableView: UITableViewDropDelegate {
 
 extension ItemsTableView {
     public enum Action {
-
+        case rowTapped
     }
 }

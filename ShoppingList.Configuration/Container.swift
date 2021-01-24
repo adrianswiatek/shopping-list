@@ -74,6 +74,7 @@ public final class Container {
         container.register(ItemsViewModel.self) {
             ItemsViewModel(
                 itemQueries: $0.resolve(ItemQueries.self)!,
+                categoryQuries: $0.resolve(ItemsCategoryQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )

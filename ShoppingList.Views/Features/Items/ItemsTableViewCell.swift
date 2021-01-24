@@ -1,10 +1,13 @@
-import ShoppingList_Domain
 import ShoppingList_Shared
 import ShoppingList_ViewModels
+
+import Combine
 import UIKit
 
 public final class ItemsTableViewCell: UITableViewCell {
-    public weak var delegate: AddToBasketDelegate?
+    public var moveToBasketTapped: AnyPublisher<ItemToBuyViewModel, Never> {
+        moveToBasketSubject.eraseToAnyPublisher()
+    }
     
     public var viewModel: ItemToBuyViewModel? {
         didSet {
@@ -43,13 +46,20 @@ public final class ItemsTableViewCell: UITableViewCell {
     private lazy var addToBasketButton: UIButton = configure(.init(type: .infoLight)) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setListItemButton(with: #imageLiteral(resourceName: "AddToBasket"))
-        $0.addTarget(self, action: #selector(addToBasket), for: UIControl.Event.touchUpInside)
+        $0.addAction(.init { [weak self] _ in
+            guard let item = self?.viewModel else { return }
+            self?.moveToBasketSubject.send(item)
+        }, for: .touchUpInside)
     }
 
     private var itemNameLabelTopConstraint: NSLayoutConstraint!
     private var itemNameLabelCenterYConstraint: NSLayoutConstraint!
+
+    private let moveToBasketSubject: PassthroughSubject<ItemToBuyViewModel, Never>
+    private var moveToBasketCancellable: AnyCancellable?
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        self.moveToBasketSubject = .init()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
     }
@@ -57,6 +67,10 @@ public final class ItemsTableViewCell: UITableViewCell {
     @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
         fatalError("Not supported.")
+    }
+
+    public func setCancellable(_ cancellable: AnyCancellable?) {
+        moveToBasketCancellable = cancellable
     }
     
     private func setupView() {
@@ -94,11 +108,5 @@ public final class ItemsTableViewCell: UITableViewCell {
             equalTo: contentView.centerYAnchor
         )
         itemNameLabelCenterYConstraint.isActive = true
-    }
-
-    @objc
-    private func addToBasket() {
-        guard let item = viewModel else { return }
-        delegate?.addItemToBasket(item)
     }
 }

@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public struct ItemToBuyViewModel {
+public struct ItemToBuyViewModel: Hashable {
     public let uuid: UUID
     public let name: String
     public let info: String

@@ -51,7 +51,6 @@ public final class BasketViewController: UIViewController {
 
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.refreshUserInterface()
         self.tableView.reloadData()
     }
 
@@ -62,6 +61,8 @@ public final class BasketViewController: UIViewController {
 
     private func setupView() {
         title = "Basket"
+
+        navigationItem.rightBarButtonItem = restoreBarButtonItem
 
         view.addSubview(toolbar)
         NSLayoutConstraint.activate([
@@ -92,7 +93,8 @@ public final class BasketViewController: UIViewController {
         viewModel.itemsPublisher
             .sink { [weak self] in
                 self?.dataSource.apply($0)
-                self?.refreshUserInterface()
+                self?.tableView.refreshBackground()
+                self?.toolbar.setButtonsAs(enabled: !$0.isEmpty)
             }
             .store(in: &cancellables)
 
@@ -107,6 +109,10 @@ public final class BasketViewController: UIViewController {
                     self?.toolbar.setRegularMode()
                 }
             }
+            .store(in: &cancellables)
+
+        viewModel.isRestoreButtonEnabledPublisher
+            .assign(to: \.isEnabled, on: restoreBarButtonItem)
             .store(in: &cancellables)
 
         tableView.onAction
@@ -177,18 +183,5 @@ public final class BasketViewController: UIViewController {
         )
 
         present(alertController, animated: true)
-    }
-
-    private func refreshUserInterface() {
-        toolbar.setRegularMode()
-
-        if viewModel.isEmpty {
-            tableView.setTextIfEmpty("Your basket is empty")
-        } else {
-            tableView.backgroundView = nil
-        }
-
-        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
-        navigationItem.rightBarButtonItem = restoreBarButtonItem
     }
 }

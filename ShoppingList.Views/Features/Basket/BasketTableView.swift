@@ -25,6 +25,14 @@ public final class BasketTableView: UITableView {
         return selectedRows.compactMap { itemForCell(at: $0) }
     }
 
+    public func refreshBackground() {
+        if visibleCells.isEmpty {
+            setBackgroundLabel("Your basket is empty")
+        } else {
+            backgroundView = nil
+        }
+    }
+
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         allowsSelection = false

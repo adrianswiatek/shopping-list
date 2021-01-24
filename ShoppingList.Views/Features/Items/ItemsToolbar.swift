@@ -126,6 +126,8 @@ public final class ItemsToolbar: UIView {
     }
     
     private func setupView() {
+        translatesAutoresizingMaskIntoConstraints = false
+
         addSubview(regularToolbar)
         NSLayoutConstraint.activate([
             regularToolbar.topAnchor.constraint(equalTo: topAnchor),
@@ -168,3 +170,4 @@ private extension ItemsToolbar {
         static let toolbarsFrame: CGRect = .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
     }
 }
+
