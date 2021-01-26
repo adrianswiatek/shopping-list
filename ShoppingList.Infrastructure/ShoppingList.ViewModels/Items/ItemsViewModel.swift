@@ -6,19 +6,26 @@ public final class ItemsViewModel: ViewModel {
     public private(set) var list: ListViewModel!
 
     public var itemsPublisher: AnyPublisher<[ItemToBuyViewModel], Never> {
-        itemsSubject.eraseToAnyPublisher()
+        itemsSubject.map { $0.map { $0.viewModel } }.eraseToAnyPublisher()
     }
 
     public var statePublisher: AnyPublisher<State, Never> {
         stateSubject.eraseToAnyPublisher()
     }
 
-    public var isRestoreButtonEnabled: Bool {
-        commandBus.canUndo(.items)
+    public var isRestoreButtonEnabledPublisher: AnyPublisher<Bool, Never> {
+        isRestoreButtonEnabledSubject.eraseToAnyPublisher()
     }
 
-    private let itemsSubject: CurrentValueSubject<[ItemToBuyViewModel], Never>
+    public var hasItemsInTheBasketPublisher: AnyPublisher<Bool, Never> {
+        itemsSubject
+            .map { [weak self] _ in self?.hasItemsInBasket() == true }
+            .eraseToAnyPublisher()
+    }
+
+    private let itemsSubject: CurrentValueSubject<[(item: Item, viewModel: ItemToBuyViewModel)], Never>
     private let stateSubject: CurrentValueSubject<State, Never>
+    private let isRestoreButtonEnabledSubject: CurrentValueSubject<Bool, Never>
     private var cancellables: Set<AnyCancellable>
 
     private let itemQueries: ItemQueries
@@ -39,6 +46,7 @@ public final class ItemsViewModel: ViewModel {
 
         self.itemsSubject = .init([])
         self.stateSubject = .init(.regular)
+        self.isRestoreButtonEnabledSubject = .init(false)
         self.cancellables = []
 
         self.bind()
@@ -50,19 +58,23 @@ public final class ItemsViewModel: ViewModel {
 
     public func cleanUp() {
         commandBus.remove(.items)
+        isRestoreButtonEnabledSubject.send(false)
+        stateSubject.send(.regular)
     }
 
     public func fetchItems() {
         let categories = categoryQuries.fetchCategories()
         let items = itemQueries.fetchItemsToBuyFromList(with: .fromUuid(list.uuid))
 
-        let itemViewModels = items.compactMap { item in
-            categories
-                .first { category in category.id == item.categoryId }
-                .map { category in ItemToBuyViewModel(item, category) }
-        }
+        let result: [(Item, ItemToBuyViewModel)] = items
+            .compactMap { item in
+                categories
+                    .first { category in category.id == item.categoryId }
+                    .map { category in ItemToBuyViewModel(item, category) }
+                    .map { viewModel in (item, viewModel) }
+            }
 
-        itemsSubject.send(itemViewModels)
+        itemsSubject.send(result)
     }
 
     public func restoreItem() {
@@ -79,13 +91,20 @@ public final class ItemsViewModel: ViewModel {
         )
     }
 
-    public func moveToBasketItem(with uuid: UUID) {
-        let command = MoveItemsToBasketCommand([])
-        commandBus.execute(command)
+    public func moveToBasketItems(with uuids: [UUID]) {
+        commandBus.execute(
+            MoveItemsToBasketCommand(uuids)
+        )
     }
 
-    public func hasItemsInBasket() -> Bool {
-        itemQueries.hasItemsInBasketOfList(with: .fromUuid(list.uuid))
+    public func removeItems(with uuids: [UUID]) {
+        let items = itemsSubject.value
+            .filter { uuids.contains($0.item.id.toUuid()) }
+            .map { $0.item }
+
+        commandBus.execute(
+            RemoveItemsCommand(items)
+        )
     }
 
     public func setState(_ state: State) {
@@ -95,8 +114,20 @@ public final class ItemsViewModel: ViewModel {
     private func bind() {
         eventBus.events
             .filter { $0 is ItemAddedEvent || $0 is ItemRemovedEvent || $0 is ItemUpdatedEvent }
-            .sink { [weak self] _ in self?.fetchItems() }
+            .sink { [weak self] _ in
+                self?.fetchItems()
+                self?.stateSubject.send(.regular)
+            }
             .store(in: &cancellables)
+
+        itemsPublisher
+            .map { [weak self] _ in self?.commandBus.canUndo(.items) == true }
+            .subscribe(isRestoreButtonEnabledSubject)
+            .store(in: &cancellables)
+    }
+
+    private func hasItemsInBasket() -> Bool {
+        itemQueries.hasItemsInBasketOfList(with: .fromUuid(list.uuid))
     }
 }
 

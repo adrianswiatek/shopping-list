@@ -34,12 +34,9 @@ public final class ItemsViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.backgroundColor = .background
         }
-    
-    private lazy var filledBasketBarButtonItem: UIBarButtonItem =
-        .init(image: #imageLiteral(resourceName: "Basket"), primaryAction: .init { [weak self] _ in self?.goToBasket() })
-    
-    private lazy var emptyBasketBarButtonItem: UIBarButtonItem =
-        .init(image: #imageLiteral(resourceName: "EmptyBasket"), primaryAction: .init { [weak self] _ in self?.goToBasket() })
+
+    private lazy var basketBarButtonItem: UIBarButtonItem =
+        .init(image: #imageLiteral(resourceName: "EmptyBasket"), primaryAction: .init { [weak self] _ in self?.delegate?.goToBasket() })
     
     private lazy var restoreBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in
@@ -79,24 +76,19 @@ public final class ItemsViewController: UIViewController {
         self.setupView()
         self.viewModel.fetchItems()
     }
-    
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.refreshUserInterface()
-    }
 
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.viewModel.cleanUp()
 
         if isMovingFromParent {
             self.delegate?.didDismiss()
         }
-
-        self.viewModel.cleanUp()
     }
     
     private func setupView() {
         navigationItem.title = viewModel.list.name
+        navigationItem.rightBarButtonItems = [basketBarButtonItem, restoreBarButtonItem]
 
         view.addSubview(addItemTextField)
         NSLayoutConstraint.activate([
@@ -140,6 +132,15 @@ public final class ItemsViewController: UIViewController {
             }
             .store(in: &cancellables)
 
+        viewModel.isRestoreButtonEnabledPublisher
+            .assign(to: \.isEnabled, on: restoreBarButtonItem)
+            .store(in: &cancellables)
+
+        viewModel.hasItemsInTheBasketPublisher
+            .map { $0 ? #imageLiteral(resourceName: "Basket") : #imageLiteral(resourceName: "EmptyBasket") }
+            .assign(to: \.image, on: basketBarButtonItem)
+            .store(in: &cancellables)
+
         viewModel.statePublisher
             .sink { [weak self] in self?.handleStateChange($0) }
             .store(in: &cancellables)
@@ -150,6 +151,10 @@ public final class ItemsViewController: UIViewController {
 
         tableView.onAction
             .sink { [weak self] in self?.handleTableViewAction($0) }
+            .store(in: &cancellables)
+
+        dataSource.onAction
+            .sink { [weak self] in self?.handleDataSourceAction($0) }
             .store(in: &cancellables)
 
         toolbar.onAction
@@ -184,6 +189,13 @@ public final class ItemsViewController: UIViewController {
         }
     }
 
+    private func handleDataSourceAction(_ action: ItemsDataSource.Action) {
+        switch action {
+        case .moveItemToBasket(let uuid):
+            viewModel.moveToBasketItems(with: [uuid])
+        }
+    }
+
     private func handleToolbarAction(_ action: ItemsToolbar.Action) {
         switch action {
         case .action:
@@ -195,9 +207,11 @@ public final class ItemsViewController: UIViewController {
         case .edit:
             viewModel.setState(.editing)
         case .moveToList:
-            break
+            let selectedItems = tableView.selectedItems()
+            viewModel.moveToBasketItems(with: selectedItems.map { $0.uuid })
         case .remove:
-            break
+            let selectedItems = tableView.selectedItems()
+            viewModel.removeItems(with: selectedItems.map { $0.uuid })
         }
     }
 
@@ -206,27 +220,11 @@ public final class ItemsViewController: UIViewController {
         controller.addAction(.init(title: "OK", style: .default))
         present(controller, animated: true)
     }
-    
-    private func refreshUserInterface(after: Double = 0) {
-        setTopBarButtons()
-    }
-    
-    private func setTopBarButtons() {
-        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
-        navigationItem.rightBarButtonItems = [
-            viewModel.hasItemsInBasket() ? filledBasketBarButtonItem : emptyBasketBarButtonItem,
-            restoreBarButtonItem
-        ]
-    }
-
-    private func goToBasket() {
-        delegate?.goToBasket()
-    }
 }
 
 extension ItemsViewController: AddToBasketDelegate {
     public func addItemToBasket(_ item: ItemToBuyViewModel) {
-        viewModel.moveToBasketItem(with: item.uuid)
+        viewModel.moveToBasketItems(with: [item.uuid])
     }
 }
 
@@ -324,6 +322,5 @@ extension ItemsViewController { //}: ItemsToolbarDelegate {
     public func cancelButtonDidTap() {
         tableView.setEditing(false, animated: true)
         toolbar.setRegularMode()
-        refreshUserInterface()
     }
 }

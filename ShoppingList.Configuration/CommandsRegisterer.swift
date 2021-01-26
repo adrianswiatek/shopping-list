@@ -11,7 +11,8 @@ public final class CommandsRegisterer {
     public func register() {
         registerCommandBus()
         registerListCommandHandlers()
-        registerItemCommandHandlers()
+        registerItemsInListCommandHandlers()
+        registerItemsInBasketCommandHandlers()
         registerItemsCategoryCommandHandlers()
     }
 
@@ -26,9 +27,14 @@ public final class CommandsRegisterer {
                 $0.resolve(UpdateListCommandHandler.self)!,
                 $0.resolve(UpdateListsDateCommandHandler.self)!,
 
-                // Items
+                // Items in list
                 $0.resolve(AddItemCommandHandler.self)!,
                 $0.resolve(MoveItemsToBasketCommandHandler.self)!,
+                $0.resolve(RemoveItemsCommandHandler.self)!,
+                $0.resolve(RestoreItemsCommandHandler.self)!,
+                $0.resolve(UpdateItemCommandHandler.self)!,
+
+                // Items in basket
                 $0.resolve(MoveItemsToListCommandHandler.self)!,
                 $0.resolve(RemoveItemsFromBasketCommandHandler.self)!,
                 $0.resolve(RestoreItemsToBasketCommandHandler.self)!,
@@ -69,7 +75,7 @@ public final class CommandsRegisterer {
         }
     }
 
-    private func registerItemCommandHandlers() {
+    private func registerItemsInListCommandHandlers() {
         container.register(AddItemCommandHandler.self) {
             AddItemCommandHandler($0.resolve(ItemRepository.self)!)
         }
@@ -78,6 +84,20 @@ public final class CommandsRegisterer {
             MoveItemsToBasketCommandHandler($0.resolve(ItemRepository.self)!)
         }
 
+        container.register(RemoveItemsCommandHandler.self) {
+            RemoveItemsCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(RestoreItemsCommandHandler.self) {
+            RestoreItemsCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(UpdateItemCommandHandler.self) {
+            UpdateItemCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+    }
+
+    private func registerItemsInBasketCommandHandlers() {
         container.register(MoveItemsToListCommandHandler.self) {
             MoveItemsToListCommandHandler($0.resolve(ItemRepository.self)!)
         }

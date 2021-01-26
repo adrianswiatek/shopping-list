@@ -1,3 +1,4 @@
+import ShoppingList_ViewModels
 import Combine
 import UIKit
 
@@ -27,6 +28,11 @@ public final class ItemsTableView: UITableView {
         }
     }
 
+    public func selectedItems() -> [ItemToBuyViewModel] {
+        let selectedRows = indexPathsForSelectedRows.map { $0.map { $0.row } } ?? []
+        return selectedRows.compactMap { itemForCell(at: $0) }
+    }
+
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         separatorStyle = .singleLine
@@ -41,6 +47,10 @@ public final class ItemsTableView: UITableView {
         dropDelegate = self
 
         register(ItemsTableViewCell.self, forCellReuseIdentifier: ItemsTableViewCell.identifier)
+    }
+
+    private func itemForCell(at index: Int) -> ItemToBuyViewModel? {
+        cellForRow(at: .init(row: index, section: 0)).flatMap { $0 as? ItemsTableViewCell }?.viewModel
     }
 }
 

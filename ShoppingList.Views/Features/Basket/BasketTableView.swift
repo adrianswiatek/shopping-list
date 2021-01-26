@@ -44,6 +44,10 @@ public final class BasketTableView: UITableView {
 
         register(BasketTableViewCell.self, forCellReuseIdentifier: BasketTableViewCell.identifier)
     }
+
+    private func itemForCell(at index: Int) -> ItemInBasketViewModel? {
+        cellForRow(at: .init(row: index, section: 0)).flatMap { $0 as? BasketTableViewCell }?.viewModel
+    }
 }
 
 extension BasketTableView: UITableViewDelegate {
@@ -84,10 +88,6 @@ extension BasketTableView: UITableViewDelegate {
         return UIAction(title: "Remove item", image: image, attributes: .destructive) { [weak self] _ in
             self?.onActionSubject.send(.removeItem(uuid: item.uuid))
         }
-    }
-
-    private func itemForCell(at index: Int) -> ItemInBasketViewModel? {
-        cellForRow(at: .init(row: index, section: 0)).flatMap { $0 as? BasketTableViewCell }?.viewModel
     }
 }
 
