@@ -64,9 +64,9 @@ public final class ItemsViewModel: ViewModel {
 
     public func fetchItems() {
         let categories = categoryQuries.fetchCategories()
-        let items = itemQueries.fetchItemsToBuyFromList(with: .fromUuid(list.uuid))
 
-        let result: [(Item, ItemToBuyViewModel)] = items
+        let result: [(Item, ItemToBuyViewModel)] = itemQueries
+            .fetchItemsToBuyFromList(with: .fromUuid(list.uuid))
             .compactMap { item in
                 categories
                     .first { category in category.id == item.categoryId }

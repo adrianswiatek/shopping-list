@@ -37,7 +37,6 @@ public final class BasketTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         allowsSelection = false
         allowsMultipleSelectionDuringEditing = true
-        rowHeight = UITableView.automaticDimension
         estimatedRowHeight = UITableView.automaticDimension
         tableFooterView = UIView()
         delegate = self
@@ -57,6 +56,23 @@ extension BasketTableView: UITableViewDelegate {
 
     public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         onActionSubject.send(.rowTapped)
+    }
+
+    public func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let removeAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completed in
+            guard let item = self?.itemForCell(at: indexPath.row) else {
+                return completed(false)
+            }
+
+            self?.onActionSubject.send(.removeItem(uuid: item.uuid))
+            completed(true)
+        }
+        removeAction.image = UIImage(systemName: "trash.fill")
+
+        return UISwipeActionsConfiguration(actions: [removeAction])
     }
 
     public func tableView(
