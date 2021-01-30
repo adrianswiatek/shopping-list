@@ -26,13 +26,7 @@ public final class ItemsToolbar: UIView {
     
     private lazy var regularToolbar: UIToolbar = configure(.init(frame: Metrics.toolbarsFrame)) {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setItems([
-            editButton,
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            addButton,
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            actionButton
-        ], animated: true)
+        $0.setItems([editButton, .flexibleSpace(), addButton, .flexibleSpace(), actionButton], animated: true)
         $0.barTintColor = .background
         $0.isTranslucent = false
     }
@@ -47,8 +41,8 @@ public final class ItemsToolbar: UIView {
         return button
     }()
 
-    private lazy var moveToListButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "RemoveFromBasket"), primaryAction: .init { [weak self] _ in
+    private lazy var addToBasketButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: #imageLiteral(resourceName: "AddToBasket"), primaryAction: .init { [weak self] _ in
             self?.onActionSubject.send(.moveToList)
         })
         button.isEnabled = false
@@ -56,11 +50,6 @@ public final class ItemsToolbar: UIView {
     }()
 
     private lazy var editToolbar: UIToolbar = {
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = 16
-        
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
         let cancelButton = UIBarButtonItem(
             systemItem: .cancel,
             primaryAction: .init { [weak self] _ in self?.onActionSubject.send(.cancel) }
@@ -69,13 +58,10 @@ public final class ItemsToolbar: UIView {
         
         return configure(.init(frame: Metrics.toolbarsFrame)) {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.setItems([
-                cancelButton,
-                flexibleSpace,
-                removeButton,
-                fixedSpace,
-                moveToListButton
-            ], animated: true)
+
+            let items = [cancelButton, .flexibleSpace(), removeButton, .fixedSpace(16), addToBasketButton]
+            $0.setItems(items, animated: true)
+
             $0.alpha = 0
             $0.barTintColor = .background
             $0.isTranslucent = false
@@ -104,14 +90,14 @@ public final class ItemsToolbar: UIView {
         regularToolbar.alpha = 1
         editToolbar.alpha = 0
         removeButton.isEnabled = false
-        moveToListButton.isEnabled = false
+        addToBasketButton.isEnabled = false
     }
 
     public func setEditMode() {
         regularToolbar.alpha = 0
         editToolbar.alpha = 1
         removeButton.isEnabled = false
-        moveToListButton.isEnabled = false
+        addToBasketButton.isEnabled = false
     }
 
     public func setButtonsAs(enabled: Bool) {
@@ -121,7 +107,7 @@ public final class ItemsToolbar: UIView {
             actionButton.isEnabled = enabled
         } else {
             removeButton.isEnabled = enabled
-            moveToListButton.isEnabled = enabled
+            addToBasketButton.isEnabled = enabled
         }
     }
     
@@ -170,4 +156,3 @@ private extension ItemsToolbar {
         static let toolbarsFrame: CGRect = .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50)
     }
 }
-

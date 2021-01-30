@@ -13,7 +13,7 @@ extension UIColor {
         UIColor { $0.userInterfaceStyle == .dark ? black : white }
     }
 
-    internal static var delete: UIColor {
+    internal static var remove: UIColor {
         systemRed
     }
 

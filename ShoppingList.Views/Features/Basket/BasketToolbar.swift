@@ -7,8 +7,8 @@ public final class BasketToolbar: UIView {
         onActionSubject.eraseToAnyPublisher()
     }
 
-    // MARK: - Regular toolbar
-    
+    // MARK: Regular toolbar
+
     private lazy var editButton: UIBarButtonItem =
         .init(systemItem: .edit, primaryAction: .init { [weak self] _ in
             self?.onActionSubject.send(.edit)
@@ -21,17 +21,13 @@ public final class BasketToolbar: UIView {
     
     private lazy var regularToolbar: UIToolbar = configure(.init(frame: Metrics.toolbarsFrame)) {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setItems([
-            editButton,
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            actionButton
-        ], animated: true)
+        $0.setItems([editButton, .flexibleSpace(), actionButton], animated: true)
         $0.barTintColor = .background
         $0.isTranslucent = false
     }
     
-    // MARK: - Edit toolbar
-    
+    // MARK: Edit toolbar
+
     private lazy var removeButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: #imageLiteral(resourceName: "Trash"), primaryAction: .init { [weak self] _ in
             self?.onActionSubject.send(.remove)
@@ -49,15 +45,6 @@ public final class BasketToolbar: UIView {
     }()
     
     private lazy var editToolbar: UIToolbar = {
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = 16
-        
-        let flexibleSpace = UIBarButtonItem(
-            barButtonSystemItem: .flexibleSpace,
-            target: nil,
-            action: nil
-        )
-
         let cancelButton = UIBarButtonItem(
             systemItem: .cancel,
             primaryAction: .init { [weak self] _ in self?.onActionSubject.send(.cancel) }
@@ -66,13 +53,10 @@ public final class BasketToolbar: UIView {
         
         return configure(.init(frame: Metrics.toolbarsFrame)) {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.setItems([
-                cancelButton,
-                flexibleSpace,
-                removeButton,
-                fixedSpace,
-                moveToListButton
-            ], animated: true)
+
+            let items = [cancelButton, .flexibleSpace(), removeButton, .fixedSpace(16), moveToListButton]
+            $0.setItems(items, animated: true)
+
             $0.alpha = 0
             $0.barTintColor = .background
             $0.isTranslucent = false

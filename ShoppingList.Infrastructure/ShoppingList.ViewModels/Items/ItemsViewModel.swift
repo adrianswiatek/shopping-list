@@ -23,6 +23,10 @@ public final class ItemsViewModel: ViewModel {
             .eraseToAnyPublisher()
     }
 
+    public var canShareItems: Bool {
+        !itemsSubject.value.isEmpty
+    }
+
     private let itemsSubject: CurrentValueSubject<[(item: Item, viewModel: ItemToBuyViewModel)], Never>
     private let stateSubject: CurrentValueSubject<State, Never>
     private let isRestoreButtonEnabledSubject: CurrentValueSubject<Bool, Never>
@@ -91,9 +95,21 @@ public final class ItemsViewModel: ViewModel {
         )
     }
 
-    public func moveToBasketItems(with uuids: [UUID]) {
+    public func addToBasketAllItems() {
+        commandBus.execute(
+            MoveItemsToBasketCommand(itemsSubject.value.map { $0.viewModel.uuid })
+        )
+    }
+
+    public func addToBasketItems(with uuids: [UUID]) {
         commandBus.execute(
             MoveItemsToBasketCommand(uuids)
+        )
+    }
+
+    public func removeAllItems() {
+        commandBus.execute(
+            RemoveItemsCommand(itemsSubject.value.map { $0.item })
         )
     }
 

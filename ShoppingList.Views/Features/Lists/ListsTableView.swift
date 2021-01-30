@@ -58,7 +58,8 @@ extension ListsTableView: UITableViewDelegate {
 
     private func editActionForList(at index: Int) -> UIAction? {
         guard let list = listForCell(at: index) else { return nil }
-        return UIAction(title: "Edit list", image: UIImage(systemName: "pencil"), attributes: []) { [weak self] _ in
+        let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
+        return UIAction(title: "Edit list", image: image, attributes: []) { [weak self] _ in
             self?.onActionSubject.send(.editList(uuid: list.uuid, name: list.name))
         }
     }
@@ -81,7 +82,7 @@ extension ListsTableView: UITableViewDelegate {
 
     private func removeActionForList(at index: Int) -> UIAction? {
         guard let list = listForCell(at: index) else { return nil }
-        let image = UIImage(systemName: "trash.fill")
+        let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UIAction(title: "Remove list", image: image, attributes: .destructive) { [weak self] _ in
             self?.onActionSubject.send(.removeList(uuid: list.uuid))
         }

@@ -56,7 +56,7 @@ extension ManageCategoriesTableView: UITableViewDelegate {
 
         return UIAction(
             title: "Edit category name",
-            image: UIImage(systemName: "pencil"),
+            image: #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate),
             attributes: []
         ) { [weak self] _ in
             self?.onActionSubject.send(.editCategory(category))
@@ -65,7 +65,7 @@ extension ManageCategoriesTableView: UITableViewDelegate {
 
     private func removeActionForCategory(at index: Int) -> UIAction? {
         guard let category = categoryForCell(at: index), !category.isDefault else { return nil }
-        let image = UIImage(systemName: "trash.fill")
+        let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UIAction(title: "Remove category", image: image, attributes: .destructive) { [weak self] _ in
             self?.onActionSubject.send(.removeCategory(id: category.uuid))
         }

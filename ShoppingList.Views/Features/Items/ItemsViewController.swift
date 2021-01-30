@@ -1,4 +1,3 @@
-import ShoppingList_Domain
 import ShoppingList_Shared
 import ShoppingList_ViewModels
 import Combine
@@ -13,9 +12,6 @@ public protocol ItemsViewControllerDelegate: class {
 
 public final class ItemsViewController: UIViewController {
     public weak var delegate: ItemsViewControllerDelegate?
-
-    private var items = [[Item]]()
-    private var categories = [ItemsCategory]()
 
     private let tableView: ItemsTableView
     private let dataSource: ItemsDataSource
@@ -85,7 +81,7 @@ public final class ItemsViewController: UIViewController {
             self.delegate?.didDismiss()
         }
     }
-    
+
     private func setupView() {
         navigationItem.title = viewModel.list.name
         navigationItem.rightBarButtonItems = [basketBarButtonItem, restoreBarButtonItem]
@@ -184,6 +180,12 @@ public final class ItemsViewController: UIViewController {
 
     private func handleTableViewAction(_ action: ItemsTableView.Action) {
         switch action {
+        case .addItemToBasket(let uuid):
+            viewModel.addToBasketItems(with: [uuid])
+        case .editItem(let item):
+            delegate?.goToEditItem(item)
+        case .removeItem(let uuid):
+            viewModel.removeItems(with: [uuid])
         case .rowTapped:
             toolbar.setButtonsAs(enabled: tableView.indexPathsForSelectedRows != nil)
         }
@@ -191,15 +193,15 @@ public final class ItemsViewController: UIViewController {
 
     private func handleDataSourceAction(_ action: ItemsDataSource.Action) {
         switch action {
-        case .moveItemToBasket(let uuid):
-            viewModel.moveToBasketItems(with: [uuid])
+        case .addItemToBasket(let uuid):
+            viewModel.addToBasketItems(with: [uuid])
         }
     }
 
     private func handleToolbarAction(_ action: ItemsToolbar.Action) {
         switch action {
         case .action:
-            break
+            showActionSheet()
         case .add:
             delegate?.goToCreateItem()
         case .cancel:
@@ -208,11 +210,64 @@ public final class ItemsViewController: UIViewController {
             viewModel.setState(.editing)
         case .moveToList:
             let selectedItems = tableView.selectedItems()
-            viewModel.moveToBasketItems(with: selectedItems.map { $0.uuid })
+            viewModel.addToBasketItems(with: selectedItems.map { $0.uuid })
         case .remove:
             let selectedItems = tableView.selectedItems()
             viewModel.removeItems(with: selectedItems.map { $0.uuid })
         }
+    }
+
+    private func showActionSheet() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        if viewModel.canShareItems {
+            alertController.addAction(.init(title: "Share", style: .default) { [weak self] _ in
+                self?.openShareItemsAlert()
+            })
+        }
+
+        alertController.addAction(.init(title: "Add all to the basket", style: .default) { [weak self] _ in
+            self?.viewModel.addToBasketAllItems()
+        })
+        alertController.addAction(.init(title: "Remove all", style: .destructive) { [weak self] _ in
+            self?.viewModel.removeAllItems()
+        })
+        alertController.addAction(.init(title: "Cancel", style: .cancel))
+
+        present(alertController, animated: true)
+    }
+
+    private func openShareItemsAlert() {
+//        let shareWithCategories = UIAlertAction(title: "... with categories", style: .default) { [weak self] _ in
+//            guard let self = self else { return }
+//            let formattedItems = self.itemsFormatter.format(self.items, withCategories: self.categories)
+//            self.showActivityController(formattedItems)
+//        }
+
+//        let shareWithoutCategories = UIAlertAction(title: "... without categories", style: .default) { [weak self] _ in
+//            guard let self = self else { return }
+//            let formattedItems = self.itemsFormatter.format(self.items)
+//            self.showActivityController(formattedItems)
+//        }
+
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+//        let alertController = UIAlertController(title: "Share ...", message: nil, preferredStyle: .actionSheet)
+//        alertController.addAction(shareWithCategories)
+//        alertController.addAction(shareWithoutCategories)
+//        alertController.addAction(cancelAction)
+
+//        present(alertController, animated: true)
+    }
+
+    private func showActivityController(_ formattedItems: String) {
+        assert(!formattedItems.isEmpty, "Formatted items must have items.")
+        present(UIActivityViewController(activityItems: [formattedItems], applicationActivities: nil), animated: true)
+    }
+
+    private func cancelButtonDidTap() {
+        tableView.setEditing(false, animated: true)
+        toolbar.setRegularMode()
     }
 
     private func showValidationError(with text: String) {
@@ -222,105 +277,11 @@ public final class ItemsViewController: UIViewController {
     }
 }
 
-extension ItemsViewController: AddToBasketDelegate {
-    public func addItemToBasket(_ item: ItemToBuyViewModel) {
-        viewModel.moveToBasketItems(with: [item.uuid])
-    }
-}
-
 extension ItemsViewController: TextFieldWithCancelDelegate {
     public func textFieldWithCancel(
         _ textFieldWithCancel: TextFieldWithCancel,
         didReturnWith text: String
     ) {
         viewModel.addItem(with: text)
-    }
-}
-
-extension ItemsViewController { //}: ItemsToolbarDelegate {
-    public func editButtonDidTap() {
-        toolbar.setEditMode()
-        tableView.setEditing(true, animated: true)
-    }
-
-    public func actionButtonDidTap() {
-        let shareAction = UIAlertAction(title: "Share", style: .default) { [weak self] _ in
-            self?.openShareItemsAlert()
-        }
-
-        let moveAllToBasketAction = UIAlertAction(title: "Move all to basket", style: .default) { _ in
-            // TODO: command
-            // let command = AddItemsToBasketCommand(self.items.flatMap { $0 }, self)
-            // CommandInvoker.shared.execute(command)
-        }
-
-        let deleteAllAction = UIAlertAction(title: "Remove all", style: .destructive) { _ in
-            // TODO: command
-            // let command = RemoveItemsFromListCommand(self.items.flatMap { $0 }, self)
-            // CommandInvoker.shared.execute(command)
-        }
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-        if self.items.count > 0 {
-            alertController.addAction(shareAction)
-        }
-
-        alertController.addAction(moveAllToBasketAction)
-        alertController.addAction(deleteAllAction)
-        alertController.addAction(cancelAction)
-
-        present(alertController, animated: true)
-    }
-
-    public func deleteAllButtonDidTap() {
-        guard getSelectedItems() != nil else { return }
-        // TODO: command
-        // let command = RemoveItemsFromListCommand(selectedItems, self)
-        // CommandInvoker.shared.execute(command)
-    }
-
-    public func moveAllToBasketButtonDidTap() {
-        guard getSelectedItems() != nil else { return }
-        // TODO: command
-        // let command = AddItemsToBasketCommand(selectedItems, self)
-        // CommandInvoker.shared.execute(command)
-    }
-
-    private func getSelectedItems() -> [Item]? {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else { return nil }
-        return selectedIndexPaths.sorted { $0 > $1 }.map { self.items[$0.section][$0.row] }
-    }
-
-    private func openShareItemsAlert() {
-        let shareWithCategories = UIAlertAction(title: "... with categories", style: .default) { [unowned self] _ in
-            let formattedItems = self.itemsFormatter.format(self.items, withCategories: self.categories)
-            self.showActivityController(formattedItems)
-        }
-
-        let shareWithoutCategories = UIAlertAction(title: "... without categories", style: .default) { [unowned self] _ in
-            let formattedItems = self.itemsFormatter.format(self.items)
-            self.showActivityController(formattedItems)
-        }
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-        let alertController = UIAlertController(title: "Share ...", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(shareWithCategories)
-        alertController.addAction(shareWithoutCategories)
-        alertController.addAction(cancelAction)
-
-        present(alertController, animated: true)
-    }
-
-    private func showActivityController(_ formattedItems: String) {
-        assert(!formattedItems.isEmpty, "Formatted items must have items.")
-        present(UIActivityViewController(activityItems: [formattedItems], applicationActivities: nil), animated: true)
-    }
-
-    public func cancelButtonDidTap() {
-        tableView.setEditing(false, animated: true)
-        toolbar.setRegularMode()
     }
 }

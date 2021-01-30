@@ -11,7 +11,10 @@ public final class BasketTableView: UITableView {
 
     public init() {
         self.onActionSubject = .init()
+
         super.init(frame: .zero, style: .plain)
+
+        self.registerCell(ofType: BasketTableViewCell.self)
         self.setupView()
     }
 
@@ -37,11 +40,10 @@ public final class BasketTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         allowsSelection = false
         allowsMultipleSelectionDuringEditing = true
-        estimatedRowHeight = UITableView.automaticDimension
+        rowHeight = 56
+        estimatedRowHeight = 56
         tableFooterView = UIView()
         delegate = self
-
-        register(BasketTableViewCell.self, forCellReuseIdentifier: BasketTableViewCell.identifier)
     }
 
     private func itemForCell(at index: Int) -> ItemInBasketViewModel? {
@@ -63,15 +65,15 @@ extension BasketTableView: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let removeAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completed in
-            guard let item = self?.itemForCell(at: indexPath.row) else {
+            guard let self = self, let item = self.itemForCell(at: indexPath.row) else {
                 return completed(false)
             }
 
-            self?.onActionSubject.send(.removeItem(uuid: item.uuid))
+            self.onActionSubject.send(.removeItem(uuid: item.uuid))
             completed(true)
         }
-        removeAction.image = UIImage(systemName: "trash.fill")
-
+        removeAction.backgroundColor = .remove
+        removeAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UISwipeActionsConfiguration(actions: [removeAction])
     }
 
@@ -99,10 +101,11 @@ extension BasketTableView: UITableViewDelegate {
     }
 
     private func removeActionForItem(at index: Int) -> UIAction? {
-        guard let item = itemForCell(at: index) else { return nil }
-        let image = UIImage(systemName: "trash.fill")
-        return UIAction(title: "Remove item", image: image, attributes: .destructive) { [weak self] _ in
-            self?.onActionSubject.send(.removeItem(uuid: item.uuid))
+        itemForCell(at: index).map { item in
+            let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
+            return UIAction(title: "Remove item", image: image, attributes: .destructive) { [weak self] _ in
+                self?.onActionSubject.send(.removeItem(uuid: item.uuid))
+            }
         }
     }
 }

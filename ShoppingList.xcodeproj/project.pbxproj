@@ -59,7 +59,6 @@
 		A739B4752569CAE0000B16E3 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EBE207A877D00963961 /* UIViewExtensions.swift */; };
 		A739B4802569CB66000B16E3 /* ItemsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */; };
 		A739B4812569CB66000B16E3 /* ListNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A193C8721335F9E00EF6288 /* ListNameGenerator.swift */; };
-		A739B48C2569CE69000B16E3 /* AddToBasketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */; };
 		A739B48F2569CE69000B16E3 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E39207A5A3C005857E5 /* ItemsViewController.swift */; };
 		A739B4902569CE69000B16E3 /* SharedItemsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */; };
 		A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */; };
@@ -449,7 +448,6 @@
 /* Begin PBXFileReference section */
 		3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewController.swift; sourceTree = "<group>"; };
 		3A13566C207E94D8006A7414 /* BasketTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableViewCell.swift; sourceTree = "<group>"; };
-		3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBasketDelegate.swift; sourceTree = "<group>"; };
 		3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		3A193C8721335F9E00EF6288 /* ListNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNameGenerator.swift; sourceTree = "<group>"; };
 		3A31380120D85ADF00635266 /* CategoryEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntityExtensions.swift; sourceTree = "<group>"; };
@@ -1021,7 +1019,6 @@
 		A739B48A2569CDB9000B16E3 /* Items */ = {
 			isa = PBXGroup;
 			children = (
-				3A13566E207E9910006A7414 /* AddToBasketDelegate.swift */,
 				A73B32D325BE1D060082A7DE /* ItemsDataSource.swift */,
 				A7D3967925A11C940077F10E /* ItemsTableView.swift */,
 				3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */,
@@ -1135,9 +1132,9 @@
 			children = (
 				3A135672207E9AF3006A7414 /* UIButtonExtensions.swift */,
 				A7640F8E2569B8EA000D882B /* UIColorExtensions.swift */,
+				A70B2EED257AE09C0082AAB2 /* UITableViewCell.swift */,
 				3A82DC52207D6616006B3885 /* UITableViewExtensions.swift */,
 				3A972EBE207A877D00963961 /* UIViewExtensions.swift */,
-				A70B2EED257AE09C0082AAB2 /* UITableViewCell.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1996,7 +1993,6 @@
 				A748C80D2593F1370071343C /* ManageCategoriesTableView.swift in Sources */,
 				A739B5402569D3E5000B16E3 /* ValidationButtonAnimations.swift in Sources */,
 				A7640F822569B88F000D882B /* ListsTableViewCell.swift in Sources */,
-				A739B48C2569CE69000B16E3 /* AddToBasketDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

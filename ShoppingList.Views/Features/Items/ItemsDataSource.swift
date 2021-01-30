@@ -19,7 +19,7 @@ public final class ItemsDataSource {
             cell?.viewModel = item
 
             let cancellable = cell?.moveToBasketTapped.sink { [weak self] in
-                self?.onActionSubject.send(.moveItemToBasket(uuid: $0.uuid))
+                self?.onActionSubject.send(.addItemToBasket(uuid: $0.uuid))
             }
             cell?.setCancellable(cancellable)
 
@@ -45,7 +45,7 @@ public extension ItemsDataSource {
     }
 
     enum Action {
-        case moveItemToBasket(uuid: UUID)
+        case addItemToBasket(uuid: UUID)
     }
 }
 

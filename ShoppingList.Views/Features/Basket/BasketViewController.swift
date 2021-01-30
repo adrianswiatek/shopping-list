@@ -149,7 +149,7 @@ public final class BasketViewController: UIViewController {
     private func handleToolbarAction(_ action: BasketToolbar.Action) {
         switch action {
         case .action:
-            showActionPopup()
+            showActionSheet()
         case .cancel:
             viewModel.setState(.regular)
         case .edit:
@@ -163,7 +163,7 @@ public final class BasketViewController: UIViewController {
         }
     }
 
-    private func showActionPopup() {
+    private func showActionSheet() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         alertController.addAction(

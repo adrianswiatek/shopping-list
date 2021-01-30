@@ -11,7 +11,10 @@ public final class ItemsTableView: UITableView {
 
     public init() {
         self.onActionSubject = .init()
+
         super.init(frame: .zero, style: .plain)
+
+        self.registerCell(ofType: ItemsTableViewCell.self)
         self.setupView()
     }
 
@@ -38,15 +41,13 @@ public final class ItemsTableView: UITableView {
         separatorStyle = .singleLine
         allowsSelection = false
         allowsMultipleSelectionDuringEditing = true
-        rowHeight = UITableView.automaticDimension
-        estimatedRowHeight = 50
+        rowHeight = 56
+        estimatedRowHeight = 56
         tableFooterView = UIView()
 
         delegate = self
         dragDelegate = self
         dropDelegate = self
-
-        register(ItemsTableViewCell.self, forCellReuseIdentifier: ItemsTableViewCell.identifier)
     }
 
     private func itemForCell(at index: Int) -> ItemToBuyViewModel? {
@@ -67,45 +68,77 @@ extension ItemsTableView: UITableViewDelegate {
         _ tableView: UITableView,
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let editItemAction = UIContextualAction(
-            style: .normal,
-            title: nil) { action, sourceView, completionHandler in
-//            let item = self.items[indexPath.section][indexPath.row]
-//            self.goToEditItemDetailed(with: item)
-            completionHandler(true)
+        let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completed in
+            guard let self = self, let item = self.itemForCell(at: indexPath.row) else {
+                return completed(false)
+            }
+
+            self.onActionSubject.send(.editItem(item: item))
+            completed(true)
         }
-        editItemAction.backgroundColor = .edit
-        editItemAction.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [editItemAction])
+        editAction.backgroundColor = .edit
+        editAction.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
+        return UISwipeActionsConfiguration(actions: [editAction])
     }
 
     public func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let deleteItemAction = UIContextualAction(
-            style: .destructive,
-            title: nil
-        ) { action, sourceView, completionHandler in
-            // Todo: command
-            // let item = self.items[indexPath.section][indexPath.row]
-            // let command = RemoveItemsFromListCommand(item, self)
-            // CommandInvoker.shared.execute(command)
-            completionHandler(true)
+        let removeAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completed in
+            guard let self = self, let item = self.itemForCell(at: indexPath.row) else {
+                return completed(false)
+            }
+
+            self.onActionSubject.send(.removeItem(uuid: item.uuid))
+            completed(true)
         }
-        deleteItemAction.backgroundColor = .delete
-        deleteItemAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [deleteItemAction])
+        removeAction.backgroundColor = .remove
+        removeAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
+        return UISwipeActionsConfiguration(actions: [removeAction])
     }
 
     public func tableView(
         _ tableView: UITableView,
-        viewForHeaderInSection section: Int
-    ) -> UIView? {
-        let headerCell = ItemsTableViewHeaderCell()
-//        headerCell.category = categories[section]
-        return headerCell
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        .init(identifier: "ItemsContextMenu" as NSCopying, previewProvider: nil) { [weak self] _ in
+            let actions: [UIAction] = [
+                self?.moveToListActionForItem(at: indexPath.row),
+                self?.removeActionForItem(at: indexPath.row)
+            ].compactMap { $0 }
+
+            return UIMenu(title: "", children: actions)
+        }
     }
+
+    private func moveToListActionForItem(at index: Int) -> UIAction? {
+        itemForCell(at: index).map { item in
+            UIAction(title: "Add item to the basket", image: #imageLiteral(resourceName: "AddToBasket"), attributes: []) { [weak self] _ in
+                self?.onActionSubject.send(.addItemToBasket(uuid: item.uuid))
+            }
+        }
+    }
+
+    private func removeActionForItem(at index: Int) -> UIAction? {
+        itemForCell(at: index).map { item in
+            let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
+            return UIAction(title: "Remove item", image: image, attributes: .destructive) { [weak self] _ in
+                self?.onActionSubject.send(.removeItem(uuid: item.uuid))
+            }
+        }
+    }
+
+//    public func tableView(
+//        _ tableView: UITableView,
+//        viewForHeaderInSection section: Int
+//    ) -> UIView? {
+//        let headerCell = ItemsTableViewHeaderCell()
+//        headerCell.category = categories[section]
+//        return headerCell
+//        return nil
+//    }
 }
 
 extension ItemsTableView: UITableViewDragDelegate {
@@ -132,6 +165,9 @@ extension ItemsTableView: UITableViewDropDelegate {
 
 extension ItemsTableView {
     public enum Action {
+        case addItemToBasket(uuid: UUID)
+        case editItem(item: ItemToBuyViewModel)
+        case removeItem(uuid: UUID)
         case rowTapped
     }
 }
