@@ -32,8 +32,7 @@ public final class ItemsTableView: UITableView {
     }
 
     public func selectedItems() -> [ItemToBuyViewModel] {
-        let selectedRows = indexPathsForSelectedRows.map { $0.map { $0.row } } ?? []
-        return selectedRows.compactMap { itemForCell(at: $0) }
+        indexPathsForSelectedRows?.compactMap { itemForCell(at: $0) } ?? []
     }
 
     private func setupView() {
@@ -50,8 +49,8 @@ public final class ItemsTableView: UITableView {
         dropDelegate = self
     }
 
-    private func itemForCell(at index: Int) -> ItemToBuyViewModel? {
-        cellForRow(at: .init(row: index, section: 0)).flatMap { $0 as? ItemsTableViewCell }?.viewModel
+    private func itemForCell(at indexPath: IndexPath) -> ItemToBuyViewModel? {
+        cellForRow(at: indexPath).flatMap { $0 as? ItemsTableViewCell }?.viewModel
     }
 }
 
@@ -69,7 +68,7 @@ extension ItemsTableView: UITableViewDelegate {
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completed in
-            guard let self = self, let item = self.itemForCell(at: indexPath.row) else {
+            guard let self = self, let item = self.itemForCell(at: indexPath) else {
                 return completed(false)
             }
 
@@ -86,7 +85,7 @@ extension ItemsTableView: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let removeAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completed in
-            guard let self = self, let item = self.itemForCell(at: indexPath.row) else {
+            guard let self = self, let item = self.itemForCell(at: indexPath) else {
                 return completed(false)
             }
 
@@ -105,24 +104,34 @@ extension ItemsTableView: UITableViewDelegate {
     ) -> UIContextMenuConfiguration? {
         .init(identifier: "ItemsContextMenu" as NSCopying, previewProvider: nil) { [weak self] _ in
             let actions: [UIAction] = [
-                self?.moveToListActionForItem(at: indexPath.row),
-                self?.removeActionForItem(at: indexPath.row)
+                self?.moveToListActionForItem(at: indexPath),
+                self?.editActionForItem(at: indexPath),
+                self?.removeActionForItem(at: indexPath)
             ].compactMap { $0 }
 
             return UIMenu(title: "", children: actions)
         }
     }
 
-    private func moveToListActionForItem(at index: Int) -> UIAction? {
-        itemForCell(at: index).map { item in
+    private func moveToListActionForItem(at indexPath: IndexPath) -> UIAction? {
+        itemForCell(at: indexPath).map { item in
             UIAction(title: "Add item to the basket", image: #imageLiteral(resourceName: "AddToBasket"), attributes: []) { [weak self] _ in
                 self?.onActionSubject.send(.addItemToBasket(uuid: item.uuid))
             }
         }
     }
 
-    private func removeActionForItem(at index: Int) -> UIAction? {
-        itemForCell(at: index).map { item in
+    private func editActionForItem(at indexPath: IndexPath) -> UIAction? {
+        itemForCell(at: indexPath).map { item in
+            let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
+            return UIAction(title: "Edit item", image: image, attributes: []) { [weak self] _ in
+                self?.onActionSubject.send(.editItem(item: item))
+            }
+        }
+    }
+
+    private func removeActionForItem(at indexPath: IndexPath) -> UIAction? {
+        itemForCell(at: indexPath).map { item in
             let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
             return UIAction(title: "Remove item", image: image, attributes: .destructive) { [weak self] _ in
                 self?.onActionSubject.send(.removeItem(uuid: item.uuid))
@@ -130,15 +139,13 @@ extension ItemsTableView: UITableViewDelegate {
         }
     }
 
-//    public func tableView(
-//        _ tableView: UITableView,
-//        viewForHeaderInSection section: Int
-//    ) -> UIView? {
-//        let headerCell = ItemsTableViewHeaderCell()
-//        headerCell.category = categories[section]
-//        return headerCell
-//        return nil
-//    }
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        dataSource?.tableView?(tableView, titleForHeaderInSection: section).map {
+            let headerCell = ItemsTableViewHeaderCell()
+            headerCell.setTitle($0)
+            return headerCell
+        }
+    }
 }
 
 extension ItemsTableView: UITableViewDragDelegate {

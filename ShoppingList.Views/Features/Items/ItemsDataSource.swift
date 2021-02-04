@@ -32,34 +32,41 @@ public final class ItemsDataSource {
     }
 
     public func apply(_ items: [ItemToBuyViewModel]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, ItemToBuyViewModel>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(items, toSection: .main)
+        var snapshot = NSDiffableDataSourceSnapshot<String, ItemToBuyViewModel>()
+
+        let sections = Set(items.map { $0.categoryName }).sorted()
+        snapshot.appendSections(sections)
+
+        for section in sections {
+            let items = items.filter { $0.categoryName == section }
+            snapshot.appendItems(items, toSection: section)
+        }
+
         dataSource.apply(snapshot)
     }
 }
 
 public extension ItemsDataSource {
-    enum Section {
-        case main
-    }
-
     enum Action {
         case addItemToBasket(uuid: UUID)
     }
 }
 
 private extension ItemsDataSource {
-    final class DataSource: UITableViewDiffableDataSource<ItemsDataSource.Section, ItemToBuyViewModel> {
+    final class DataSource: UITableViewDiffableDataSource<String, ItemToBuyViewModel> {
         public init(
             _ tableView: UITableView,
-            _ cellProvider: @escaping UITableViewDiffableDataSource<ItemsDataSource.Section, ItemToBuyViewModel>.CellProvider
+            _ cellProvider: @escaping UITableViewDiffableDataSource<String, ItemToBuyViewModel>.CellProvider
         ) {
             super.init(tableView: tableView, cellProvider: cellProvider)
         }
 
         override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
             true
+        }
+
+        override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            snapshot().sectionIdentifiers[section]
         }
 
 //        public func tableView(

@@ -142,6 +142,14 @@ public final class EditItemViewModel: ViewModel {
                 self?.selectCategory(with: $0.id.toUuid())
             }
             .store(in: &cancellables)
+
+        state
+            .compactMap { $0.item }
+            .removeDuplicates()
+            .combineLatest(categories)
+            .compactMap { item, categories in categories.first { $0.name == item.categoryName } }
+            .sink { [weak self] category in self?.selectedCategorySubject.send(category) }
+            .store(in: &cancellables)
     }
 }
 
@@ -149,5 +157,12 @@ extension EditItemViewModel {
     public enum State {
         case create
         case edit(item: ItemToBuyViewModel)
+
+        public var item: ItemToBuyViewModel? {
+            switch self {
+            case .create: return nil
+            case .edit(let item): return item
+            }
+        }
     }
 }

@@ -53,7 +53,7 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .overCurrentContext
 
-        self.navigationController.viewControllers.first?.present(
+        self.navigationController.viewControllers.last?.present(
             navigationController,
             animated: true
         )
@@ -67,7 +67,7 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .overCurrentContext
 
-        self.navigationController.viewControllers.first?.present(
+        self.navigationController.viewControllers.last?.present(
             navigationController,
             animated: true
         )
