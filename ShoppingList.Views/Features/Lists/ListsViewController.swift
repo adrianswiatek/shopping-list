@@ -110,8 +110,8 @@ public final class ListsViewController: UIViewController {
             viewModel.clearBasketOfList(with: id)
         case .clearItemsToBuy(let id):
             viewModel.clearList(with: id)
-        case .editList(let id, let name):
-            showEditPopupForList(with: id, and: name)
+        case .editList(let list):
+            showEditPopupForList(list)
         case .removeList(let id):
             if viewModel.isListEmpty(with: id) {
                 viewModel.removeList(with: id)
@@ -132,15 +132,15 @@ public final class ListsViewController: UIViewController {
         }
     }
 
-    private func showEditPopupForList(with id: UUID, and name: String) {
+    private func showEditPopupForList(_ list: ListViewModel) {
         let controller = PopupWithTextFieldController()
         controller.modalPresentationStyle = .overFullScreen
         controller.popupTitle = "Edit list name"
         controller.placeholder = "Enter list name..."
-        controller.text = name
+        controller.text = list.name
         controller.saved = { [weak self] in
             guard !$0.isEmpty else { return }
-            self?.viewModel.updateList(with: id, name: $0)
+            self?.viewModel.updateList(with: list.uuid, name: $0)
         }
         present(controller, animated: true)
     }

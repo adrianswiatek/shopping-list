@@ -14,7 +14,7 @@ public final class ItemsTableView: UITableView {
 
         super.init(frame: .zero, style: .plain)
 
-        self.registerCell(ofType: ItemsTableViewCell.self)
+        self.registerCell(ItemsTableViewCell.self)
         self.setupView()
     }
 
@@ -37,7 +37,6 @@ public final class ItemsTableView: UITableView {
 
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        separatorStyle = .singleLine
         allowsSelection = false
         allowsMultipleSelectionDuringEditing = true
         rowHeight = 56
@@ -67,34 +66,36 @@ extension ItemsTableView: UITableViewDelegate {
         _ tableView: UITableView,
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let editAction = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completed in
-            guard let self = self, let item = self.itemForCell(at: indexPath) else {
-                return completed(false)
-            }
-
-            self.onActionSubject.send(.editItem(item: item))
-            completed(true)
+        guard let item = itemForCell(at: indexPath) else {
+            return .init()
         }
-        editAction.backgroundColor = .edit
-        editAction.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [editAction])
+
+        let action = UIContextualAction(style: .normal, title: nil) { [weak self] in
+            self?.onActionSubject.send(.editItem(item: item))
+            $2(true)
+        }
+        action.backgroundColor = .edit
+        action.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
+
+        return .init(actions: [action])
     }
 
     public func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let removeAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completed in
-            guard let self = self, let item = self.itemForCell(at: indexPath) else {
-                return completed(false)
-            }
-
-            self.onActionSubject.send(.removeItem(uuid: item.uuid))
-            completed(true)
+        guard let item = itemForCell(at: indexPath) else {
+            return .init()
         }
-        removeAction.backgroundColor = .remove
-        removeAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [removeAction])
+
+        let action = UIContextualAction(style: .destructive, title: nil) { [weak self] in
+            self?.onActionSubject.send(.removeItem(uuid: item.uuid))
+            $2(true)
+        }
+        action.backgroundColor = .remove
+        action.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
+
+        return .init(actions: [action])
     }
 
     public func tableView(

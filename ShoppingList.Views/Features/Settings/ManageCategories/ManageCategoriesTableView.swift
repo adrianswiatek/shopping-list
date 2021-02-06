@@ -11,7 +11,10 @@ public final class ManageCategoriesTableView: UITableView {
 
     public override init(frame: CGRect, style: UITableView.Style) {
         self.onActionSubject = .init()
+
         super.init(frame: frame, style: style)
+
+        self.registerCell(ManageCategoriesTableViewCell.self)
         self.setupView()
     }
 
@@ -22,18 +25,42 @@ public final class ManageCategoriesTableView: UITableView {
 
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .background
         allowsSelection = false
-        rowHeight = UITableView.automaticDimension
-        estimatedRowHeight = UITableView.automaticDimension
         tableFooterView = UIView()
         delegate = self
-
-        register(ManageCategoriesTableViewCell.self, forCellReuseIdentifier: ManageCategoriesTableViewCell.identifier)
     }
 }
 
 extension ManageCategoriesTableView: UITableViewDelegate {
+    public func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard let category = categoryForCell(at: indexPath.row) else {
+            return .init()
+        }
+
+        let action = UIContextualAction(style: .normal, title: nil) { [weak self] in
+            self?.onActionSubject.send(.editCategory(category))
+            $2(true)
+        }
+        action.backgroundColor = .edit
+        action.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
+
+        return .init(actions: [action])
+    }
+
+    public func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard let category = categoryForCell(at: indexPath.row) else {
+            return .init()
+        }
+
+        return .init(actions: [removeAction(for: category)])
+    }
+
     public func tableView(
         _ tableView: UITableView,
         contextMenuConfigurationForRowAt indexPath: IndexPath,
@@ -47,6 +74,24 @@ extension ManageCategoriesTableView: UITableViewDelegate {
 
             return UIMenu(title: "", children: actions)
         }
+    }
+
+    private func removeAction(for category: ItemsCategoryViewModel) -> UIContextualAction {
+        var action: UIContextualAction
+
+        if category.isDefault {
+            action = .init(style: .normal, title: "") { $2(false) }
+            action.backgroundColor = .systemGray
+        } else {
+            action = .init(style: .destructive, title: nil) { [weak self] in
+                self?.onActionSubject.send(.removeCategory(uuid: category.uuid))
+                $2(true)
+            }
+            action.backgroundColor = .remove
+        }
+
+        action.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
+        return action
     }
 
     private func editActionForCategory(at index: Int) -> UIAction? {
@@ -67,7 +112,7 @@ extension ManageCategoriesTableView: UITableViewDelegate {
         guard let category = categoryForCell(at: index), !category.isDefault else { return nil }
         let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UIAction(title: "Remove category", image: image, attributes: .destructive) { [weak self] _ in
-            self?.onActionSubject.send(.removeCategory(id: category.uuid))
+            self?.onActionSubject.send(.removeCategory(uuid: category.uuid))
         }
     }
 
@@ -79,6 +124,6 @@ extension ManageCategoriesTableView: UITableViewDelegate {
 extension ManageCategoriesTableView {
     public enum Action {
         case editCategory(_ category: ItemsCategoryViewModel)
-        case removeCategory(id: UUID)
+        case removeCategory(uuid: UUID)
     }
 }

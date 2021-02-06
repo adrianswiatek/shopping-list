@@ -20,6 +20,10 @@ public final class ListsDataSource: UITableViewDiffableDataSource<ListsDataSourc
         snapshot.appendItems(lists, toSection: .main)
         apply(snapshot)
     }
+
+    public override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
 }
 
 public extension ListsDataSource {

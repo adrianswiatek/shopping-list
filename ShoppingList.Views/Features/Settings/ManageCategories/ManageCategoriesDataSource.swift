@@ -20,6 +20,10 @@ public final class ManageCategoriesDataSource: UITableViewDiffableDataSource<Man
         snapshot.appendItems(categories, toSection: .main)
         apply(snapshot)
     }
+
+    public override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
 }
 
 public extension ManageCategoriesDataSource {

@@ -32,6 +32,42 @@ public final class ListsTableView: UITableView {
 }
 
 extension ListsTableView: UITableViewDelegate {
+    public func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard let list = listForCell(at: indexPath.row) else {
+            return .init()
+        }
+
+        let action = UIContextualAction(style: .normal, title: nil) { [weak self] in
+            self?.onActionSubject.send(.editList(list))
+            $2(true)
+        }
+        action.backgroundColor = .edit
+        action.image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
+
+        return .init(actions: [action])
+    }
+
+    public func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard let list = listForCell(at: indexPath.row) else {
+            return .init()
+        }
+
+        let action = UIContextualAction(style: .normal, title: nil) { [weak self] _, _, completed in
+            completed(true)
+            self?.onActionSubject.send(.removeList(uuid: list.uuid))
+        }
+        action.backgroundColor = .remove
+        action.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
+
+        return .init(actions: [action])
+    }
+
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 
@@ -60,7 +96,7 @@ extension ListsTableView: UITableViewDelegate {
         guard let list = listForCell(at: index) else { return nil }
         let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
         return UIAction(title: "Edit list", image: image, attributes: []) { [weak self] _ in
-            self?.onActionSubject.send(.editList(uuid: list.uuid, name: list.name))
+            self?.onActionSubject.send(.editList(list))
         }
     }
 
@@ -97,7 +133,7 @@ extension ListsTableView {
     public enum Action {
         case clearBasket(uuid: UUID)
         case clearItemsToBuy(uuid: UUID)
-        case editList(uuid: UUID, name: String)
+        case editList(_ list: ListViewModel)
         case removeList(uuid: UUID)
         case selectList(_ list: ListViewModel)
     }

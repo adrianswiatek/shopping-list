@@ -14,7 +14,7 @@ public final class BasketTableView: UITableView {
 
         super.init(frame: .zero, style: .plain)
 
-        self.registerCell(ofType: BasketTableViewCell.self)
+        self.registerCell(BasketTableViewCell.self)
         self.setupView()
     }
 
@@ -64,17 +64,18 @@ extension BasketTableView: UITableViewDelegate {
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let removeAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completed in
-            guard let self = self, let item = self.itemForCell(at: indexPath.row) else {
-                return completed(false)
-            }
-
-            self.onActionSubject.send(.removeItem(uuid: item.uuid))
-            completed(true)
+        guard let item = itemForCell(at: indexPath.row) else {
+            return .init()
         }
-        removeAction.backgroundColor = .remove
-        removeAction.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
-        return UISwipeActionsConfiguration(actions: [removeAction])
+
+        let action = UIContextualAction(style: .destructive, title: nil) { [weak self] in
+            self?.onActionSubject.send(.removeItem(uuid: item.uuid))
+            $2(true)
+        }
+        action.backgroundColor = .remove
+        action.image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
+
+        return .init(actions: [action])
     }
 
     public func tableView(
