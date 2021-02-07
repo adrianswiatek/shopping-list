@@ -34,6 +34,8 @@ public final class CoreDataChangeListener {
                     self?.eventBus.send(ItemAddedEvent(.fromUuid(item.id!)))
                 } else if let category = $0 as? CategoryEntity {
                     self?.eventBus.send(ItemsCategoryAddedEvent(.fromUuid(category.id!)))
+                } else if let itemsOrder = $0 as? ItemsOrderEntity {
+                    self?.eventBus.send(ItemsReorderedEvent(.fromUuid(itemsOrder.listId!)))
                 }
             }
             .store(in: &cancellables)

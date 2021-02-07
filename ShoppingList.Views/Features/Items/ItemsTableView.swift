@@ -39,6 +39,7 @@ public final class ItemsTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         allowsSelection = false
         allowsMultipleSelectionDuringEditing = true
+        dragInteractionEnabled = true
         rowHeight = 56
         estimatedRowHeight = 56
         tableFooterView = UIView()
@@ -160,7 +161,22 @@ extension ItemsTableView: UITableViewDragDelegate {
 }
 
 extension ItemsTableView: UITableViewDropDelegate {
-    public func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {}
+    public func tableView(
+        _ tableView: UITableView,
+        performDropWith coordinator: UITableViewDropCoordinator
+    ) {
+        guard
+            let sourceIndexPath = coordinator.items.first?.sourceIndexPath,
+            let destinationIndexPath = coordinator.destinationIndexPath
+        else {
+            return
+        }
+
+        onActionSubject.send(.moveItem(
+            fromIndexPath: sourceIndexPath,
+            toIndexPath: destinationIndexPath
+        ))
+    }
 
     public func tableView(
         _ tableView: UITableView,
@@ -175,6 +191,7 @@ extension ItemsTableView {
     public enum Action {
         case addItemToBasket(uuid: UUID)
         case editItem(item: ItemToBuyViewModel)
+        case moveItem(fromIndexPath: IndexPath, toIndexPath: IndexPath)
         case removeItem(uuid: UUID)
         case rowTapped
     }

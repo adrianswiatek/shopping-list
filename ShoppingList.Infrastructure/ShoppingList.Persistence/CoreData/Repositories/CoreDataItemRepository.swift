@@ -162,28 +162,28 @@ public final class CoreDataItemRepository: ItemRepository {
         return try? coreData.context.fetch(request).first
     }
 
-    public func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState) {
+    public func setItemsOrder(with itemIds: [Id<Item>], inListWithId listId: Id<List>, forState state: ItemState) {
         let request: NSFetchRequest<ItemsOrderEntity> = ItemsOrderEntity.fetchRequest()
         request.predicate = NSCompoundPredicate(type: .and, subpredicates: [
-            NSPredicate(format: "itemsState == %@", state.rawValue.description),
-            NSPredicate(format: "listId == %@", list.id.toString())
+            .init(format: "itemsState == %@", state.rawValue.description),
+            .init(format: "listId == %@", listId.toString())
         ])
 
-        do {
-            let entities = try coreData.context.fetch(request)
-            if let entity = entities.first {
-                coreData.context.delete(entity)
-            }
-
-            if items.count > 0 {
-                let itemsOrder = ItemsOrder(state, list, items)
-                _ = itemsOrder.map(context: coreData.context)
-            }
-
-            coreData.save()
-        } catch {
-            fatalError("Unable to fetch ItemsOrder: \(error)")
+        let entities = try? coreData.context.fetch(request)
+        if let entity = entities?.first {
+            coreData.context.delete(entity)
         }
+
+        guard !itemIds.isEmpty else { return }
+
+        let entity = ItemsOrderEntity(context: coreData.context)
+        entity.itemsState = Int32(state.rawValue)
+        entity.listId = listId.toUuid()
+
+        let itemIdsData = try? JSONEncoder().encode(itemIds.map { $0.toUuid() })
+        entity.itemsIds = itemIdsData ?? Data()
+
+        coreData.save()
     }
 
     private func listEntity(from id: Id<List>) -> ListEntity? {

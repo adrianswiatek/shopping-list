@@ -10,6 +10,9 @@
 		3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E37207A5A3C005857E5 /* AppDelegate.swift */; };
 		3A392E3F207A5A3D005857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E3E207A5A3D005857E5 /* Assets.xcassets */; };
 		3A392E42207A5A3D005857E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A392E40207A5A3D005857E5 /* LaunchScreen.storyboard */; };
+		A704F9A225D32AA8009D0D9F /* SetItemsOrderCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A704F9A125D32AA8009D0D9F /* SetItemsOrderCommand.swift */; };
+		A704F9A625D32AF6009D0D9F /* SetItemsOrderCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A704F9A525D32AF6009D0D9F /* SetItemsOrderCommandHandler.swift */; };
+		A704F9AF25D33CD3009D0D9F /* ItemsReorderedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A704F9AE25D33CD3009D0D9F /* ItemsReorderedEvent.swift */; };
 		A706FE78259927CE00E79CF5 /* UpdateItemsCategoryCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE77259927CE00E79CF5 /* UpdateItemsCategoryCommand.swift */; };
 		A706FE7C259927D800E79CF5 /* UpdateItemsCategoryCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE7B259927D800E79CF5 /* UpdateItemsCategoryCommandHandler.swift */; };
 		A706FE7F25992F0200E79CF5 /* LocalPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE7E25992F0200E79CF5 /* LocalPreferences.swift */; };
@@ -125,6 +128,7 @@
 		A76C1BDF257C53DE0066DB21 /* ListsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C1BDE257C53DE0066DB21 /* ListsTableView.swift */; };
 		A76CA547258ED44B00C1F878 /* UpdateListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76CA546258ED44B00C1F878 /* UpdateListCommand.swift */; };
 		A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76CA549258ED4C800C1F878 /* UpdateListCommandHandler.swift */; };
+		A7739C3F25D09B7400B9D398 /* ItemsSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7739C3E25D09B7400B9D398 /* ItemsSectionViewModel.swift */; };
 		A777F43A25B8A8D700A2DDB3 /* BasketDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777F43925B8A8D700A2DDB3 /* BasketDataSource.swift */; };
 		A777F44025B8B53000A2DDB3 /* MoveItemsToListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777F43F25B8B53000A2DDB3 /* MoveItemsToListCommand.swift */; };
 		A777F44425B8B65600A2DDB3 /* MoveItemsToListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A777F44325B8B65600A2DDB3 /* MoveItemsToListCommandHandler.swift */; };
@@ -502,6 +506,9 @@
 		3AFAEF1B20DDA05500E58C00 /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
 		3AFAEF1D20DDA78D00E58C00 /* ListAccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAccessType.swift; sourceTree = "<group>"; };
 		3AFBF9692128DDC500FEAB55 /* ValidationButtonAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationButtonAnimations.swift; sourceTree = "<group>"; };
+		A704F9A125D32AA8009D0D9F /* SetItemsOrderCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemsOrderCommand.swift; sourceTree = "<group>"; };
+		A704F9A525D32AF6009D0D9F /* SetItemsOrderCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemsOrderCommandHandler.swift; sourceTree = "<group>"; };
+		A704F9AE25D33CD3009D0D9F /* ItemsReorderedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsReorderedEvent.swift; sourceTree = "<group>"; };
 		A706FE77259927CE00E79CF5 /* UpdateItemsCategoryCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemsCategoryCommand.swift; sourceTree = "<group>"; };
 		A706FE7B259927D800E79CF5 /* UpdateItemsCategoryCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemsCategoryCommandHandler.swift; sourceTree = "<group>"; };
 		A706FE7E25992F0200E79CF5 /* LocalPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalPreferences.swift; sourceTree = "<group>"; };
@@ -562,6 +569,7 @@
 		A76C1BDE257C53DE0066DB21 /* ListsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableView.swift; sourceTree = "<group>"; };
 		A76CA546258ED44B00C1F878 /* UpdateListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListCommand.swift; sourceTree = "<group>"; };
 		A76CA549258ED4C800C1F878 /* UpdateListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListCommandHandler.swift; sourceTree = "<group>"; };
+		A7739C3E25D09B7400B9D398 /* ItemsSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsSectionViewModel.swift; sourceTree = "<group>"; };
 		A777F43925B8A8D700A2DDB3 /* BasketDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketDataSource.swift; sourceTree = "<group>"; };
 		A777F43F25B8B53000A2DDB3 /* MoveItemsToListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveItemsToListCommand.swift; sourceTree = "<group>"; };
 		A777F44325B8B65600A2DDB3 /* MoveItemsToListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveItemsToListCommandHandler.swift; sourceTree = "<group>"; };
@@ -877,6 +885,23 @@
 				3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */,
 			);
 			path = Controls;
+			sourceTree = "<group>";
+		};
+		A704F9A025D32A90009D0D9F /* SetItemsOrder */ = {
+			isa = PBXGroup;
+			children = (
+				A704F9A125D32AA8009D0D9F /* SetItemsOrderCommand.swift */,
+				A704F9A525D32AF6009D0D9F /* SetItemsOrderCommandHandler.swift */,
+			);
+			path = SetItemsOrder;
+			sourceTree = "<group>";
+		};
+		A704F9AD25D33CC4009D0D9F /* ItemsEvents */ = {
+			isa = PBXGroup;
+			children = (
+				A704F9AE25D33CD3009D0D9F /* ItemsReorderedEvent.swift */,
+			);
+			path = ItemsEvents;
 			sourceTree = "<group>";
 		};
 		A706FE76259927B800E79CF5 /* UpdateItemsCategory */ = {
@@ -1361,11 +1386,12 @@
 		A7CDD3EE25AF773700FF776A /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				A7CDD42525AF8B7700FF776A /* ConsoleEventListener.swift */,
 				A7CDD3EF25AF776300FF776A /* Event.swift */,
 				A7CDD3F225AF776B00FF776A /* EventBus.swift */,
-				A7CDD42525AF8B7700FF776A /* ConsoleEventListener.swift */,
 				A7CDD41625AF8A7500FF776A /* ItemEvents */,
 				A7CDD41525AF8A7100FF776A /* ItemsCategoryEvents */,
+				A704F9AD25D33CC4009D0D9F /* ItemsEvents */,
 				A7CDD41425AF8A6E00FF776A /* ListEvents */,
 			);
 			path = Events;
@@ -1408,6 +1434,7 @@
 				A7D3968425A128DB0077F10E /* MoveItemsToBasket */,
 				A7287E4425C0BDEC0092A781 /* RemoveItems */,
 				A7287E4C25C0C3230092A781 /* RestoreItems */,
+				A704F9A025D32A90009D0D9F /* SetItemsOrder */,
 				A7AF6B8825ACFB1200D8A147 /* UpdateItem */,
 			);
 			path = Commands;
@@ -1451,6 +1478,7 @@
 				A7F4D811259FE27700EDA252 /* ItemsViewModel.swift */,
 				A7D3967D25A126DC0077F10E /* ItemToBuyViewModel.swift */,
 				A74DA51725B76333003F2B01 /* ItemInBasketViewModel.swift */,
+				A7739C3E25D09B7400B9D398 /* ItemsSectionViewModel.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -1854,6 +1882,7 @@
 				A76CA547258ED44B00C1F878 /* UpdateListCommand.swift in Sources */,
 				A781E9F725783E7000367FCF /* RemoveListCommandHandler.swift in Sources */,
 				A777F44025B8B53000A2DDB3 /* MoveItemsToListCommand.swift in Sources */,
+				A704F9A625D32AF6009D0D9F /* SetItemsOrderCommandHandler.swift in Sources */,
 				A7AF6B8A25ACFB2000D8A147 /* UpdateItemCommand.swift in Sources */,
 				A7CDD40425AF890800FF776A /* ItemsCategoryRemovedEvent.swift in Sources */,
 				A7AF6B8D25ACFB9300D8A147 /* UpdateItemCommandHandler.swift in Sources */,
@@ -1892,6 +1921,7 @@
 				A713C28225ABA67D00DD5D33 /* AddItemCommand.swift in Sources */,
 				A706FE8825994DAE00E79CF5 /* AddDefaultItemsCategoryCommand.swift in Sources */,
 				A7F63329259141040032888B /* ClearBasketOfListCommandHandler.swift in Sources */,
+				A704F9AF25D33CD3009D0D9F /* ItemsReorderedEvent.swift in Sources */,
 				A7D3968625A128EB0077F10E /* MoveItemsToBasketCommandHandler.swift in Sources */,
 				A781E9F425783E4D00367FCF /* CommandHandler.swift in Sources */,
 				A7CDD40B25AF89CA00FF776A /* ListUpdatedEvent.swift in Sources */,
@@ -1911,6 +1941,7 @@
 				A77C971E257859AD00E39DBF /* ItemsCategoryRepository.swift in Sources */,
 				A70F36092596B4C000279242 /* ItemsCategoryQueries.swift in Sources */,
 				A7CDD3F025AF776300FF776A /* Event.swift in Sources */,
+				A704F9A225D32AA8009D0D9F /* SetItemsOrderCommand.swift in Sources */,
 				A781E9F025783DCF00367FCF /* AddListCommand.swift in Sources */,
 				A777F44425B8B65600A2DDB3 /* MoveItemsToListCommandHandler.swift in Sources */,
 				A727CCA525BA0CDA00D53866 /* RemoveItemsFromBasketCommandHandler.swift in Sources */,
@@ -2010,6 +2041,7 @@
 				A7640F742569B67A000D882B /* ListsViewModel.swift in Sources */,
 				A79916F72582C106001A277A /* ViewModel.swift in Sources */,
 				A7F4D815259FE28B00EDA252 /* ItemsViewModel.swift in Sources */,
+				A7739C3F25D09B7400B9D398 /* ItemsSectionViewModel.swift in Sources */,
 				A7813FF4258181D600C70E9C /* SettingsViewModel.swift in Sources */,
 				A79916FD2582DBE1001A277A /* ViewModelsFactory.swift in Sources */,
 				A74DA51825B76333003F2B01 /* ItemInBasketViewModel.swift in Sources */,

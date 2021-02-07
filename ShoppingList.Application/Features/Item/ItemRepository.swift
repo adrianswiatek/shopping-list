@@ -19,5 +19,5 @@ public protocol ItemRepository {
     func updateCategory(of item: Item, to category: ItemsCategory)
     func updateCategory(of items: [Item], to category: ItemsCategory)
 
-    func setItemsOrder(_ items: [Item], in list: List, forState state: ItemState)
+    func setItemsOrder(with itemIds: [Id<Item>], inListWithId listId: Id<List>, forState state: ItemState)
 }

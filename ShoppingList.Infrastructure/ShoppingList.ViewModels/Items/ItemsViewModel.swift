@@ -5,8 +5,8 @@ import Combine
 public final class ItemsViewModel: ViewModel {
     public private(set) var list: ListViewModel!
 
-    public var itemsPublisher: AnyPublisher<[ItemToBuyViewModel], Never> {
-        itemsSubject.map { $0.map { $0.viewModel } }.eraseToAnyPublisher()
+    public var sectionsPublisher: AnyPublisher<[ItemsSectionViewModel], Never> {
+        sectionsSubject.eraseToAnyPublisher()
     }
 
     public var statePublisher: AnyPublisher<State, Never> {
@@ -18,19 +18,21 @@ public final class ItemsViewModel: ViewModel {
     }
 
     public var hasItemsInTheBasketPublisher: AnyPublisher<Bool, Never> {
-        itemsSubject
+        sectionsSubject
             .map { [weak self] _ in self?.hasItemsInBasket() == true }
             .eraseToAnyPublisher()
     }
 
     public var canShareItems: Bool {
-        !itemsSubject.value.isEmpty
+        sectionsSubject.value.first { !$0.items.isEmpty } != nil
     }
 
-    private let itemsSubject: CurrentValueSubject<[(item: Item, viewModel: ItemToBuyViewModel)], Never>
+    private let sectionsSubject: CurrentValueSubject<[ItemsSectionViewModel], Never>
     private let stateSubject: CurrentValueSubject<State, Never>
     private let isRestoreButtonEnabledSubject: CurrentValueSubject<Bool, Never>
     private var cancellables: Set<AnyCancellable>
+
+    private let expectedEvents: [Event.Type]
 
     private let itemQueries: ItemQueries
     private let categoryQuries: ItemsCategoryQueries
@@ -51,10 +53,14 @@ public final class ItemsViewModel: ViewModel {
         self.commandBus = commandBus
         self.eventBus = eventBus
 
-        self.itemsSubject = .init([])
+        self.sectionsSubject = .init([])
         self.stateSubject = .init(.regular)
         self.isRestoreButtonEnabledSubject = .init(false)
         self.cancellables = []
+
+        self.expectedEvents = [
+            ItemAddedEvent.self, ItemRemovedEvent.self, ItemUpdatedEvent.self, ItemsReorderedEvent.self
+        ]
 
         self.bind()
     }
@@ -71,17 +77,14 @@ public final class ItemsViewModel: ViewModel {
 
     public func fetchItems() {
         let categories = categoryQuries.fetchCategories()
+        let items = itemQueries.fetchItemsToBuyFromList(with: .fromUuid(list.uuid))
 
-        let result: [(Item, ItemToBuyViewModel)] = itemQueries
-            .fetchItemsToBuyFromList(with: .fromUuid(list.uuid))
-            .compactMap { item in
-                categories
-                    .first { category in category.id == item.categoryId }
-                    .map { category in ItemToBuyViewModel(item, category) }
-                    .map { viewModel in (item, viewModel) }
-            }
+        let sections = categories.reduce(into: [ItemsSectionViewModel]()) { result, category in
+            let itemsInCategory = items.filter { $0.categoryId == category.id }
+            result += !itemsInCategory.isEmpty ? [ItemsSectionViewModel(category, itemsInCategory)] : []
+        }
 
-        itemsSubject.send(result)
+        sectionsSubject.send(sections)
     }
 
     public func restoreItem() {
@@ -99,30 +102,58 @@ public final class ItemsViewModel: ViewModel {
     }
 
     public func addToBasketAllItems() {
-        commandBus.execute(
-            MoveItemsToBasketCommand(itemsSubject.value.map { $0.viewModel.uuid })
-        )
+        let uuids = sectionsSubject.value.flatMap { $0.items.map { $0.uuid } }
+        commandBus.execute(MoveItemsToBasketCommand(uuids))
     }
 
     public func addToBasketItems(with uuids: [UUID]) {
-        commandBus.execute(
-            MoveItemsToBasketCommand(uuids)
-        )
+        commandBus.execute(MoveItemsToBasketCommand(uuids))
     }
 
     public func removeAllItems() {
-        commandBus.execute(
-            RemoveItemsCommand(itemsSubject.value.map { $0.item })
-        )
+        let items: [Item] = sectionsSubject.value.flatMap { self.items(from: $0) }
+        commandBus.execute(RemoveItemsCommand(items))
     }
 
     public func removeItems(with uuids: [UUID]) {
-        let items = itemsSubject.value
-            .filter { uuids.contains($0.item.id.toUuid()) }
-            .map { $0.item }
+        let items: [Item] = sectionsSubject.value
+            .flatMap { self.items(from: $0) }
+            .filter { uuids.contains($0.id.toUuid()) }
+
+        commandBus.execute(RemoveItemsCommand(items))
+    }
+
+    public func moveItem(
+        fromPosition: (section: Int, index: Int),
+        toPosition: (section: Int, index: Int)
+    ) {
+        var sections = sectionsSubject.value
+        let item = sections[fromPosition.section].items[fromPosition.index]
+
+        sections[fromPosition.section] =
+            sections[fromPosition.section].withRemovedItem(at: fromPosition.index)
+
+        sections[toPosition.section] =
+            sections[toPosition.section].withInsertedItem(item, at: toPosition.index)
+
+        setItemsOrder(sections.flatMap { $0.items })
+        updateItemsCategory(item, to: sections[toPosition.section].category)
+    }
+
+    private func setItemsOrder(_ items: [ItemToBuyViewModel]) {
+        let itemIds: [Id<Item>] = items.map { $0.uuid }.map { .fromUuid($0) }
+        let listId: Id<List> = .fromUuid(list.uuid)
+
+        commandBus.execute(SetItemsOrderCommand(itemIds, listId))
+    }
+
+    private func updateItemsCategory(_ item: ItemToBuyViewModel, to category: ItemsCategoryViewModel) {
+        guard item.categoryName != category.name else {
+            return
+        }
 
         commandBus.execute(
-            RemoveItemsCommand(items)
+            UpdateItemCommand(item.uuid, item.name, item.info, category.uuid, list.uuid)
         )
     }
 
@@ -131,31 +162,25 @@ public final class ItemsViewModel: ViewModel {
     }
 
     public func formattedItemsWithCategories() -> String {
-        let itemsToShare: [ItemToShare] = itemsSubject.value
-            .map { $0.viewModel }
-            .map { .init(name: $0.name, info: $0.info, categoryName: $0.categoryName) }
-
-        return sharedItemsFormatter.formatWithCategories(itemsToShare)
+        sharedItemsFormatter.formatWithCategories(itemsToShare())
     }
 
     public func formattedItemsWithoutCategories() -> String {
-        let itemsToShare: [ItemToShare] = itemsSubject.value
-            .map { $0.viewModel }
-            .map { .init(name: $0.name, info: $0.info, categoryName: $0.categoryName) }
-
-        return sharedItemsFormatter.formatWithoutCategories(itemsToShare)
+        sharedItemsFormatter.formatWithoutCategories(itemsToShare())
     }
 
     private func bind() {
         eventBus.events
-            .filter { $0 is ItemAddedEvent || $0 is ItemRemovedEvent || $0 is ItemUpdatedEvent }
+            .filter { [weak self] event in
+                self?.expectedEvents.contains { $0 == type(of: event) } == true
+            }
             .sink { [weak self] _ in
                 self?.fetchItems()
                 self?.stateSubject.send(.regular)
             }
             .store(in: &cancellables)
 
-        itemsPublisher
+        sectionsPublisher
             .map { [weak self] _ in self?.commandBus.canUndo(.items) == true }
             .subscribe(isRestoreButtonEnabledSubject)
             .store(in: &cancellables)
@@ -163,6 +188,25 @@ public final class ItemsViewModel: ViewModel {
 
     private func hasItemsInBasket() -> Bool {
         itemQueries.hasItemsInBasketOfList(with: .fromUuid(list.uuid))
+    }
+
+    private func items(from section: ItemsSectionViewModel) -> [Item] {
+        section.items.map { item in
+            Item(
+                id: .fromUuid(item.uuid),
+                name: item.name,
+                info: item.info,
+                state: .toBuy,
+                categoryId: .fromUuid(section.category.uuid),
+                listId: .fromUuid(list.uuid)
+            )
+        }
+    }
+
+    private func itemsToShare() -> [ItemToShare] {
+        sectionsSubject.value
+            .flatMap { $0.items }
+            .map { .init(name: $0.name, info: $0.info, categoryName: $0.categoryName) }
     }
 }
 

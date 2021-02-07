@@ -117,7 +117,7 @@ public final class ItemsViewController: UIViewController {
     }
 
     private func bind() {
-        viewModel.itemsPublisher
+        viewModel.sectionsPublisher
             .sink { [weak self] in
                 self?.dataSource.apply($0)
                 self?.tableView.refreshBackground()
@@ -181,6 +181,11 @@ public final class ItemsViewController: UIViewController {
             viewModel.addToBasketItems(with: [uuid])
         case .editItem(let item):
             delegate?.goToEditItem(item)
+        case .moveItem(let fromIndexPath, let toIndexPath):
+            viewModel.moveItem(
+                fromPosition: (fromIndexPath.section, fromIndexPath.row),
+                toPosition: (toIndexPath.section, toIndexPath.row)
+            )
         case .removeItem(let uuid):
             viewModel.removeItems(with: [uuid])
         case .rowTapped:

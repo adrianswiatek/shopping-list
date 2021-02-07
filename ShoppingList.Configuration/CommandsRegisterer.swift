@@ -32,6 +32,7 @@ public final class CommandsRegisterer {
                 $0.resolve(MoveItemsToBasketCommandHandler.self)!,
                 $0.resolve(RemoveItemsCommandHandler.self)!,
                 $0.resolve(RestoreItemsCommandHandler.self)!,
+                $0.resolve(SetItemsOrderCommandHandler.self)!,
                 $0.resolve(UpdateItemCommandHandler.self)!,
 
                 // Items in basket
@@ -90,6 +91,10 @@ public final class CommandsRegisterer {
 
         container.register(RestoreItemsCommandHandler.self) {
             RestoreItemsCommandHandler($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(SetItemsOrderCommandHandler.self) {
+            SetItemsOrderCommandHandler($0.resolve(ItemRepository.self)!)
         }
 
         container.register(UpdateItemCommandHandler.self) {

@@ -14,9 +14,14 @@ public final class UpdateListDateListener {
     }
 
     public func start() {
-        cancellable = eventBus.events
+        let itemChangeSubscription = eventBus.events
             .compactMap { [weak self] in self?.itemId(from: $0) }
             .compactMap { [weak self] in self?.listId(from: $0) }
+
+        let orderChangeSubscription = eventBus.events
+            .compactMap { ($0 as? ItemsReorderedEvent)?.listId }
+
+        cancellable = itemChangeSubscription.merge(with: orderChangeSubscription)
             .sink { [weak self] in self?.commandBus.execute(UpdateListsDateCommand($0)) }
     }
 
