@@ -60,7 +60,6 @@
 		A739B4802569CB66000B16E3 /* ItemsSorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */; };
 		A739B4812569CB66000B16E3 /* ListNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A193C8721335F9E00EF6288 /* ListNameGenerator.swift */; };
 		A739B48F2569CE69000B16E3 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A392E39207A5A3C005857E5 /* ItemsViewController.swift */; };
-		A739B4902569CE69000B16E3 /* SharedItemsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */; };
 		A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */; };
 		A739B4962569CE69000B16E3 /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC3207A97B300963961 /* ItemsTableViewCell.swift */; };
 		A739B4A22569CE70000B16E3 /* EditItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A03324D20C9BD56007C7B46 /* EditItemViewController.swift */; };
@@ -207,6 +206,8 @@
 		A7F6332225913E0D0032888B /* ClearListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F6332125913E0D0032888B /* ClearListCommandHandler.swift */; };
 		A7F63326259140FA0032888B /* ClearBasketOfListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F63325259140FA0032888B /* ClearBasketOfListCommand.swift */; };
 		A7F63329259141040032888B /* ClearBasketOfListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F63328259141040032888B /* ClearBasketOfListCommandHandler.swift */; };
+		A7FBD99025CF666E0093B9DD /* SharedItemsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */; };
+		A7FBD99425CF6A120093B9DD /* ItemToShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FBD99325CF6A120093B9DD /* ItemToShare.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -622,6 +623,7 @@
 		A7F6332125913E0D0032888B /* ClearListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearListCommandHandler.swift; sourceTree = "<group>"; };
 		A7F63325259140FA0032888B /* ClearBasketOfListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBasketOfListCommand.swift; sourceTree = "<group>"; };
 		A7F63328259141040032888B /* ClearBasketOfListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBasketOfListCommandHandler.swift; sourceTree = "<group>"; };
+		A7FBD99325CF6A120093B9DD /* ItemToShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToShare.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -960,6 +962,7 @@
 				3A82DC4D207D5296006B3885 /* Item.swift */,
 				3A9EAF41209BBA4900B4A39D /* ItemsCategory.swift */,
 				3AFAEF1020DD88DE00E58C00 /* List.swift */,
+				A7FBD99325CF6A120093B9DD /* ItemToShare.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1012,6 +1015,7 @@
 			children = (
 				3ACC283A20C8699300F31AB6 /* ItemsSorter.swift */,
 				3A193C8721335F9E00EF6288 /* ListNameGenerator.swift */,
+				3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1025,7 +1029,6 @@
 				3A422A4421472CCD00773BD8 /* ItemsTableViewHeaderCell.swift */,
 				3AEDFEF120BC9F980002B6F7 /* ItemsToolbar.swift */,
 				3A392E39207A5A3C005857E5 /* ItemsViewController.swift */,
-				3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -1986,7 +1989,6 @@
 				A79917012582E0BE001A277A /* SettingsTableView.swift in Sources */,
 				A7517811259410D800757672 /* ManageCategoriesDataSource.swift in Sources */,
 				A739B4722569CAE0000B16E3 /* UIButtonExtensions.swift in Sources */,
-				A739B4902569CE69000B16E3 /* SharedItemsFormatter.swift in Sources */,
 				A739B5392569D3DE000B16E3 /* TextFieldWithWarning.swift in Sources */,
 				A739B3C22569BFA6000B16E3 /* TextFieldWithCancel.swift in Sources */,
 				A739B4962569CE69000B16E3 /* ItemsTableViewCell.swift in Sources */,
@@ -2019,8 +2021,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7FBD99025CF666E0093B9DD /* SharedItemsFormatter.swift in Sources */,
 				A739B3CF2569BFC6000B16E3 /* Item.swift in Sources */,
 				A739B3DB2569BFCD000B16E3 /* ListAccessType.swift in Sources */,
+				A7FBD99425CF6A120093B9DD /* ItemToShare.swift in Sources */,
 				A70989F725A26E53002CEADE /* Id.swift in Sources */,
 				A739B3D12569BFC6000B16E3 /* List.swift in Sources */,
 				A739B3DA2569BFCD000B16E3 /* ItemState.swift in Sources */,

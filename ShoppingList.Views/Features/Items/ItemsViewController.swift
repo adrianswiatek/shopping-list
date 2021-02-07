@@ -42,14 +42,11 @@ public final class ItemsViewController: UIViewController {
         return barButtonItem
     }()
 
-    private var cancellables: Set<AnyCancellable>
-
-    private let itemsFormatter: SharedItemsFormatter
     private let viewModel: ItemsViewModel
+    private var cancellables: Set<AnyCancellable>
 
     public init(viewModel: ItemsViewModel) {
         self.viewModel = viewModel
-        self.itemsFormatter = .init()
 
         self.tableView = .init()
         self.dataSource = .init(tableView)
@@ -238,31 +235,27 @@ public final class ItemsViewController: UIViewController {
     }
 
     private func openShareItemsAlert() {
-//        let shareWithCategories = UIAlertAction(title: "... with categories", style: .default) { [weak self] _ in
-//            guard let self = self else { return }
-//            let formattedItems = self.itemsFormatter.format(self.items, withCategories: self.categories)
-//            self.showActivityController(formattedItems)
-//        }
+        let alertController = UIAlertController(title: "Share ...", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(.init(title: "... with categories", style: .default) { [weak self] _ in
+            guard let formattedItems = self?.viewModel.formattedItemsWithCategories() else { return }
+            self?.showActivityController(formattedItems)
+        })
+        alertController.addAction(.init(title: "... without categories", style: .default) { [weak self] _ in
+            guard let formattedItems = self?.viewModel.formattedItemsWithoutCategories() else { return }
+            self?.showActivityController(formattedItems)
+        })
+        alertController.addAction(.init(title: "Cancel", style: .cancel))
 
-//        let shareWithoutCategories = UIAlertAction(title: "... without categories", style: .default) { [weak self] _ in
-//            guard let self = self else { return }
-//            let formattedItems = self.itemsFormatter.format(self.items)
-//            self.showActivityController(formattedItems)
-//        }
-
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-//        let alertController = UIAlertController(title: "Share ...", message: nil, preferredStyle: .actionSheet)
-//        alertController.addAction(shareWithCategories)
-//        alertController.addAction(shareWithoutCategories)
-//        alertController.addAction(cancelAction)
-
-//        present(alertController, animated: true)
+        present(alertController, animated: true)
     }
 
     private func showActivityController(_ formattedItems: String) {
         assert(!formattedItems.isEmpty, "Formatted items must have items.")
-        present(UIActivityViewController(activityItems: [formattedItems], applicationActivities: nil), animated: true)
+
+        present(UIActivityViewController(
+            activityItems: [formattedItems],
+            applicationActivities: nil
+        ), animated: true)
     }
 
     private func cancelButtonDidTap() {

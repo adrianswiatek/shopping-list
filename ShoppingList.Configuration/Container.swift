@@ -75,6 +75,7 @@ public final class Container {
             ItemsViewModel(
                 itemQueries: $0.resolve(ItemQueries.self)!,
                 categoryQuries: $0.resolve(ItemsCategoryQueries.self)!,
+                sharedItemsFormatter: $0.resolve(SharedItemsFormatter.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
@@ -158,6 +159,10 @@ public final class Container {
                 $0.resolve(ItemsCategoryRepository.self)!,
                 $0.resolve(LocalPreferences.self)!
             )
+        }
+
+        container.register(SharedItemsFormatter.self) { _ in
+            SharedItemsFormatter()
         }
 
         container.register(LocalPreferences.self) { _ in

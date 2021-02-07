@@ -34,17 +34,20 @@ public final class ItemsViewModel: ViewModel {
 
     private let itemQueries: ItemQueries
     private let categoryQuries: ItemsCategoryQueries
+    private let sharedItemsFormatter: SharedItemsFormatter
     private let commandBus: CommandBus
     private let eventBus: EventBus
 
     public init(
         itemQueries: ItemQueries,
         categoryQuries: ItemsCategoryQueries,
+        sharedItemsFormatter: SharedItemsFormatter,
         commandBus: CommandBus,
         eventBus: EventBus
     ) {
         self.itemQueries = itemQueries
         self.categoryQuries = categoryQuries
+        self.sharedItemsFormatter = sharedItemsFormatter
         self.commandBus = commandBus
         self.eventBus = eventBus
 
@@ -125,6 +128,22 @@ public final class ItemsViewModel: ViewModel {
 
     public func setState(_ state: State) {
         stateSubject.send(state)
+    }
+
+    public func formattedItemsWithCategories() -> String {
+        let itemsToShare: [ItemToShare] = itemsSubject.value
+            .map { $0.viewModel }
+            .map { .init(name: $0.name, info: $0.info, categoryName: $0.categoryName) }
+
+        return sharedItemsFormatter.formatWithCategories(itemsToShare)
+    }
+
+    public func formattedItemsWithoutCategories() -> String {
+        let itemsToShare: [ItemToShare] = itemsSubject.value
+            .map { $0.viewModel }
+            .map { .init(name: $0.name, info: $0.info, categoryName: $0.categoryName) }
+
+        return sharedItemsFormatter.formatWithoutCategories(itemsToShare)
     }
 
     private func bind() {
