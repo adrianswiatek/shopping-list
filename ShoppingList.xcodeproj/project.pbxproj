@@ -19,7 +19,6 @@
 		A706FE832599367D00E79CF5 /* UserDefaultsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE822599367D00E79CF5 /* UserDefaultsAdapter.swift */; };
 		A706FE8825994DAE00E79CF5 /* AddDefaultItemsCategoryCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE8725994DAE00E79CF5 /* AddDefaultItemsCategoryCommand.swift */; };
 		A706FE8B25994DDE00E79CF5 /* AddDefaultItemsCategoryCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE8A25994DDE00E79CF5 /* AddDefaultItemsCategoryCommandHandler.swift */; };
-		A706FE8F2599532600E79CF5 /* CommandsRegisterer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE8E2599532600E79CF5 /* CommandsRegisterer.swift */; };
 		A70989F725A26E53002CEADE /* Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70989F625A26E53002CEADE /* Id.swift */; };
 		A70B2EDF257AC9860082AAB2 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
 		A70B2EE0257AC9860082AAB2 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -101,10 +100,6 @@
 		A739B59F2569DDA1000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A739B5A42569DDA5000B16E3 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
 		A739B5A52569DDA5000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A739B5E12569E5F7000B16E3 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
-		A739B5E22569E5F7000B16E3 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A739B5E52569E606000B16E3 /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
-		A739B5E62569E606000B16E3 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A73B32D425BE1D060082A7DE /* ItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73B32D325BE1D060082A7DE /* ItemsDataSource.swift */; };
 		A746C72A25967DBF00D3CE30 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A748C8102593F5860071343C /* CategoryViewModel.swift */; };
 		A746C72E25967EB800D3CE30 /* AddItemsCategoryCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A746C72D25967EB800D3CE30 /* AddItemsCategoryCommand.swift */; };
@@ -135,21 +130,6 @@
 		A77C971E257859AD00E39DBF /* ItemsCategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C971D257859AD00E39DBF /* ItemsCategoryRepository.swift */; };
 		A77C9721257859DC00E39DBF /* ItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C9720257859DC00E39DBF /* ItemRepository.swift */; };
 		A77C972C25785C1A00E39DBF /* ListsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77C972B25785C1A00E39DBF /* ListsService.swift */; };
-		A77DFFC325785804001B7B35 /* ShoppingList_Configuration.h in Headers */ = {isa = PBXBuildFile; fileRef = A77DFFC125785804001B7B35 /* ShoppingList_Configuration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A77DFFC625785804001B7B35 /* ShoppingList_Configuration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77DFFBF25785804001B7B35 /* ShoppingList_Configuration.framework */; };
-		A77DFFC725785804001B7B35 /* ShoppingList_Configuration.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A77DFFBF25785804001B7B35 /* ShoppingList_Configuration.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A77DFFD025785815001B7B35 /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; platformFilter = ios; };
-		A77DFFD125785815001B7B35 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A77DFFD425785815001B7B35 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; platformFilter = ios; };
-		A77DFFD525785815001B7B35 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A77DFFD825785815001B7B35 /* ShoppingList_Persistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; platformFilter = ios; };
-		A77DFFD925785815001B7B35 /* ShoppingList_Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A77DFFDC25785815001B7B35 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; platformFilter = ios; };
-		A77DFFDD25785815001B7B35 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A77DFFE025785815001B7B35 /* ShoppingList_ViewModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; platformFilter = ios; };
-		A77DFFE125785815001B7B35 /* ShoppingList_ViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A77DFFE425785815001B7B35 /* ShoppingList_Views.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; platformFilter = ios; };
-		A77DFFE525785815001B7B35 /* ShoppingList_Views.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A77EE6DB25B2377700A258B4 /* UpdateListDateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EE6DA25B2377700A258B4 /* UpdateListDateListener.swift */; };
 		A77EE6DF25B2396D00A258B4 /* UpdateListsDateCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EE6DE25B2396D00A258B4 /* UpdateListsDateCommand.swift */; };
 		A77EE6E225B239D600A258B4 /* UpdateListsDateCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77EE6E125B239D600A258B4 /* UpdateListsDateCommandHandler.swift */; };
@@ -165,8 +145,6 @@
 		A782B2472572F09C00638F7D /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */; };
 		A788610025759BDF00A0684C /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
 		A788610125759BDF00A0684C /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A7888B6F257ED0C600D20AE3 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = A7888B6E257ED0C600D20AE3 /* Swinject */; };
-		A7888B72257ED10A00D20AE3 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B71257ED10A00D20AE3 /* Container.swift */; };
 		A7888B77257ED65500D20AE3 /* ListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B76257ED65500D20AE3 /* ListsCoordinator.swift */; };
 		A79305D025798D4100A3865D /* ItemsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305CF25798D4100A3865D /* ItemsService.swift */; };
 		A79305D425798F0F00A3865D /* ItemQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79305D325798F0F00A3865D /* ItemQueries.swift */; };
@@ -203,6 +181,21 @@
 		A7D3967A25A11C940077F10E /* ItemsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3967925A11C940077F10E /* ItemsTableView.swift */; };
 		A7D3968225A128C40077F10E /* MoveItemsToBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3968125A128C40077F10E /* MoveItemsToBasketCommand.swift */; };
 		A7D3968625A128EB0077F10E /* MoveItemsToBasketCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D3968525A128EB0077F10E /* MoveItemsToBasketCommandHandler.swift */; };
+		A7D5953025D484AD00E85F94 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B71257ED10A00D20AE3 /* Container.swift */; };
+		A7D5953125D484AD00E85F94 /* CommandsRegisterer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE8E2599532600E79CF5 /* CommandsRegisterer.swift */; };
+		A7D5953625D484E000E85F94 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = A7D5953525D484E000E85F94 /* Swinject */; };
+		A7D5953725D484E000E85F94 /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
+		A7D5953825D484E000E85F94 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5953B25D484E000E85F94 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
+		A7D5953C25D484E000E85F94 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5953F25D484E000E85F94 /* ShoppingList_Persistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; };
+		A7D5954025D484E000E85F94 /* ShoppingList_Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5954325D484E000E85F94 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
+		A7D5954425D484E000E85F94 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5954725D484E000E85F94 /* ShoppingList_ViewModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; };
+		A7D5954825D484E000E85F94 /* ShoppingList_ViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5954B25D484E000E85F94 /* ShoppingList_Views.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; };
+		A7D5954C25D484E000E85F94 /* ShoppingList_Views.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7DBFF15259157AF00CD6B6D /* ManageCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DBFF14259157AF00CD6B6D /* ManageCategoriesViewModel.swift */; };
 		A7F4D80C259FD7E900EDA252 /* ItemsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F4D80B259FD7E900EDA252 /* ItemsCoordinator.swift */; };
 		A7F4D815259FE28B00EDA252 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F4D811259FE27700EDA252 /* ItemsViewModel.swift */; };
@@ -264,75 +257,12 @@
 			remoteGlobalIDString = A739B5702569DD52000B16E3;
 			remoteInfo = ShoppingList.Shared;
 		};
-		A739B5E32569E5F8000B16E3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A7640FC32569BC94000D882B;
-			remoteInfo = ShoppingList.Domain;
-		};
-		A739B5E72569E606000B16E3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A739B39E2569BCD7000B16E3;
-			remoteInfo = ShoppingList.Application;
-		};
 		A7640F7A2569B792000D882B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A7640F622569B5FD000D882B;
 			remoteInfo = ShoppingList.ViewModels;
-		};
-		A77DFFC425785804001B7B35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A77DFFBE25785804001B7B35;
-			remoteInfo = ShoppingList.Configuration;
-		};
-		A77DFFD225785815001B7B35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A739B39E2569BCD7000B16E3;
-			remoteInfo = ShoppingList.Application;
-		};
-		A77DFFD625785815001B7B35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A7640FC32569BC94000D882B;
-			remoteInfo = ShoppingList.Domain;
-		};
-		A77DFFDA25785815001B7B35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A739B43C2569C617000B16E3;
-			remoteInfo = ShoppingList.Persistence;
-		};
-		A77DFFDE25785815001B7B35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A739B5702569DD52000B16E3;
-			remoteInfo = ShoppingList.Shared;
-		};
-		A77DFFE225785815001B7B35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A7640F622569B5FD000D882B;
-			remoteInfo = ShoppingList.ViewModels;
-		};
-		A77DFFE625785815001B7B35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A7640F492569B46A000D882B;
-			remoteInfo = ShoppingList.Views;
 		};
 		A782B2432572F06700638F7D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -354,6 +284,48 @@
 			proxyType = 1;
 			remoteGlobalIDString = A739B39E2569BCD7000B16E3;
 			remoteInfo = ShoppingList.Application;
+		};
+		A7D5953925D484E000E85F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A739B39E2569BCD7000B16E3;
+			remoteInfo = ShoppingList.Application;
+		};
+		A7D5953D25D484E000E85F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7640FC32569BC94000D882B;
+			remoteInfo = ShoppingList.Domain;
+		};
+		A7D5954125D484E000E85F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A739B43C2569C617000B16E3;
+			remoteInfo = ShoppingList.Persistence;
+		};
+		A7D5954525D484E000E85F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A739B5702569DD52000B16E3;
+			remoteInfo = ShoppingList.Shared;
+		};
+		A7D5954925D484E000E85F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7640F622569B5FD000D882B;
+			remoteInfo = ShoppingList.ViewModels;
+		};
+		A7D5954D25D484E000E85F94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7640F492569B46A000D882B;
+			remoteInfo = ShoppingList.Views;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -414,9 +386,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				A7640F792569B792000D882B /* ShoppingList_ViewModels.framework in Embed Frameworks */,
-				A739B5E62569E606000B16E3 /* ShoppingList_Application.framework in Embed Frameworks */,
 				A739B58B2569DD85000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */,
-				A739B5E22569E5F7000B16E3 /* ShoppingList_Domain.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,23 +397,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A77DFFC725785804001B7B35 /* ShoppingList_Configuration.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A77DFFE825785815001B7B35 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A77DFFD525785815001B7B35 /* ShoppingList_Domain.framework in Embed Frameworks */,
-				A77DFFD125785815001B7B35 /* ShoppingList_Application.framework in Embed Frameworks */,
-				A77DFFD925785815001B7B35 /* ShoppingList_Persistence.framework in Embed Frameworks */,
-				A77DFFE525785815001B7B35 /* ShoppingList_Views.framework in Embed Frameworks */,
-				A77DFFE125785815001B7B35 /* ShoppingList_ViewModels.framework in Embed Frameworks */,
-				A77DFFDD25785815001B7B35 /* ShoppingList_Shared.framework in Embed Frameworks */,
+				A7D5953C25D484E000E85F94 /* ShoppingList_Domain.framework in Embed Frameworks */,
+				A7D5953825D484E000E85F94 /* ShoppingList_Application.framework in Embed Frameworks */,
+				A7D5954025D484E000E85F94 /* ShoppingList_Persistence.framework in Embed Frameworks */,
+				A7D5954C25D484E000E85F94 /* ShoppingList_Views.framework in Embed Frameworks */,
+				A7D5954825D484E000E85F94 /* ShoppingList_ViewModels.framework in Embed Frameworks */,
+				A7D5954425D484E000E85F94 /* ShoppingList_Shared.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,9 +535,6 @@
 		A77C971D257859AD00E39DBF /* ItemsCategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCategoryRepository.swift; sourceTree = "<group>"; };
 		A77C9720257859DC00E39DBF /* ItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRepository.swift; sourceTree = "<group>"; };
 		A77C972B25785C1A00E39DBF /* ListsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsService.swift; sourceTree = "<group>"; };
-		A77DFFBF25785804001B7B35 /* ShoppingList_Configuration.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_Configuration.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A77DFFC125785804001B7B35 /* ShoppingList_Configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingList_Configuration.h; sourceTree = "<group>"; };
-		A77DFFC225785804001B7B35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A77EE6DA25B2377700A258B4 /* UpdateListDateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDateListener.swift; sourceTree = "<group>"; };
 		A77EE6DE25B2396D00A258B4 /* UpdateListsDateCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListsDateCommand.swift; sourceTree = "<group>"; };
 		A77EE6E125B239D600A258B4 /* UpdateListsDateCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListsDateCommandHandler.swift; sourceTree = "<group>"; };
@@ -639,7 +595,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A77DFFC625785804001B7B35 /* ShoppingList_Configuration.framework in Frameworks */,
+				A7D5954325D484E000E85F94 /* ShoppingList_Shared.framework in Frameworks */,
+				A7D5954725D484E000E85F94 /* ShoppingList_ViewModels.framework in Frameworks */,
+				A7D5953625D484E000E85F94 /* Swinject in Frameworks */,
+				A7D5953725D484E000E85F94 /* ShoppingList_Application.framework in Frameworks */,
+				A7D5953F25D484E000E85F94 /* ShoppingList_Persistence.framework in Frameworks */,
+				A7D5953B25D484E000E85F94 /* ShoppingList_Domain.framework in Frameworks */,
+				A7D5954B25D484E000E85F94 /* ShoppingList_Views.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,9 +636,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7640F782569B792000D882B /* ShoppingList_ViewModels.framework in Frameworks */,
-				A739B5E52569E606000B16E3 /* ShoppingList_Application.framework in Frameworks */,
 				A739B58A2569DD85000B16E3 /* ShoppingList_Shared.framework in Frameworks */,
-				A739B5E12569E5F7000B16E3 /* ShoppingList_Domain.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,20 +655,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A739B5A42569DDA5000B16E3 /* ShoppingList_Shared.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A77DFFBC25785804001B7B35 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A77DFFD425785815001B7B35 /* ShoppingList_Domain.framework in Frameworks */,
-				A77DFFD025785815001B7B35 /* ShoppingList_Application.framework in Frameworks */,
-				A7888B6F257ED0C600D20AE3 /* Swinject in Frameworks */,
-				A77DFFD825785815001B7B35 /* ShoppingList_Persistence.framework in Frameworks */,
-				A77DFFE425785815001B7B35 /* ShoppingList_Views.framework in Frameworks */,
-				A77DFFE025785815001B7B35 /* ShoppingList_ViewModels.framework in Frameworks */,
-				A77DFFDC25785815001B7B35 /* ShoppingList_Shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,7 +700,6 @@
 				A739B3A02569BCD7000B16E3 /* ShoppingList.Application */,
 				A7640FC52569BC94000D882B /* ShoppingList.Domain */,
 				A739B5722569DD52000B16E3 /* ShoppingList.Shared */,
-				A77DFFC025785804001B7B35 /* ShoppingList.Configuration */,
 				2C3C88D204B53B68FA2D13E4 /* Frameworks */,
 				3A392E35207A5A3C005857E5 /* Products */,
 			);
@@ -770,7 +715,6 @@
 				A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */,
 				A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */,
 				A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */,
-				A77DFFBF25785804001B7B35 /* ShoppingList_Configuration.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -781,6 +725,7 @@
 				3A392E43207A5A3D005857E5 /* Info.plist */,
 				3A392E37207A5A3C005857E5 /* AppDelegate.swift */,
 				3A392E3E207A5A3D005857E5 /* Assets.xcassets */,
+				A7D5955025D4850700E85F94 /* Configuration */,
 				3A392E40207A5A3D005857E5 /* LaunchScreen.storyboard */,
 			);
 			path = ShoppingList;
@@ -1240,17 +1185,6 @@
 			path = MoveItemsToList;
 			sourceTree = "<group>";
 		};
-		A77DFFC025785804001B7B35 /* ShoppingList.Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				A77DFFC125785804001B7B35 /* ShoppingList_Configuration.h */,
-				A77DFFC225785804001B7B35 /* Info.plist */,
-				A7888B71257ED10A00D20AE3 /* Container.swift */,
-				A706FE8E2599532600E79CF5 /* CommandsRegisterer.swift */,
-			);
-			path = ShoppingList.Configuration;
-			sourceTree = "<group>";
-		};
 		A77EE6D925B2372900A258B4 /* Listeners */ = {
 			isa = PBXGroup;
 			children = (
@@ -1449,6 +1383,15 @@
 			path = MoveItemsToBasket;
 			sourceTree = "<group>";
 		};
+		A7D5955025D4850700E85F94 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				A706FE8E2599532600E79CF5 /* CommandsRegisterer.swift */,
+				A7888B71257ED10A00D20AE3 /* Container.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		A7DBFF112591571900CD6B6D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1552,14 +1495,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A77DFFBA25785804001B7B35 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A77DFFC325785804001B7B35 /* ShoppingList_Configuration.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1575,9 +1510,17 @@
 			buildRules = (
 			);
 			dependencies = (
-				A77DFFC525785804001B7B35 /* PBXTargetDependency */,
+				A7D5953A25D484E000E85F94 /* PBXTargetDependency */,
+				A7D5953E25D484E000E85F94 /* PBXTargetDependency */,
+				A7D5954225D484E000E85F94 /* PBXTargetDependency */,
+				A7D5954625D484E000E85F94 /* PBXTargetDependency */,
+				A7D5954A25D484E000E85F94 /* PBXTargetDependency */,
+				A7D5954E25D484E000E85F94 /* PBXTargetDependency */,
 			);
 			name = ShoppingList;
+			packageProductDependencies = (
+				A7D5953525D484E000E85F94 /* Swinject */,
+			);
 			productName = ShoppingList;
 			productReference = 3A392E34207A5A3C005857E5 /* ShoppingList.app */;
 			productType = "com.apple.product-type.application";
@@ -1658,8 +1601,6 @@
 			dependencies = (
 				A7640F7B2569B792000D882B /* PBXTargetDependency */,
 				A739B58D2569DD85000B16E3 /* PBXTargetDependency */,
-				A739B5E42569E5F8000B16E3 /* PBXTargetDependency */,
-				A739B5E82569E606000B16E3 /* PBXTargetDependency */,
 			);
 			name = ShoppingList.Views;
 			productName = ShoppingList.Views;
@@ -1708,34 +1649,6 @@
 			productReference = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A77DFFBE25785804001B7B35 /* ShoppingList.Configuration */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A77DFFCB25785804001B7B35 /* Build configuration list for PBXNativeTarget "ShoppingList.Configuration" */;
-			buildPhases = (
-				A77DFFBA25785804001B7B35 /* Headers */,
-				A77DFFBB25785804001B7B35 /* Sources */,
-				A77DFFBC25785804001B7B35 /* Frameworks */,
-				A77DFFBD25785804001B7B35 /* Resources */,
-				A77DFFE825785815001B7B35 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A77DFFD325785815001B7B35 /* PBXTargetDependency */,
-				A77DFFD725785815001B7B35 /* PBXTargetDependency */,
-				A77DFFDB25785815001B7B35 /* PBXTargetDependency */,
-				A77DFFDF25785815001B7B35 /* PBXTargetDependency */,
-				A77DFFE325785815001B7B35 /* PBXTargetDependency */,
-				A77DFFE725785815001B7B35 /* PBXTargetDependency */,
-			);
-			name = ShoppingList.Configuration;
-			packageProductDependencies = (
-				A7888B6E257ED0C600D20AE3 /* Swinject */,
-			);
-			productName = ShoppingList.Configuration;
-			productReference = A77DFFBF25785804001B7B35 /* ShoppingList_Configuration.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1769,10 +1682,6 @@
 					A7640FC32569BC94000D882B = {
 						CreatedOnToolsVersion = 12.2;
 					};
-					A77DFFBE25785804001B7B35 = {
-						CreatedOnToolsVersion = 12.2;
-						LastSwiftMigration = 1220;
-					};
 				};
 			};
 			buildConfigurationList = 3A392E2F207A5A3C005857E5 /* Build configuration list for PBXProject "ShoppingList" */;
@@ -1792,7 +1701,6 @@
 			projectRoot = "";
 			targets = (
 				3A392E33207A5A3C005857E5 /* ShoppingList */,
-				A77DFFBE25785804001B7B35 /* ShoppingList.Configuration */,
 				A7640F492569B46A000D882B /* ShoppingList.Views */,
 				A7640F622569B5FD000D882B /* ShoppingList.ViewModels */,
 				A739B43C2569C617000B16E3 /* ShoppingList.Persistence */,
@@ -1855,13 +1763,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A77DFFBD25785804001B7B35 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1870,6 +1771,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
+				A7D5953125D484AD00E85F94 /* CommandsRegisterer.swift in Sources */,
+				A7D5953025D484AD00E85F94 /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2067,15 +1970,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A77DFFBB25785804001B7B35 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A706FE8F2599532600E79CF5 /* CommandsRegisterer.swift in Sources */,
-				A7888B72257ED10A00D20AE3 /* Container.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2114,61 +2008,10 @@
 			target = A739B5702569DD52000B16E3 /* ShoppingList.Shared */;
 			targetProxy = A739B5A62569DDA5000B16E3 /* PBXContainerItemProxy */;
 		};
-		A739B5E42569E5F8000B16E3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A7640FC32569BC94000D882B /* ShoppingList.Domain */;
-			targetProxy = A739B5E32569E5F8000B16E3 /* PBXContainerItemProxy */;
-		};
-		A739B5E82569E606000B16E3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A739B39E2569BCD7000B16E3 /* ShoppingList.Application */;
-			targetProxy = A739B5E72569E606000B16E3 /* PBXContainerItemProxy */;
-		};
 		A7640F7B2569B792000D882B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A7640F622569B5FD000D882B /* ShoppingList.ViewModels */;
 			targetProxy = A7640F7A2569B792000D882B /* PBXContainerItemProxy */;
-		};
-		A77DFFC525785804001B7B35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A77DFFBE25785804001B7B35 /* ShoppingList.Configuration */;
-			targetProxy = A77DFFC425785804001B7B35 /* PBXContainerItemProxy */;
-		};
-		A77DFFD325785815001B7B35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = A739B39E2569BCD7000B16E3 /* ShoppingList.Application */;
-			targetProxy = A77DFFD225785815001B7B35 /* PBXContainerItemProxy */;
-		};
-		A77DFFD725785815001B7B35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = A7640FC32569BC94000D882B /* ShoppingList.Domain */;
-			targetProxy = A77DFFD625785815001B7B35 /* PBXContainerItemProxy */;
-		};
-		A77DFFDB25785815001B7B35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = A739B43C2569C617000B16E3 /* ShoppingList.Persistence */;
-			targetProxy = A77DFFDA25785815001B7B35 /* PBXContainerItemProxy */;
-		};
-		A77DFFDF25785815001B7B35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = A739B5702569DD52000B16E3 /* ShoppingList.Shared */;
-			targetProxy = A77DFFDE25785815001B7B35 /* PBXContainerItemProxy */;
-		};
-		A77DFFE325785815001B7B35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = A7640F622569B5FD000D882B /* ShoppingList.ViewModels */;
-			targetProxy = A77DFFE225785815001B7B35 /* PBXContainerItemProxy */;
-		};
-		A77DFFE725785815001B7B35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = A7640F492569B46A000D882B /* ShoppingList.Views */;
-			targetProxy = A77DFFE625785815001B7B35 /* PBXContainerItemProxy */;
 		};
 		A782B2442572F06700638F7D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2184,6 +2027,36 @@
 			isa = PBXTargetDependency;
 			target = A739B39E2569BCD7000B16E3 /* ShoppingList.Application */;
 			targetProxy = A7B209FB257857CB003FAAFB /* PBXContainerItemProxy */;
+		};
+		A7D5953A25D484E000E85F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A739B39E2569BCD7000B16E3 /* ShoppingList.Application */;
+			targetProxy = A7D5953925D484E000E85F94 /* PBXContainerItemProxy */;
+		};
+		A7D5953E25D484E000E85F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7640FC32569BC94000D882B /* ShoppingList.Domain */;
+			targetProxy = A7D5953D25D484E000E85F94 /* PBXContainerItemProxy */;
+		};
+		A7D5954225D484E000E85F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A739B43C2569C617000B16E3 /* ShoppingList.Persistence */;
+			targetProxy = A7D5954125D484E000E85F94 /* PBXContainerItemProxy */;
+		};
+		A7D5954625D484E000E85F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A739B5702569DD52000B16E3 /* ShoppingList.Shared */;
+			targetProxy = A7D5954525D484E000E85F94 /* PBXContainerItemProxy */;
+		};
+		A7D5954A25D484E000E85F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7640F622569B5FD000D882B /* ShoppingList.ViewModels */;
+			targetProxy = A7D5954925D484E000E85F94 /* PBXContainerItemProxy */;
+		};
+		A7D5954E25D484E000E85F94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7640F492569B46A000D882B /* ShoppingList.Views */;
+			targetProxy = A7D5954D25D484E000E85F94 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2320,7 +2193,6 @@
 		3A392E52207A5A3D005857E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -2341,7 +2213,6 @@
 		3A392E53207A5A3D005857E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -2740,70 +2611,6 @@
 			};
 			name = Release;
 		};
-		A77DFFC925785804001B7B35 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Q924VJ4PLT;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShoppingList.Configuration/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Configuration";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		A77DFFCA25785804001B7B35 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Q924VJ4PLT;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ShoppingList.Configuration/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Configuration";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2879,15 +2686,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A77DFFCB25785804001B7B35 /* Build configuration list for PBXNativeTarget "ShoppingList.Configuration" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A77DFFC925785804001B7B35 /* Debug */,
-				A77DFFCA25785804001B7B35 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -2902,7 +2700,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A7888B6E257ED0C600D20AE3 /* Swinject */ = {
+		A7D5953525D484E000E85F94 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A7888B6D257ED0C600D20AE3 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;

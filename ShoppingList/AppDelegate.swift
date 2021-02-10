@@ -1,4 +1,3 @@
-import ShoppingList_Configuration
 import UIKit
 
 @UIApplicationMain
