@@ -17,7 +17,7 @@ public final class CategoriesForEditItem: UIView {
     
     private lazy var pickerView: UIPickerView = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = .white
+        $0.backgroundColor = .systemBackground
         $0.dataSource = self
         $0.delegate = self
     }
@@ -62,7 +62,7 @@ public final class CategoriesForEditItem: UIView {
     
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
         addSubview(label)
         NSLayoutConstraint.activate([
@@ -117,7 +117,7 @@ extension CategoriesForEditItem: UIPickerViewDelegate {
         _ pickerView: UIPickerView,
         rowHeightForComponent component: Int
     ) -> CGFloat {
-        24
+        28
     }
 
     public func pickerView(

@@ -38,7 +38,7 @@ public final class InfoForEditItem: UIView {
     
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
         addSubview(label)
         NSLayoutConstraint.activate([

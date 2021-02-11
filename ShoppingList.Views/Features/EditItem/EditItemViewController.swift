@@ -30,14 +30,6 @@ public final class EditItemViewController: UIViewController {
 
         viewModel.saveItem(name: itemName, info: infoView.text ?? "")
     }
-    
-    private func updatePreviousListIfHasChanged(newList: List) {
-        // Todo: repository
-        // let areListsTheSame = newList.id == list.id
-        // if !areListsTheSame, let previousList = Repository.shared.getList(by: list.id) {
-            // Repository.shared.update(previousList.getWithChangedDate())
-        // }
-    }
 
     private let viewModel: EditItemViewModel
     private var cancellables: Set<AnyCancellable>
@@ -62,8 +54,13 @@ public final class EditItemViewController: UIViewController {
         self.viewModel.fetchData()
     }
 
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.navigationController?.navigationBar.barTintColor = .systemBackground
+    }
+
     private func setupView() {
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.75)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         view.isOpaque = false
         
         navigationItem.leftBarButtonItem = cancelBarButtonItem
@@ -72,7 +69,7 @@ public final class EditItemViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.darkGray,
         ]
-        
+
         view.addSubview(itemNameView)
         NSLayoutConstraint.activate([
             itemNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -80,7 +77,7 @@ public final class EditItemViewController: UIViewController {
             itemNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             itemNameView.heightAnchor.constraint(equalToConstant: 70)
         ])
-        
+
         view.addSubview(infoView)
         NSLayoutConstraint.activate([
             infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -88,7 +85,7 @@ public final class EditItemViewController: UIViewController {
             infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             infoView.heightAnchor.constraint(equalToConstant: 70)
         ])
-        
+
         view.addSubview(categoriesView)
         NSLayoutConstraint.activate([
             categoriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -96,7 +93,7 @@ public final class EditItemViewController: UIViewController {
             categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesView.heightAnchor.constraint(equalToConstant: 100)
         ])
-        
+
         view.addSubview(listsView)
         NSLayoutConstraint.activate([
             listsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -104,7 +101,7 @@ public final class EditItemViewController: UIViewController {
             listsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             listsView.heightAnchor.constraint(equalToConstant: 100)
         ])
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.cancelsTouchesInView = false
         tapGesture.delegate = self
