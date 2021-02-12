@@ -1,14 +1,18 @@
 import ShoppingList_Shared
 import ShoppingList_ViewModels
-
 import Combine
 import UIKit
 
+public protocol ItemsTableViewCellDelegate: AnyObject {
+    func itemsTableViewCell(
+        _ itemsTableViewCell: ItemsTableViewCell,
+        didMoveItemToBasket item: ItemToBuyViewModel
+    )
+}
+
 public final class ItemsTableViewCell: UITableViewCell {
-    public var moveToBasketTapped: AnyPublisher<ItemToBuyViewModel, Never> {
-        moveToBasketSubject.eraseToAnyPublisher()
-    }
-    
+    public weak var delegate: ItemsTableViewCellDelegate?
+
     public var viewModel: ItemToBuyViewModel? {
         didSet {
             itemNameLabel.text = viewModel?.name
@@ -47,19 +51,15 @@ public final class ItemsTableViewCell: UITableViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setListItemButton(with: #imageLiteral(resourceName: "AddToBasket"))
         $0.addAction(.init { [weak self] _ in
-            guard let item = self?.viewModel else { return }
-            self?.moveToBasketSubject.send(item)
+            guard let self = self, let item = self.viewModel else { return }
+            self.delegate?.itemsTableViewCell(self, didMoveItemToBasket: item)
         }, for: .touchUpInside)
     }
 
     private var itemNameLabelTopConstraint: NSLayoutConstraint!
     private var itemNameLabelCenterYConstraint: NSLayoutConstraint!
-
-    private let moveToBasketSubject: PassthroughSubject<ItemToBuyViewModel, Never>
-    private var moveToBasketCancellable: AnyCancellable?
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        self.moveToBasketSubject = .init()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
     }
@@ -69,10 +69,6 @@ public final class ItemsTableViewCell: UITableViewCell {
         fatalError("Not supported.")
     }
 
-    public func setCancellable(_ cancellable: AnyCancellable?) {
-        moveToBasketCancellable = cancellable
-    }
-    
     private func setupView() {
         contentView.addSubview(addToBasketButton)
         NSLayoutConstraint.activate([

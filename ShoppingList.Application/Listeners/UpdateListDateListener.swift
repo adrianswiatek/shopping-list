@@ -22,6 +22,7 @@ public final class UpdateListDateListener {
             .compactMap { ($0 as? ItemsReorderedEvent)?.listId }
 
         cancellable = itemChangeSubscription.merge(with: orderChangeSubscription)
+            .removeDuplicates()
             .sink { [weak self] in self?.commandBus.execute(UpdateListsDateCommand($0)) }
     }
 

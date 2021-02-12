@@ -44,7 +44,7 @@ public final class ManageCategoriesTableViewCell: UITableViewCell {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("Not supported")
     }
-    
+
     private func setupview() {
         backgroundColor = .background
 

@@ -3,10 +3,15 @@ import ShoppingList_Shared
 import Combine
 import UIKit
 
+public protocol BasketTableViewCellDelegate: AnyObject {
+    func basketTableViewCell(
+        _ basketTableViewCell: BasketTableViewCell,
+        didMoveItemToList item: ItemInBasketViewModel
+    )
+}
+
 public final class BasketTableViewCell: UITableViewCell {
-    public var moveToListTapped: AnyPublisher<ItemInBasketViewModel, Never> {
-        moveToListSubject.eraseToAnyPublisher()
-    }
+    public weak var delegate: BasketTableViewCellDelegate?
 
     public var viewModel: ItemInBasketViewModel? {
         didSet {
@@ -26,16 +31,12 @@ public final class BasketTableViewCell: UITableViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setListItemButton(with: #imageLiteral(resourceName: "RemoveFromBasket"))
         $0.addAction(.init { [weak self] _ in
-            guard let item = self?.viewModel else { return }
-            self?.moveToListSubject.send(item)
+            guard let self = self, let item = self.viewModel else { return }
+            self.delegate?.basketTableViewCell(self, didMoveItemToList: item)
         }, for: .touchUpInside)
     }
 
-    private let moveToListSubject: PassthroughSubject<ItemInBasketViewModel, Never>
-    private var moveToListCancellable: AnyCancellable?
-
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        self.moveToListSubject = .init()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupView()
     }
@@ -43,10 +44,6 @@ public final class BasketTableViewCell: UITableViewCell {
     @available(*, unavailable)
     public required init?(coder aDecoder: NSCoder) {
         fatalError("Not supported.")
-    }
-
-    public func setCancellable(_ cancellable: AnyCancellable?) {
-        moveToListCancellable = cancellable
     }
 
     private func setupView() {

@@ -10,18 +10,14 @@ public final class ItemsDataSource {
 
     private let tableView: UITableView
     private lazy var dataSource: DataSource =
-        .init(tableView) { tableView, indexPath, item in
+        .init(tableView) { [weak self] tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: ItemsTableViewCell.identifier,
                 for: indexPath
             ) as? ItemsTableViewCell
 
             cell?.viewModel = item
-
-            let cancellable = cell?.moveToBasketTapped.sink { [weak self] in
-                self?.onActionSubject.send(.addItemToBasket(uuid: $0.uuid))
-            }
-            cell?.setCancellable(cancellable)
+            cell?.delegate = self
 
             return cell
         }
@@ -67,5 +63,14 @@ private extension ItemsDataSource {
         override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
             snapshot().sectionIdentifiers[section]
         }
+    }
+}
+
+extension ItemsDataSource: ItemsTableViewCellDelegate {
+    public func itemsTableViewCell(
+        _ itemsTableViewCell: ItemsTableViewCell,
+        didMoveItemToBasket item: ItemToBuyViewModel
+    ) {
+        onActionSubject.send(.addItemToBasket(uuid: item.uuid))
     }
 }

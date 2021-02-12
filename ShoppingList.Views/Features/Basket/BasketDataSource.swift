@@ -10,25 +10,24 @@ public final class BasketDataSource {
 
     private let tableView: UITableView
     private lazy var dataSource: DataSource =
-        .init(tableView) { tableView, indexPath, item in
+        .init(tableView) { [weak self] tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(
                 withIdentifier: BasketTableViewCell.identifier,
                 for: indexPath
             ) as? BasketTableViewCell
 
             cell?.viewModel = item
-
-            let cancellable = cell?.moveToListTapped.sink { [weak self] in
-                self?.onActionSubject.send(.moveItemToList(uuid: $0.uuid))
-            }
-            cell?.setCancellable(cancellable)
+            cell?.delegate = self
 
             return cell
         }
 
+    private var cancellables: Set<AnyCancellable>
+
     public init(_ tableView: UITableView) {
         self.tableView = tableView
         self.onActionSubject = .init()
+        self.cancellables = []
     }
 
     public func apply(_ items: [ItemInBasketViewModel]) {
@@ -61,5 +60,14 @@ private extension BasketDataSource {
         override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
             true
         }
+    }
+}
+
+extension BasketDataSource: BasketTableViewCellDelegate {
+    public func basketTableViewCell(
+        _ basketTableViewCell: BasketTableViewCell,
+        didMoveItemToList item: ItemInBasketViewModel
+    ) {
+        onActionSubject.send(.moveItemToList(uuid: item.uuid))
     }
 }
