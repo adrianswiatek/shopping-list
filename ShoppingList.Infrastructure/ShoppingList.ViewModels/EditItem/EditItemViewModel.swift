@@ -83,17 +83,15 @@ public final class EditItemViewModel: ViewModel {
     }
 
     public func saveItem(name: String, info: String) {
-        let categoryUuid = selectedCategorySubject.value.uuid
-        let listUuid = selectedListSubject.value.uuid
+        let categoryId: Id<ItemsCategory> = .fromUuid(selectedCategorySubject.value.uuid)
+        let listId: Id<List> = .fromUuid(selectedListSubject.value.uuid)
 
-        let command: Command
         if case .edit(let item) = stateSubject.value {
-            command = UpdateItemCommand(item.uuid, name, info, categoryUuid, listUuid)
+            let itemId: Id<Item> = .fromUuid(item.uuid)
+            commandBus.execute(UpdateItemCommand(itemId, name, info, categoryId, listId))
         } else {
-            command = AddItemCommand(name, info, categoryUuid, listUuid)
+            commandBus.execute(AddItemCommand(name, info, categoryId, listId))
         }
-
-        commandBus.execute(command)
     }
 
     public func addCategory(with name: String) {

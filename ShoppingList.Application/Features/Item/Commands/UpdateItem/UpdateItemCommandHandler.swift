@@ -15,13 +15,13 @@ public final class UpdateItemCommandHandler: CommandHandler {
         guard
             canExecute(command),
             let command = command as? UpdateItemCommand,
-            let existingItem = itemRepository.item(with: command.id)
+            let existingItem = itemRepository.item(with: command.itemId)
         else {
             return
         }
 
         itemRepository.updateItem(Item(
-            id: command.id,
+            id: command.itemId,
             name: command.name,
             info: command.info,
             state: existingItem.state,

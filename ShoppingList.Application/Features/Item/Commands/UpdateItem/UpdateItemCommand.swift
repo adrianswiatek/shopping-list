@@ -1,7 +1,7 @@
 import ShoppingList_Domain
 
 public struct UpdateItemCommand: Command {
-    public let id: Id<Item>
+    public let itemId: Id<Item>
     public let name: String
     public let info: String
     public let categoryId: Id<ItemsCategory>
@@ -9,17 +9,17 @@ public struct UpdateItemCommand: Command {
     public let source: CommandSource
 
     public init(
-        _ id: UUID,
+        _ itemId: Id<Item>,
         _ name: String,
         _ info: String,
-        _ categoryUuid: UUID,
-        _ listUuid: UUID
+        _ categoryId: Id<ItemsCategory>,
+        _ listId: Id<List>
     ) {
-        self.id = .fromUuid(id)
+        self.itemId = itemId
         self.name = name
         self.info = info
-        self.categoryId = .fromUuid(categoryUuid)
-        self.listId = .fromUuid(listUuid)
+        self.categoryId = categoryId
+        self.listId = listId
         self.source = .items
     }
 }

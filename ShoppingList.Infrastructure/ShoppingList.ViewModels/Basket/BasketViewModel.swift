@@ -64,13 +64,13 @@ public final class BasketViewModel: ViewModel {
         let items = itemsSubject.value.filter { uuids.contains($0.id.toUuid()) }
 
         commandBus.execute(
-            MoveItemsToListCommand(items.map { $0.id.toUuid() })
+            MoveItemsToListCommand(items.map { $0.id })
         )
     }
 
     public func moveAllItemsToList() {
         commandBus.execute(
-            MoveItemsToListCommand(itemsSubject.value.map { $0.id.toUuid() })
+            MoveItemsToListCommand(itemsSubject.value.map { $0.id })
         )
     }
 

@@ -870,8 +870,8 @@
 		A70F35FF2596AE1500279242 /* RemoveItemsCategory */ = {
 			isa = PBXGroup;
 			children = (
-				A70F36002596AEDB00279242 /* RemoveItemsCategoryCommandHandler.swift */,
 				A70F36032596AFC500279242 /* RemoveItemsCategoryCommand.swift */,
+				A70F36002596AEDB00279242 /* RemoveItemsCategoryCommandHandler.swift */,
 			);
 			path = RemoveItemsCategory;
 			sourceTree = "<group>";

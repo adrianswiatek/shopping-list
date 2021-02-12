@@ -97,17 +97,19 @@ public final class ItemsViewModel: ViewModel {
 
     public func addItem(with name: String) {
         commandBus.execute(
-            AddItemCommand.withDefaultCategory(name, "", list.uuid)
+            AddItemCommand.withDefaultCategory(name, "", .fromUuid(list.uuid))
         )
     }
 
     public func addToBasketAllItems() {
-        let uuids = sectionsSubject.value.flatMap { $0.items.map { $0.uuid } }
-        commandBus.execute(MoveItemsToBasketCommand(uuids))
+        let ids: [Id<Item>] = sectionsSubject.value.flatMap { $0.items.map { .fromUuid($0.uuid) } }
+        commandBus.execute(MoveItemsToBasketCommand(ids))
     }
 
     public func addToBasketItems(with uuids: [UUID]) {
-        commandBus.execute(MoveItemsToBasketCommand(uuids))
+        commandBus.execute(
+            MoveItemsToBasketCommand(uuids.map { .fromUuid($0) })
+        )
     }
 
     public func removeAllItems() {
@@ -144,7 +146,9 @@ public final class ItemsViewModel: ViewModel {
         let itemIds: [Id<Item>] = items.map { $0.uuid }.map { .fromUuid($0) }
         let listId: Id<List> = .fromUuid(list.uuid)
 
-        commandBus.execute(SetItemsOrderCommand(itemIds, listId))
+        commandBus.execute(
+            SetItemsOrderCommand(itemIds, listId)
+        )
     }
 
     private func updateItemsCategory(_ item: ItemToBuyViewModel, to category: ItemsCategoryViewModel) {
@@ -152,8 +156,12 @@ public final class ItemsViewModel: ViewModel {
             return
         }
 
+        let itemId: Id<Item> = .fromUuid(item.uuid)
+        let categoryId: Id<ItemsCategory> = .fromUuid(category.uuid)
+        let listId: Id<List> = .fromUuid(list.uuid)
+
         commandBus.execute(
-            UpdateItemCommand(item.uuid, item.name, item.info, category.uuid, list.uuid)
+            UpdateItemCommand(itemId, item.name, item.info, categoryId, listId)
         )
     }
 

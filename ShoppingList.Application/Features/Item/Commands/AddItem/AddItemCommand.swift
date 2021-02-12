@@ -10,21 +10,21 @@ public struct AddItemCommand: Command {
     public init(
         _ name: String,
         _ info: String,
-        _ categoryUuid: UUID,
-        _ listUuid: UUID
+        _ categoryId: Id<ItemsCategory>,
+        _ listId: Id<List>
     ) {
         self.name = name
         self.info = info
-        self.categoryId = .fromUuid(categoryUuid)
-        self.listId = .fromUuid(listUuid)
+        self.categoryId = categoryId
+        self.listId = listId
         self.source = .items
     }
 
     public static func withDefaultCategory(
         _ name: String,
         _ info: String,
-        _ listUuid: UUID
+        _ listId: Id<List>
     ) -> AddItemCommand {
-        .init(name, info, ItemsCategory.default.id.toUuid(), listUuid)
+        .init(name, info, ItemsCategory.default.id, listId)
     }
 }
