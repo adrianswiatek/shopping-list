@@ -125,6 +125,13 @@ public final class ItemsViewController: UIViewController {
             }
             .store(in: &cancellables)
 
+        viewModel.itemsMovedPublisher
+            .sink { [weak self] in
+                guard $0.fromSection == $0.toSection else { return }
+                self?.dataSource.disableAnimationOnce()
+            }
+            .store(in: &cancellables)
+
         viewModel.isRestoreButtonEnabledPublisher
             .assign(to: \.isEnabled, on: restoreBarButtonItem)
             .store(in: &cancellables)

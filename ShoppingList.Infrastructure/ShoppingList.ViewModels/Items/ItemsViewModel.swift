@@ -13,6 +13,10 @@ public final class ItemsViewModel: ViewModel {
         stateSubject.eraseToAnyPublisher()
     }
 
+    public var itemsMovedPublisher: AnyPublisher<(fromSection: Int, toSection: Int), Never> {
+        itemsMovedSubject.eraseToAnyPublisher()
+    }
+
     public var isRestoreButtonEnabledPublisher: AnyPublisher<Bool, Never> {
         isRestoreButtonEnabledSubject.eraseToAnyPublisher()
     }
@@ -29,6 +33,7 @@ public final class ItemsViewModel: ViewModel {
 
     private let sectionsSubject: CurrentValueSubject<[ItemsSectionViewModel], Never>
     private let stateSubject: CurrentValueSubject<State, Never>
+    private let itemsMovedSubject: PassthroughSubject<(fromSection: Int, toSection: Int), Never>
     private let isRestoreButtonEnabledSubject: CurrentValueSubject<Bool, Never>
     private var cancellables: Set<AnyCancellable>
 
@@ -55,6 +60,7 @@ public final class ItemsViewModel: ViewModel {
 
         self.sectionsSubject = .init([])
         self.stateSubject = .init(.regular)
+        self.itemsMovedSubject = .init()
         self.isRestoreButtonEnabledSubject = .init(false)
         self.cancellables = []
 
@@ -137,6 +143,10 @@ public final class ItemsViewModel: ViewModel {
 
         sections[toPosition.section] =
             sections[toPosition.section].withInsertedItem(item, at: toPosition.index)
+
+        if fromPosition.section == toPosition.section {
+            itemsMovedSubject.send((fromPosition.section, toPosition.section))
+        }
 
         setItemsOrder(sections.flatMap { $0.items })
         updateItemsCategory(item, to: sections[toPosition.section].category)

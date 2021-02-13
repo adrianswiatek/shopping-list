@@ -22,12 +22,17 @@ public final class ItemsDataSource {
             return cell
         }
 
+    private var animateDifferences: Bool
+
     public init(_ tableView: UITableView) {
         self.tableView = tableView
+        self.animateDifferences = true
         self.onActionSubject = .init()
     }
 
     public func apply(_ sections: [ItemsSectionViewModel]) {
+        defer { snapshotApplied() }
+        
         var snapshot = NSDiffableDataSourceSnapshot<String, ItemToBuyViewModel>()
 
         let categories = sections.map { $0.category.name }
@@ -37,7 +42,15 @@ public final class ItemsDataSource {
             snapshot.appendItems(section.items, toSection: section.category.name)
         }
 
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: animateDifferences)
+    }
+
+    public func disableAnimationOnce() {
+        animateDifferences = false
+    }
+
+    private func snapshotApplied() {
+        animateDifferences = true
     }
 }
 
