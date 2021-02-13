@@ -31,7 +31,7 @@ public final class ItemsDataSource {
     }
 
     public func apply(_ sections: [ItemsSectionViewModel]) {
-        defer { snapshotApplied() }
+        defer { animateDifferences = true }
         
         var snapshot = NSDiffableDataSourceSnapshot<String, ItemToBuyViewModel>()
 
@@ -47,10 +47,6 @@ public final class ItemsDataSource {
 
     public func disableAnimationOnce() {
         animateDifferences = false
-    }
-
-    private func snapshotApplied() {
-        animateDifferences = true
     }
 }
 

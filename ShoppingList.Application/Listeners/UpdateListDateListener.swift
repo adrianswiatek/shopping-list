@@ -14,28 +14,11 @@ public final class UpdateListDateListener {
     }
 
     public func start() {
-        let itemChangeSubscription = eventBus.events
-            .compactMap { [weak self] in self?.itemId(from: $0) }
-            .compactMap { [weak self] in self?.listId(from: $0) }
-
-        let orderChangeSubscription = eventBus.events
+        cancellable = eventBus.events
             .compactMap { ($0 as? ItemsReorderedEvent)?.listId }
-
-        cancellable = itemChangeSubscription.merge(with: orderChangeSubscription)
             .removeDuplicates()
-            .sink { [weak self] in self?.commandBus.execute(UpdateListsDateCommand($0)) }
-    }
-
-    private func itemId(from event: Event) -> Id<Item>? {
-        switch event {
-        case let event as ItemAddedEvent: return event.id
-        case let event as ItemRemovedEvent: return event.id
-        case let event as ItemUpdatedEvent: return event.id
-        default: return nil
-        }
-    }
-
-    private func listId(from itemId: Id<Item>) -> Id<List>? {
-        itemRepository.item(with: itemId)?.listId
+            .sink { [weak self] in
+                self?.commandBus.execute(UpdateListsDateCommand($0))
+            }
     }
 }
