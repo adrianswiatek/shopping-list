@@ -2,9 +2,11 @@ import ShoppingList_Domain
 
 public final class MoveItemsToListCommandHandler: CommandHandler {
     private let itemRepository: ItemRepository
+    private let eventBus: EventBus
 
-    public init(_ itemRepository: ItemRepository) {
+    public init(_ itemRepository: ItemRepository, _ eventBus: EventBus) {
         self.itemRepository = itemRepository
+        self.eventBus = eventBus
     }
 
     public func canExecute(_ command: Command) -> Bool {
@@ -17,6 +19,7 @@ public final class MoveItemsToListCommandHandler: CommandHandler {
             return
         }
 
-        itemRepository.updateStateOfItems(with: command.ids, to: .toBuy)
+        itemRepository.updateStateOfItems(with: command.itemIds, to: .toBuy)
+        eventBus.send(ItemsMovedToListEvent(command.itemIds, command.listId))
     }
 }

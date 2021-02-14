@@ -16,7 +16,6 @@ public final class UpdateListDateListener {
     public func start() {
         cancellable = eventBus.events
             .compactMap { ($0 as? ItemsReorderedEvent)?.listId }
-            .removeDuplicates()
             .sink { [weak self] in
                 self?.commandBus.execute(UpdateListsDateCommand($0))
             }

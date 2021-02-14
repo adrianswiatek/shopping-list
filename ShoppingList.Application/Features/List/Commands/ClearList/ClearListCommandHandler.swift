@@ -2,9 +2,11 @@ import ShoppingList_Domain
 
 public final class ClearListCommandHandler: CommandHandler {
     private let itemRepository: ItemRepository
+    private let eventBus: EventBus
 
-    public init(_ itemRepository: ItemRepository) {
+    public init(_ itemRepository: ItemRepository, _ eventBus: EventBus) {
         self.itemRepository = itemRepository
+        self.eventBus = eventBus
     }
 
     public func canExecute(_ command: Command) -> Bool {
@@ -18,6 +20,8 @@ public final class ClearListCommandHandler: CommandHandler {
         }
 
         let items = itemRepository.itemsWithState(.toBuy, inListWithId: command.id)
+
         itemRepository.removeItems(with: items.map { $0.id })
+        eventBus.send(ItemsRemovedEvent(items))
     }
 }

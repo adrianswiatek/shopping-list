@@ -2,9 +2,11 @@ import ShoppingList_Domain
 
 public final class UpdateListsDateCommandHandler: CommandHandler {
     private let listRepository: ListRepository
+    private let eventBus: EventBus
 
-    public init(_ listRepository: ListRepository) {
+    public init(_ listRepository: ListRepository, _ eventBus: EventBus) {
         self.listRepository = listRepository
+        self.eventBus = eventBus
     }
 
     public func canExecute(_ command: Command) -> Bool {
@@ -21,5 +23,6 @@ public final class UpdateListsDateCommandHandler: CommandHandler {
         }
 
         listRepository.update(list.withChangedDate())
+        eventBus.send(ListUpdatedEvent(list))
     }
 }

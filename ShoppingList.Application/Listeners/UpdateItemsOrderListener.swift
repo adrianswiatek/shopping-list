@@ -14,27 +14,33 @@ public final class UpdateItemsOrderListener {
     }
 
     public func start() {
-        cancellable = eventBus.events
-            .compactMap { [weak self] in self?.itemId(from: $0) }
-            .compactMap { [weak self] in self?.listId(from: $0) }
-            .sink { [weak self] in self?.updateItemsOrder(inListWithId: $0) }
+        let itemUpdateSubscription = eventBus.events
+            .map { ($0 as? ItemUpdatedEvent).map { [$0.itemBeforeUpdate.listId, $0.itemAfterUpdate.listId] } ?? [] }
+
+        let itemsAddedSubscription = eventBus.events
+            .map { ($0 as? ItemsAddedEvent)?.items.map { $0.listId } ?? [] }
+
+        let itemsRemovedSubscription = eventBus.events
+            .map { ($0 as? ItemsRemovedEvent)?.items.map { $0.listId } ?? [] }
+
+        let itemsMovedSubscription = eventBus.events
+            .compactMap { ($0 as? ItemsMovedToBasketEvent)?.listId ?? ($0 as? ItemsMovedToListEvent)?.listId }
+            .map { [$0] }
+
+        cancellable = Publishers
+            .Merge4(
+                itemUpdateSubscription,
+                itemsAddedSubscription,
+                itemsRemovedSubscription,
+                itemsMovedSubscription
+            )
+            .sink { [weak self] in self?.setItemsOrderInLists(with: $0) }
     }
 
-    private func itemId(from event: Event) -> Id<Item>? {
-        switch event {
-        case let event as ItemAddedEvent: return event.id
-        case let event as ItemRemovedEvent: return event.id
-        case let event as ItemUpdatedEvent: return event.id
-        default: return nil
+    private func setItemsOrderInLists(with ids: [Id<List>]) {
+        for listId in Set(ids) {
+            let items = itemRepository.itemsWithState(.toBuy, inListWithId: listId)
+            commandBus.execute(SetItemsOrderCommand(items.map { $0.id }, listId))
         }
-    }
-
-    private func listId(from itemId: Id<Item>) -> Id<List>? {
-        itemRepository.item(with: itemId)?.listId
-    }
-
-    private func updateItemsOrder(inListWithId listId: Id<List>) {
-        let items = itemRepository.itemsWithState(.toBuy, inListWithId: listId)
-        commandBus.execute(SetItemsOrderCommand(items.map { $0.id }, listId))
     }
 }

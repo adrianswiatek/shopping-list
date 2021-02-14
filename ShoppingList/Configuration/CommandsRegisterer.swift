@@ -52,67 +52,113 @@ public final class CommandsRegisterer {
 
     private func registerListCommandHandlers() {
         container.register(AddListCommandHandler.self) {
-            AddListCommandHandler($0.resolve(ListRepository.self)!, .init())
+            AddListCommandHandler(
+                $0.resolve(ListRepository.self)!,
+                .init(),
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(ClearBasketOfListCommandHandler.self) {
-            ClearBasketOfListCommandHandler($0.resolve(ItemRepository.self)!)
+            ClearBasketOfListCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(ClearListCommandHandler.self) {
-            ClearListCommandHandler($0.resolve(ItemRepository.self)!)
+            ClearListCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(RemoveListCommandHandler.self) {
-            RemoveListCommandHandler($0.resolve(ListRepository.self)!)
+            RemoveListCommandHandler(
+                $0.resolve(ListRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(UpdateListCommandHandler.self) {
-            UpdateListCommandHandler($0.resolve(ListRepository.self)!)
+            UpdateListCommandHandler(
+                $0.resolve(ListRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(UpdateListsDateCommandHandler.self) {
-            UpdateListsDateCommandHandler($0.resolve(ListRepository.self)!)
+            UpdateListsDateCommandHandler(
+                $0.resolve(ListRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
     }
 
     private func registerItemsInListCommandHandlers() {
         container.register(AddItemCommandHandler.self) {
-            AddItemCommandHandler($0.resolve(ItemRepository.self)!)
+            AddItemCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(MoveItemsToBasketCommandHandler.self) {
-            MoveItemsToBasketCommandHandler($0.resolve(ItemRepository.self)!)
+            MoveItemsToBasketCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(RemoveItemsCommandHandler.self) {
-            RemoveItemsCommandHandler($0.resolve(ItemRepository.self)!)
+            RemoveItemsCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(RestoreItemsCommandHandler.self) {
-            RestoreItemsCommandHandler($0.resolve(ItemRepository.self)!)
+            RestoreItemsCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(SetItemsOrderCommandHandler.self) {
-            SetItemsOrderCommandHandler($0.resolve(ItemRepository.self)!)
+            SetItemsOrderCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(UpdateItemCommandHandler.self) {
-            UpdateItemCommandHandler($0.resolve(ItemRepository.self)!)
+            UpdateItemCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
     }
 
     private func registerItemsInBasketCommandHandlers() {
         container.register(MoveItemsToListCommandHandler.self) {
-            MoveItemsToListCommandHandler($0.resolve(ItemRepository.self)!)
+            MoveItemsToListCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(RemoveItemsFromBasketCommandHandler.self) {
-            RemoveItemsFromBasketCommandHandler($0.resolve(ItemRepository.self)!)
+            RemoveItemsFromBasketCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(RestoreItemsToBasketCommandHandler.self) {
-            RestoreItemsToBasketCommandHandler($0.resolve(ItemRepository.self)!)
+            RestoreItemsToBasketCommandHandler(
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
     }
 

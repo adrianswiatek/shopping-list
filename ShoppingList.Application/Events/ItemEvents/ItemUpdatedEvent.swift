@@ -1,9 +1,11 @@
 import ShoppingList_Domain
 
 public struct ItemUpdatedEvent: Event {
-    public let id: Id<Item>
+    public let itemBeforeUpdate: Item
+    public let itemAfterUpdate: Item
 
-    public init(_ id: Id<Item>) {
-        self.id = id
+    public init(_ itemBeforeUpdate: Item, _ itemAfterUpdate: Item) {
+        self.itemBeforeUpdate = itemBeforeUpdate
+        self.itemAfterUpdate = itemAfterUpdate
     }
 }

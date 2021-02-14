@@ -27,6 +27,7 @@ public final class BasketViewModel: ViewModel {
     private let eventBus: EventBus
 
     private var list: ListViewModel!
+    private let expectedEvents: [Event.Type]
 
     private let itemsSubject: CurrentValueSubject<[Item], Never>
     private let stateSubject: CurrentValueSubject<State, Never>
@@ -40,6 +41,14 @@ public final class BasketViewModel: ViewModel {
         self.itemsSubject = .init([])
         self.stateSubject = .init(.regular)
         self.cancellables = []
+
+        self.expectedEvents = [
+            ItemsAddedEvent.self,
+            ItemsRemovedEvent.self,
+            ItemUpdatedEvent.self,
+            ItemsMovedToListEvent.self,
+            ItemsMovedToBasketEvent.self
+        ]
 
         self.bind()
     }
@@ -64,13 +73,13 @@ public final class BasketViewModel: ViewModel {
         let items = itemsSubject.value.filter { uuids.contains($0.id.toUuid()) }
 
         commandBus.execute(
-            MoveItemsToListCommand(items.map { $0.id })
+            MoveItemsToListCommand(items.map { $0.id }, .fromUuid(list.uuid))
         )
     }
 
     public func moveAllItemsToList() {
         commandBus.execute(
-            MoveItemsToListCommand(itemsSubject.value.map { $0.id })
+            MoveItemsToListCommand(itemsSubject.value.map { $0.id }, .fromUuid(list.uuid))
         )
     }
 
@@ -102,7 +111,9 @@ public final class BasketViewModel: ViewModel {
 
     private func bind() {
         eventBus.events
-            .filter { $0 is ItemAddedEvent || $0 is ItemRemovedEvent || $0 is ItemUpdatedEvent }
+            .filter { [weak self] event in
+                self?.expectedEvents.contains { $0 == type(of: event) } == true
+            }
             .sink { [weak self] _ in
                 self?.fetchItems()
                 self?.stateSubject.send(.regular)

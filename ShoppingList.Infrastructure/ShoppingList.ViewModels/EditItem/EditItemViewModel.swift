@@ -10,7 +10,7 @@ public final class EditItemViewModel: ViewModel {
 
     public var dismiss: AnyPublisher<Void, Never> {
         eventBus.events
-            .filter { $0 is ItemAddedEvent || $0 is ItemUpdatedEvent }
+            .filter { $0 is ItemsAddedEvent || $0 is ItemUpdatedEvent }
             .map { _ in () }
             .eraseToAnyPublisher()
     }
@@ -129,7 +129,7 @@ public final class EditItemViewModel: ViewModel {
             .compactMap { $0 as? ListAddedEvent }
             .sink { [weak self] in
                 self?.fetchLists()
-                self?.selectList(with: $0.id.toUuid())
+                self?.selectList(with: $0.list.id.toUuid())
             }
             .store(in: &cancellables)
 

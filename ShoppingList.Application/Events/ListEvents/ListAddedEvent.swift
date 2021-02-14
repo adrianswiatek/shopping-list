@@ -1,9 +1,9 @@
 import ShoppingList_Domain
 
 public struct ListAddedEvent: Event {
-    public let id: Id<List>
+    public let list: List
 
-    public init(_ id: Id<List>) {
-        self.id = id
+    public init(_ list: List) {
+        self.list = list
     }
 }

@@ -1,8 +1,10 @@
 public final class SetItemsOrderCommandHandler: CommandHandler {
     private let itemRepository: ItemRepository
+    private let eventBus: EventBus
 
-    public init(_ itemRepository: ItemRepository) {
+    public init(_ itemRepository: ItemRepository, _ eventBus: EventBus) {
         self.itemRepository = itemRepository
+        self.eventBus = eventBus
     }
 
     public func canExecute(_ command: Command) -> Bool {
@@ -20,5 +22,7 @@ public final class SetItemsOrderCommandHandler: CommandHandler {
             inListWithId: command.listId,
             forState: .toBuy
         )
+
+        eventBus.send(ItemsReorderedEvent(command.listId))
     }
 }

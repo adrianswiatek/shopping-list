@@ -5,7 +5,11 @@ import Combine
 
 public final class ListsViewModel: ViewModel {
     public var listsPublisher: AnyPublisher<[ListViewModel], Never> {
-        listsSubject.map { [weak self] in self?.mapListsToViewModels($0) ?? [] }.eraseToAnyPublisher()
+        listsSubject
+            .map { [weak self] in
+                self?.mapListsToViewModels($0) ?? []
+            }
+            .eraseToAnyPublisher()
     }
 
     public var isRestoreButtonEnabled: Bool {
@@ -16,13 +20,15 @@ public final class ListsViewModel: ViewModel {
         !listsSubject.value.isEmpty
     }
 
+    private let listsSubject: CurrentValueSubject<[List], Never>
+    private var cancellables: Set<AnyCancellable>
+
+    private let expectedEvents: [Event.Type]
+
     private let listQueries: ListQueries
     private let commandBus: CommandBus
     private let eventBus: EventBus
     private let dateFormatter: DateFormatter
-
-    private let listsSubject: CurrentValueSubject<[List], Never>
-    private var cancellables: Set<AnyCancellable>
 
     public init(listQueries: ListQueries, commandBus: CommandBus, eventBus: EventBus) {
         self.listQueries = listQueries
@@ -32,6 +38,12 @@ public final class ListsViewModel: ViewModel {
 
         self.listsSubject = .init([])
         self.cancellables = []
+
+        self.expectedEvents = [
+            ListAddedEvent.self,
+            ListRemovedEvent.self,
+            ListUpdatedEvent.self
+        ]
 
         self.bind()
     }
@@ -94,7 +106,9 @@ public final class ListsViewModel: ViewModel {
 
     private func bind() {
         eventBus.events
-            .filter { $0 is ListAddedEvent || $0 is ListRemovedEvent || $0 is ListUpdatedEvent }
+            .filter { [weak self] event in
+                self?.expectedEvents.contains { $0 == type(of: event) } == true
+            }
             .sink { [weak self] _ in self?.fetchLists() }
             .store(in: &cancellables)
     }

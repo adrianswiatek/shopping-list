@@ -65,7 +65,12 @@ public final class ItemsViewModel: ViewModel {
         self.cancellables = []
 
         self.expectedEvents = [
-            ItemAddedEvent.self, ItemRemovedEvent.self, ItemUpdatedEvent.self, ItemsReorderedEvent.self
+            ItemsAddedEvent.self,
+            ItemsRemovedEvent.self,
+            ItemUpdatedEvent.self,
+            ItemsReorderedEvent.self,
+            ItemsMovedToBasketEvent.self,
+            ItemsMovedToListEvent.self
         ]
 
         self.bind()
@@ -109,12 +114,12 @@ public final class ItemsViewModel: ViewModel {
 
     public func addToBasketAllItems() {
         let ids: [Id<Item>] = sectionsSubject.value.flatMap { $0.items.map { .fromUuid($0.uuid) } }
-        commandBus.execute(MoveItemsToBasketCommand(ids))
+        commandBus.execute(MoveItemsToBasketCommand(ids, .fromUuid(list.uuid)))
     }
 
     public func addToBasketItems(with uuids: [UUID]) {
         commandBus.execute(
-            MoveItemsToBasketCommand(uuids.map { .fromUuid($0) })
+            MoveItemsToBasketCommand(uuids.map { .fromUuid($0) }, .fromUuid(list.uuid))
         )
     }
 
