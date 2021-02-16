@@ -37,8 +37,6 @@ public final class ItemsViewModel: ViewModel {
     private let isRestoreButtonEnabledSubject: CurrentValueSubject<Bool, Never>
     private var cancellables: Set<AnyCancellable>
 
-    private let expectedEventTypes: [Event.Type]
-
     private let itemQueries: ItemQueries
     private let categoryQuries: ItemsCategoryQueries
     private let sharedItemsFormatter: SharedItemsFormatter
@@ -63,15 +61,6 @@ public final class ItemsViewModel: ViewModel {
         self.itemsMovedSubject = .init()
         self.isRestoreButtonEnabledSubject = .init(false)
         self.cancellables = []
-
-        self.expectedEventTypes = [
-            ItemsAddedEvent.self,
-            ItemsRemovedEvent.self,
-            ItemUpdatedEvent.self,
-            ItemsReorderedEvent.self,
-            ItemsMovedToBasketEvent.self,
-            ItemsMovedToListEvent.self
-        ]
 
         self.bind()
     }
@@ -194,7 +183,14 @@ public final class ItemsViewModel: ViewModel {
 
     private func bind() {
         eventBus.events
-            .filterType(expectedEventTypes)
+            .filterType(
+                ItemsAddedEvent.self,
+                ItemsRemovedEvent.self,
+                ItemUpdatedEvent.self,
+                ItemsReorderedEvent.self,
+                ItemsMovedToBasketEvent.self,
+                ItemsMovedToListEvent.self
+            )
             .sink { [weak self] _ in
                 self?.fetchItems()
                 self?.stateSubject.send(.regular)

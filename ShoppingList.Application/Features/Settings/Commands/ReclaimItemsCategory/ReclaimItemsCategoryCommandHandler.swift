@@ -1,10 +1,16 @@
 public final class ReclaimItemsCategoryCommandHandler: CommandHandler {
     private let categoryRepository: ItemsCategoryRepository
     private let itemRepository: ItemRepository
+    private let eventBus: EventBus
 
-    public init(_ categoryRepository: ItemsCategoryRepository, _ itemRepository: ItemRepository) {
+    public init(
+        _ categoryRepository: ItemsCategoryRepository,
+        _ itemRepository: ItemRepository,
+        _ eventBus: EventBus
+    ) {
         self.categoryRepository = categoryRepository
         self.itemRepository = itemRepository
+        self.eventBus = eventBus
     }
 
     public func canExecute(_ command: Command) -> Bool {
@@ -21,5 +27,7 @@ public final class ReclaimItemsCategoryCommandHandler: CommandHandler {
 
         let items = itemRepository.items(with: command.itemIds)
         itemRepository.updateCategory(of: items, to: command.itemsCategory)
+
+        eventBus.send(ItemsCategoryAddedEvent(command.itemsCategory))
     }
 }

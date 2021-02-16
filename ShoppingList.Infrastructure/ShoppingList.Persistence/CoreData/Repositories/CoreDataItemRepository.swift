@@ -121,25 +121,19 @@ public final class CoreDataItemRepository: ItemRepository {
     
     public func updateCategory(of item: Item, to category: ItemsCategory) {
         guard let itemEntity = itemEntity(with: item.id) else { return }
-        
-        var categoryEntity: CategoryEntity?
-        if !category.isDefault {
-            categoryEntity = self.categoryEntity(from: category)
-        }
-        
-        itemEntity.category = categoryEntity
+
+        itemEntity.category = self.categoryEntity(from: category)
 
         coreData.save()
     }
     
     public func updateCategory(of items: [Item], to category: ItemsCategory) {
-        var categoryEntity: CategoryEntity?
-        if !category.isDefault {
-            categoryEntity = self.categoryEntity(from: category)
-        }
-        
+        let categoryEntity = self.categoryEntity(from: category)
         let itemEntities = self.itemEntities(with: items.map { $0.id })
-        itemEntities.forEach { $0.category = categoryEntity }
+
+        for itemEntity in itemEntities {
+            itemEntity.category = categoryEntity
+        }
 
         coreData.save()
     }

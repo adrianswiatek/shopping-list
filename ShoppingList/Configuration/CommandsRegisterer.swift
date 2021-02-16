@@ -164,31 +164,40 @@ public final class CommandsRegisterer {
 
     private func registerItemsCategoryCommandHandlers() {
         container.register(AddDefaultItemsCategoryCommandHandler.self) {
-            AddDefaultItemsCategoryCommandHandler($0.resolve(ItemsCategoryRepository.self)!)
+            AddDefaultItemsCategoryCommandHandler(
+                $0.resolve(ItemsCategoryRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(AddItemsCategoryCommandHandler.self) {
-            AddItemsCategoryCommandHandler($0.resolve(ItemsCategoryRepository.self)!)
+            AddItemsCategoryCommandHandler(
+                $0.resolve(ItemsCategoryRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
         }
 
         container.register(RemoveItemsCategoryCommandHandler.self) {
             RemoveItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
-                $0.resolve(ItemRepository.self)!
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
             )
         }
 
         container.register(ReclaimItemsCategoryCommandHandler.self) {
             ReclaimItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
-                $0.resolve(ItemRepository.self)!
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
             )
         }
 
         container.register(UpdateItemsCategoryCommandHandler.self) {
             UpdateItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
-                $0.resolve(LocalPreferences.self)!
+                $0.resolve(LocalPreferences.self)!,
+                $0.resolve(EventBus.self)!
             )
         }
     }

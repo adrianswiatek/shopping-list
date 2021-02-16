@@ -17,12 +17,14 @@ public final class UpdateListsDateCommandHandler: CommandHandler {
         guard
             canExecute(command),
             let command = command as? UpdateListsDateCommand,
-            let list = listRepository.list(with: command.id)
+            let listBeforeUpdate = listRepository.list(with: command.id)
         else {
             return
         }
 
-        listRepository.update(list.withChangedDate())
-        eventBus.send(ListUpdatedEvent(list))
+        let listAfterUpdate = listBeforeUpdate.withChangedDate()
+
+        listRepository.update(listAfterUpdate)
+        eventBus.send(ListUpdatedEvent(listBeforeUpdate, listAfterUpdate))
     }
 }

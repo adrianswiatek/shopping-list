@@ -17,15 +17,15 @@ public final class UpdateListCommandHandler: CommandHandler {
         guard
             canExecute(command),
             let command = command as? UpdateListCommand,
-            let list = listRepository.list(with: command.id),
-            list.name != command.name
+            let listBeforeUpdate = listRepository.list(with: command.id),
+            listBeforeUpdate.name != command.name
         else {
             return
         }
 
-        let updatedList = list.withChangedName(command.name)
+        let listAfterUpdate = listBeforeUpdate.withChangedName(command.name)
 
-        listRepository.update(updatedList)
-        eventBus.send(ListUpdatedEvent(updatedList))
+        listRepository.update(listAfterUpdate)
+        eventBus.send(ListUpdatedEvent(listBeforeUpdate, listAfterUpdate))
     }
 }

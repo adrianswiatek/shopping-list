@@ -2,9 +2,11 @@ import ShoppingList_Domain
 
 public final class AddDefaultItemsCategoryCommandHandler: CommandHandler {
     private let categoryRepository: ItemsCategoryRepository
+    private let eventBus: EventBus
 
-    public init(_ categoryRepository: ItemsCategoryRepository) {
+    public init(_ categoryRepository: ItemsCategoryRepository, _ eventBus: EventBus) {
         self.categoryRepository = categoryRepository
+        self.eventBus = eventBus
     }
 
     public func canExecute(_ command: Command) -> Bool {
@@ -17,6 +19,7 @@ public final class AddDefaultItemsCategoryCommandHandler: CommandHandler {
         }
 
         categoryRepository.add(.default)
+        eventBus.send(ItemsCategoryAddedEvent(.default))
     }
 
     private func alreadyExists() -> Bool {

@@ -137,7 +137,7 @@ public final class EditItemViewModel: ViewModel {
             .compactMap { $0 as? ItemsCategoryAddedEvent }
             .sink { [weak self] in
                 self?.fetchCategories()
-                self?.selectCategory(with: $0.id.toUuid())
+                self?.selectCategory(with: $0.category.id.toUuid())
             }
             .store(in: &cancellables)
 

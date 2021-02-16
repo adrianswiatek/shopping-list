@@ -90,14 +90,11 @@ public final class ManageCategoriesViewModel: ViewModel {
 
     private func bind() {
         eventBus.events
-            .filter {
-                switch $0 {
-                case is ItemsCategoryAddedEvent, is ItemsCategoryUpdatedEvent, is ItemsCategoryRemovedEvent:
-                    return true
-                default:
-                    return false
-                }
-            }
+            .filterType(
+                ItemsCategoryAddedEvent.self,
+                ItemsCategoryUpdatedEvent.self,
+                ItemsCategoryRemovedEvent.self
+            )
             .sink { [weak self] _ in self?.fetchCategories() }
             .store(in: &cancellables)
     }

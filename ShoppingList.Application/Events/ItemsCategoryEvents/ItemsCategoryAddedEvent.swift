@@ -1,9 +1,9 @@
 import ShoppingList_Domain
 
 public struct ItemsCategoryAddedEvent: Event {
-    public let id: Id<ItemsCategory>
+    public let category: ItemsCategory
 
-    public init(_ id: Id<ItemsCategory>) {
-        self.id = id
+    public init(_ category: ItemsCategory) {
+        self.category = category
     }
 }
