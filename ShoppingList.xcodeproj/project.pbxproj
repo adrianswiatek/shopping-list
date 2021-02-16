@@ -120,6 +120,7 @@
 		A7640F822569B88F000D882B /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAEF1B20DDA05500E58C00 /* ListsTableViewCell.swift */; };
 		A7640F8F2569B8EA000D882B /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7640F8E2569B8EA000D882B /* UIColorExtensions.swift */; };
 		A7640FC82569BC94000D882B /* ShoppingList_Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = A7640FC62569BC94000D882B /* ShoppingList_Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A765C04C25DC638C0047172E /* Publisher+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A765C04B25DC638C0047172E /* Publisher+Event.swift */; };
 		A76C1BDF257C53DE0066DB21 /* ListsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C1BDE257C53DE0066DB21 /* ListsTableView.swift */; };
 		A76CA547258ED44B00C1F878 /* UpdateListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76CA546258ED44B00C1F878 /* UpdateListCommand.swift */; };
 		A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76CA549258ED4C800C1F878 /* UpdateListCommandHandler.swift */; };
@@ -527,6 +528,7 @@
 		A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7640FC62569BC94000D882B /* ShoppingList_Domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingList_Domain.h; sourceTree = "<group>"; };
 		A7640FC72569BC94000D882B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A765C04B25DC638C0047172E /* Publisher+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Event.swift"; sourceTree = "<group>"; };
 		A76C1BDE257C53DE0066DB21 /* ListsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableView.swift; sourceTree = "<group>"; };
 		A76CA546258ED44B00C1F878 /* UpdateListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListCommand.swift; sourceTree = "<group>"; };
 		A76CA549258ED4C800C1F878 /* UpdateListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListCommandHandler.swift; sourceTree = "<group>"; };
@@ -923,6 +925,7 @@
 				A706FE7E25992F0200E79CF5 /* LocalPreferences.swift */,
 				3A4E31992143167200BE1DCD /* Commands */,
 				A7CDD3EE25AF773700FF776A /* Events */,
+				A765C04A25DC637B0047172E /* Extensions */,
 				A7941CDA25798B130057B6B4 /* Features */,
 				A77EE6D925B2372900A258B4 /* Listeners */,
 			);
@@ -1137,6 +1140,14 @@
 				A739B3B82569BDA1000B16E3 /* ValueObjects */,
 			);
 			path = ShoppingList.Domain;
+			sourceTree = "<group>";
+		};
+		A765C04A25DC637B0047172E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A765C04B25DC638C0047172E /* Publisher+Event.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A76CA544258ED3E100C1F878 /* Commands */ = {
@@ -1845,6 +1856,7 @@
 				A7CDD3FE25AF888800FF776A /* ItemsRemovedEvent.swift in Sources */,
 				A706FE7F25992F0200E79CF5 /* LocalPreferences.swift in Sources */,
 				A77EE6DF25B2396D00A258B4 /* UpdateListsDateCommand.swift in Sources */,
+				A765C04C25DC638C0047172E /* Publisher+Event.swift in Sources */,
 				A77C972C25785C1A00E39DBF /* ListsService.swift in Sources */,
 				A739B52A2569D22A000B16E3 /* Command.swift in Sources */,
 				A70F36012596AEDB00279242 /* RemoveItemsCategoryCommandHandler.swift in Sources */,

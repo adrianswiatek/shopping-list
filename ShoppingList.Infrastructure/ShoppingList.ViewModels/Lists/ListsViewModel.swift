@@ -106,9 +106,7 @@ public final class ListsViewModel: ViewModel {
 
     private func bind() {
         eventBus.events
-            .filter { [weak self] event in
-                self?.expectedEvents.contains { $0 == type(of: event) } == true
-            }
+            .filterType(ListAddedEvent.self, ListRemovedEvent.self, ListUpdatedEvent.self)
             .sink { [weak self] _ in self?.fetchLists() }
             .store(in: &cancellables)
     }

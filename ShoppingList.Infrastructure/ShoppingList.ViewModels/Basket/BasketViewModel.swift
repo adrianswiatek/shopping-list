@@ -27,7 +27,7 @@ public final class BasketViewModel: ViewModel {
     private let eventBus: EventBus
 
     private var list: ListViewModel!
-    private let expectedEvents: [Event.Type]
+    private let expectedEventTypes: [Event.Type]
 
     private let itemsSubject: CurrentValueSubject<[Item], Never>
     private let stateSubject: CurrentValueSubject<State, Never>
@@ -42,7 +42,7 @@ public final class BasketViewModel: ViewModel {
         self.stateSubject = .init(.regular)
         self.cancellables = []
 
-        self.expectedEvents = [
+        self.expectedEventTypes = [
             ItemsAddedEvent.self,
             ItemsRemovedEvent.self,
             ItemUpdatedEvent.self,
@@ -111,9 +111,7 @@ public final class BasketViewModel: ViewModel {
 
     private func bind() {
         eventBus.events
-            .filter { [weak self] event in
-                self?.expectedEvents.contains { $0 == type(of: event) } == true
-            }
+            .filterType(expectedEventTypes)
             .sink { [weak self] _ in
                 self?.fetchItems()
                 self?.stateSubject.send(.regular)
