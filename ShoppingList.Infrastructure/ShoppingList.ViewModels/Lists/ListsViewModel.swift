@@ -100,8 +100,12 @@ public final class ListsViewModel: ViewModel {
         commandBus.execute(ClearBasketOfListCommand(.fromUuid(uuid)))
     }
 
-    public func isListEmpty(with uuid: UUID) -> Bool {
+    public func isEmptyList(with uuid: UUID) -> Bool {
         listsSubject.value.first { $0.id.toUuid() == uuid }?.containsItemsToBuy == false
+    }
+
+    public func isBasketEmptyInList(with uuid: UUID) -> Bool {
+        listsSubject.value.first { $0.id.toUuid() == uuid }?.containsItemsInBasket == false
     }
 
     private func bind() {

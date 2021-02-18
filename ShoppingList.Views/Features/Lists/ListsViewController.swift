@@ -106,18 +106,20 @@ public final class ListsViewController: UIViewController {
 
     private func handleTableViewAction(_ action: ListsTableView.Action) {
         switch action {
-        case .clearBasket(let id):
-            viewModel.clearBasketOfList(with: id)
-        case .clearItemsToBuy(let id):
-            viewModel.clearList(with: id)
+        case .clearBasket(let uuid) where viewModel.isBasketEmptyInList(with: uuid):
+            viewModel.clearBasketOfList(with: uuid)
+        case .clearBasket(let uuid):
+            showClearBasketWarningForList(with: uuid)
+        case .clearItemsToBuy(let uuid) where viewModel.isEmptyList(with: uuid):
+            viewModel.clearList(with: uuid)
+        case .clearItemsToBuy(let uuid):
+            showClearItemsWarningForList(with: uuid)
         case .editList(let list):
             showEditPopupForList(list)
-        case .removeList(let id):
-            if viewModel.isListEmpty(with: id) {
-                viewModel.removeList(with: id)
-            } else {
-                showRemoveListWarningForList(with: id)
-            }
+        case .removeList(let uuid) where viewModel.isEmptyList(with: uuid):
+            viewModel.removeList(with: uuid)
+        case .removeList(let uuid):
+            showRemoveListWarningForList(with: uuid)
         case .selectList(let list):
             delegate?.goToItems(from: list)
         }
@@ -146,17 +148,45 @@ public final class ListsViewController: UIViewController {
     }
 
     private func showRemoveListWarningForList(with id: UUID) {
-        let alertMessage = "There are items in the list, that have not been bought yet. If continue, all list items will be removed."
-
         let controller = UIAlertController(
             title: "Remove list",
-            message: alertMessage,
+            message: "There are items in the list, that have not been bought yet. If continue, all list items will be removed.",
             preferredStyle: .actionSheet
         )
 
         controller.addAction(.init(title: "Cancel", style: .cancel))
         controller.addAction(.init(title: "Remove permanently", style: .destructive) { [weak self] _ in
             self?.viewModel.removeList(with: id)
+        })
+
+        present(controller, animated: true)
+    }
+
+    private func showClearItemsWarningForList(with id: UUID) {
+        let controller = UIAlertController(
+            title: "Clear items to buy",
+            message: "If continue, all list items will be permanently removed.",
+            preferredStyle: .actionSheet
+        )
+
+        controller.addAction(.init(title: "Cancel", style: .cancel))
+        controller.addAction(.init(title: "Clear items", style: .destructive) { [weak self] _ in
+            self?.viewModel.clearList(with: id)
+        })
+
+        present(controller, animated: true)
+    }
+
+    private func showClearBasketWarningForList(with id: UUID) {
+        let controller = UIAlertController(
+            title: "Clear basket",
+            message: "If continue, all list items in the basket will be permanently removed.",
+            preferredStyle: .actionSheet
+        )
+
+        controller.addAction(.init(title: "Cancel", style: .cancel))
+        controller.addAction(.init(title: "Clear basket", style: .destructive) { [weak self] _ in
+            self?.viewModel.clearBasketOfList(with: id)
         })
 
         present(controller, animated: true)
