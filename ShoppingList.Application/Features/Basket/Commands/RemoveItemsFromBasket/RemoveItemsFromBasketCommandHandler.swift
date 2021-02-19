@@ -15,8 +15,7 @@ public final class RemoveItemsFromBasketCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? RemoveItemsFromBasketCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         let items = itemRepository.items(with: command.ids)

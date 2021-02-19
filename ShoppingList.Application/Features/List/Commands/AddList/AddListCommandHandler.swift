@@ -24,8 +24,7 @@ public final class AddListCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? AddListCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         let lists: [List] = listRepository.allLists()

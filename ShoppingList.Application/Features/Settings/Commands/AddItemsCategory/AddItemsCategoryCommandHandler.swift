@@ -22,8 +22,7 @@ public final class AddItemsCategoryCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? AddItemsCategoryCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         let category: ItemsCategory = .withName(command.name)

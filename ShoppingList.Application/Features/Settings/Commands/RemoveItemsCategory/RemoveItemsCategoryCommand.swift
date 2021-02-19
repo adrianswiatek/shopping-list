@@ -12,6 +12,6 @@ public struct RemoveItemsCategoryCommand: Command {
     }
 
     public func reversed() -> Command? {
-        ReclaimItemsCategoryCommand(itemsCategory, itemIds)
+        RestoreItemsCategoryCommand(itemsCategory, itemIds)
     }
 }

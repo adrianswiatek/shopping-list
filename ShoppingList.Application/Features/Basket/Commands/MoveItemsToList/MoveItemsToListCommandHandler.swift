@@ -15,8 +15,7 @@ public final class MoveItemsToListCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? MoveItemsToListCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         itemRepository.updateStateOfItems(with: command.itemIds, to: .toBuy)

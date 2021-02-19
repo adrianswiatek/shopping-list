@@ -15,13 +15,20 @@ public final class ClearListCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? ClearListCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
-        let items = itemRepository.itemsWithState(.toBuy, inListWithId: command.id)
+        let items = self.items(from: command)
 
         itemRepository.removeItems(with: items.map { $0.id })
         eventBus.send(ItemsRemovedEvent(items))
+    }
+
+    private func items(from command: ClearListCommand) -> [Item] {
+        if !command.items.isEmpty {
+            return command.items
+        } else {
+            return itemRepository.itemsWithState(.toBuy, inListWithId: command.id)
+        }
     }
 }

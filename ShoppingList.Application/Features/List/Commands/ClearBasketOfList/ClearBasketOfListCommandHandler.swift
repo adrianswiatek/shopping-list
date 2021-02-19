@@ -15,8 +15,7 @@ public final class ClearBasketOfListCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? ClearBasketOfListCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         let items = itemRepository.itemsWithState(.inBasket, inListWithId: command.id)

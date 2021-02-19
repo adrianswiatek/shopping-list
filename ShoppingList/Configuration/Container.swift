@@ -31,7 +31,7 @@ public final class Container {
         container.resolve(AppCoordinator.self)!.start()
         container.resolve(UpdateListDateListener.self)!.start()
         container.resolve(UpdateItemsOrderListener.self)!.start()
-        container.resolve(ConsoleEventListener.self)!.start()
+//        container.resolve(ConsoleEventListener.self)!.start()
     }
 
     private func registerQueries() {

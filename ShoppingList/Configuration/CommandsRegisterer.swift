@@ -10,20 +10,36 @@ public final class CommandsRegisterer {
 
     public func register() {
         registerCommandBus()
+
+        registerCommandHandlers()
+        registerCommandRefiners()
+
         registerListCommandHandlers()
         registerItemsInListCommandHandlers()
         registerItemsInBasketCommandHandlers()
         registerItemsCategoryCommandHandlers()
+
+        registerListCommandRefiners()
     }
 
     private func registerCommandBus() {
         container.register(CommandBus.self) {
-            CommandBus(commandHandlers: [
+            CommandBus(
+                commandHandler: $0.resolve(CommandHandler.self)!,
+                commandRefiner: $0.resolve(CommandRefiner.self)!
+            )
+        }.inObjectScope(.container)
+    }
+
+    private func registerCommandHandlers() {
+        container.register(CommandHandler.self) {
+            CommmandHandlers(
                 // Lists
                 $0.resolve(AddListCommandHandler.self)!,
                 $0.resolve(ClearBasketOfListCommandHandler.self)!,
                 $0.resolve(ClearListCommandHandler.self)!,
                 $0.resolve(RemoveListCommandHandler.self)!,
+                $0.resolve(RestoreListItemsCommandHandler.self)!,
                 $0.resolve(UpdateListCommandHandler.self)!,
                 $0.resolve(UpdateListsDateCommandHandler.self)!,
 
@@ -43,11 +59,21 @@ public final class CommandsRegisterer {
                 // ItemsCategories
                 $0.resolve(AddDefaultItemsCategoryCommandHandler.self)!,
                 $0.resolve(AddItemsCategoryCommandHandler.self)!,
-                $0.resolve(ReclaimItemsCategoryCommandHandler.self)!,
+                $0.resolve(RestoreItemsCategoryCommandHandler.self)!,
                 $0.resolve(RemoveItemsCategoryCommandHandler.self)!,
                 $0.resolve(UpdateItemsCategoryCommandHandler.self)!
-            ])
-        }.inObjectScope(.container)
+            )
+        }
+    }
+
+    private func registerCommandRefiners() {
+        container.register(CommandRefiner.self) {
+            CommandRefiners(
+                // Lists
+                $0.resolve(ClearListCommandRefiner.self)!,
+                $0.resolve(ClearBasketOfListCommandRefiner.self)!
+            )
+        }
     }
 
     private func registerListCommandHandlers() {
@@ -76,6 +102,13 @@ public final class CommandsRegisterer {
         container.register(RemoveListCommandHandler.self) {
             RemoveListCommandHandler(
                 $0.resolve(ListRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(RestoreListItemsCommandHandler.self) {
+            RestoreListItemsCommandHandler(
+                $0.resolve(ItemRepository.self)!,
                 $0.resolve(EventBus.self)!
             )
         }
@@ -185,8 +218,8 @@ public final class CommandsRegisterer {
             )
         }
 
-        container.register(ReclaimItemsCategoryCommandHandler.self) {
-            ReclaimItemsCategoryCommandHandler(
+        container.register(RestoreItemsCategoryCommandHandler.self) {
+            RestoreItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
                 $0.resolve(ItemRepository.self)!,
                 $0.resolve(EventBus.self)!
@@ -199,6 +232,16 @@ public final class CommandsRegisterer {
                 $0.resolve(LocalPreferences.self)!,
                 $0.resolve(EventBus.self)!
             )
+        }
+    }
+
+    private func registerListCommandRefiners() {
+        container.register(ClearListCommandRefiner.self) {
+            ClearListCommandRefiner($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(ClearBasketOfListCommandRefiner.self) {
+            ClearBasketOfListCommandRefiner($0.resolve(ItemRepository.self)!)
         }
     }
 }

@@ -1,6 +1,6 @@
 import ShoppingList_Domain
 
-public struct ReclaimItemsCategoryCommand: Command {
+public struct RestoreItemsCategoryCommand: Command {
     public let itemsCategory: ItemsCategory
     public let itemIds: [Id<Item>]
     public let source: CommandSource

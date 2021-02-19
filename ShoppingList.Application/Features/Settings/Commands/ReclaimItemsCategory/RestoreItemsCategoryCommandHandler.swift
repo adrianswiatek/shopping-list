@@ -1,4 +1,4 @@
-public final class ReclaimItemsCategoryCommandHandler: CommandHandler {
+public final class RestoreItemsCategoryCommandHandler: CommandHandler {
     private let categoryRepository: ItemsCategoryRepository
     private let itemRepository: ItemRepository
     private let eventBus: EventBus
@@ -14,13 +14,12 @@ public final class ReclaimItemsCategoryCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: Command) -> Bool {
-        command is ReclaimItemsCategoryCommand
+        command is RestoreItemsCategoryCommand
     }
 
     public func execute(_ command: Command) {
-        guard canExecute(command), let command = command as? ReclaimItemsCategoryCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+        guard canExecute(command), let command = command as? RestoreItemsCategoryCommand else {
+            preconditionFailure("Cannot execute given command.")
         }
 
         categoryRepository.add(command.itemsCategory)

@@ -15,8 +15,7 @@ public final class MoveItemsToBasketCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? MoveItemsToBasketCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         itemRepository.updateStateOfItems(with: command.itemIds, to: .inBasket)

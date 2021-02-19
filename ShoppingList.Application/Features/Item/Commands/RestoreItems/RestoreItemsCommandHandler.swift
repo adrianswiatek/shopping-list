@@ -15,8 +15,7 @@ public final class RestoreItemsCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? RestoreItemsCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         itemRepository.addItems(command.items)

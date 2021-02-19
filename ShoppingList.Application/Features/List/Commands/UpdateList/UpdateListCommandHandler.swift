@@ -10,7 +10,7 @@ public final class UpdateListCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: Command) -> Bool {
-        (command as? UpdateListCommand) != nil
+        command is UpdateListCommand
     }
 
     public func execute(_ command: Command) {

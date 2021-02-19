@@ -23,8 +23,6 @@ public final class ListsViewModel: ViewModel {
     private let listsSubject: CurrentValueSubject<[List], Never>
     private var cancellables: Set<AnyCancellable>
 
-    private let expectedEvents: [Event.Type]
-
     private let listQueries: ListQueries
     private let commandBus: CommandBus
     private let eventBus: EventBus
@@ -38,12 +36,6 @@ public final class ListsViewModel: ViewModel {
 
         self.listsSubject = .init([])
         self.cancellables = []
-
-        self.expectedEvents = [
-            ListAddedEvent.self,
-            ListRemovedEvent.self,
-            ListUpdatedEvent.self
-        ]
 
         self.bind()
     }

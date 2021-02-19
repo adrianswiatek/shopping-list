@@ -1,4 +1,4 @@
-public final class RemoveItemsCommandHandler: CommandHandler {
+public final class RestoreListItemsCommandHandler: CommandHandler {
     private let itemRepository: ItemRepository
     private let eventBus: EventBus
 
@@ -8,17 +8,15 @@ public final class RemoveItemsCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: Command) -> Bool {
-        command is RemoveItemsCommand
+        command is RestoreListItemsCommand
     }
 
     public func execute(_ command: Command) {
-        guard canExecute(command), let command = command as? RemoveItemsCommand else {
+        guard canExecute(command), let command = command as? RestoreListItemsCommand else {
             preconditionFailure("Cannot execute given command.")
         }
 
-        let items = itemRepository.items(with: command.ids)
-
-        itemRepository.removeItems(with: items.map { $0.id })
-        eventBus.send(ItemsRemovedEvent(items))
+        itemRepository.addItems(command.items)
+        eventBus.send(ItemsAddedEvent(command.items))
     }
 }

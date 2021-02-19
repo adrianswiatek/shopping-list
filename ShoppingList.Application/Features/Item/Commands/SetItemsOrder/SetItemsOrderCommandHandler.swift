@@ -13,8 +13,7 @@ public final class SetItemsOrderCommandHandler: CommandHandler {
 
     public func execute(_ command: Command) {
         guard canExecute(command), let command = command as? SetItemsOrderCommand else {
-            assertionFailure("Cannot execute given command.")
-            return
+            preconditionFailure("Cannot execute given command.")
         }
 
         itemRepository.setItemsOrder(
