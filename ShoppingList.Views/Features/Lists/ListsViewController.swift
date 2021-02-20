@@ -112,10 +112,8 @@ public final class ListsViewController: UIViewController {
             viewModel.clearList(with: uuid)
         case .editList(let list):
             showEditPopupForList(list)
-        case .removeList(let uuid) where viewModel.isEmptyList(with: uuid):
-            viewModel.removeList(with: uuid)
         case .removeList(let uuid):
-            showRemoveListWarningForList(with: uuid)
+            viewModel.removeList(with: uuid)
         case .selectList(let list):
             delegate?.goToItems(from: list)
         }
@@ -140,21 +138,6 @@ public final class ListsViewController: UIViewController {
             guard !$0.isEmpty else { return }
             self?.viewModel.updateList(with: list.uuid, name: $0)
         }
-        present(controller, animated: true)
-    }
-
-    private func showRemoveListWarningForList(with id: UUID) {
-        let controller = UIAlertController(
-            title: "Remove list",
-            message: "There are items in the list, that have not been bought yet. If continue, all list items will be removed.",
-            preferredStyle: .actionSheet
-        )
-
-        controller.addAction(.init(title: "Cancel", style: .cancel))
-        controller.addAction(.init(title: "Remove permanently", style: .destructive) { [weak self] _ in
-            self?.viewModel.removeList(with: id)
-        })
-
         present(controller, animated: true)
     }
 

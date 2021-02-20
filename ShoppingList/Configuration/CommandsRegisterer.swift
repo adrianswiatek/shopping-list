@@ -40,6 +40,7 @@ public final class CommandsRegisterer {
                 $0.resolve(ClearBasketOfListCommandHandler.self)!,
                 $0.resolve(ClearListCommandHandler.self)!,
                 $0.resolve(RemoveListCommandHandler.self)!,
+                $0.resolve(RestoreListCommandHandler.self)!,
                 $0.resolve(RestoreListItemsCommandHandler.self)!,
                 $0.resolve(UpdateListCommandHandler.self)!,
                 $0.resolve(UpdateListsDateCommandHandler.self)!,
@@ -73,6 +74,7 @@ public final class CommandsRegisterer {
                 // Lists
                 $0.resolve(ClearListCommandRefiner.self)!,
                 $0.resolve(ClearBasketOfListCommandRefiner.self)!,
+                $0.resolve(RemoveListCommandRefiner.self)!,
 
                 // ItemsCategories
                 $0.resolve(RemoveItemsCategoryCommandRefiner.self)!
@@ -106,6 +108,14 @@ public final class CommandsRegisterer {
         container.register(RemoveListCommandHandler.self) {
             RemoveListCommandHandler(
                 $0.resolve(ListRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(RestoreListCommandHandler.self) {
+            RestoreListCommandHandler(
+                $0.resolve(ListRepository.self)!,
+                $0.resolve(ItemRepository.self)!,
                 $0.resolve(EventBus.self)!
             )
         }
@@ -246,6 +256,10 @@ public final class CommandsRegisterer {
 
         container.register(ClearBasketOfListCommandRefiner.self) {
             ClearBasketOfListCommandRefiner($0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(RemoveListCommandRefiner.self) {
+            RemoveListCommandRefiner($0.resolve(ItemRepository.self)!)
         }
     }
 

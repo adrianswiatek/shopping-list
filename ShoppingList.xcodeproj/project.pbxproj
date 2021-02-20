@@ -216,6 +216,9 @@
 		A7F63329259141040032888B /* ClearBasketOfListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F63328259141040032888B /* ClearBasketOfListCommandHandler.swift */; };
 		A7FBD99025CF666E0093B9DD /* SharedItemsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA754EF2325945C00599F58 /* SharedItemsFormatter.swift */; };
 		A7FBD99425CF6A120093B9DD /* ItemToShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FBD99325CF6A120093B9DD /* ItemToShare.swift */; };
+		A7FE443D25E1BFAD00DC7E19 /* RestoreListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE443C25E1BFAD00DC7E19 /* RestoreListCommand.swift */; };
+		A7FE444025E1C0D700DC7E19 /* RestoreListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE443F25E1C0D700DC7E19 /* RestoreListCommandHandler.swift */; };
+		A7FE444325E1C21500DC7E19 /* RemoveListCommandRefiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE444225E1C21500DC7E19 /* RemoveListCommandRefiner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -610,6 +613,9 @@
 		A7F63325259140FA0032888B /* ClearBasketOfListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBasketOfListCommand.swift; sourceTree = "<group>"; };
 		A7F63328259141040032888B /* ClearBasketOfListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBasketOfListCommandHandler.swift; sourceTree = "<group>"; };
 		A7FBD99325CF6A120093B9DD /* ItemToShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToShare.swift; sourceTree = "<group>"; };
+		A7FE443C25E1BFAD00DC7E19 /* RestoreListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreListCommand.swift; sourceTree = "<group>"; };
+		A7FE443F25E1C0D700DC7E19 /* RestoreListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreListCommandHandler.swift; sourceTree = "<group>"; };
+		A7FE444225E1C21500DC7E19 /* RemoveListCommandRefiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListCommandRefiner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1177,6 +1183,7 @@
 				A7F63324259140E30032888B /* ClearBasketOfList */,
 				A7F6331D25913DF20032888B /* ClearList */,
 				A7826349257850CC00E4DA54 /* RemoveList */,
+				A7FE443925E1BF3D00DC7E19 /* RestoreList */,
 				A7B2224B25E059A9008102A9 /* RestoreListItems */,
 				A76CA545258ED41A00C1F878 /* UpdateList */,
 				A77EE6DD25B2395A00A258B4 /* UpdateListsDate */,
@@ -1261,6 +1268,7 @@
 			children = (
 				3A92DFDA2149BA7B009EA5B7 /* RemoveListCommand.swift */,
 				A781E9F625783E7000367FCF /* RemoveListCommandHandler.swift */,
+				A7FE444225E1C21500DC7E19 /* RemoveListCommandRefiner.swift */,
 			);
 			path = RemoveList;
 			sourceTree = "<group>";
@@ -1345,13 +1353,13 @@
 			path = RestoreListItems;
 			sourceTree = "<group>";
 		};
-		A7B2F52125B4E7B900E49A76 /* ReclaimItemsCategory */ = {
+		A7B2F52125B4E7B900E49A76 /* RestoreItemsCategory */ = {
 			isa = PBXGroup;
 			children = (
 				A7B2F52225B4E7CD00E49A76 /* RestoreItemsCategoryCommand.swift */,
 				A7B2F52525B4E7D800E49A76 /* RestoreItemsCategoryCommandHandler.swift */,
 			);
-			path = ReclaimItemsCategory;
+			path = RestoreItemsCategory;
 			sourceTree = "<group>";
 		};
 		A7B8EF8B25A3BFF000495C1E /* EditItem */ = {
@@ -1453,10 +1461,10 @@
 		A7DBFF182591580E00CD6B6D /* Commands */ = {
 			isa = PBXGroup;
 			children = (
-				A7B2F52125B4E7B900E49A76 /* ReclaimItemsCategory */,
 				A706FE8625994D9000E79CF5 /* AddDefaultItemsCategory */,
 				A746C73025967EF300D3CE30 /* AddItemsCategory */,
 				A70F35FF2596AE1500279242 /* RemoveItemsCategory */,
+				A7B2F52125B4E7B900E49A76 /* RestoreItemsCategory */,
 				A706FE76259927B800E79CF5 /* UpdateItemsCategory */,
 			);
 			path = Commands;
@@ -1491,6 +1499,15 @@
 				A7B2225B25E071AD008102A9 /* ClearBasketOfListCommandRefiner.swift */,
 			);
 			path = ClearBasketOfList;
+			sourceTree = "<group>";
+		};
+		A7FE443925E1BF3D00DC7E19 /* RestoreList */ = {
+			isa = PBXGroup;
+			children = (
+				A7FE443C25E1BFAD00DC7E19 /* RestoreListCommand.swift */,
+				A7FE443F25E1C0D700DC7E19 /* RestoreListCommandHandler.swift */,
+			);
+			path = RestoreList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1847,6 +1864,7 @@
 				A7CDD41D25AF8AC400FF776A /* ItemsCategoryAddedEvent.swift in Sources */,
 				A782634C2578517700E4DA54 /* ListRepository.swift in Sources */,
 				A706FE7C259927D800E79CF5 /* UpdateItemsCategoryCommandHandler.swift in Sources */,
+				A7FE444325E1C21500DC7E19 /* RemoveListCommandRefiner.swift in Sources */,
 				A7B2225025E05AB9008102A9 /* RestoreListItemsCommandHandler.swift in Sources */,
 				A7CDD42125AF8AF400FF776A /* ItemsAddedEvent.swift in Sources */,
 				A79305DD2579993B00A3865D /* ListQueries.swift in Sources */,
@@ -1855,6 +1873,7 @@
 				A782634525784DD300E4DA54 /* AddListCommandHandler.swift in Sources */,
 				A79305D025798D4100A3865D /* ItemsService.swift in Sources */,
 				A79D6F4A25BA0FCB00E8E135 /* RestoreItemsToBasketCommand.swift in Sources */,
+				A7FE443D25E1BFAD00DC7E19 /* RestoreListCommand.swift in Sources */,
 				A7B2226225E0796D008102A9 /* CommandRefiners.swift in Sources */,
 				A79305D425798F0F00A3865D /* ItemQueries.swift in Sources */,
 				A77C9721257859DC00E39DBF /* ItemRepository.swift in Sources */,
@@ -1887,6 +1906,7 @@
 				A7CDD40B25AF89CA00FF776A /* ListUpdatedEvent.swift in Sources */,
 				A77EE6DB25B2377700A258B4 /* UpdateListDateListener.swift in Sources */,
 				A746C72E25967EB800D3CE30 /* AddItemsCategoryCommand.swift in Sources */,
+				A7FE444025E1C0D700DC7E19 /* RestoreListCommandHandler.swift in Sources */,
 				A7287E5125C0C3530092A781 /* RestoreItemsCommandHandler.swift in Sources */,
 				A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */,
 				A7CDD41825AF8A8B00FF776A /* ListAddedEvent.swift in Sources */,
