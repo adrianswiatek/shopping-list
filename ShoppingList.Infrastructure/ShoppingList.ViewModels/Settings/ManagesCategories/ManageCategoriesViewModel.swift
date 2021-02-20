@@ -18,7 +18,6 @@ public final class ManageCategoriesViewModel: ViewModel {
     }
 
     private let categoryQueries: ItemsCategoryQueries
-    private let itemQueries: ItemQueries
     private let commandBus: CommandBus
     private let eventBus: EventBus
 
@@ -27,14 +26,8 @@ public final class ManageCategoriesViewModel: ViewModel {
 
     private var cancellables: Set<AnyCancellable>
 
-    public init(
-        categoryQueries: ItemsCategoryQueries,
-        itemQueries: ItemQueries,
-        commandBus: CommandBus,
-        eventBus: EventBus
-    ) {
+    public init(categoryQueries: ItemsCategoryQueries, commandBus: CommandBus, eventBus: EventBus) {
         self.categoryQueries = categoryQueries
-        self.itemQueries = itemQueries
         self.eventBus = eventBus
         self.commandBus = commandBus
 
@@ -79,9 +72,7 @@ public final class ManageCategoriesViewModel: ViewModel {
 
     public func removeCategoryWithItems(with uuid: UUID) {
         guard let selectedCategory = category(with: uuid) else { return }
-
-        let itemIds = itemQueries.fetchItemsInCategory(selectedCategory).map { $0.id }
-        commandBus.execute(RemoveItemsCategoryCommand(selectedCategory, itemIds))
+        commandBus.execute(RemoveItemsCategoryCommand(selectedCategory))
     }
 
     public func hasCategory(with name: String) -> Bool {

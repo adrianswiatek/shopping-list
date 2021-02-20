@@ -15,8 +15,8 @@ public final class ItemsService: ItemQueries {
         itemRepository.itemsWithState(.inBasket, inListWithId: id)
     }
 
-    public func fetchItemsInCategory(_ category: ItemsCategory) -> [Item] {
-        itemRepository.itemsInCategory(category)
+    public func fetchItemsInCategory(with id: Id<ItemsCategory>) -> [Item] {
+        itemRepository.itemsInCategory(with: id)
     }
 
     public func hasItemsInBasketOfList(with id: Id<List>) -> Bool {

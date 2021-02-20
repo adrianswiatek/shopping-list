@@ -45,9 +45,9 @@ public final class CoreDataItemRepository: ItemRepository {
         }
     }
 
-    public func itemsInCategory(_ category: ItemsCategory) -> [Item] {
+    public func itemsInCategory(with id: Id<ItemsCategory>) -> [Item] {
         let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "category.id == %@", category.id.toString())
+        request.predicate = NSPredicate(format: "category.id == %@", id.toString())
         return (try? coreData.context.fetch(request).map { $0.toItem() }) ?? []
     }
 
@@ -119,19 +119,16 @@ public final class CoreDataItemRepository: ItemRepository {
         coreData.save()
     }
     
-    public func updateCategory(of item: Item, to category: ItemsCategory) {
-        guard let itemEntity = itemEntity(with: item.id) else { return }
-
-        itemEntity.category = self.categoryEntity(from: category)
-
+    public func updateCategory(ofItem itemId: Id<Item>, toCategory categoryId: Id<ItemsCategory>) {
+        guard let itemEntity = itemEntity(with: itemId) else { return }
+        itemEntity.category = categoryEntity(with: categoryId)
         coreData.save()
     }
     
-    public func updateCategory(of items: [Item], to category: ItemsCategory) {
-        let categoryEntity = self.categoryEntity(from: category)
-        let itemEntities = self.itemEntities(with: items.map { $0.id })
+    public func updateCategory(ofItems itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>) {
+        let categoryEntity = self.categoryEntity(with: categoryId)
 
-        for itemEntity in itemEntities {
+        for itemEntity in itemEntities(with: itemIds) {
             itemEntity.category = categoryEntity
         }
 
@@ -150,9 +147,9 @@ public final class CoreDataItemRepository: ItemRepository {
         return (try? coreData.context.fetch(request)) ?? []
     }
 
-    private func categoryEntity(from category: ItemsCategory) -> CategoryEntity? {
+    private func categoryEntity(with id: Id<ItemsCategory>) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id == %@", category.id.toString())
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? coreData.context.fetch(request).first
     }
 

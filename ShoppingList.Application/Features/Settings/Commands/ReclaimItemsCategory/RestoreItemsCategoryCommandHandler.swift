@@ -23,10 +23,7 @@ public final class RestoreItemsCategoryCommandHandler: CommandHandler {
         }
 
         categoryRepository.add(command.itemsCategory)
-
-        let items = itemRepository.items(with: command.itemIds)
-        itemRepository.updateCategory(of: items, to: command.itemsCategory)
-
+        itemRepository.updateCategory(ofItems: command.itemIds, toCategory: command.itemsCategory.id)
         eventBus.send(ItemsCategoryAddedEvent(command.itemsCategory))
     }
 }

@@ -101,7 +101,6 @@ public final class Container {
         container.register(ManageCategoriesViewModel.self) {
             ManageCategoriesViewModel(
                 categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
-                itemQueries: $0.resolve(ItemQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )

@@ -27,8 +27,8 @@ public final class RemoveItemsCategoryCommandHandler: CommandHandler {
             preconditionFailure("Cannot execute given command.")
         }
 
-        let items = itemRepository.itemsInCategory(command.itemsCategory)
-        itemRepository.updateCategory(of: items, to: .default)
+        let items = itemRepository.itemsInCategory(with: command.itemsCategory.id)
+        itemRepository.updateCategory(ofItems: items.map { $0.id }, toCategory: ItemsCategory.default.id)
 
         categoryRepository.remove(by: command.itemsCategory.id)
         eventBus.send(ItemsCategoryRemovedEvent(command.itemsCategory))

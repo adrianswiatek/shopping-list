@@ -20,6 +20,7 @@ public final class CommandsRegisterer {
         registerItemsCategoryCommandHandlers()
 
         registerListCommandRefiners()
+        registerItemsCategoryCommandRefiners()
     }
 
     private func registerCommandBus() {
@@ -71,7 +72,10 @@ public final class CommandsRegisterer {
             CommandRefiners(
                 // Lists
                 $0.resolve(ClearListCommandRefiner.self)!,
-                $0.resolve(ClearBasketOfListCommandRefiner.self)!
+                $0.resolve(ClearBasketOfListCommandRefiner.self)!,
+
+                // ItemsCategories
+                $0.resolve(RemoveItemsCategoryCommandRefiner.self)!
             )
         }
     }
@@ -242,6 +246,12 @@ public final class CommandsRegisterer {
 
         container.register(ClearBasketOfListCommandRefiner.self) {
             ClearBasketOfListCommandRefiner($0.resolve(ItemRepository.self)!)
+        }
+    }
+
+    private func registerItemsCategoryCommandRefiners() {
+        container.register(RemoveItemsCategoryCommandRefiner.self) {
+            RemoveItemsCategoryCommandRefiner($0.resolve(ItemRepository.self)!)
         }
     }
 }

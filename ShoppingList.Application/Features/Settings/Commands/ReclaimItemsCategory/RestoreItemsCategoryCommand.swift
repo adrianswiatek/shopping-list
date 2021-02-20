@@ -1,9 +1,10 @@
 import ShoppingList_Domain
 
 public struct RestoreItemsCategoryCommand: Command {
-    public let itemsCategory: ItemsCategory
-    public let itemIds: [Id<Item>]
     public let source: CommandSource
+
+    internal let itemsCategory: ItemsCategory
+    internal let itemIds: [Id<Item>]
 
     public init(_ itemsCategory: ItemsCategory, _ itemIds: [Id<Item>]) {
         self.itemsCategory = itemsCategory
