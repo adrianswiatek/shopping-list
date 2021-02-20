@@ -1,9 +1,10 @@
 import ShoppingList_Domain
 
 public struct MoveItemsToListCommand: Command {
-    public let itemIds: [Id<Item>]
-    public let listId: Id<List>
     public let source: CommandSource
+
+    internal let itemIds: [Id<Item>]
+    internal let listId: Id<List>
 
     public init(_ itemIds: [Id<Item>], _ listId: Id<List>) {
         self.itemIds = itemIds
@@ -12,7 +13,6 @@ public struct MoveItemsToListCommand: Command {
     }
 
     public func reversed() -> Command? {
-        guard !itemIds.isEmpty else { return nil }
-        return MoveItemsToBasketCommand(itemIds, listId)
+        !itemIds.isEmpty ? MoveItemsToBasketCommand(itemIds, listId) : nil
     }
 }

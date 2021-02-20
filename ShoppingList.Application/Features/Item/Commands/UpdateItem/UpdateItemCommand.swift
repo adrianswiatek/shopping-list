@@ -1,12 +1,13 @@
 import ShoppingList_Domain
 
 public struct UpdateItemCommand: Command {
-    public let itemId: Id<Item>
-    public let name: String
-    public let info: String
-    public let categoryId: Id<ItemsCategory>
-    public let listId: Id<List>
     public let source: CommandSource
+
+    internal let itemId: Id<Item>
+    internal let name: String
+    internal let info: String
+    internal let categoryId: Id<ItemsCategory>
+    internal let listId: Id<List>
 
     public init(
         _ itemId: Id<Item>,

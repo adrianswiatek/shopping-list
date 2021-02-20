@@ -18,7 +18,7 @@ public final class RemoveItemsFromBasketCommandHandler: CommandHandler {
             preconditionFailure("Cannot execute given command.")
         }
 
-        let items = itemRepository.items(with: command.ids)
+        let items = itemRepository.items(with: command.items.map { $0.id })
 
         itemRepository.removeItems(with: items.map { $0.id })
         eventBus.send(ItemsRemovedEvent(items))
