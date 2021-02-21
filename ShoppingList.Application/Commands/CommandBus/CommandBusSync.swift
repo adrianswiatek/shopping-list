@@ -1,4 +1,4 @@
-public final class CommandBus {
+public final class CommandBusSync: CommandBus {
     private let commandHandler: CommandHandler
     private let commandRefiner: CommandRefiner
     private var commands: [CommandSource: Command]
@@ -18,6 +18,10 @@ public final class CommandBus {
         }
     }
 
+    public func canUndo(_ source: CommandSource) -> Bool {
+        commands[source]?.reversed().map { commandHandler.canExecute($0) } == true
+    }
+
     public func undo(_ source: CommandSource) {
         guard
             let command = remove(source)?.reversed(),
@@ -29,11 +33,6 @@ public final class CommandBus {
         commandHandler.execute(command)
     }
 
-    public func canUndo(_ source: CommandSource) -> Bool {
-        commands[source]?.reversed().map { commandHandler.canExecute($0) } == true
-    }
-
-    @discardableResult
     public func remove(_ source: CommandSource) -> Command? {
         commands.removeValue(forKey: source)
     }

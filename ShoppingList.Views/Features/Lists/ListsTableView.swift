@@ -27,7 +27,7 @@ public final class ListsTableView: UITableView {
         backgroundColor = .background
         delegate = self
 
-        register(ListsTableViewCell.self, forCellReuseIdentifier: ListsTableViewCell.identifier)
+        registerCell(ListsTableViewCell.self)
     }
 }
 

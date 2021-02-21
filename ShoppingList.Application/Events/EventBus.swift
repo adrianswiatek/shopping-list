@@ -2,7 +2,10 @@ import Combine
 
 public final class EventBus {
     public var events: AnyPublisher<Event, Never> {
-        eventsSubject.share().eraseToAnyPublisher()
+        eventsSubject
+            .receive(on: DispatchQueue.main)
+            .share()
+            .eraseToAnyPublisher()
     }
 
     private let eventsSubject: PassthroughSubject<Event, Never>

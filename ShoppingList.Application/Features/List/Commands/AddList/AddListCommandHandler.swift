@@ -5,21 +5,18 @@ public final class AddListCommandHandler: CommandHandler {
     private let listNameGenerator: ListNameGenerator
     private let eventBus: EventBus
 
-    public init(_ listRepository: ListRepository, _ listNameGenerator: ListNameGenerator, _ eventBus: EventBus) {
+    public init(
+        _ listRepository: ListRepository,
+        _ listNameGenerator: ListNameGenerator,
+        _ eventBus: EventBus
+    ) {
         self.listRepository = listRepository
         self.listNameGenerator = listNameGenerator
         self.eventBus = eventBus
     }
 
     public func canExecute(_ command: Command) -> Bool {
-        guard let command = command as? AddListCommand else {
-            return false
-        }
-
-        let listWithGivenName = listRepository.allLists().first {
-            $0.name == command.name
-        }
-        return listWithGivenName == nil
+        command is AddListCommand
     }
 
     public func execute(_ command: Command) {
@@ -28,13 +25,22 @@ public final class AddListCommandHandler: CommandHandler {
         }
 
         let lists: [List] = listRepository.allLists()
-        let list: List = .withName(provideListName(basedOn: command.name, and: lists))
 
-        listRepository.add(list)
-        eventBus.send(ListAddedEvent(list))
+        if listExists(with: command.name, in: lists) {
+            eventBus.send(ListNotAddedEvent(.alreadyExists))
+        } else {
+            let list = provideList(basedOn: command.name, and: lists)
+            listRepository.add(list)
+            eventBus.send(ListAddedEvent(list))
+        }
     }
 
-    private func provideListName(basedOn name: String, and lists: [List]) -> String {
-        name.isEmpty ? listNameGenerator.generate(from: lists) : name
+    private func listExists(with name: String, in lists: [List]) -> Bool {
+        lists.first { $0.name == name } != nil
+    }
+
+    private func provideList(basedOn name: String, and lists: [List]) -> List {
+        let name = name.isEmpty ? listNameGenerator.generate(from: lists) : name
+        return .withName(name)
     }
 }

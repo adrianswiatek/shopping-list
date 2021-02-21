@@ -17,7 +17,7 @@ public struct RemoveListCommand: Command {
     }
 
     public func reversed() -> Command? {
-        !items.isEmpty ? RestoreListCommand(list, items) : nil
+        RestoreListCommand(list, items)
     }
 
     internal func withItems(_ items: [Item]) -> Command {

@@ -95,6 +95,10 @@ public final class ListsViewController: UIViewController {
             }
             .store(in: &cancellables)
 
+        viewModel.messagePublisher
+            .sink { [weak self] in self?.showMessagePopup(with: $0) }
+            .store(in: &cancellables)
+
         tableView.onAction
             .sink { [weak self] in self?.handleTableViewAction($0) }
             .store(in: &cancellables)
@@ -124,7 +128,7 @@ public final class ListsViewController: UIViewController {
         case let .confirm(text):
             viewModel.addList(with: text)
         case let .validationError(text):
-            showValidationError(with: text)
+            showMessagePopup(with: text)
         }
     }
 
@@ -141,7 +145,7 @@ public final class ListsViewController: UIViewController {
         present(controller, animated: true)
     }
 
-    private func showValidationError(with text: String) {
+    private func showMessagePopup(with text: String) {
         let controller = UIAlertController(title: "", message: text, preferredStyle: .alert)
         controller.addAction(.init(title: "OK", style: .default))
         present(controller, animated: true)

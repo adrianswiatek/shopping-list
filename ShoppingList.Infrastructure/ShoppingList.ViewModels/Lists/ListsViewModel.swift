@@ -12,6 +12,10 @@ public final class ListsViewModel: ViewModel {
             .eraseToAnyPublisher()
     }
 
+    public var messagePublisher: AnyPublisher<String, Never> {
+        messageSubject.eraseToAnyPublisher()
+    }
+
     public var isRestoreButtonEnabled: Bool {
         commandBus.canUndo(.lists)
     }
@@ -21,6 +25,7 @@ public final class ListsViewModel: ViewModel {
     }
 
     private let listsSubject: CurrentValueSubject<[List], Never>
+    private let messageSubject: PassthroughSubject<String, Never>
     private var cancellables: Set<AnyCancellable>
 
     private let listQueries: ListQueries
@@ -35,6 +40,7 @@ public final class ListsViewModel: ViewModel {
         self.dateFormatter = configure(.init()) { $0.dateStyle = .medium }
 
         self.listsSubject = .init([])
+        self.messageSubject = .init()
         self.cancellables = []
 
         self.bind()
@@ -57,7 +63,9 @@ public final class ListsViewModel: ViewModel {
     }
 
     public func fetchLists() {
-        listsSubject.send(listQueries.fetchLists())
+        listQueries.fetchLists()
+            .sink { [weak self] in self?.listsSubject.send($0) }
+            .store(in: &cancellables)
     }
 
     public func fetchList(by uuid: UUID) -> List? {
@@ -108,6 +116,15 @@ public final class ListsViewModel: ViewModel {
                 ListUpdatedEvent.self
             )
             .sink { [weak self] _ in self?.fetchLists() }
+            .store(in: &cancellables)
+
+        eventBus.events
+            .compactMap { $0 as? ListNotAddedEvent }
+            .sink { [weak self] in
+                if case .alreadyExists = $0.reason {
+                    self?.messageSubject.send("List with given name already exists.")
+                }
+            }
             .store(in: &cancellables)
     }
 

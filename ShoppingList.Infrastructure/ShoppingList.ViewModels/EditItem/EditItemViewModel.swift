@@ -120,8 +120,12 @@ public final class EditItemViewModel: ViewModel {
     }
 
     private func fetchLists() {
-        let lists = self.listQueries.fetchLists()
-        self.listsSubject.send(lists.map { .init($0, self.dateFormatter) })
+        listQueries.fetchLists()
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.listsSubject.send($0.map { .init($0, self.dateFormatter) })
+            }
+            .store(in: &cancellables)
     }
 
     private func bind() {

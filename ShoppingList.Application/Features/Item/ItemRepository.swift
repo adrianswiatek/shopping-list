@@ -1,4 +1,5 @@
 import ShoppingList_Domain
+import Combine
 
 public protocol ItemRepository {
     func item(with id: Id<Item>) -> Item?
