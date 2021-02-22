@@ -1,4 +1,4 @@
-public final class CommandBusSync: CommandBus {
+public final class CommandBus {
     private let commandHandler: CommandHandler
     private let commandRefiner: CommandRefiner
     private var commands: [CommandSource: Command]
@@ -33,6 +33,7 @@ public final class CommandBusSync: CommandBus {
         commandHandler.execute(command)
     }
 
+    @discardableResult
     public func remove(_ source: CommandSource) -> Command? {
         commands.removeValue(forKey: source)
     }

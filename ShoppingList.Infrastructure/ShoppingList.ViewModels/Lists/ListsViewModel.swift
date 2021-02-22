@@ -63,9 +63,7 @@ public final class ListsViewModel: ViewModel {
     }
 
     public func fetchLists() {
-        listQueries.fetchLists()
-            .sink { [weak self] in self?.listsSubject.send($0) }
-            .store(in: &cancellables)
+        listsSubject.send(listQueries.fetchLists())
     }
 
     public func fetchList(by uuid: UUID) -> List? {

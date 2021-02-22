@@ -115,17 +115,13 @@ public final class EditItemViewModel: ViewModel {
     }
 
     private func fetchCategories() {
-        let categories = self.categoryQueries.fetchCategories()
-        self.categoriesSubject.send(categories.map { .init($0) })
+        let categories = categoryQueries.fetchCategories()
+        categoriesSubject.send(categories.map { .init($0) })
     }
 
     private func fetchLists() {
-        listQueries.fetchLists()
-            .sink { [weak self] in
-                guard let self = self else { return }
-                self.listsSubject.send($0.map { .init($0, self.dateFormatter) })
-            }
-            .store(in: &cancellables)
+        let lists = listQueries.fetchLists()
+        listsSubject.send(lists.map { .init($0, self.dateFormatter) })
     }
 
     private func bind() {

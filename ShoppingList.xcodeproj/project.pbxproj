@@ -139,7 +139,6 @@
 		A781E9F025783DCF00367FCF /* AddListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A781E9EF25783DCF00367FCF /* AddListCommand.swift */; };
 		A781E9F425783E4D00367FCF /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A781E9F325783E4D00367FCF /* CommandHandler.swift */; };
 		A781E9F725783E7000367FCF /* RemoveListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A781E9F625783E7000367FCF /* RemoveListCommandHandler.swift */; };
-		A781E9FB2578449500367FCF /* CommandBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A781E9FA2578449500367FCF /* CommandBus.swift */; };
 		A782634525784DD300E4DA54 /* AddListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A782634425784DD300E4DA54 /* AddListCommandHandler.swift */; };
 		A782634C2578517700E4DA54 /* ListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A782634B2578517700E4DA54 /* ListRepository.swift */; };
 		A782B2412572F06700638F7D /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
@@ -160,8 +159,7 @@
 		A79917012582E0BE001A277A /* SettingsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79917002582E0BE001A277A /* SettingsTableView.swift */; };
 		A79D6F4A25BA0FCB00E8E135 /* RestoreItemsToBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D6F4925BA0FCB00E8E135 /* RestoreItemsToBasketCommand.swift */; };
 		A79D6F4E25BA0FF300E8E135 /* RestoreItemsToBasketCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D6F4D25BA0FF300E8E135 /* RestoreItemsToBasketCommandHandler.swift */; };
-		A79F2DBE25E2F58E0049BC4E /* CommandBusAsyncDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F2DBD25E2F58E0049BC4E /* CommandBusAsyncDecorator.swift */; };
-		A79F2DC225E2F5CE0049BC4E /* CommandBusSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F2DC125E2F5CE0049BC4E /* CommandBusSync.swift */; };
+		A79F2DC225E2F5CE0049BC4E /* CommandBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F2DC125E2F5CE0049BC4E /* CommandBus.swift */; };
 		A79F2DC625E2F7010049BC4E /* ListNotAddedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F2DC525E2F7010049BC4E /* ListNotAddedEvent.swift */; };
 		A7A7931F25B759B500E8BDFE /* BasketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A7931E25B759B500E8BDFE /* BasketViewModel.swift */; };
 		A7AF6B8A25ACFB2000D8A147 /* UpdateItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AF6B8925ACFB2000D8A147 /* UpdateItemCommand.swift */; };
@@ -561,7 +559,6 @@
 		A781E9EF25783DCF00367FCF /* AddListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListCommand.swift; sourceTree = "<group>"; };
 		A781E9F325783E4D00367FCF /* CommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandHandler.swift; sourceTree = "<group>"; };
 		A781E9F625783E7000367FCF /* RemoveListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListCommandHandler.swift; sourceTree = "<group>"; };
-		A781E9FA2578449500367FCF /* CommandBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandBus.swift; sourceTree = "<group>"; };
 		A782634425784DD300E4DA54 /* AddListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListCommandHandler.swift; sourceTree = "<group>"; };
 		A782634B2578517700E4DA54 /* ListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRepository.swift; sourceTree = "<group>"; };
 		A7888B71257ED10A00D20AE3 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
@@ -578,8 +575,7 @@
 		A79917002582E0BE001A277A /* SettingsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableView.swift; sourceTree = "<group>"; };
 		A79D6F4925BA0FCB00E8E135 /* RestoreItemsToBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreItemsToBasketCommand.swift; sourceTree = "<group>"; };
 		A79D6F4D25BA0FF300E8E135 /* RestoreItemsToBasketCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreItemsToBasketCommandHandler.swift; sourceTree = "<group>"; };
-		A79F2DBD25E2F58E0049BC4E /* CommandBusAsyncDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandBusAsyncDecorator.swift; sourceTree = "<group>"; };
-		A79F2DC125E2F5CE0049BC4E /* CommandBusSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandBusSync.swift; sourceTree = "<group>"; };
+		A79F2DC125E2F5CE0049BC4E /* CommandBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandBus.swift; sourceTree = "<group>"; };
 		A79F2DC525E2F7010049BC4E /* ListNotAddedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListNotAddedEvent.swift; sourceTree = "<group>"; };
 		A7A7931E25B759B500E8BDFE /* BasketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketViewModel.swift; sourceTree = "<group>"; };
 		A7AF6B8925ACFB2000D8A147 /* UpdateItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemCommand.swift; sourceTree = "<group>"; };
@@ -769,8 +765,8 @@
 			isa = PBXGroup;
 			children = (
 				3A4E318D2142F8A600BE1DCD /* Command.swift */,
+				A79F2DC125E2F5CE0049BC4E /* CommandBus.swift */,
 				3A4E319721430F0800BE1DCD /* CommandSource.swift */,
-				A79F2DBA25E2F5570049BC4E /* CommandBus */,
 				A79F2DBB25E2F5610049BC4E /* CommandHandler */,
 				A79F2DBC25E2F5690049BC4E /* CommandRefiner */,
 			);
@@ -1329,16 +1325,6 @@
 				A79D6F4D25BA0FF300E8E135 /* RestoreItemsToBasketCommandHandler.swift */,
 			);
 			path = RestoreItemsToBasket;
-			sourceTree = "<group>";
-		};
-		A79F2DBA25E2F5570049BC4E /* CommandBus */ = {
-			isa = PBXGroup;
-			children = (
-				A781E9FA2578449500367FCF /* CommandBus.swift */,
-				A79F2DBD25E2F58E0049BC4E /* CommandBusAsyncDecorator.swift */,
-				A79F2DC125E2F5CE0049BC4E /* CommandBusSync.swift */,
-			);
-			path = CommandBus;
 			sourceTree = "<group>";
 		};
 		A79F2DBB25E2F5610049BC4E /* CommandHandler */ = {
@@ -1915,14 +1901,12 @@
 				A7F6332225913E0D0032888B /* ClearListCommandHandler.swift in Sources */,
 				A7CDD41225AF8A2900FF776A /* ItemsCategoryUpdatedEvent.swift in Sources */,
 				A7B2225325E05D53008102A9 /* ClearListCommandRefiner.swift in Sources */,
-				A781E9FB2578449500367FCF /* CommandBus.swift in Sources */,
 				A70F36042596AFC500279242 /* RemoveItemsCategoryCommand.swift in Sources */,
 				A79D6F4E25BA0FF300E8E135 /* RestoreItemsToBasketCommandHandler.swift in Sources */,
 				A7B2225F25E07354008102A9 /* CommandHandlers.swift in Sources */,
 				A7CDD42625AF8B7700FF776A /* ConsoleEventListener.swift in Sources */,
 				A713C28525ABA68700DD5D33 /* AddItemCommandHandler.swift in Sources */,
 				A739B52C2569D22A000B16E3 /* RemoveListCommand.swift in Sources */,
-				A79F2DBE25E2F58E0049BC4E /* CommandBusAsyncDecorator.swift in Sources */,
 				A746C73225967F0A00D3CE30 /* AddItemsCategoryCommandHandler.swift in Sources */,
 				A7287E4A25C0BE0A0092A781 /* RemoveItemsCommandHandler.swift in Sources */,
 				A7CDD3F325AF776B00FF776A /* EventBus.swift in Sources */,
@@ -1943,7 +1927,7 @@
 				A7FE444025E1C0D700DC7E19 /* RestoreListCommandHandler.swift in Sources */,
 				A7287E5125C0C3530092A781 /* RestoreItemsCommandHandler.swift in Sources */,
 				A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */,
-				A79F2DC225E2F5CE0049BC4E /* CommandBusSync.swift in Sources */,
+				A79F2DC225E2F5CE0049BC4E /* CommandBus.swift in Sources */,
 				A7CDD41825AF8A8B00FF776A /* ListAddedEvent.swift in Sources */,
 				A7CDD40125AF888F00FF776A /* ListRemovedEvent.swift in Sources */,
 				A7CDD3FE25AF888800FF776A /* ItemsRemovedEvent.swift in Sources */,

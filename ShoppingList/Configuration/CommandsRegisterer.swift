@@ -25,10 +25,10 @@ public final class CommandsRegisterer {
 
     private func registerCommandBus() {
         container.register(CommandBus.self) {
-            CommandBusAsyncDecorator(CommandBusSync(
+            CommandBus(
                 commandHandler: $0.resolve(CommandHandler.self)!,
                 commandRefiner: $0.resolve(CommandRefiner.self)!
-            ))
+            )
         }.inObjectScope(.container)
     }
 
