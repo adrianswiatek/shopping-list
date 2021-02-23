@@ -1,27 +1,26 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+internal class AppDelegate: UIResponder, UIApplicationDelegate {
+    internal var window: UIWindow?
+    private let container: Container = .init()
 
-    var window: UIWindow?
-
-    func application(
+    internal func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         UINavigationBar.appearance().isTranslucent = false
-        
-        let rootViewController = ListsViewController()
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        
+
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = navigationController
+        window?.rootViewController = container.resolveRootViewController()
+
+        container.initialize()
         
         return true
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        Repository.shared.save()
+    internal func applicationWillTerminate(_ application: UIApplication) {
+//        Repository.shared.save()
     }
 }

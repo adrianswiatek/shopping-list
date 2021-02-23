@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CategoryEntity" representedClassName="CategoryEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemEntity" inverseName="category" inverseEntity="ItemEntity"/>
+    </entity>
+    <entity name="ItemEntity" representedClassName="ItemEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="info" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="state" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryEntity" inverseName="items" inverseEntity="CategoryEntity"/>
+        <relationship name="list" maxCount="1" deletionRule="Nullify" destinationEntity="ListEntity" inverseName="items" inverseEntity="ListEntity"/>
+    </entity>
+    <entity name="ItemsOrderEntity" representedClassName="ItemsOrderEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="itemsIds" optional="YES" attributeType="Binary"/>
+        <attribute name="itemsState" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="listId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListEntity" inverseName="itemsOrder" inverseEntity="ListEntity"/>
+    </entity>
+    <entity name="ListEntity" representedClassName="ListEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="accessType" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="updateDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ItemEntity" inverseName="list" inverseEntity="ItemEntity"/>
+        <relationship name="itemsOrder" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ItemsOrderEntity" inverseName="list" inverseEntity="ItemsOrderEntity"/>
+    </entity>
+    <elements>
+        <element name="CategoryEntity" positionX="173.54150390625" positionY="291.5316162109375" width="128" height="90"/>
+        <element name="ItemEntity" positionX="-71.125732421875" positionY="261.5643310546875" width="128" height="119"/>
+        <element name="ItemsOrderEntity" positionX="-399.2838134765625" positionY="475.5992126464844" width="128" height="89"/>
+        <element name="ListEntity" positionX="-356.259521484375" positionY="276.4484252929688" width="128" height="119"/>
+    </elements>
+</model>
