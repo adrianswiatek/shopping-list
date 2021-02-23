@@ -18,7 +18,7 @@ public struct ItemsCategory: Hashable {
         self.name = name
         self.itemsCount = itemsCount
     }
-    
+
     public func withName(_ name: String) -> ItemsCategory {
         .init(id: id, name: name, itemsCount: itemsCount)
     }
@@ -26,7 +26,7 @@ public struct ItemsCategory: Hashable {
     public func withItemsCount(_ itemsCount: Int) -> ItemsCategory {
         .init(id: id, name: name, itemsCount: itemsCount)
     }
-    
+
     public static func withName(_ name: String) -> ItemsCategory {
         .init(id: .random(), name: name, itemsCount: 0)
     }
