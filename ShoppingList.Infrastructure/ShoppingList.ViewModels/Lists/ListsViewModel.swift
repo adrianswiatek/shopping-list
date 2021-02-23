@@ -106,6 +106,10 @@ public final class ListsViewModel: ViewModel {
         listsSubject.value.first { $0.id.toUuid() == uuid }?.containsItemsInBasket == false
     }
 
+    public func hasList(with name: String) -> Bool {
+        listsSubject.value.first { $0.name == name } != nil
+    }
+
     private func bind() {
         eventBus.events
             .filterType(

@@ -142,6 +142,10 @@ public final class ListsViewController: UIViewController {
             guard !$0.isEmpty else { return }
             self?.viewModel.updateList(with: list.uuid, name: $0)
         }
+        controller.set(ValidationButtonRuleLeaf(
+            message: "List with given name already exists.",
+            predicate: { [weak self] in self?.viewModel.hasList(with: $0) == false }
+        ))
         present(controller, animated: true)
     }
 
