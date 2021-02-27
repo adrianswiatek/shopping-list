@@ -143,7 +143,10 @@ public final class Container {
         }.inObjectScope(.container)
 
         container.register(CoreDataStack.self) { _ in
-            CoreDataStack()
+            let modelFactory = ManagedObjectModelFactory(modelName: "ShoppingList")
+            return CommandLine.arguments.contains("-testing")
+                ? InMemoryCoreDataStack(modelFactory)
+                : SQLiteCoreDataStack(modelFactory)
         }.inObjectScope(.container)
 
         container.register(ListsService.self) {

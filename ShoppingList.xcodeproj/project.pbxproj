@@ -109,6 +109,9 @@
 		A746C72E25967EB800D3CE30 /* AddItemsCategoryCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A746C72D25967EB800D3CE30 /* AddItemsCategoryCommand.swift */; };
 		A746C73225967F0A00D3CE30 /* AddItemsCategoryCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A746C73125967F0A00D3CE30 /* AddItemsCategoryCommandHandler.swift */; };
 		A748C80D2593F1370071343C /* ManageCategoriesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A748C80C2593F1370071343C /* ManageCategoriesTableView.swift */; };
+		A74B479925EB0FA300B1C1A8 /* ManagedObjectModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B479825EB0FA300B1C1A8 /* ManagedObjectModelFactory.swift */; };
+		A74B479E25EB106D00B1C1A8 /* InMemoryCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B479D25EB106D00B1C1A8 /* InMemoryCoreDataStack.swift */; };
+		A74B47A225EB108C00B1C1A8 /* SQLiteCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74B47A125EB108C00B1C1A8 /* SQLiteCoreDataStack.swift */; };
 		A74DA51825B76333003F2B01 /* ItemInBasketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA51725B76333003F2B01 /* ItemInBasketViewModel.swift */; };
 		A74DA51B25B76E31003F2B01 /* BasketTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74DA51A25B76E31003F2B01 /* BasketTableView.swift */; };
 		A7517811259410D800757672 /* ManageCategoriesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7517810259410D800757672 /* ManageCategoriesDataSource.swift */; };
@@ -538,6 +541,9 @@
 		A746C73125967F0A00D3CE30 /* AddItemsCategoryCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsCategoryCommandHandler.swift; sourceTree = "<group>"; };
 		A748C80C2593F1370071343C /* ManageCategoriesTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesTableView.swift; sourceTree = "<group>"; };
 		A748C8102593F5860071343C /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		A74B479825EB0FA300B1C1A8 /* ManagedObjectModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectModelFactory.swift; sourceTree = "<group>"; };
+		A74B479D25EB106D00B1C1A8 /* InMemoryCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCoreDataStack.swift; sourceTree = "<group>"; };
+		A74B47A125EB108C00B1C1A8 /* SQLiteCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteCoreDataStack.swift; sourceTree = "<group>"; };
 		A74DA51725B76333003F2B01 /* ItemInBasketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemInBasketViewModel.swift; sourceTree = "<group>"; };
 		A74DA51A25B76E31003F2B01 /* BasketTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketTableView.swift; sourceTree = "<group>"; };
 		A7517810259410D800757672 /* ManageCategoriesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesDataSource.swift; sourceTree = "<group>"; };
@@ -819,6 +825,8 @@
 			isa = PBXGroup;
 			children = (
 				A75510212597D6AB0070EB62 /* CoreDataStack.swift */,
+				A74B479825EB0FA300B1C1A8 /* ManagedObjectModelFactory.swift */,
+				A74B479C25EB105F00B1C1A8 /* CoreDataStacks */,
 				3A69E41B20BA1C26004D122E /* Extensions */,
 				A75510312597F3A20070EB62 /* Repositories */,
 				3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */,
@@ -1113,6 +1121,15 @@
 				A7DBFF14259157AF00CD6B6D /* ManageCategoriesViewModel.swift */,
 			);
 			path = ManagesCategories;
+			sourceTree = "<group>";
+		};
+		A74B479C25EB105F00B1C1A8 /* CoreDataStacks */ = {
+			isa = PBXGroup;
+			children = (
+				A74B479D25EB106D00B1C1A8 /* InMemoryCoreDataStack.swift */,
+				A74B47A125EB108C00B1C1A8 /* SQLiteCoreDataStack.swift */,
+			);
+			path = CoreDataStacks;
 			sourceTree = "<group>";
 		};
 		A75510312597F3A20070EB62 /* Repositories */ = {
@@ -2035,11 +2052,14 @@
 				A75510222597D6AB0070EB62 /* CoreDataStack.swift in Sources */,
 				A739B4592569C639000B16E3 /* ItemsOrdersEntityExtensions.swift in Sources */,
 				A782B2472572F09C00638F7D /* ShoppingList.xcdatamodeld in Sources */,
+				A74B47A225EB108C00B1C1A8 /* SQLiteCoreDataStack.swift in Sources */,
+				A74B479925EB0FA300B1C1A8 /* ManagedObjectModelFactory.swift in Sources */,
 				A75510292597DA0B0070EB62 /* CoreDataListRepository.swift in Sources */,
 				A706FE832599367D00E79CF5 /* UserDefaultsAdapter.swift in Sources */,
 				A739B4602569C63D000B16E3 /* CoreDataItemRepository.swift in Sources */,
 				A739B45B2569C639000B16E3 /* CategoryEntityExtensions.swift in Sources */,
 				A755101F2597D3810070EB62 /* CoreDataItemsCategoryRepository.swift in Sources */,
+				A74B479E25EB106D00B1C1A8 /* InMemoryCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
