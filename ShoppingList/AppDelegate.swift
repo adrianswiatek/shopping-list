@@ -3,7 +3,7 @@ import UIKit
 @UIApplicationMain
 internal class AppDelegate: UIResponder, UIApplicationDelegate {
     internal var window: UIWindow?
-    private let container: Container = .init()
+    internal let container: Container = .init()
 
     internal func application(
         _ application: UIApplication,

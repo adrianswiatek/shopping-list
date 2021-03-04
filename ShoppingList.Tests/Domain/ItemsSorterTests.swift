@@ -2,7 +2,7 @@ import ShoppingList_Domain
 import XCTest
 
 final class ItemsSorterTests: XCTestCase {
-    func test_sort() {
+    func test_sort_returnsSortedItems() {
         let items: [Item] = (0 ..< 3).map {
             .toBuy(name: "Test item \($0)", info: nil, listId: .random())
         }

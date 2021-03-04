@@ -40,6 +40,10 @@
 		A7287E5125C0C3530092A781 /* RestoreItemsCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7287E5025C0C3530092A781 /* RestoreItemsCommandHandler.swift */; };
 		A7295DF5258038DD001B5963 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7295DF4258038DD001B5963 /* Coordinator.swift */; };
 		A73582EF25E1AA2A0074F338 /* RemoveItemsCategoryCommandRefiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73582EE25E1AA2A0074F338 /* RemoveItemsCategoryCommandRefiner.swift */; };
+		A737673225F17B5800F9685E /* ListsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737673125F17B5800F9685E /* ListsTest.swift */; };
+		A737673B25F1852F00F9685E /* TestContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737673725F1808D00F9685E /* TestContainer.swift */; };
+		A737674C25F18F1400F9685E /* SwinjectTestContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737674125F18BFA00F9685E /* SwinjectTestContainer.swift */; };
+		A737675425F1906400F9685E /* TestContainerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737675325F1906400F9685E /* TestContainerProvider.swift */; };
 		A739B3A32569BCD7000B16E3 /* ShoppingList_Application.h in Headers */ = {isa = PBXBuildFile; fileRef = A739B3A12569BCD7000B16E3 /* ShoppingList_Application.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A739B3C22569BFA6000B16E3 /* TextFieldWithCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */; };
 		A739B3C32569BFA6000B16E3 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
@@ -522,6 +526,10 @@
 		A7287E5025C0C3530092A781 /* RestoreItemsCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreItemsCommandHandler.swift; sourceTree = "<group>"; };
 		A7295DF4258038DD001B5963 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		A73582EE25E1AA2A0074F338 /* RemoveItemsCategoryCommandRefiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveItemsCategoryCommandRefiner.swift; sourceTree = "<group>"; };
+		A737673125F17B5800F9685E /* ListsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTest.swift; sourceTree = "<group>"; };
+		A737673725F1808D00F9685E /* TestContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContainer.swift; sourceTree = "<group>"; };
+		A737674125F18BFA00F9685E /* SwinjectTestContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwinjectTestContainer.swift; sourceTree = "<group>"; };
+		A737675325F1906400F9685E /* TestContainerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContainerProvider.swift; sourceTree = "<group>"; };
 		A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_Application.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A739B3A12569BCD7000B16E3 /* ShoppingList_Application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingList_Application.h; sourceTree = "<group>"; };
 		A739B3A22569BCD7000B16E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -975,6 +983,22 @@
 			path = RestoreItems;
 			sourceTree = "<group>";
 		};
+		A737672D25F1792000F9685E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				A737673025F17B2F00F9685E /* Lists */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		A737673025F17B2F00F9685E /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				A737673125F17B5800F9685E /* ListsTest.swift */,
+			);
+			path = Lists;
+			sourceTree = "<group>";
+		};
 		A739B3A02569BCD7000B16E3 /* ShoppingList.Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -1089,8 +1113,10 @@
 		A73DC8B825E5B6D800C9BA66 /* ShoppingList.Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A73DC8C525E5B6F000C9BA66 /* Domain */,
 				A73DC8BB25E5B6D800C9BA66 /* Info.plist */,
+				A737675325F1906400F9685E /* TestContainerProvider.swift */,
+				A737672D25F1792000F9685E /* Application */,
+				A73DC8C525E5B6F000C9BA66 /* Domain */,
 			);
 			path = ShoppingList.Tests;
 			sourceTree = "<group>";
@@ -1522,6 +1548,8 @@
 			children = (
 				A706FE8E2599532600E79CF5 /* CommandsRegisterer.swift */,
 				A7888B71257ED10A00D20AE3 /* Container.swift */,
+				A737674125F18BFA00F9685E /* SwinjectTestContainer.swift */,
+				A737673725F1808D00F9685E /* TestContainer.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -1947,7 +1975,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A392E38207A5A3C005857E5 /* AppDelegate.swift in Sources */,
+				A737673B25F1852F00F9685E /* TestContainer.swift in Sources */,
 				A7D5953125D484AD00E85F94 /* CommandsRegisterer.swift in Sources */,
+				A737674C25F18F1400F9685E /* SwinjectTestContainer.swift in Sources */,
 				A7D5953025D484AD00E85F94 /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2076,7 +2106,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A73DC8D025E5B92D00C9BA66 /* ListNameGeneratorTests.swift in Sources */,
+				A737673225F17B5800F9685E /* ListsTest.swift in Sources */,
 				A73DC8C925E5B91C00C9BA66 /* ItemsSorterTests.swift in Sources */,
+				A737675425F1906400F9685E /* TestContainerProvider.swift in Sources */,
 				A73DC8D625E5B93C00C9BA66 /* SharedItemFormatterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2411,7 +2443,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-beta";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2431,7 +2463,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-beta";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

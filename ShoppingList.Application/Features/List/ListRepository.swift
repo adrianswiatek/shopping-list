@@ -6,4 +6,5 @@ public protocol ListRepository {
     func add(_ list: List)
     func update(_ list: List)
     func remove(by id: Id<List>)
+    func removeAll()
 }
