@@ -13,7 +13,7 @@ public struct ItemsCategory: Hashable {
         .init(id: .fromUuid(Constant.defaultUuid), name: "", itemsCount: 0)
     }
 
-    public init(id: Id<ItemsCategory>, name: String, itemsCount: Int) {
+    public init(id: Id<ItemsCategory>, name: String, itemsCount: Int = 0) {
         self.id = id
         self.name = name
         self.itemsCount = itemsCount

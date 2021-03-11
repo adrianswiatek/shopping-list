@@ -6,6 +6,7 @@ final class ListsTests: XCTestCase {
     private var commandBus: CommandBus!
     private var eventBus: EventBus!
     private var listRepository: ListRepository!
+    private var itemRepository: ItemRepository!
 
     override func setUp() {
         super.setUp()
@@ -14,11 +15,13 @@ final class ListsTests: XCTestCase {
         self.commandBus = testContainer.resolve(CommandBus.self)
         self.eventBus = testContainer.resolve(EventBus.self)
         self.listRepository = testContainer.resolve(ListRepository.self)
+        self.itemRepository = testContainer.resolve(ItemRepository.self)
     }
 
     override func tearDown() {
         self.listRepository.removeAll()
 
+        self.itemRepository = nil
         self.listRepository = nil
         self.eventBus = nil
         self.commandBus = nil
@@ -60,5 +63,31 @@ final class ListsTests: XCTestCase {
         let lists = listRepository.allLists()
         XCTAssertTrue(lists.contains { $0.name == finalListName })
         XCTAssertFalse(lists.contains { $0.name == initialListName })
+    }
+
+    func test_can_remove_items_from_the_list() {
+        let list = List(id: .random(), name: "Test List", accessType: .private, items: [])
+        listRepository.add(list)
+
+        let item = Item(id: .random(), name: "Test Item", info: "", state: .toBuy, categoryId: nil, listId: list.id)
+        itemRepository.addItems([item])
+
+        commandBus.execute(ClearListCommand(list.id))
+
+        let updatedList = listRepository.list(with: list.id)
+        XCTAssertTrue(updatedList?.items.count == 0)
+    }
+
+    func test_can_remove_item_from_the_basket() {
+        let list = List(id: .random(), name: "Test List", accessType: .private, items: [])
+        listRepository.add(list)
+
+        let item = Item(id: .random(), name: "Test Item", info: "", state: .inBasket, categoryId: nil, listId: list.id)
+        itemRepository.addItems([item])
+
+        commandBus.execute(ClearBasketOfListCommand(list.id))
+
+        let updatedList = listRepository.list(with: list.id)
+        XCTAssertTrue(updatedList?.items.count == 0)
     }
 }

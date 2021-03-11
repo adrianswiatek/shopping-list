@@ -32,6 +32,7 @@
 		A70F360D2596B53600279242 /* ItemsCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F360C2596B53600279242 /* ItemsCategoryService.swift */; };
 		A713C28225ABA67D00DD5D33 /* AddItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713C28125ABA67D00DD5D33 /* AddItemCommand.swift */; };
 		A713C28525ABA68700DD5D33 /* AddItemCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A713C28425ABA68700DD5D33 /* AddItemCommandHandler.swift */; };
+		A71D3C2425FAC2F700A2E24F /* ItemsCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D3C2325FAC2F700A2E24F /* ItemsCategoryTests.swift */; };
 		A727CCA125BA0CD300D53866 /* RemoveItemsFromBasketCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A727CCA025BA0CD300D53866 /* RemoveItemsFromBasketCommand.swift */; };
 		A727CCA525BA0CDA00D53866 /* RemoveItemsFromBasketCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A727CCA425BA0CDA00D53866 /* RemoveItemsFromBasketCommandHandler.swift */; };
 		A7287E4625C0BDFF0092A781 /* RemoveItemsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7287E4525C0BDFF0092A781 /* RemoveItemsCommand.swift */; };
@@ -518,6 +519,7 @@
 		A70F360C2596B53600279242 /* ItemsCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCategoryService.swift; sourceTree = "<group>"; };
 		A713C28125ABA67D00DD5D33 /* AddItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemCommand.swift; sourceTree = "<group>"; };
 		A713C28425ABA68700DD5D33 /* AddItemCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemCommandHandler.swift; sourceTree = "<group>"; };
+		A71D3C2325FAC2F700A2E24F /* ItemsCategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsCategoryTests.swift; sourceTree = "<group>"; };
 		A727CCA025BA0CD300D53866 /* RemoveItemsFromBasketCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveItemsFromBasketCommand.swift; sourceTree = "<group>"; };
 		A727CCA425BA0CDA00D53866 /* RemoveItemsFromBasketCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveItemsFromBasketCommandHandler.swift; sourceTree = "<group>"; };
 		A7287E4525C0BDFF0092A781 /* RemoveItemsCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveItemsCommand.swift; sourceTree = "<group>"; };
@@ -986,17 +988,10 @@
 		A737672D25F1792000F9685E /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				A737673025F17B2F00F9685E /* Lists */,
-			);
-			path = Application;
-			sourceTree = "<group>";
-		};
-		A737673025F17B2F00F9685E /* Lists */ = {
-			isa = PBXGroup;
-			children = (
+				A71D3C2325FAC2F700A2E24F /* ItemsCategoryTests.swift */,
 				A737673125F17B5800F9685E /* ListsTest.swift */,
 			);
-			path = Lists;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		A739B3A02569BCD7000B16E3 /* ShoppingList.Application */ = {
@@ -2109,6 +2104,7 @@
 				A737673225F17B5800F9685E /* ListsTest.swift in Sources */,
 				A73DC8C925E5B91C00C9BA66 /* ItemsSorterTests.swift in Sources */,
 				A737675425F1906400F9685E /* TestContainerProvider.swift in Sources */,
+				A71D3C2425FAC2F700A2E24F /* ItemsCategoryTests.swift in Sources */,
 				A73DC8D625E5B93C00C9BA66 /* SharedItemFormatterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2443,7 +2439,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-beta";
+				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2463,7 +2459,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-beta";
+				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
