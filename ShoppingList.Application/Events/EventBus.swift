@@ -1,14 +1,12 @@
 import Combine
 
 public final class EventBus {
-    public var events: AnyPublisher<Event, Never> {
-        eventsSubject.share().eraseToAnyPublisher()
-    }
-
+    public let events: AnyPublisher<Event, Never>
     private let eventsSubject: PassthroughSubject<Event, Never>
 
     public init() {
         eventsSubject = .init()
+        events = eventsSubject.share().eraseToAnyPublisher()
     }
 
     public func send(_ event: Event) {

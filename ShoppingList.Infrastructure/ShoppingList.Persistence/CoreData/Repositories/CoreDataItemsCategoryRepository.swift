@@ -40,6 +40,17 @@ public final class CoreDataItemsCategoryRepository: ItemsCategoryRepository {
         coreData.save()
     }
 
+    public func removeAll() {
+        let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        let categoryEntities = try? coreData.context.fetch(request)
+
+        for categoryEntity in categoryEntities ?? [] {
+            coreData.context.delete(categoryEntity)
+        }
+
+        coreData.save()
+    }
+
     private func categoryEntity(with id: Id<ItemsCategory>) -> CategoryEntity? {
         let request: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id.toString())

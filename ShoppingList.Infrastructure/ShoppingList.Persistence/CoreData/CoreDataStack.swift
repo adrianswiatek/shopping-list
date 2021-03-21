@@ -1,31 +1,15 @@
 import CoreData
 
-public final class CoreDataStack {
-    public lazy var persistentContainer: NSPersistentContainer = {
-        guard
-            let url = bundle.url(forResource: "ShoppingList", withExtension: "momd"),
-            let objectModel = NSManagedObjectModel(contentsOf: url)
-        else {
-            fatalError("Unable to load managed object model.")
-        }
+public protocol CoreDataStack {
+    var persistentContainer: NSPersistentContainer { get }
+    var context: NSManagedObjectContext { get }
+    func save()
+}
 
-        let container = NSPersistentContainer(name: "ShoppingList", managedObjectModel: objectModel)
-        container.loadPersistentStores(completionHandler: {
-            guard let error = $1 as NSError? else { return }
-            fatalError("Unresolved error \(error), \(error.userInfo)")
-        })
-        return container
-    }()
-
+extension CoreDataStack {
     public var context: NSManagedObjectContext {
         persistentContainer.viewContext
     }
-
-    private var bundle: Bundle {
-        .init(for: Self.self)
-    }
-
-    public init() {}
 
     public func save() {
         guard context.hasChanges else { return }

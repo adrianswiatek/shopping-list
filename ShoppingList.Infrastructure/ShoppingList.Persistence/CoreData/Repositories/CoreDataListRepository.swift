@@ -57,6 +57,17 @@ public final class CoreDataListRepository: ListRepository {
         coreData.save()
     }
 
+    public func removeAll() {
+        let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
+        let itemEntities = try? coreData.context.fetch(request)
+
+        for itemEntity in itemEntities ?? [] {
+            coreData.context.delete(itemEntity)
+        }
+
+        coreData.save()
+    }
+
     private func listEntity(with listId: Id<List>) -> ListEntity? {
         let request: NSFetchRequest<ListEntity> = ListEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", listId.toString())

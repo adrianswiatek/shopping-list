@@ -14,13 +14,22 @@ public final class UpdateItemsCategoryCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: Command) -> Bool {
-        command is UpdateItemsCategoryCommand
+        guard let command = command as? UpdateItemsCategoryCommand else {
+            return false
+        }
+
+        let categoryWithGivenName = categoryRepository.allCategories().first {
+            $0.name == command.name
+        }
+        return categoryWithGivenName == nil
     }
 
     public func execute(_ command: Command) {
+        guard canExecute(command), let command = command as? UpdateItemsCategoryCommand else {
+            preconditionFailure("Cannot execute given command.")
+        }
+
         guard
-            canExecute(command),
-            let command = command as? UpdateItemsCategoryCommand,
             let categoryBeforeUpdate = categoryRepository.category(with: command.id),
             categoryBeforeUpdate.name != command.name
         else {

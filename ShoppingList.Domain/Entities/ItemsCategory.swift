@@ -13,12 +13,12 @@ public struct ItemsCategory: Hashable {
         .init(id: .fromUuid(Constant.defaultUuid), name: "", itemsCount: 0)
     }
 
-    public init(id: Id<ItemsCategory>, name: String, itemsCount: Int) {
+    public init(id: Id<ItemsCategory>, name: String, itemsCount: Int = 0) {
         self.id = id
         self.name = name
         self.itemsCount = itemsCount
     }
-    
+
     public func withName(_ name: String) -> ItemsCategory {
         .init(id: id, name: name, itemsCount: itemsCount)
     }
@@ -26,7 +26,7 @@ public struct ItemsCategory: Hashable {
     public func withItemsCount(_ itemsCount: Int) -> ItemsCategory {
         .init(id: id, name: name, itemsCount: itemsCount)
     }
-    
+
     public static func withName(_ name: String) -> ItemsCategory {
         .init(id: .random(), name: name, itemsCount: 0)
     }

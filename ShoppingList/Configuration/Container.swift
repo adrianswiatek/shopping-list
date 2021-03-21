@@ -26,6 +26,10 @@ public final class Container {
         container.resolve(AppCoordinator.self)!.navigationController
     }
 
+    public func resolveTestContainer() -> TestContainer {
+        container.resolve(TestContainer.self)!
+    }
+
     public func initialize() {
         container.resolve(CommandBus.self)!.execute(AddDefaultItemsCategoryCommand())
         container.resolve(AppCoordinator.self)!.start()
@@ -143,7 +147,10 @@ public final class Container {
         }.inObjectScope(.container)
 
         container.register(CoreDataStack.self) { _ in
-            CoreDataStack()
+            let modelFactory = ManagedObjectModelFactory(modelName: "ShoppingList")
+            return CommandLine.arguments.contains("-testing")
+                ? InMemoryCoreDataStack(modelFactory)
+                : SQLiteCoreDataStack(modelFactory)
         }.inObjectScope(.container)
 
         container.register(ListsService.self) {
@@ -183,5 +190,9 @@ public final class Container {
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])
         }
+
+        container.register(TestContainer.self) { _ in
+            SwinjectTestContainer(self.container)
+        }.inObjectScope(.container)
     }
 }

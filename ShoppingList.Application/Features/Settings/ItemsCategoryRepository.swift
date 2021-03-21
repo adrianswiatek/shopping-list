@@ -6,4 +6,5 @@ public protocol ItemsCategoryRepository {
     func add(_ category: ItemsCategory)
     func update(_ category: ItemsCategory)
     func remove(by id: Id<ItemsCategory>)
+    func removeAll()
 }

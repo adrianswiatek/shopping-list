@@ -15,6 +15,7 @@ public struct SharedItemsFormatter {
                 let items = $1.map { composeEntry(for: $0) }
                 return ([category] + items).joined(separator: separator)
             }
+            .sorted()
             .joined(separator: separator)
     }
 
