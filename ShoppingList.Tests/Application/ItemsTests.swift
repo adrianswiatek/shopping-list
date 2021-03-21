@@ -4,7 +4,6 @@ import XCTest
 
 final class ItemsTests: XCTestCase {
     private var commandBus: CommandBus!
-    private var eventBus: EventBus!
     private var itemQueries: ItemQueries!
     private var itemRepository: ItemRepository!
     private var listRepository: ListRepository!
@@ -15,7 +14,6 @@ final class ItemsTests: XCTestCase {
 
         let testContainer = TestContainerProvider.provide()
         self.commandBus = testContainer.resolve(CommandBus.self)
-        self.eventBus = testContainer.resolve(EventBus.self)
         self.itemQueries = testContainer.resolve(ItemQueries.self)
         self.itemRepository = testContainer.resolve(ItemRepository.self)
         self.listRepository = testContainer.resolve(ListRepository.self)
@@ -29,7 +27,6 @@ final class ItemsTests: XCTestCase {
         self.listRepository = nil
         self.itemRepository = nil
         self.itemQueries = nil
-        self.eventBus = nil
         self.commandBus = nil
 
         super.tearDown()
@@ -155,7 +152,6 @@ final class ItemsTests: XCTestCase {
         XCTAssertEqual(itemsToBuy.count, 0)
 
         let itemsInBasket = itemRepository.itemsWithState(.inBasket, inListWithId: list.id)
-        XCTAssertEqual(itemsInBasket.count, 3)
         XCTAssertTrue(itemsInBasket.contains { $0.id == items[0].id })
         XCTAssertTrue(itemsInBasket.contains { $0.id == items[1].id })
         XCTAssertTrue(itemsInBasket.contains { $0.id == items[2].id })
@@ -195,5 +191,40 @@ final class ItemsTests: XCTestCase {
 
         let itemsToBuy = itemQueries.fetchItemsToBuyFromList(with: list.id)
         XCTAssertEqual(itemsToBuy.map { $0.id }, orderedItems.map { $0.id })
+    }
+
+    func test_can_move_item_to_other_category() {
+        let list = List(id: .random(), name: "Test list", accessType: .private, items: [])
+        listRepository.add(list)
+
+        let item = Item(id: .random(), name: "Test item", info: "", state: .toBuy, categoryId: nil, listId: list.id)
+        itemRepository.addItems([item])
+
+        let category = ItemsCategory(id: .random(), name: "Test category")
+        categoryRepository.add(category)
+
+        commandBus.execute(UpdateItemCommand(item.id, item.name, item.info ?? "", category.id, item.listId))
+
+        let items = itemRepository.itemsWithState(.toBuy, inListWithId: list.id)
+        XCTAssertTrue(items.first?.categoryId == category.id)
+    }
+
+    func test_can_move_item_to_other_list() {
+        let list1 = List(id: .random(), name: "Test list 1", accessType: .private, items: [])
+        listRepository.add(list1)
+
+        let list2 = List(id: .random(), name: "Test list 2", accessType: .private, items: [])
+        listRepository.add(list2)
+
+        let item = Item(id: .random(), name: "Test item", info: "", state: .toBuy, categoryId: nil, listId: list1.id)
+        itemRepository.addItems([item])
+
+        commandBus.execute(UpdateItemCommand(item.id, item.name, item.info ?? "", item.categoryId, list2.id))
+
+        let itemsInList2 = itemRepository.itemsWithState(.toBuy, inListWithId: list2.id)
+        XCTAssertTrue(itemsInList2.contains { $0.id == item.id })
+
+        let itemsInList1 = itemRepository.itemsWithState(.toBuy, inListWithId: list1.id)
+        XCTAssertFalse(itemsInList1.contains { $0.id == item.id })
     }
 }
