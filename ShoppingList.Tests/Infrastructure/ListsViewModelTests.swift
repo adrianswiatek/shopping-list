@@ -35,7 +35,7 @@ final class ListsViewModelTests: XCTestCase {
         sut.listsPublisher
             .dropFirst()
             .sink {
-                publishedLists = $0;
+                publishedLists = $0
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -58,8 +58,7 @@ final class ListsViewModelTests: XCTestCase {
         sut.listsPublisher
             .dropFirst()
             .sink {
-                print($0.count)
-                publishedLists = $0;
+                publishedLists = $0
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -80,7 +79,7 @@ final class ListsViewModelTests: XCTestCase {
         sut.listsPublisher
             .dropFirst(1)
             .sink {
-                publishedLists = $0;
+                publishedLists = $0
                 expectation.fulfill()
             }
             .store(in: &cancellables)
@@ -102,7 +101,7 @@ final class ListsViewModelTests: XCTestCase {
         sut.listsPublisher
             .dropFirst(1)
             .sink {
-                publishedLists = $0;
+                publishedLists = $0
                 expectation.fulfill()
             }
             .store(in: &cancellables)

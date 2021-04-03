@@ -108,12 +108,11 @@ final class ItemsCategoryTests: XCTestCase {
 
     func test_can_edit_default_category_name() {
         let defaultCategoryId = ItemsCategory.default.id
-        let newCategoryName = "New category name"
 
         commandBus.execute(AddDefaultItemsCategoryCommand())
         commandBus.execute(UpdateItemsCategoryCommand(defaultCategoryId, "New category name"))
 
         let categories = categoryQueries.fetchCategories()
-        XCTAssertEqual(categories.first { $0.isDefault }!.name, newCategoryName)
+        XCTAssertEqual(categories.first { $0.isDefault }!.name, "New category name")
     }
 }

@@ -173,7 +173,7 @@ public final class Container {
         }
 
         container.register(LocalPreferences.self) { _ in
-            UserDefaultsAdapter(.standard)
+            UserDefaultsAdapter(CommandLine.arguments.contains("-testing") ? .init() : .standard)
         }
 
         container.register(AppCoordinator.self) {

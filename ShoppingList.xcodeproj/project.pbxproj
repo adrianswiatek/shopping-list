@@ -45,6 +45,7 @@
 		A737673B25F1852F00F9685E /* TestContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737673725F1808D00F9685E /* TestContainer.swift */; };
 		A737674C25F18F1400F9685E /* SwinjectTestContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737674125F18BFA00F9685E /* SwinjectTestContainer.swift */; };
 		A737675425F1906400F9685E /* TestContainerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737675325F1906400F9685E /* TestContainerProvider.swift */; };
+		A7384A8D26190D3900B8C274 /* ManageCategoriesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7384A8C26190D3900B8C274 /* ManageCategoriesViewModelTests.swift */; };
 		A739B3A32569BCD7000B16E3 /* ShoppingList_Application.h in Headers */ = {isa = PBXBuildFile; fileRef = A739B3A12569BCD7000B16E3 /* ShoppingList_Application.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A739B3C22569BFA6000B16E3 /* TextFieldWithCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6211C20C0542A00A16F0E /* TextFieldWithCancel.swift */; };
 		A739B3C32569BFA6000B16E3 /* CancelButtonAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A972EC1207A8A1000963961 /* CancelButtonAnimations.swift */; };
@@ -535,6 +536,7 @@
 		A737673725F1808D00F9685E /* TestContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContainer.swift; sourceTree = "<group>"; };
 		A737674125F18BFA00F9685E /* SwinjectTestContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwinjectTestContainer.swift; sourceTree = "<group>"; };
 		A737675325F1906400F9685E /* TestContainerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContainerProvider.swift; sourceTree = "<group>"; };
+		A7384A8C26190D3900B8C274 /* ManageCategoriesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCategoriesViewModelTests.swift; sourceTree = "<group>"; };
 		A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_Application.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A739B3A12569BCD7000B16E3 /* ShoppingList_Application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingList_Application.h; sourceTree = "<group>"; };
 		A739B3A22569BCD7000B16E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 			isa = PBXGroup;
 			children = (
 				A76D729F2607F5070012A7CD /* ListsViewModelTests.swift */,
+				A7384A8C26190D3900B8C274 /* ManageCategoriesViewModelTests.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -2128,6 +2131,7 @@
 				A737675425F1906400F9685E /* TestContainerProvider.swift in Sources */,
 				A71D3C2425FAC2F700A2E24F /* ItemsCategoryTests.swift in Sources */,
 				A73DC8D625E5B93C00C9BA66 /* SharedItemFormatterTests.swift in Sources */,
+				A7384A8D26190D3900B8C274 /* ManageCategoriesViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
