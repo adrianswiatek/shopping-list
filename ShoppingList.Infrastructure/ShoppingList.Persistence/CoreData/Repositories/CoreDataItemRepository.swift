@@ -100,6 +100,17 @@ public final class CoreDataItemRepository: ItemRepository {
         entities.forEach { coreData.context.delete($0) }
         coreData.save()
     }
+
+    public func removeAll() {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        let entities = try? coreData.context.fetch(request)
+
+        for entity in entities ?? [] {
+            coreData.context.delete(entity)
+        }
+
+        coreData.save()
+    }
     
     public func updateStateOfItems(with ids: [Id<Item>], to state: ItemState) {
         let entities = itemEntities(with: ids)
