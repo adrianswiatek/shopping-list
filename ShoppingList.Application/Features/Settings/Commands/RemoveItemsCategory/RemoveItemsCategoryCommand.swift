@@ -17,7 +17,7 @@ public struct RemoveItemsCategoryCommand: Command {
     }
 
     public func reversed() -> Command? {
-        !itemIds.isEmpty ? RestoreItemsCategoryCommand(itemsCategory, itemIds) : nil
+        RestoreItemsCategoryCommand(itemsCategory, itemIds)
     }
 
     internal func withItemIds(_ itemIds: [Id<Item>]) -> Command {

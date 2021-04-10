@@ -12,7 +12,9 @@ public protocol ItemRepository {
     func numberOfItemsInList(with id: Id<List>) -> Int
 
     func addItems(_ items: [Item])
+
     func removeItems(with ids: [Id<Item>])
+    func removeAll()
 
     func updateStateOfItems(with ids: [Id<Item>], to state: ItemState)
     func updateState(of item: Item, to state: ItemState)
