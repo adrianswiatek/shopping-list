@@ -3,7 +3,7 @@ import ShoppingList_ViewModels
 import Combine
 import UIKit
 
-public protocol ListsViewControllerDelegate: class {
+public protocol ListsViewControllerDelegate: AnyObject {
     func goToSettings()
     func goToItems(from list: ListViewModel)
 }

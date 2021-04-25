@@ -4,7 +4,7 @@ import ShoppingList_ViewModels
 import Combine
 import UIKit
 
-public protocol SettingsViewControllerDelegate: class {
+public protocol SettingsViewControllerDelegate: AnyObject {
     func close()
     func openSetting()
 }

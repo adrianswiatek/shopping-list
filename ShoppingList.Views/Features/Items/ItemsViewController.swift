@@ -3,7 +3,7 @@ import ShoppingList_ViewModels
 import Combine
 import UIKit
 
-public protocol ItemsViewControllerDelegate: class {
+public protocol ItemsViewControllerDelegate: AnyObject {
     func goToBasket()
     func goToEditItem(_ item: ItemToBuyViewModel)
     func goToCreateItem()

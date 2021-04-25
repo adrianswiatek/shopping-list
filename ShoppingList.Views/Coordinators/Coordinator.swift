@@ -1,6 +1,6 @@
 import UIKit
 
-public protocol Coordinator: class {
+public protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get }
     var childCoordinators: [Coordinator] { get }
 
