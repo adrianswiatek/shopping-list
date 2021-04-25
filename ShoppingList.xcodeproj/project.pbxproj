@@ -21,7 +21,7 @@
 		A706FE8B25994DDE00E79CF5 /* AddDefaultItemsCategoryCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE8A25994DDE00E79CF5 /* AddDefaultItemsCategoryCommandHandler.swift */; };
 		A70989F725A26E53002CEADE /* Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70989F625A26E53002CEADE /* Id.swift */; };
 		A70B2EDF257AC9860082AAB2 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
-		A70B2EE0257AC9860082AAB2 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A70B2EE0257AC9860082AAB2 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A70B2EE9257ADE7C0082AAB2 /* ListsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B2EE8257ADE7C0082AAB2 /* ListsDataSource.swift */; };
 		A70B2EEE257AE09C0082AAB2 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B2EED257AE09C0082AAB2 /* UITableViewCell.swift */; };
 		A70B2EF1257AE1310082AAB2 /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B2EF0257AE1310082AAB2 /* ReuseIdentifiable.swift */; };
@@ -82,7 +82,7 @@
 		A739B4E82569CFAA000B16E3 /* ManageCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF04E9820D2FA6000938F13 /* ManageCategoriesTableViewCell.swift */; };
 		A739B4EF2569CFB1000B16E3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */; };
 		A739B5062569D1B2000B16E3 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
-		A739B5072569D1B2000B16E3 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A739B5072569D1B2000B16E3 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A739B5262569D22A000B16E3 /* CommandSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E319721430F0800BE1DCD /* CommandSource.swift */; };
 		A739B52A2569D22A000B16E3 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4E318D2142F8A600BE1DCD /* Command.swift */; };
 		A739B52C2569D22A000B16E3 /* RemoveListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A92DFDA2149BA7B009EA5B7 /* RemoveListCommand.swift */; };
@@ -98,15 +98,15 @@
 		A739B5752569DD52000B16E3 /* ShoppingList_Shared.h in Headers */ = {isa = PBXBuildFile; fileRef = A739B5732569DD52000B16E3 /* ShoppingList_Shared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A739B5812569DD5F000B16E3 /* configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7640F3925699F31000D882B /* configure.swift */; };
 		A739B58A2569DD85000B16E3 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
-		A739B58B2569DD85000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A739B58B2569DD85000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A739B5922569DD94000B16E3 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
-		A739B5932569DD94000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A739B5932569DD94000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A739B5972569DD99000B16E3 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
-		A739B5982569DD99000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A739B5982569DD99000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A739B59E2569DDA1000B16E3 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
-		A739B59F2569DDA1000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A739B59F2569DDA1000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A739B5A42569DDA5000B16E3 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
-		A739B5A52569DDA5000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A739B5A52569DDA5000B16E3 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A73B32D425BE1D060082A7DE /* ItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73B32D325BE1D060082A7DE /* ItemsDataSource.swift */; };
 		A73DC8C925E5B91C00C9BA66 /* ItemsSorterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DC8C825E5B91C00C9BA66 /* ItemsSorterTests.swift */; };
 		A73DC8D025E5B92D00C9BA66 /* ListNameGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73DC8CF25E5B92D00C9BA66 /* ListNameGeneratorTests.swift */; };
@@ -130,7 +130,7 @@
 		A7640F672569B5FD000D882B /* ShoppingList_ViewModels.h in Headers */ = {isa = PBXBuildFile; fileRef = A7640F652569B5FD000D882B /* ShoppingList_ViewModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7640F742569B67A000D882B /* ListsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7640F732569B67A000D882B /* ListsViewModel.swift */; };
 		A7640F782569B792000D882B /* ShoppingList_ViewModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; };
-		A7640F792569B792000D882B /* ShoppingList_ViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7640F792569B792000D882B /* ShoppingList_ViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7640F812569B88F000D882B /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAEF1320DD8A1F00E58C00 /* ListsViewController.swift */; };
 		A7640F822569B88F000D882B /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFAEF1B20DDA05500E58C00 /* ListsTableViewCell.swift */; };
 		A7640F8F2569B8EA000D882B /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7640F8E2569B8EA000D882B /* UIColorExtensions.swift */; };
@@ -157,10 +157,10 @@
 		A782634525784DD300E4DA54 /* AddListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A782634425784DD300E4DA54 /* AddListCommandHandler.swift */; };
 		A782634C2578517700E4DA54 /* ListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A782634B2578517700E4DA54 /* ListRepository.swift */; };
 		A782B2412572F06700638F7D /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
-		A782B2422572F06700638F7D /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A782B2422572F06700638F7D /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A782B2472572F09C00638F7D /* ShoppingList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A69E41520BA01AF004D122E /* ShoppingList.xcdatamodeld */; };
 		A788610025759BDF00A0684C /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
-		A788610125759BDF00A0684C /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A788610125759BDF00A0684C /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7888B77257ED65500D20AE3 /* ListsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7888B76257ED65500D20AE3 /* ListsCoordinator.swift */; };
 		A790ED0F26029BAB0077B2FD /* ItemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A790ED0E26029BAB0077B2FD /* ItemsTests.swift */; };
 		A791130825DB1BE50071E831 /* ItemsMovedToBasketEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A791130725DB1BE50071E831 /* ItemsMovedToBasketEvent.swift */; };
@@ -182,7 +182,7 @@
 		A7AF6B8A25ACFB2000D8A147 /* UpdateItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AF6B8925ACFB2000D8A147 /* UpdateItemCommand.swift */; };
 		A7AF6B8D25ACFB9300D8A147 /* UpdateItemCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AF6B8C25ACFB9300D8A147 /* UpdateItemCommandHandler.swift */; };
 		A7B209F9257857CB003FAAFB /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
-		A7B209FA257857CB003FAAFB /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7B209FA257857CB003FAAFB /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7B2224D25E059CA008102A9 /* RestoreListItemsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2224C25E059CA008102A9 /* RestoreListItemsCommand.swift */; };
 		A7B2225025E05AB9008102A9 /* RestoreListItemsCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2224F25E05AB9008102A9 /* RestoreListItemsCommandHandler.swift */; };
 		A7B2225325E05D53008102A9 /* ClearListCommandRefiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2225225E05D53008102A9 /* ClearListCommandRefiner.swift */; };
@@ -213,17 +213,17 @@
 		A7D5953125D484AD00E85F94 /* CommandsRegisterer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A706FE8E2599532600E79CF5 /* CommandsRegisterer.swift */; };
 		A7D5953625D484E000E85F94 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = A7D5953525D484E000E85F94 /* Swinject */; };
 		A7D5953725D484E000E85F94 /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; };
-		A7D5953825D484E000E85F94 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5953825D484E000E85F94 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7D5953B25D484E000E85F94 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; };
-		A7D5953C25D484E000E85F94 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5953C25D484E000E85F94 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7D5953F25D484E000E85F94 /* ShoppingList_Persistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; };
-		A7D5954025D484E000E85F94 /* ShoppingList_Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5954025D484E000E85F94 /* ShoppingList_Persistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7D5954325D484E000E85F94 /* ShoppingList_Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; };
-		A7D5954425D484E000E85F94 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5954425D484E000E85F94 /* ShoppingList_Shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7D5954725D484E000E85F94 /* ShoppingList_ViewModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; };
-		A7D5954825D484E000E85F94 /* ShoppingList_ViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5954825D484E000E85F94 /* ShoppingList_ViewModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F632569B5FD000D882B /* ShoppingList_ViewModels.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7D5954B25D484E000E85F94 /* ShoppingList_Views.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; };
-		A7D5954C25D484E000E85F94 /* ShoppingList_Views.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7D5954C25D484E000E85F94 /* ShoppingList_Views.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640F4A2569B46A000D882B /* ShoppingList_Views.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A7DBFF15259157AF00CD6B6D /* ManageCategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DBFF14259157AF00CD6B6D /* ManageCategoriesViewModel.swift */; };
 		A7DE7FD125D87DBA0045CB8C /* UpdateItemsOrderListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DE7FD025D87DBA0045CB8C /* UpdateItemsOrderListener.swift */; };
 		A7F4D80C259FD7E900EDA252 /* ItemsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F4D80B259FD7E900EDA252 /* ItemsCoordinator.swift */; };
@@ -2346,6 +2346,7 @@
 		3A392E4F207A5A3D005857E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -2380,6 +2381,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2408,6 +2410,7 @@
 		3A392E50207A5A3D005857E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -2442,6 +2445,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2464,9 +2468,10 @@
 		3A392E52207A5A3D005857E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ShoppingList/ShoppingList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
@@ -2485,9 +2490,10 @@
 		3A392E53207A5A3D005857E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ShoppingList/ShoppingList.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
@@ -2506,6 +2512,7 @@
 		A739B3A92569BCD7000B16E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2538,6 +2545,7 @@
 		A739B3AA2569BCD7000B16E3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2569,6 +2577,7 @@
 		A739B4472569C617000B16E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2601,6 +2610,7 @@
 		A739B4482569C617000B16E3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2743,6 +2753,7 @@
 		A7640F552569B46A000D882B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2775,6 +2786,7 @@
 		A7640F562569B46A000D882B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2806,6 +2818,7 @@
 		A7640F6D2569B5FD000D882B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -2840,6 +2853,7 @@
 		A7640F6E2569B5FD000D882B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
