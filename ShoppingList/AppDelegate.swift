@@ -19,8 +19,4 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
-    internal func applicationWillTerminate(_ application: UIApplication) {
-//        Repository.shared.save()
-    }
 }

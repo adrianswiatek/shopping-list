@@ -13,6 +13,7 @@ public final class SettingsCoordinator: Coordinator {
         self.viewModelsFactory = viewModelsFactory
         self.navigationController = UINavigationController()
         self.navigationController.modalPresentationStyle = .fullScreen
+        self.navigationController.view.backgroundColor = .background
         self.childCoordinators = []
     }
 

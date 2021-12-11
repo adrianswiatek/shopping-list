@@ -15,6 +15,7 @@ public final class ListsCoordinator: Coordinator {
         self.viewModelsFactory = viewModelsFactory
         self.navigationController = navigationController
         self.navigationController.modalPresentationStyle = .fullScreen
+        self.navigationController.view.backgroundColor = .background
         self.childCoordinators = []
     }
 

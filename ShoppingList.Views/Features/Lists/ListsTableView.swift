@@ -23,7 +23,8 @@ public final class ListsTableView: UITableView {
     private func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
         tableFooterView = UIView()
-        estimatedRowHeight = 90
+        rowHeight = UITableView.automaticDimension
+        estimatedRowHeight = UITableView.automaticDimension
         backgroundColor = .background
         delegate = self
 

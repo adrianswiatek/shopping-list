@@ -1,3 +1,4 @@
+import _Concurrency
 import ShoppingList_Shared
 import ShoppingList_ViewModels
 import Combine
@@ -119,9 +120,14 @@ public final class ItemsViewController: UIViewController {
     private func bind() {
         viewModel.sectionsPublisher
             .sink { [weak self] in
-                self?.dataSource.apply($0)
-                self?.tableView.refreshBackground()
-                self?.toolbar.setButtonsAs(enabled: !$0.isEmpty)
+                guard let self = self else { return }
+
+                self.dataSource.apply($0)
+                self.toolbar.setButtonsAs(enabled: !$0.isEmpty)
+
+                DispatchQueue.main.async {
+                    self.tableView.refreshBackground()
+                }
             }
             .store(in: &cancellables)
 

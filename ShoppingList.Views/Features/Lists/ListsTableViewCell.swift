@@ -7,8 +7,6 @@ public final class ListsTableViewCell: UITableViewCell {
         didSet {
             guard let viewModel = viewModel else { return }
             nameLabel.text = viewModel.name
-            accessTypeImageView.image = (viewModel.isPrivate ? #imageLiteral(resourceName: "Locked") : #imageLiteral(resourceName: "Shared")).withRenderingMode(.alwaysTemplate)
-            accessTypeLabel.text = viewModel.accessType
             numberOfItemsValueLabel.text = String(viewModel.numberOfItemsToBuy)
             hasItemsInBaskekValueLabel.text = viewModel.hasItemsInBasket ? "Yes" : "No"
             updateDateValueLabel.text = viewModel.formattedUpdateDate
@@ -62,22 +60,6 @@ public final class ListsTableViewCell: UITableViewCell {
         $0.textColor = .textPrimary
         $0.font = .systemFont(ofSize: 14, weight: .semibold)
     }
-    
-    private let accessTypeLabel: UILabel = configure(.init()) {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .textSecondary
-        $0.font = .systemFont(ofSize: 14)
-        $0.textAlignment = .right
-    }
-
-    private let accessTypeImageView: UIImageView = configure(.init()) {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.tintColor = .textSecondary
-    }
-
-    private let accessTypeView: UIView = configure(.init()) {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
 
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -93,33 +75,11 @@ public final class ListsTableViewCell: UITableViewCell {
     private func setupView() {
         backgroundColor = .background
 
-        contentView.addSubview(accessTypeView)
-        NSLayoutConstraint.activate([
-            accessTypeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            accessTypeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            accessTypeView.heightAnchor.constraint(equalToConstant: 48),
-            accessTypeView.widthAnchor.constraint(equalToConstant: 48)
-        ])
-
-        accessTypeView.addSubview(accessTypeLabel)
-        NSLayoutConstraint.activate([
-            accessTypeLabel.trailingAnchor.constraint(equalTo: accessTypeView.trailingAnchor),
-            accessTypeLabel.bottomAnchor.constraint(equalTo: accessTypeView.bottomAnchor)
-        ])
-
-        accessTypeView.addSubview(accessTypeImageView)
-        NSLayoutConstraint.activate([
-            accessTypeImageView.centerXAnchor.constraint(equalTo: accessTypeLabel.centerXAnchor),
-            accessTypeImageView.bottomAnchor.constraint(equalTo: accessTypeLabel.topAnchor),
-            accessTypeImageView.heightAnchor.constraint(equalToConstant: 24),
-            accessTypeImageView.widthAnchor.constraint(equalToConstant: 24)
-        ])
-
         contentView.addSubview(nameLabel)
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            nameLabel.trailingAnchor.constraint(equalTo: accessTypeView.leadingAnchor, constant: -12)
+            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16)
         ])
 
         contentView.addSubview(numberOfItemsLabel)
@@ -138,7 +98,7 @@ public final class ListsTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             updateDateLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             updateDateLabel.topAnchor.constraint(equalTo: hasItemsInBasketLabel.bottomAnchor, constant: 4),
-            updateDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            updateDateLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -12),
             updateDateLabel.widthAnchor.constraint(equalTo: hasItemsInBasketLabel.widthAnchor)
         ])
 
