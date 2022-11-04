@@ -7,8 +7,6 @@ import UIKit
 public final class EditItemViewController: UIViewController {
     internal static let labelsWidth: CGFloat = 100
     internal static let labelsLeftPadding: CGFloat = 16
-    
-    public var item: Item?
 
     private let itemNameView: ItemNameForEditItem = .init()
     private let infoView: InfoForEditItem = .init()
@@ -40,7 +38,6 @@ public final class EditItemViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
-        self.setupView()
         self.bind()
     }
 
@@ -51,6 +48,8 @@ public final class EditItemViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.setupView()
         self.viewModel.fetchData()
     }
 
@@ -65,9 +64,9 @@ public final class EditItemViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = saveBarButtonItem
-        navigationItem.title = item != nil ? "Edit Item" : "Add Item"
+        navigationController?.navigationBar.backgroundColor = .background
         navigationController?.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+            .foregroundColor: UIColor.darkGray,
         ]
 
         view.addSubview(itemNameView)
@@ -115,9 +114,11 @@ public final class EditItemViewController: UIViewController {
                 case .create:
                     self?.itemNameView.becomeFirstResponder()
                     self?.listsView.isHidden = true
+                    self?.navigationItem.title = "Add Item"
                 case .edit(let item):
                     self?.itemNameView.text = item.name
                     self?.infoView.text = item.info
+                    self?.navigationItem.title = "Edit Item"
                 }
             }
             .store(in: &cancellables)

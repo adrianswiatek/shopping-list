@@ -79,7 +79,7 @@ public final class ListsTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16)
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
 
         contentView.addSubview(numberOfItemsLabel)

@@ -27,9 +27,11 @@ public final class ListsViewController: UIViewController {
         })
 
     private lazy var restoreBarButtonItem: UIBarButtonItem =
-        configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in self?.viewModel.restoreList() })) {
-            $0.isEnabled = false
-        }
+        configure(.init(
+            image: #imageLiteral(resourceName: "Restore"),
+            primaryAction: .init { [weak self] _ in self?.viewModel.restoreList() })) {
+                $0.isEnabled = false
+            }
 
     private let viewModel: ListsViewModel
     private var cancellables: Set<AnyCancellable>

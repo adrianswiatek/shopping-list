@@ -72,10 +72,10 @@ public final class ItemsTableViewCell: UITableViewCell {
     private func setupView() {
         contentView.addSubview(addToBasketButton)
         NSLayoutConstraint.activate([
-            addToBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             addToBasketButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             addToBasketButton.heightAnchor.constraint(equalToConstant: 40),
-            addToBasketButton.widthAnchor.constraint(equalTo: addToBasketButton.heightAnchor)
+            addToBasketButton.widthAnchor.constraint(equalTo: addToBasketButton.heightAnchor),
+            addToBasketButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
 
         contentView.addSubview(itemNameLabel)

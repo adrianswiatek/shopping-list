@@ -51,7 +51,7 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         let viewController = EditItemViewController(viewModel: viewModel)
 
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .overCurrentContext
+        navigationController.modalPresentationStyle = .overFullScreen
 
         self.navigationController.viewControllers.last?.present(
             navigationController,
@@ -65,7 +65,7 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         )
 
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .overCurrentContext
+        navigationController.modalPresentationStyle = .overFullScreen
 
         self.navigationController.viewControllers.last?.present(
             navigationController,

@@ -47,20 +47,22 @@ public final class BasketTableViewCell: UITableViewCell {
     }
 
     private func setupView() {
+        contentView.addSubview(itemNameLabel)
+        NSLayoutConstraint.activate([
+            itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            itemNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60)
+        ])
+
         contentView.addSubview(moveToListButton)
         NSLayoutConstraint.activate([
             moveToListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            moveToListButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            moveToListButton.widthAnchor.constraint(equalToConstant: 40),
-            moveToListButton.heightAnchor.constraint(equalToConstant: 40)
+            moveToListButton.heightAnchor.constraint(equalToConstant: 40),
+            moveToListButton.widthAnchor.constraint(equalTo: moveToListButton.heightAnchor),
+            moveToListButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
 
-        contentView.addSubview(itemNameLabel)
-        NSLayoutConstraint.activate([
-            itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-            itemNameLabel.trailingAnchor.constraint(equalTo: moveToListButton.leadingAnchor, constant: -4)
-        ])
+        contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
     }
 }

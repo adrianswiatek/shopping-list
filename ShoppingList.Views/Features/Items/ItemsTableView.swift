@@ -39,10 +39,11 @@ public final class ItemsTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         allowsSelection = false
         allowsMultipleSelectionDuringEditing = true
-        dragInteractionEnabled = true
         rowHeight = 56
         estimatedRowHeight = 56
         tableFooterView = UIView()
+
+        dragInteractionEnabled = true
 
         delegate = self
         dragDelegate = self
