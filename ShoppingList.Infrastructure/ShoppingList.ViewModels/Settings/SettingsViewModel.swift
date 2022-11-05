@@ -4,7 +4,7 @@ public final class SettingsViewModel: ViewModel {
     private let settings: [Settings]
 
     public init() {
-        settings = [.manageCategories]
+        settings = [.manageCategories, .manageItems]
         numberOfSettings = settings.count
     }
 
@@ -14,7 +14,17 @@ public final class SettingsViewModel: ViewModel {
 }
 
 public extension SettingsViewModel {
-    enum Settings: String {
+    enum Settings: String, CaseIterable {
         case manageCategories = "Manage Categories"
+        case manageItems = "Manage Items"
+
+        public static func fromIndex(_ index: Int) -> Settings? {
+            allCasesIndexed[index]
+        }
+
+        public static var allCasesIndexed: [Int: Settings] {
+            let allIndices: [Int] = Array(0 ... allCases.count - 1)
+            return Dictionary(uniqueKeysWithValues: zip(allIndices, allCases))
+        }
     }
 }

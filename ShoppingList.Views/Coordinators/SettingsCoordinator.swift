@@ -34,10 +34,20 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         }
     }
 
-    public func openSetting() {
-        let viewController = ManageCategoriesViewController(
-            viewModel: viewModelsFactory.manageCategoriesViewModel()
-        )
+    public func openSetting(_ settings: SettingsViewModel.Settings) {
+        let viewController: UIViewController
+
+        switch settings {
+        case .manageCategories:
+            viewController = ManageCategoriesViewController(
+                viewModel: viewModelsFactory.manageCategoriesViewModel()
+            )
+        case .manageItems:
+            viewController = ManageModelItemsViewController(
+                viewModel: viewModelsFactory.manageModelItemsViewModel()
+            )
+        }
+
         navigationController.pushViewController(viewController, animated: true)
     }
 }

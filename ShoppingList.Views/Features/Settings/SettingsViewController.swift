@@ -6,7 +6,7 @@ import UIKit
 
 public protocol SettingsViewControllerDelegate: AnyObject {
     func close()
-    func openSetting()
+    func openSetting(_ settings: SettingsViewModel.Settings)
 }
 
 public final class SettingsViewController: UIViewController {
@@ -55,7 +55,12 @@ public final class SettingsViewController: UIViewController {
 
     private func bind() {
         tableView.selectedRowAtIndex
-            .sink { [weak self] _ in self?.delegate?.openSetting() }
+            .map(SettingsViewModel.Settings.fromIndex)
+            .sink { [weak self] settings in
+                if let settings = settings {
+                    self?.delegate?.openSetting(settings)
+                }
+            }
             .store(in: &cancellables)
     }
 }

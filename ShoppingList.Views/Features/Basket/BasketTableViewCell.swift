@@ -22,7 +22,6 @@ public final class BasketTableViewCell: UITableViewCell {
     private let itemNameLabel: UILabel = configure(.init()) {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textColor = .textPrimary
-        $0.text = "Item name"
         $0.font = .systemFont(ofSize: 17)
         $0.numberOfLines = 0
     }
@@ -47,22 +46,21 @@ public final class BasketTableViewCell: UITableViewCell {
     }
 
     private func setupView() {
-        contentView.addSubview(itemNameLabel)
-        NSLayoutConstraint.activate([
-            itemNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            itemNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            itemNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            itemNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60)
-        ])
+        let marginsGuide = contentView.layoutMarginsGuide
 
         contentView.addSubview(moveToListButton)
         NSLayoutConstraint.activate([
-            moveToListButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            moveToListButton.heightAnchor.constraint(equalToConstant: 40),
-            moveToListButton.widthAnchor.constraint(equalTo: moveToListButton.heightAnchor),
-            moveToListButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            moveToListButton.trailingAnchor.constraint(equalTo: marginsGuide.trailingAnchor),
+            moveToListButton.centerYAnchor.constraint(equalTo: marginsGuide.centerYAnchor),
+            moveToListButton.heightAnchor.constraint(equalToConstant: 24)
         ])
 
-        contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
+        contentView.addSubview(itemNameLabel)
+        NSLayoutConstraint.activate([
+            itemNameLabel.topAnchor.constraint(equalTo: marginsGuide.topAnchor),
+            itemNameLabel.leadingAnchor.constraint(lessThanOrEqualTo: marginsGuide.leadingAnchor),
+            itemNameLabel.trailingAnchor.constraint(equalTo: moveToListButton.leadingAnchor),
+            itemNameLabel.bottomAnchor.constraint(equalTo: marginsGuide.bottomAnchor)
+        ])
     }
 }

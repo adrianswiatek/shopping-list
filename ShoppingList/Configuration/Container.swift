@@ -110,6 +110,14 @@ public final class Container {
             )
         }
 
+        container.register(ManageModelItemsViewModel.self) {
+            ManageModelItemsViewModel(
+                modelItemQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
         container.register(SettingsViewModel.self) { _ in
             SettingsViewModel()
         }
@@ -187,6 +195,7 @@ public final class Container {
                 .items: { resolver.resolve(ItemsViewModel.self)! },
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
+                .manageItems: { resolver.resolve(ManageModelItemsViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])
         }
