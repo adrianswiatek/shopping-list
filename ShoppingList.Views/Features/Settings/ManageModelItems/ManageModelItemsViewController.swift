@@ -8,19 +8,11 @@ public final class ManageModelItemsViewController: UIViewController {
     private let tableView: ManageModelItemsTableView
     private let dataSource: ManageModelItemsDataSource
 
-    private lazy var addCategoryTextField: TextFieldWithCancel =
+    private lazy var searchItemTextField: TextFieldWithCancel =
         configure(.init()) {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.placeholder = "Add new item..."
-            $0.set(validationButtonRule())
+            $0.placeholder = "Search item..."
             $0.layer.zPosition = 1
-        }
-
-    private lazy var restoreBarButtonItem: UIBarButtonItem =
-        configure(.init(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in
-            self?.viewModel.restoreCategory()
-        })) {
-            $0.isEnabled = false
         }
 
     private let viewModel: ManageModelItemsViewModel
@@ -46,12 +38,7 @@ public final class ManageModelItemsViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
-        self.viewModel.fetchCategories()
-    }
-
-    public override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.viewModel.cleanUp()
+        self.viewModel.fetchModelItems()
     }
 
     private func setupView() {
@@ -60,31 +47,31 @@ public final class ManageModelItemsViewController: UIViewController {
 
         navigationItem.largeTitleDisplayMode = .never
 
-        view.addSubview(addCategoryTextField)
+        view.addSubview(searchItemTextField)
         NSLayoutConstraint.activate([
-            addCategoryTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addCategoryTextField.topAnchor.constraint(equalTo: view.topAnchor),
-            addCategoryTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addCategoryTextField.heightAnchor.constraint(equalToConstant: 50)
+            searchItemTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchItemTextField.topAnchor.constraint(equalTo: view.topAnchor),
+            searchItemTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchItemTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
 
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: addCategoryTextField.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: searchItemTextField.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
     private func bind() {
-        addCategoryTextField.onAction
-            .sink { [weak self] in self?.handleAddListTextFieldAction($0) }
+        searchItemTextField.onAction
+            .sink { [weak self] in self?.hansleSearchItemTextField($0) }
             .store(in: &cancellables)
 
-//        tableView.onAction
-//            .sink { [weak self] in self?.handleTableViewAction($0) }
-//            .store(in: &cancellables)
+        tableView.onAction
+            .sink { [weak self] in self?.handleTableViewAction($0) }
+            .store(in: &cancellables)
 
         viewModel.modelItemsPublisher
             .sink { [weak self] in
@@ -98,15 +85,6 @@ public final class ManageModelItemsViewController: UIViewController {
             .store(in: &cancellables)
     }
 
-    private func validationButtonRule() -> ValidationButtonRule {
-        let notEmptyRule = ValidationButtonRuleLeaf.notEmptyItemRule
-        let uniqueRule = ValidationButtonRuleLeaf(
-            message: "Given item alread exists.",
-            predicate: { [weak self] in self?.viewModel.hasModelItem(withName: $0) == true }
-        )
-        return ValidationButtonRuleComposite(rules: notEmptyRule, uniqueRule)
-    }
-
     private func handleTableViewAction(_ action: ManageModelItemsTableView.Action) {
         switch action {
         case .doNothing:
@@ -114,10 +92,10 @@ public final class ManageModelItemsViewController: UIViewController {
         }
     }
 
-    private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {
+    private func hansleSearchItemTextField(_ action: TextFieldWithCancel.Action) {
         switch action {
-        case let .confirm(text):
-            viewModel.addModelItem(withName: text)
+        case .change, .confirm:
+            return
         case let .validationError(text):
             showInfoPopup(with: text)
         }
@@ -137,7 +115,6 @@ public final class ManageModelItemsViewController: UIViewController {
     }
 
     private func refreshUserInterface() {
-        restoreBarButtonItem.isEnabled = viewModel.isRestoreButtonEnabled
-        navigationItem.rightBarButtonItem = restoreBarButtonItem
+        // Not implemented
     }
 }

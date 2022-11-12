@@ -13,7 +13,7 @@ public struct ModelItem {
         .init(id: .random(), name: name, categoryId: ItemsCategory.default.id)
     }
 
-    public static func newFromName(_ item: Item) -> ModelItem {
+    public static func newFromItem(_ item: Item) -> ModelItem {
         .init(id: .random(), name: item.name, categoryId: item.categoryId)
     }
 

@@ -244,6 +244,13 @@
 		E83EB88E2916DCC5005F69A1 /* ModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB88D2916DCC5005F69A1 /* ModelItem.swift */; };
 		E83EB8922916E46E005F69A1 /* ManageModelItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8902916E457005F69A1 /* ManageModelItemsViewModel.swift */; };
 		E83EB8962916F372005F69A1 /* ModelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */; };
+		E8674B7B291EC89E00C419E6 /* ModelItemQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */; };
+		E8674B7D291EC8CE00C419E6 /* ModelItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */; };
+		E8674B7F291EC97900C419E6 /* ModelItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B7E291EC97900C419E6 /* ModelItemService.swift */; };
+		E8674B82291ED72F00C419E6 /* CoreDataModelItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B80291ED71300C419E6 /* CoreDataModelItemRepository.swift */; };
+		E8674B85291EDD4700C419E6 /* ModelItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */; };
+		E8674B87291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */; };
+		E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -676,6 +683,13 @@
 		E83EB88D2916DCC5005F69A1 /* ModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItem.swift; sourceTree = "<group>"; };
 		E83EB8902916E457005F69A1 /* ManageModelItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsViewModel.swift; sourceTree = "<group>"; };
 		E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemViewModel.swift; sourceTree = "<group>"; };
+		E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemQueries.swift; sourceTree = "<group>"; };
+		E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemRepository.swift; sourceTree = "<group>"; };
+		E8674B7E291EC97900C419E6 /* ModelItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemService.swift; sourceTree = "<group>"; };
+		E8674B80291ED71300C419E6 /* CoreDataModelItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModelItemRepository.swift; sourceTree = "<group>"; };
+		E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemEntityExtensions.swift; sourceTree = "<group>"; };
+		E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsMovedToBasketListener.swift; sourceTree = "<group>"; };
+		E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -879,6 +893,7 @@
 				3A69E41C20BA1C37004D122E /* ItemEntityExtensions.swift */,
 				3A8BC19920C72C3300B2F357 /* ItemsOrdersEntityExtensions.swift */,
 				3A562A0220E430CE0030732D /* ListEntityExtensions.swift */,
+				E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1122,9 +1137,10 @@
 		A739B5722569DD52000B16E3 /* ShoppingList.Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A7640F3925699F31000D882B /* configure.swift */,
 				A739B5732569DD52000B16E3 /* ShoppingList_Shared.h */,
 				A739B5742569DD52000B16E3 /* Info.plist */,
+				A7640F3925699F31000D882B /* configure.swift */,
+				E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */,
 			);
 			path = ShoppingList.Shared;
 			sourceTree = "<group>";
@@ -1184,6 +1200,7 @@
 				3A69E40D20B9ECE7004D122E /* CoreDataItemRepository.swift */,
 				A755101E2597D3810070EB62 /* CoreDataItemsCategoryRepository.swift */,
 				A75510282597DA0B0070EB62 /* CoreDataListRepository.swift */,
+				E8674B80291ED71300C419E6 /* CoreDataModelItemRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1349,6 +1366,7 @@
 			children = (
 				A7DE7FD025D87DBA0045CB8C /* UpdateItemsOrderListener.swift */,
 				A77EE6DA25B2377700A258B4 /* UpdateListDateListener.swift */,
+				E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */,
 			);
 			path = Listeners;
 			sourceTree = "<group>";
@@ -1592,7 +1610,10 @@
 				A70F36082596B4C000279242 /* ItemsCategoryQueries.swift */,
 				A77C971D257859AD00E39DBF /* ItemsCategoryRepository.swift */,
 				A70F360C2596B53600279242 /* ItemsCategoryService.swift */,
+				E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */,
+				E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */,
 				A7DBFF182591580E00CD6B6D /* Commands */,
+				E8674B7E291EC97900C419E6 /* ModelItemService.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2078,6 +2099,7 @@
 				A79D6F4E25BA0FF300E8E135 /* RestoreItemsToBasketCommandHandler.swift in Sources */,
 				A7B2225F25E07354008102A9 /* CommandHandlers.swift in Sources */,
 				A7CDD42625AF8B7700FF776A /* ConsoleEventListener.swift in Sources */,
+				E8674B7D291EC8CE00C419E6 /* ModelItemRepository.swift in Sources */,
 				A713C28525ABA68700DD5D33 /* AddItemCommandHandler.swift in Sources */,
 				A739B52C2569D22A000B16E3 /* RemoveListCommand.swift in Sources */,
 				A746C73225967F0A00D3CE30 /* AddItemsCategoryCommandHandler.swift in Sources */,
@@ -2091,6 +2113,7 @@
 				A7B2224D25E059CA008102A9 /* RestoreListItemsCommand.swift in Sources */,
 				A7F63329259141040032888B /* ClearBasketOfListCommandHandler.swift in Sources */,
 				A7B2225625E05D6C008102A9 /* CommandRefiner.swift in Sources */,
+				E8674B7B291EC89E00C419E6 /* ModelItemQueries.swift in Sources */,
 				A704F9AF25D33CD3009D0D9F /* ItemsReorderedEvent.swift in Sources */,
 				A7D3968625A128EB0077F10E /* MoveItemsToBasketCommandHandler.swift in Sources */,
 				A781E9F425783E4D00367FCF /* CommandHandler.swift in Sources */,
@@ -2106,11 +2129,13 @@
 				A7CDD3FE25AF888800FF776A /* ItemsRemovedEvent.swift in Sources */,
 				A706FE7F25992F0200E79CF5 /* LocalPreferences.swift in Sources */,
 				A79F2DC625E2F7010049BC4E /* ListNotAddedEvent.swift in Sources */,
+				E8674B87291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift in Sources */,
 				A77EE6DF25B2396D00A258B4 /* UpdateListsDateCommand.swift in Sources */,
 				A765C04C25DC638C0047172E /* Publisher+Event.swift in Sources */,
 				A77C972C25785C1A00E39DBF /* ListsService.swift in Sources */,
 				A739B52A2569D22A000B16E3 /* Command.swift in Sources */,
 				A70F36012596AEDB00279242 /* RemoveItemsCategoryCommandHandler.swift in Sources */,
+				E8674B7F291EC97900C419E6 /* ModelItemService.swift in Sources */,
 				A77EE6E225B239D600A258B4 /* UpdateListsDateCommandHandler.swift in Sources */,
 				A77C971E257859AD00E39DBF /* ItemsCategoryRepository.swift in Sources */,
 				A70F36092596B4C000279242 /* ItemsCategoryQueries.swift in Sources */,
@@ -2141,7 +2166,9 @@
 				A739B4602569C63D000B16E3 /* CoreDataItemRepository.swift in Sources */,
 				A739B45B2569C639000B16E3 /* CategoryEntityExtensions.swift in Sources */,
 				A755101F2597D3810070EB62 /* CoreDataItemsCategoryRepository.swift in Sources */,
+				E8674B85291EDD4700C419E6 /* ModelItemEntityExtensions.swift in Sources */,
 				A74B479E25EB106D00B1C1A8 /* InMemoryCoreDataStack.swift in Sources */,
+				E8674B82291ED72F00C419E6 /* CoreDataModelItemRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2150,6 +2177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A739B5812569DD5F000B16E3 /* configure.swift in Sources */,
+				E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,8 +17,9 @@ public final class Container {
 
         registerQueries()
         registerRepositories()
-        registerViewModels()
+        registerServices()
         registerListeners()
+        registerViewModels()
         registerOtherObjects()
     }
 
@@ -35,6 +36,7 @@ public final class Container {
         container.resolve(AppCoordinator.self)!.start()
         container.resolve(UpdateListDateListener.self)!.start()
         container.resolve(UpdateItemsOrderListener.self)!.start()
+        container.resolve(ItemsMovedToBasketListener.self)!.start()
 //        container.resolve(ConsoleEventListener.self)!.start()
     }
 
@@ -50,6 +52,10 @@ public final class Container {
         container.register(ItemsCategoryQueries.self) {
             $0.resolve(ItemsCategoryService.self)!
         }
+
+        container.register(ModelItemQueries.self) {
+            $0.resolve(ModelItemService.self)!
+        }
     }
 
     private func registerRepositories() {
@@ -64,6 +70,61 @@ public final class Container {
         container.register(ItemRepository.self) {
             CoreDataItemRepository($0.resolve(CoreDataStack.self)!)
         }
+
+        container.register(ModelItemRepository.self) {
+            CoreDataModelItemRepository($0.resolve(CoreDataStack.self)!)
+        }
+    }
+
+    private func registerServices() {
+        container.register(ListsService.self) {
+            ListsService(listRepository: $0.resolve(ListRepository.self)!)
+        }
+
+        container.register(ItemsService.self) {
+            ItemsService(itemRepository: $0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(ItemsCategoryService.self) {
+            ItemsCategoryService(
+                $0.resolve(ItemsCategoryRepository.self)!,
+                $0.resolve(LocalPreferences.self)!
+            )
+        }
+
+        container.register(ModelItemService.self) {
+            ModelItemService($0.resolve(ModelItemRepository.self)!)
+        }
+    }
+
+    private func registerListeners() {
+        container.register(ConsoleEventListener.self) {
+            ConsoleEventListener(eventBus: $0.resolve(EventBus.self)!)
+        }.inObjectScope(.container)
+
+        container.register(UpdateListDateListener.self) {
+            UpdateListDateListener(
+                itemRepository: $0.resolve(ItemRepository.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }.inObjectScope(.container)
+
+        container.register(UpdateItemsOrderListener.self) {
+            UpdateItemsOrderListener(
+                itemRepository: $0.resolve(ItemRepository.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }.inObjectScope(.container)
+
+        container.register(ItemsMovedToBasketListener.self) {
+            ItemsMovedToBasketListener(
+                modelItemRepository: $0.resolve(ModelItemRepository.self)!,
+                itemRepository: $0.resolve(ItemRepository.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }.inObjectScope(.container)
     }
 
     private func registerViewModels() {
@@ -112,7 +173,8 @@ public final class Container {
 
         container.register(ManageModelItemsViewModel.self) {
             ManageModelItemsViewModel(
-                modelItemQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
+                itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
@@ -121,28 +183,6 @@ public final class Container {
         container.register(SettingsViewModel.self) { _ in
             SettingsViewModel()
         }
-    }
-
-    private func registerListeners() {
-        container.register(ConsoleEventListener.self) {
-            ConsoleEventListener(eventBus: $0.resolve(EventBus.self)!)
-        }.inObjectScope(.container)
-
-        container.register(UpdateListDateListener.self) {
-            UpdateListDateListener(
-                itemRepository: $0.resolve(ItemRepository.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
-            )
-        }.inObjectScope(.container)
-
-        container.register(UpdateItemsOrderListener.self) {
-            UpdateItemsOrderListener(
-                itemRepository: $0.resolve(ItemRepository.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
-            )
-        }.inObjectScope(.container)
     }
 
     private func registerOtherObjects() {
@@ -160,21 +200,6 @@ public final class Container {
                 ? InMemoryCoreDataStack(modelFactory)
                 : SQLiteCoreDataStack(modelFactory)
         }.inObjectScope(.container)
-
-        container.register(ListsService.self) {
-            ListsService(listRepository: $0.resolve(ListRepository.self)!)
-        }
-
-        container.register(ItemsService.self) {
-            ItemsService(itemRepository: $0.resolve(ItemRepository.self)!)
-        }
-
-        container.register(ItemsCategoryService.self) {
-            ItemsCategoryService(
-                $0.resolve(ItemsCategoryRepository.self)!,
-                $0.resolve(LocalPreferences.self)!
-            )
-        }
 
         container.register(SharedItemsFormatter.self) { _ in
             SharedItemsFormatter()

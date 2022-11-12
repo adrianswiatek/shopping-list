@@ -181,6 +181,8 @@ public final class ItemsViewController: UIViewController {
 
     private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {
         switch action {
+        case .change:
+            return // Do nothing
         case let .confirm(text):
             viewModel.addItem(with: text)
         case let .validationError(text):

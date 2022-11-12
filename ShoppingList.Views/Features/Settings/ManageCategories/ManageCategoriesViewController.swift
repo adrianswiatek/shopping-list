@@ -118,6 +118,8 @@ public final class ManageCategoriesViewController: UIViewController {
 
     private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {
         switch action {
+        case .change:
+            return // Do nothing
         case let .confirm(text):
             viewModel.addCategory(with: text)
         case let .validationError(text):

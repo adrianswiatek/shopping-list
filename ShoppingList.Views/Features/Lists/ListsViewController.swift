@@ -127,6 +127,8 @@ public final class ListsViewController: UIViewController {
 
     private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {
         switch action {
+        case .change:
+            return // Do nothing
         case let .confirm(text):
             viewModel.addList(with: text)
         case let .validationError(text):
