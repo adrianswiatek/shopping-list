@@ -74,7 +74,7 @@ extension ManageModelItemsTableView: UITableViewDelegate {
 
     private func removeAction(for modelItem: ModelItemViewModel) -> UIContextualAction {
         let action: UIContextualAction = .init(style: .destructive, title: nil) { [weak self] in
-            self?.onActionSubject.send(.doNothing)
+            self?.onActionSubject.send(.removeModelItem(uuid: modelItem.uuid))
             $2(true)
         }
         action.backgroundColor = .remove
@@ -93,10 +93,10 @@ extension ManageModelItemsTableView: UITableViewDelegate {
     }
 
     private func removeActionForModelItem(at index: Int) -> UIAction? {
-//        guard let modelItem = modelItemForCell(at: index) else { return nil }
+        guard let modelItem = modelItemForCell(at: index) else { return nil }
         let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
         return UIAction(title: "Remove model item", image: image, attributes: .destructive) { [weak self] _ in
-            self?.onActionSubject.send(.doNothing)
+            self?.onActionSubject.send(.removeModelItem(uuid: modelItem.uuid))
         }
     }
 
@@ -108,5 +108,6 @@ extension ManageModelItemsTableView: UITableViewDelegate {
 extension ManageModelItemsTableView {
     public enum Action {
         case doNothing
+        case removeModelItem(uuid: UUID)
     }
 }

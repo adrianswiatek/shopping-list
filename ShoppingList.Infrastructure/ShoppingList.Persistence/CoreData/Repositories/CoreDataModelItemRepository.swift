@@ -29,27 +29,35 @@ public final class CoreDataModelItemRepository: ModelItemRepository {
     }
 
     public func add(_ item: ModelItem) {
+        guard let categoryEntity = categoryEntityWithId(item.categoryId) else {
+            return assertionFailure("Category not found in the database")
+        }
+
         let entity = ModelItemEntity(context: coreData.context)
         entity.id = item.id.toUuid()
         entity.name = item.name
+        entity.category = categoryEntity
 
         coreData.context.insert(entity)
         coreData.save()
     }
 
     public func remove(by id: Id<ModelItem>) {
-//        guard let entity = modelItemEntity(with: id) else { return }
-//        coreData.context.delete(entity)
-//        coreData.save()
+        guard let entity = modelItemEntityWithId(id) else { return }
+        coreData.context.delete(entity)
+        coreData.save()
     }
 
-//    public func category(with id: Id<ItemsCategory>) -> ItemsCategory? {
-//        modelItemEntity(with: id)?.map()
-//    }
+    private func modelItemEntityWithId(_ id: Id<ModelItem>) -> ModelItemEntity? {
+        let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
+        return try? coreData.context.fetch(request).first
+    }
 
-//    private func modelItemEntity(with id: Id<ItemsCategory>) -> ModelItemEntity? {
-//        let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
-//        request.predicate = NSPredicate(format: "id == %@", id.toString())
-//        return try? coreData.context.fetch(request).first
-//    }
+    private func categoryEntityWithId(_ id: Id<ItemsCategory>) -> CategoryEntity? {
+        let categoryEntitiesRequest: NSFetchRequest<CategoryEntity> = CategoryEntity.fetchRequest()
+        categoryEntitiesRequest.predicate = NSPredicate(format: "id == %@", id.toString())
+        let categoryEntities = try? coreData.context.fetch(categoryEntitiesRequest)
+        return categoryEntities?.first
+    }
 }

@@ -1,7 +1,8 @@
 public enum CommandSource {
-    case none
-    case items
     case basket
-    case lists
     case categories
+    case items
+    case lists
+    case modelItems
+    case none
 }

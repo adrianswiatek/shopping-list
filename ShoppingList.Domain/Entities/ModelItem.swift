@@ -1,9 +1,9 @@
 public struct ModelItem {
     public let id: Id<ModelItem>
     public let name: String
-    public let categoryId: Id<ItemsCategory>?
+    public let categoryId: Id<ItemsCategory>
 
-    public init(id: Id<ModelItem>, name: String, categoryId: Id<ItemsCategory>?) {
+    public init(id: Id<ModelItem>, name: String, categoryId: Id<ItemsCategory>) {
         self.id = id
         self.name = name
         self.categoryId = categoryId

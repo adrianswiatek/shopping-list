@@ -48,10 +48,18 @@ public final class ManageModelItemsViewModel: ViewModel {
         )
     }
 
+    public func removeModelItem(withUuid uuid: UUID) {
+        let hasUuid: (ModelItem) -> Bool = { $0.id.toUuid() == uuid }
+        guard let modelItem = modelItemsSubject.value.first(where: hasUuid) else {
+            return
+        }
+        commandBus.execute(RemoveModelItemCommand(modelItem))
+    }
+
     private func bind() {
         eventBus.events
             .filterType(
-                // Actions to be filtered
+                ModelItemRemovedEvent.self
             )
             .sink { [weak self] _ in self?.fetchModelItems() }
             .store(in: &cancellables)
@@ -60,8 +68,7 @@ public final class ManageModelItemsViewModel: ViewModel {
     private func mapModelItemsToViewModels(_ modelItems: [ModelItem]) -> [ModelItemViewModel] {
         let categories = itemsCategoryQueries.fetchCategories()
         let viewModelFrom = ModelItemViewModel.Factory.fromModelItem
-        let result = modelItems.compactMap { viewModelFrom($0, categories) }
-        return result
+        return modelItems.compactMap { viewModelFrom($0, categories) }
     }
 }
 

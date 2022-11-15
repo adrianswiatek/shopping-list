@@ -251,6 +251,9 @@
 		E8674B85291EDD4700C419E6 /* ModelItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */; };
 		E8674B87291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */; };
 		E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */; };
+		E8F862432924421100924436 /* RemoveModelItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F862422924421100924436 /* RemoveModelItemCommand.swift */; };
+		E8F862452924422600924436 /* RemoveModelItemCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */; };
+		E8F8624829244A7E00924436 /* ModelItemRemovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -690,6 +693,9 @@
 		E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemEntityExtensions.swift; sourceTree = "<group>"; };
 		E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsMovedToBasketListener.swift; sourceTree = "<group>"; };
 		E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		E8F862422924421100924436 /* RemoveModelItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveModelItemCommand.swift; sourceTree = "<group>"; };
+		E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveModelItemCommandHandler.swift; sourceTree = "<group>"; };
+		E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemRemovedEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1534,6 +1540,7 @@
 				A7CDD41525AF8A7100FF776A /* ItemsCategoryEvents */,
 				A704F9AD25D33CC4009D0D9F /* ItemsEvents */,
 				A7CDD41425AF8A6E00FF776A /* ListEvents */,
+				E8F8624629244A6300924436 /* ModelItemEvents */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -1607,13 +1614,8 @@
 		A7DBFF112591571900CD6B6D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				A70F36082596B4C000279242 /* ItemsCategoryQueries.swift */,
-				A77C971D257859AD00E39DBF /* ItemsCategoryRepository.swift */,
-				A70F360C2596B53600279242 /* ItemsCategoryService.swift */,
-				E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */,
-				E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */,
-				A7DBFF182591580E00CD6B6D /* Commands */,
-				E8674B7E291EC97900C419E6 /* ModelItemService.swift */,
+				E8F8623F2924414F00924436 /* ModelItem */,
+				E8F8623E2924414900924436 /* ItemsCategory */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1688,6 +1690,53 @@
 				E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */,
 			);
 			path = ManageModelItems;
+			sourceTree = "<group>";
+		};
+		E8F8623E2924414900924436 /* ItemsCategory */ = {
+			isa = PBXGroup;
+			children = (
+				A70F36082596B4C000279242 /* ItemsCategoryQueries.swift */,
+				A77C971D257859AD00E39DBF /* ItemsCategoryRepository.swift */,
+				A70F360C2596B53600279242 /* ItemsCategoryService.swift */,
+				A7DBFF182591580E00CD6B6D /* Commands */,
+			);
+			path = ItemsCategory;
+			sourceTree = "<group>";
+		};
+		E8F8623F2924414F00924436 /* ModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */,
+				E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */,
+				E8674B7E291EC97900C419E6 /* ModelItemService.swift */,
+				E8F862402924417000924436 /* Commands */,
+			);
+			path = ModelItem;
+			sourceTree = "<group>";
+		};
+		E8F862402924417000924436 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				E8F86241292441FE00924436 /* RemoveModelItem */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
+		E8F86241292441FE00924436 /* RemoveModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E8F862422924421100924436 /* RemoveModelItemCommand.swift */,
+				E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */,
+			);
+			path = RemoveModelItem;
+			sourceTree = "<group>";
+		};
+		E8F8624629244A6300924436 /* ModelItemEvents */ = {
+			isa = PBXGroup;
+			children = (
+				E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */,
+			);
+			path = ModelItemEvents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2110,8 +2159,10 @@
 				A7F6331F25913E050032888B /* ClearListCommand.swift in Sources */,
 				A713C28225ABA67D00DD5D33 /* AddItemCommand.swift in Sources */,
 				A706FE8825994DAE00E79CF5 /* AddDefaultItemsCategoryCommand.swift in Sources */,
+				E8F862452924422600924436 /* RemoveModelItemCommandHandler.swift in Sources */,
 				A7B2224D25E059CA008102A9 /* RestoreListItemsCommand.swift in Sources */,
 				A7F63329259141040032888B /* ClearBasketOfListCommandHandler.swift in Sources */,
+				E8F862432924421100924436 /* RemoveModelItemCommand.swift in Sources */,
 				A7B2225625E05D6C008102A9 /* CommandRefiner.swift in Sources */,
 				E8674B7B291EC89E00C419E6 /* ModelItemQueries.swift in Sources */,
 				A704F9AF25D33CD3009D0D9F /* ItemsReorderedEvent.swift in Sources */,
@@ -2123,6 +2174,7 @@
 				A7FE444025E1C0D700DC7E19 /* RestoreListCommandHandler.swift in Sources */,
 				A7287E5125C0C3530092A781 /* RestoreItemsCommandHandler.swift in Sources */,
 				A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */,
+				E8F8624829244A7E00924436 /* ModelItemRemovedEvent.swift in Sources */,
 				A79F2DC225E2F5CE0049BC4E /* CommandBus.swift in Sources */,
 				A7CDD41825AF8A8B00FF776A /* ListAddedEvent.swift in Sources */,
 				A7CDD40125AF888F00FF776A /* ListRemovedEvent.swift in Sources */,

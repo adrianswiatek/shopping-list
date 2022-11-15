@@ -83,7 +83,9 @@ public final class BasketViewModel: ViewModel {
     }
 
     public func removeItems(with uuids: [UUID]) {
-        let items = itemsSubject.value.filter { uuids.contains($0.id.toUuid()) }
+        let items = itemsSubject.value.filter {
+            uuids.contains($0.id.toUuid())
+        }
 
         commandBus.execute(
             RemoveItemsFromBasketCommand(items)

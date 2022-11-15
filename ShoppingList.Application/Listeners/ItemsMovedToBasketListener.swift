@@ -30,7 +30,17 @@ public final class ItemsMovedToBasketListener {
         let items = itemRepository.items(with: ids)
         let modelItems = modelItemRepository.itemsWithNames(items.map(\.name))
 
-        let canAdd: (Item) -> Bool = { !modelItems.map(\.name).contains($0.name) }
+        let hasDifferentName: (Item) -> Bool = {
+            !modelItems.map(\.name).contains($0.name)
+        }
+
+        let hasDifferentCategory: (Item) -> Bool = {
+            !modelItems.map(\.categoryId).contains($0.categoryId)
+        }
+
+        let canAdd: (Item) -> Bool = {
+            hasDifferentName($0) || hasDifferentCategory($0)
+        }
 
         let modelItemsToAdd = items
             .filter(canAdd)

@@ -87,6 +87,8 @@ public final class ManageModelItemsViewController: UIViewController {
 
     private func handleTableViewAction(_ action: ManageModelItemsTableView.Action) {
         switch action {
+        case .removeModelItem(let uuid):
+            viewModel.removeModelItem(withUuid: uuid)
         case .doNothing:
             break
         }
