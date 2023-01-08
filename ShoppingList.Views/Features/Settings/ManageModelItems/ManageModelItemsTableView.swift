@@ -36,8 +36,12 @@ extension ManageModelItemsTableView: UITableViewDelegate {
         _ tableView: UITableView,
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
+        guard let modelItem = modelItemForCell(at: indexPath) else {
+            return .init()
+        }
+
         let action = UIContextualAction(style: .normal, title: nil) { [weak self] in
-            self?.onActionSubject.send(.doNothing)
+            self?.onActionSubject.send(.editModelItem(modelItem))
             $2(true)
         }
         action.backgroundColor = .edit
@@ -83,12 +87,11 @@ extension ManageModelItemsTableView: UITableViewDelegate {
     }
 
     private func editActionForModelItem(at index: Int) -> UIAction? {
-        UIAction(
-            title: "Edit item name",
-            image: #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate),
-            attributes: []
-        ) { [weak self] _ in
-            self?.onActionSubject.send(.doNothing)
+        modelItemForCell(at: index).map { modelItem in
+            let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
+            return UIAction(title: "Edit model item", image: image, attributes: [] ) { [weak self] _ in
+                self?.onActionSubject.send(.editModelItem(modelItem))
+            }
         }
     }
 
@@ -101,13 +104,20 @@ extension ManageModelItemsTableView: UITableViewDelegate {
     }
 
     private func modelItemForCell(at index: Int) -> ModelItemViewModel? {
-        cellForRow(at: .init(row: index, section: 0)).flatMap { $0 as? ManageModelItemsTableViewCell }?.viewModel
+        modelItemForCell(at: .init(row: index, section: 0))
+    }
+
+    private func modelItemForCell(at indexPath: IndexPath) -> ModelItemViewModel? {
+        cellForRow(at: indexPath)
+            .flatMap { $0 as? ManageModelItemsTableViewCell }
+            .flatMap { $0.viewModel }
     }
 }
 
 extension ManageModelItemsTableView {
     public enum Action {
         case doNothing
+        case editModelItem(_ modelItem: ModelItemViewModel)
         case removeModelItem(uuid: UUID)
     }
 }

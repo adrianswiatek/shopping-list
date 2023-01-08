@@ -1,3 +1,4 @@
+import ShoppingList_Shared
 import ShoppingList_ViewModels
 import UIKit
 
@@ -43,11 +44,29 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                 viewModel: viewModelsFactory.manageCategoriesViewModel()
             )
         case .manageItems:
-            viewController = ManageModelItemsViewController(
+            let manageModelItemsViewController = ManageModelItemsViewController(
                 viewModel: viewModelsFactory.manageModelItemsViewModel()
             )
+            manageModelItemsViewController.delegate = self
+            viewController = manageModelItemsViewController
         }
 
         navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+extension SettingsCoordinator: ManageModelItemsViewControllerDelegate {
+    public func goToEditModelItem(_ modelItem: ModelItemViewModel) {
+        let viewModel = viewModelsFactory.editModelItemViewModel(for: modelItem)
+
+        let viewController = EditModelItemViewController(viewModel: viewModel)
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .overFullScreen
+
+        self.navigationController.viewControllers.last?.present(
+            navigationController,
+            animated: true
+        )
     }
 }

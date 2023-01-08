@@ -5,9 +5,13 @@ public struct ModelItemViewModel: Hashable {
     public let name: String
     public let categoryName: String
 
-    private init(_ modelItem: ModelItem, categoryName: String) {
-        self.uuid = modelItem.id.toUuid()
-        self.name = modelItem.name
+    public static var empty: ModelItemViewModel {
+        .init(uuid: .init(), name: "", categoryName: "")
+    }
+
+    private init(uuid: UUID, name: String, categoryName: String) {
+        self.uuid = uuid
+        self.name = name
         self.categoryName = categoryName
     }
 }
@@ -20,7 +24,8 @@ extension ModelItemViewModel {
         ) -> ModelItemViewModel? {
             categories
                 .first { $0.id == modelItem.categoryId }
-                .map { .init(modelItem, categoryName: $0.name) }
+                .map { (modelItem.id.toUuid(), modelItem.name, $0.name)}
+                .map(ModelItemViewModel.init)
         }
     }
 }

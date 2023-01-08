@@ -136,7 +136,7 @@ public final class CoreDataItemRepository: ItemRepository {
         coreData.save()
     }
     
-    public func updateCategory(ofItems itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>) {
+    public func updateCategoryOfItemsWithIds(_ itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>) {
         let categoryEntity = self.categoryEntity(with: categoryId)
 
         for itemEntity in itemEntities(with: itemIds) {

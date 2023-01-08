@@ -20,6 +20,7 @@ public extension ViewModelsFactory {
     enum `Type` {
         case basket
         case editItem
+        case editModelItem
         case items
         case lists
         case manageCategories
@@ -38,6 +39,12 @@ public extension ViewModelsFactory {
     func editItemViewModel(for list: ListViewModel) -> EditItemViewModel {
         configure(create(for: .editItem) as! EditItemViewModel) {
             $0.setList(list)
+        }
+    }
+
+    func editModelItemViewModel(for modelItem: ModelItemViewModel) -> EditModelItemViewModel {
+        configure(create(for: .editModelItem) as! EditModelItemViewModel) {
+            $0.setModelItem(modelItem)
         }
     }
 

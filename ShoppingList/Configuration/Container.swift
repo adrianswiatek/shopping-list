@@ -155,6 +155,14 @@ public final class Container {
             )
         }
 
+        container.register(EditModelItemViewModel.self) {
+            EditModelItemViewModel(
+                categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
         container.register(BasketViewModel.self) {
             BasketViewModel(
                 itemQueries: $0.resolve(ItemQueries.self)!,
@@ -217,6 +225,7 @@ public final class Container {
             ViewModelsFactory(providers: [
                 .basket: { resolver.resolve(BasketViewModel.self)! },
                 .editItem: { resolver.resolve(EditItemViewModel.self)! },
+                .editModelItem: { resolver.resolve(EditModelItemViewModel.self)! },
                 .items: { resolver.resolve(ItemsViewModel.self)! },
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },

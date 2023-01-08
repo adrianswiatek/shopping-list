@@ -59,7 +59,8 @@ public final class ManageModelItemsViewModel: ViewModel {
     private func bind() {
         eventBus.events
             .filterType(
-                ModelItemRemovedEvent.self
+                ModelItemRemovedEvent.self,
+                ModelItemUpdatedEvent.self
             )
             .sink { [weak self] _ in self?.fetchModelItems() }
             .store(in: &cancellables)

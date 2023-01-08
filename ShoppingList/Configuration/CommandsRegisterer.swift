@@ -67,7 +67,8 @@ public final class CommandsRegisterer {
                 $0.resolve(UpdateItemsCategoryCommandHandler.self)!,
 
                 // ModelItems
-                $0.resolve(RemoveModelItemCommandHandler.self)!
+                $0.resolve(RemoveModelItemCommandHandler.self)!,
+                $0.resolve(UpdateModelItemCommandHandler.self)!
             )
         }
     }
@@ -232,6 +233,7 @@ public final class CommandsRegisterer {
             RemoveItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
                 $0.resolve(ItemRepository.self)!,
+                $0.resolve(ModelItemRepository.self)!,
                 $0.resolve(EventBus.self)!
             )
         }
@@ -256,6 +258,13 @@ public final class CommandsRegisterer {
     private func registerModelItemCommandHandlers() {
         container.register(RemoveModelItemCommandHandler.self) {
             RemoveModelItemCommandHandler(
+                $0.resolve(ModelItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(UpdateModelItemCommandHandler.self) {
+            UpdateModelItemCommandHandler(
                 $0.resolve(ModelItemRepository.self)!,
                 $0.resolve(EventBus.self)!
             )

@@ -10,35 +10,66 @@ public final class CoreDataModelItemRepository: ModelItemRepository {
         self.coreData = coreData
     }
 
-    public func allItems() -> [ModelItem] {
+    public func allModelItems() -> [ModelItem] {
         let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
         return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
     }
 
-    public func itemsWithNames(_ names: [String]) -> [ModelItem] {
+    public func modelItemsWithNames(_ names: [String]) -> [ModelItem] {
         let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
         request.predicate = NSPredicate(format: "name IN %@", names)
         return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
     }
 
-    public func add(_ items: [ModelItem]) {
-        if let item = items.first {
+    public func modelItemsInCategoryWithId(_ id: Id<ItemsCategory>) -> [ModelItem] {
+        let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category.id == %@", id.toString())
+        return (try? coreData.context.fetch(request).map { $0.map() }) ?? []
+    }
+
+    public func modelItemWithId(_ id: Id<ModelItem>) -> ModelItem? {
+        let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id.toString())
+        return try? coreData.context.fetch(request).first.map { $0.map() }
+    }
+
+    public func add(_ modelItems: [ModelItem]) {
+        if let item = modelItems.first {
             add(item)
-            add(items.tail())
+            add(modelItems.tail())
         }
     }
 
-    public func add(_ item: ModelItem) {
-        guard let categoryEntity = categoryEntityWithId(item.categoryId) else {
+    public func add(_ modelItem: ModelItem) {
+        guard let categoryEntity = categoryEntityWithId(modelItem.categoryId) else {
             return assertionFailure("Category not found in the database")
         }
 
         let entity = ModelItemEntity(context: coreData.context)
-        entity.id = item.id.toUuid()
-        entity.name = item.name
+        entity.id = modelItem.id.toUuid()
+        entity.name = modelItem.name
         entity.category = categoryEntity
 
         coreData.context.insert(entity)
+        coreData.save()
+    }
+
+    public func update(_ modelItem: ModelItem) {
+        guard let entity = modelItemEntityWithId(modelItem.id) else { return }
+        entity.update(by: modelItem, context: coreData.context)
+        coreData.save()
+    }
+
+    public func updateCategoryOfModelItemsWithIds(
+        _ modelItemIds: [Id<ModelItem>],
+        toCategory categoryId: Id<ItemsCategory>
+    ) {
+        let categoryEntity = categoryEntityWithId(categoryId)
+
+        for modelItemEntity in modelItemEntitiesWithIds(modelItemIds) {
+            modelItemEntity.category = categoryEntity
+        }
+
         coreData.save()
     }
 
@@ -52,6 +83,12 @@ public final class CoreDataModelItemRepository: ModelItemRepository {
         let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? coreData.context.fetch(request).first
+    }
+
+    private func modelItemEntitiesWithIds(_ ids: [Id<ModelItem>]) -> [ModelItemEntity] {
+        let request: NSFetchRequest<ModelItemEntity> = ModelItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id IN %@", ids.map { $0.toString() })
+        return (try? coreData.context.fetch(request)) ?? []
     }
 
     private func categoryEntityWithId(_ id: Id<ItemsCategory>) -> CategoryEntity? {

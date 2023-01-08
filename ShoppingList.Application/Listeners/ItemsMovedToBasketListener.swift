@@ -28,7 +28,7 @@ public final class ItemsMovedToBasketListener {
 
     private func updateModelItemsBasedOdItemsWithIds(_ ids: [Id<Item>]) {
         let items = itemRepository.items(with: ids)
-        let modelItems = modelItemRepository.itemsWithNames(items.map(\.name))
+        let modelItems = modelItemRepository.modelItemsWithNames(items.map(\.name))
 
         let hasDifferentName: (Item) -> Bool = {
             !modelItems.map(\.name).contains($0.name)

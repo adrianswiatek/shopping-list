@@ -4,7 +4,13 @@ import ShoppingList_ViewModels
 import Combine
 import UIKit
 
+public protocol ManageModelItemsViewControllerDelegate: AnyObject {
+    func goToEditModelItem(_ modelItem: ModelItemViewModel)
+}
+
 public final class ManageModelItemsViewController: UIViewController {
+    public weak var delegate: ManageModelItemsViewControllerDelegate?
+
     private let tableView: ManageModelItemsTableView
     private let dataSource: ManageModelItemsDataSource
 
@@ -87,6 +93,8 @@ public final class ManageModelItemsViewController: UIViewController {
 
     private func handleTableViewAction(_ action: ManageModelItemsTableView.Action) {
         switch action {
+        case .editModelItem(let modelItem):
+            delegate?.goToEditModelItem(modelItem)
         case .removeModelItem(let uuid):
             viewModel.removeModelItem(withUuid: uuid)
         case .doNothing:

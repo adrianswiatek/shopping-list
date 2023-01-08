@@ -73,7 +73,7 @@ extension ItemsTableView: UITableViewDelegate {
         }
 
         let action = UIContextualAction(style: .normal, title: nil) { [weak self] in
-            self?.onActionSubject.send(.editItem(item: item))
+            self?.onActionSubject.send(.editItem(item))
             $2(true)
         }
         action.backgroundColor = .edit
@@ -128,7 +128,7 @@ extension ItemsTableView: UITableViewDelegate {
         itemForCell(at: indexPath).map { item in
             let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
             return UIAction(title: "Edit item", image: image, attributes: []) { [weak self] _ in
-                self?.onActionSubject.send(.editItem(item: item))
+                self?.onActionSubject.send(.editItem(item))
             }
         }
     }
@@ -191,7 +191,7 @@ extension ItemsTableView: UITableViewDropDelegate {
 extension ItemsTableView {
     public enum Action {
         case addItemToBasket(uuid: UUID)
-        case editItem(item: ItemToBuyViewModel)
+        case editItem(_ item: ItemToBuyViewModel)
         case moveItem(fromIndexPath: IndexPath, toIndexPath: IndexPath)
         case removeItem(uuid: UUID)
         case rowTapped

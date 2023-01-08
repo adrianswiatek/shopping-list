@@ -8,7 +8,7 @@ public final class ModelItemService: ModelItemQueries {
     }
 
     public func fetchModelItems(_ sortingStrategy: SortingStrategy) -> [ModelItem] {
-        modelItemRepository.allItems().sorted(by: sortingStrategy.run)
+        modelItemRepository.allModelItems().sorted(by: sortingStrategy.run)
     }
 }
 

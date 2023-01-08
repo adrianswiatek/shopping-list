@@ -20,7 +20,7 @@ public protocol ItemRepository {
     func updateState(of item: Item, to state: ItemState)
     func updateItem(_ item: Item)
     func updateCategory(ofItem itemId: Id<Item>, toCategory categoryId: Id<ItemsCategory>)
-    func updateCategory(ofItems itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>)
+    func updateCategoryOfItemsWithIds(_ itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>)
 
     func setItemsOrder(with itemIds: [Id<Item>], inListWithId listId: Id<List>, forState state: ItemState)
 }
