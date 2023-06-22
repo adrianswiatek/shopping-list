@@ -44,6 +44,20 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         navigationController.pushViewController(basketViewController, animated: true)
     }
 
+    public func goToCreateItem() {
+        let viewController = EditItemViewController(
+            viewModel: viewModelsFactory.editItemViewModel(for: currentList)
+        )
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .overFullScreen
+
+        self.navigationController.viewControllers.last?.present(
+            navigationController,
+            animated: true
+        )
+    }
+
     public func goToEditItem(_ item: ItemToBuyViewModel) {
         let viewModel = viewModelsFactory.editItemViewModel(for: currentList)
         viewModel.setItem(item)
@@ -59,18 +73,8 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         )
     }
 
-    public func goToCreateItem() {
-        let viewController = EditItemViewController(
-            viewModel: viewModelsFactory.editItemViewModel(for: currentList)
-        )
-
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .overFullScreen
-
-        self.navigationController.viewControllers.last?.present(
-            navigationController,
-            animated: true
-        )
+    public func goToSearchItem() {
+        print("@$", Date(), self, #function)
     }
 
     public func didDismiss() {

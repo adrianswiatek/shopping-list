@@ -6,8 +6,9 @@ import UIKit
 
 public protocol ItemsViewControllerDelegate: AnyObject {
     func goToBasket()
-    func goToEditItem(_ item: ItemToBuyViewModel)
     func goToCreateItem()
+    func goToEditItem(_ item: ItemToBuyViewModel)
+    func goToSearchItem()
     func didDismiss()
 }
 
@@ -231,6 +232,8 @@ public final class ItemsViewController: UIViewController {
         case .remove:
             let selectedItems = tableView.selectedItems()
             viewModel.removeItems(with: selectedItems.map { $0.uuid })
+        case .search:
+            delegate?.goToSearchItem()
         }
     }
 
@@ -243,7 +246,7 @@ public final class ItemsViewController: UIViewController {
             })
         }
 
-        alertController.addAction(.init(title: "Add all to the basket", style: .default) { [weak self] _ in
+        alertController.addAction(.init(title: "Add all to basket", style: .default) { [weak self] _ in
             self?.viewModel.addToBasketAllItems()
         })
         alertController.addAction(.init(title: "Remove all", style: .destructive) { [weak self] _ in

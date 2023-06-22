@@ -118,7 +118,7 @@ extension ItemsTableView: UITableViewDelegate {
 
     private func moveToListActionForItem(at indexPath: IndexPath) -> UIAction? {
         itemForCell(at: indexPath).map { item in
-            UIAction(title: "Add item to the basket", image: #imageLiteral(resourceName: "AddToBasket"), attributes: []) { [weak self] _ in
+            UIAction(title: "Add item to basket", image: #imageLiteral(resourceName: "AddToBasket"), attributes: []) { [weak self] _ in
                 self?.onActionSubject.send(.addItemToBasket(uuid: item.uuid))
             }
         }

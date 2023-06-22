@@ -89,7 +89,7 @@ extension ManageModelItemsTableView: UITableViewDelegate {
     private func editActionForModelItem(at index: Int) -> UIAction? {
         modelItemForCell(at: index).map { modelItem in
             let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
-            return UIAction(title: "Edit model item", image: image, attributes: [] ) { [weak self] _ in
+            return UIAction(title: "Edit item", image: image, attributes: [] ) { [weak self] _ in
                 self?.onActionSubject.send(.editModelItem(modelItem))
             }
         }
@@ -98,7 +98,7 @@ extension ManageModelItemsTableView: UITableViewDelegate {
     private func removeActionForModelItem(at index: Int) -> UIAction? {
         guard let modelItem = modelItemForCell(at: index) else { return nil }
         let image = #imageLiteral(resourceName: "Trash").withRenderingMode(.alwaysTemplate)
-        return UIAction(title: "Remove model item", image: image, attributes: .destructive) { [weak self] _ in
+        return UIAction(title: "Remove item", image: image, attributes: .destructive) { [weak self] _ in
             self?.onActionSubject.send(.removeModelItem(uuid: modelItem.uuid))
         }
     }
