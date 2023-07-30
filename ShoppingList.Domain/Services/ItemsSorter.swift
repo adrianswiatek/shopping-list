@@ -1,16 +1,20 @@
 import Foundation
 
-public struct ItemsSorter {
+public enum ItemsSorter {
     public static func sort(_ items: [Item], by orderedItemsIds: [Id<Item>]) -> [Item] {
         var unorderedItems = items
         var result = [Item]()
         
         for itemId in orderedItemsIds {
-            guard let itemIndex = unorderedItems.firstIndex(where: { $0.id == itemId }) else { continue }
-            result.append(unorderedItems.remove(at: itemIndex))
+            if let itemIndex = unorderedItems.firstIndex(where: { $0.id == itemId }) {
+                result.append(unorderedItems.remove(at: itemIndex))
+            }
         }
-        
-        unorderedItems.reversed().forEach { result.insert($0, at: 0) }
+
+        for item in unorderedItems.reversed() {
+            result.insert(item, at: 0)
+        }
+
         return result
     }
 }

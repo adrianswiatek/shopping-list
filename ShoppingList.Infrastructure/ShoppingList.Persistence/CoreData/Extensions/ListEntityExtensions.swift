@@ -10,7 +10,7 @@ extension ListEntity {
             let items = items?.compactMap({ $0 as? ItemEntity }),
             let updateDate = updateDate
         else {
-            fatalError("Unable to create List.")
+            fatalError("Unable to create List")
         }
         
         let list = List(id: .fromUuid(id), name: name, accessType: accessType, items: [], updateDate: updateDate)
@@ -19,7 +19,7 @@ extension ListEntity {
     
     func update(by list: List, context: NSManagedObjectContext) {
         guard id == list.id.toUuid() else {
-            fatalError("Unable to update Lists that have different ids.")
+            fatalError("Unable to update Lists that have different ids")
         }
         
         if name != list.name {
@@ -54,8 +54,7 @@ extension ListEntity {
                 itemsToUpdate.remove(at: index)
             }
         }
-        
-//        itemsToUpdate.forEach { _ = $0.map(context: context) }
+
         entitiesToUpdate.forEach { context.delete($0) }
     }
     

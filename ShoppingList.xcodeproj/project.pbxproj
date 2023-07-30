@@ -237,6 +237,62 @@
 		A7FE443D25E1BFAD00DC7E19 /* RestoreListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE443C25E1BFAD00DC7E19 /* RestoreListCommand.swift */; };
 		A7FE444025E1C0D700DC7E19 /* RestoreListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE443F25E1C0D700DC7E19 /* RestoreListCommandHandler.swift */; };
 		A7FE444325E1C21500DC7E19 /* RemoveListCommandRefiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE444225E1C21500DC7E19 /* RemoveListCommandRefiner.swift */; };
+		E810B0762A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E810B0752A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift */; };
+		E83B6C172A4E0E38009BAAED /* ConnectivityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C162A4E0E38009BAAED /* ConnectivityGateway.swift */; };
+		E83B6C1A2A4E13DB009BAAED /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C192A4E13DB009BAAED /* Container.swift */; };
+		E83B6C1C2A4E1402009BAAED /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = E83B6C1B2A4E1402009BAAED /* Swinject */; };
+		E83B6C1E2A4E1759009BAAED /* ViewModelsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */; };
+		E83DB64E2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB64D2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift */; };
+		E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6512A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld */; };
+		E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */; };
+		E83DB65B2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */; };
+		E89E35D42A4B428500895250 /* ShoppingListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D32A4B428500895250 /* ShoppingListDto.swift */; };
+		E89E35D62A4B428D00895250 /* ShoppingItemDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D52A4B428D00895250 /* ShoppingItemDto.swift */; };
+		E89E35DA2A4B4B5E00895250 /* SendListToWatchCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D92A4B4B5E00895250 /* SendListToWatchCommand.swift */; };
+		E89E35DC2A4B4BAA00895250 /* SendListToWatchCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35DB2A4B4BAA00895250 /* SendListToWatchCommandHandler.swift */; };
+		E89E35F52A4B52D500895250 /* ShoppingList_Connectivity.h in Headers */ = {isa = PBXBuildFile; fileRef = E89E35F42A4B52D500895250 /* ShoppingList_Connectivity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E89E35F82A4B52D500895250 /* ShoppingList_Connectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E89E35F22A4B52D500895250 /* ShoppingList_Connectivity.framework */; };
+		E89E35F92A4B52D500895250 /* ShoppingList_Connectivity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E89E35F22A4B52D500895250 /* ShoppingList_Connectivity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E89E35FD2A4B52E800895250 /* WatchConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDF8B22A4A532400A9E22E /* WatchConnectivity.swift */; };
+		E89E36002A4B5C7900895250 /* ConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35FF2A4B5C7900895250 /* ConnectivityService.swift */; };
+		E89E36012A4B5CC000895250 /* ListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35CE2A4B385D00895250 /* ListDto.swift */; };
+		E89E36022A4B5CC000895250 /* ItemDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D02A4B386300895250 /* ItemDto.swift */; };
+		E89E36032A4B5D3D00895250 /* ShoppingList_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; platformFilter = ios; };
+		E89E36042A4B5D3D00895250 /* ShoppingList_Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E89E36082A4B5D6700895250 /* ShoppingList_Application.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; platformFilter = ios; };
+		E89E36092A4B5D6700895250 /* ShoppingList_Application.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A739B39F2569BCD7000B16E3 /* ShoppingList_Application.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E89E360D2A4B5D8F00895250 /* ConnectivityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E360C2A4B5D8F00895250 /* ConnectivityGateway.swift */; };
+		E89E36102A4B691500895250 /* ConnectivitySendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E360F2A4B691500895250 /* ConnectivitySendRequest.swift */; };
+		E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36112A4B6BD000895250 /* UpdateListDto.swift */; };
+		E89E36142A4B6D0800895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36132A4B6D0800895250 /* UpdateListDto.swift */; };
+		E89E36162A4CF19D00895250 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36152A4CF19D00895250 /* EventBus.swift */; };
+		E8F266272A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266262A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift */; };
+		E8F2662B2A4A424200BFC2D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8F2662A2A4A424200BFC2D5 /* Assets.xcassets */; };
+		E8F2662E2A4A424200BFC2D5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8F2662D2A4A424200BFC2D5 /* Preview Assets.xcassets */; };
+		E8F266312A4A424200BFC2D5 /* ShoppingList-watchOS Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E8F266242A4A424100BFC2D5 /* ShoppingList-watchOS Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E8F2665C2A4A43BE00BFC2D5 /* ShoppingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266402A4A43BE00BFC2D5 /* ShoppingItem.swift */; };
+		E8F2665D2A4A43BE00BFC2D5 /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266412A4A43BE00BFC2D5 /* ShoppingList.swift */; };
+		E8F2665E2A4A43BE00BFC2D5 /* Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266432A4A43BE00BFC2D5 /* Id.swift */; };
+		E8F2665F2A4A43BE00BFC2D5 /* InMemoryShoppingListsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266452A4A43BE00BFC2D5 /* InMemoryShoppingListsRepository.swift */; };
+		E8F266602A4A43BE00BFC2D5 /* InMemoryShoppingItemsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266462A4A43BE00BFC2D5 /* InMemoryShoppingItemsRepository.swift */; };
+		E8F266612A4A43BE00BFC2D5 /* ShoppingListsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266492A4A43BE00BFC2D5 /* ShoppingListsViewModel.swift */; };
+		E8F266622A4A43BE00BFC2D5 /* ShoppingListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2664A2A4A43BE00BFC2D5 /* ShoppingListsView.swift */; };
+		E8F266632A4A43BE00BFC2D5 /* EmptyListText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2664C2A4A43BE00BFC2D5 /* EmptyListText.swift */; };
+		E8F266642A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2664E2A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift */; };
+		E8F266652A4A43BE00BFC2D5 /* ShoppingItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2664F2A4A43BE00BFC2D5 /* ShoppingItemsView.swift */; };
+		E8F266662A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266502A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift */; };
+		E8F266672A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266512A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift */; };
+		E8F266682A4A43BE00BFC2D5 /* Lists.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266522A4A43BE00BFC2D5 /* Lists.swift */; };
+		E8F266692A4A43BE00BFC2D5 /* ShoppingListsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266552A4A43BE00BFC2D5 /* ShoppingListsService.swift */; };
+		E8F2666A2A4A43BE00BFC2D5 /* ShoppingListsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266562A4A43BE00BFC2D5 /* ShoppingListsRepository.swift */; };
+		E8F2666B2A4A43BE00BFC2D5 /* ShoppingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266572A4A43BE00BFC2D5 /* ShoppingListViewModel.swift */; };
+		E8F2666C2A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266592A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift */; };
+		E8F2666D2A4A43BE00BFC2D5 /* ShoppingItemsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2665A2A4A43BE00BFC2D5 /* ShoppingItemsService.swift */; };
+		E8F2666E2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2665B2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift */; };
+		E8F9F6712A7489BA00245FFD /* DictionaryEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F9F6702A7489BA00245FFD /* DictionaryEncodable.swift */; };
+		E8F9F6732A748DF700245FFD /* DictionaryDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F9F6722A748DF700245FFD /* DictionaryDecodable.swift */; };
+		E8FDF8B62A4A6DF900A9E22E /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDF8B52A4A6DF900A9E22E /* Connectivity.swift */; };
+		E8FDF8B92A4A6FE200A9E22E /* ConnectivityListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -366,6 +422,34 @@
 			remoteGlobalIDString = A7640F492569B46A000D882B;
 			remoteInfo = ShoppingList.Views;
 		};
+		E89E35F62A4B52D500895250 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E89E35F12A4B52D500895250;
+			remoteInfo = ShoppingList.Connectivity;
+		};
+		E89E36052A4B5D3D00895250 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7640FC32569BC94000D882B;
+			remoteInfo = ShoppingList.Domain;
+		};
+		E89E360A2A4B5D6800895250 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A739B39E2569BCD7000B16E3;
+			remoteInfo = ShoppingList.Application;
+		};
+		E8F2662F2A4A424200BFC2D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A392E2C207A5A3C005857E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8F266232A4A424100BFC2D5;
+			remoteInfo = "ShoppingList-watchOS Watch App";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -441,9 +525,33 @@
 				A7D5954025D484E000E85F94 /* ShoppingList_Persistence.framework in Embed Frameworks */,
 				A7D5954C25D484E000E85F94 /* ShoppingList_Views.framework in Embed Frameworks */,
 				A7D5954825D484E000E85F94 /* ShoppingList_ViewModels.framework in Embed Frameworks */,
+				E89E35F92A4B52D500895250 /* ShoppingList_Connectivity.framework in Embed Frameworks */,
 				A7D5954425D484E000E85F94 /* ShoppingList_Shared.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E89E36072A4B5D3E00895250 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E89E36042A4B5D3D00895250 /* ShoppingList_Domain.framework in Embed Frameworks */,
+				E89E36092A4B5D6700895250 /* ShoppingList_Application.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8F266322A4A424300BFC2D5 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				E8F266312A4A424200BFC2D5 /* ShoppingList-watchOS Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -662,6 +770,57 @@
 		A7FE443C25E1BFAD00DC7E19 /* RestoreListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreListCommand.swift; sourceTree = "<group>"; };
 		A7FE443F25E1C0D700DC7E19 /* RestoreListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreListCommandHandler.swift; sourceTree = "<group>"; };
 		A7FE444225E1C21500DC7E19 /* RemoveListCommandRefiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListCommandRefiner.swift; sourceTree = "<group>"; };
+		E810B0752A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataShoppingItemsRepository.swift; sourceTree = "<group>"; };
+		E83B6C162A4E0E38009BAAED /* ConnectivityGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityGateway.swift; sourceTree = "<group>"; };
+		E83B6C192A4E13DB009BAAED /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelsFactory.swift; sourceTree = "<group>"; };
+		E83DB64D2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataShoppingListsRepository.swift; sourceTree = "<group>"; };
+		E83DB6522A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShoppingList-watchOS.xcdatamodel"; sourceTree = "<group>"; };
+		E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListEntityExtensions.swift; sourceTree = "<group>"; };
+		E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemEntityExtensions.swift; sourceTree = "<group>"; };
+		E89E35B42A4B343200895250 /* ShoppingList_DTO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_DTO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E89E35CE2A4B385D00895250 /* ListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDto.swift; sourceTree = "<group>"; };
+		E89E35D02A4B386300895250 /* ItemDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDto.swift; sourceTree = "<group>"; };
+		E89E35D32A4B428500895250 /* ShoppingListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListDto.swift; sourceTree = "<group>"; };
+		E89E35D52A4B428D00895250 /* ShoppingItemDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemDto.swift; sourceTree = "<group>"; };
+		E89E35D92A4B4B5E00895250 /* SendListToWatchCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendListToWatchCommand.swift; sourceTree = "<group>"; };
+		E89E35DB2A4B4BAA00895250 /* SendListToWatchCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendListToWatchCommandHandler.swift; sourceTree = "<group>"; };
+		E89E35F22A4B52D500895250 /* ShoppingList_Connectivity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_Connectivity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E89E35F42A4B52D500895250 /* ShoppingList_Connectivity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShoppingList_Connectivity.h; sourceTree = "<group>"; };
+		E89E35FF2A4B5C7900895250 /* ConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityService.swift; sourceTree = "<group>"; };
+		E89E360C2A4B5D8F00895250 /* ConnectivityGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityGateway.swift; sourceTree = "<group>"; };
+		E89E360F2A4B691500895250 /* ConnectivitySendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivitySendRequest.swift; sourceTree = "<group>"; };
+		E89E36112A4B6BD000895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
+		E89E36132A4B6D0800895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
+		E89E36152A4CF19D00895250 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
+		E8F266242A4A424100BFC2D5 /* ShoppingList-watchOS Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShoppingList-watchOS Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8F266262A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList_watchOSApp.swift; sourceTree = "<group>"; };
+		E8F2662A2A4A424200BFC2D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E8F2662D2A4A424200BFC2D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E8F266402A4A43BE00BFC2D5 /* ShoppingItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItem.swift; sourceTree = "<group>"; };
+		E8F266412A4A43BE00BFC2D5 /* ShoppingList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
+		E8F266432A4A43BE00BFC2D5 /* Id.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Id.swift; sourceTree = "<group>"; };
+		E8F266452A4A43BE00BFC2D5 /* InMemoryShoppingListsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryShoppingListsRepository.swift; sourceTree = "<group>"; };
+		E8F266462A4A43BE00BFC2D5 /* InMemoryShoppingItemsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryShoppingItemsRepository.swift; sourceTree = "<group>"; };
+		E8F266492A4A43BE00BFC2D5 /* ShoppingListsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListsViewModel.swift; sourceTree = "<group>"; };
+		E8F2664A2A4A43BE00BFC2D5 /* ShoppingListsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListsView.swift; sourceTree = "<group>"; };
+		E8F2664C2A4A43BE00BFC2D5 /* EmptyListText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyListText.swift; sourceTree = "<group>"; };
+		E8F2664E2A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsViewModel.swift; sourceTree = "<group>"; };
+		E8F2664F2A4A43BE00BFC2D5 /* ShoppingItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsView.swift; sourceTree = "<group>"; };
+		E8F266502A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsInBasketView.swift; sourceTree = "<group>"; };
+		E8F266512A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsOnListView.swift; sourceTree = "<group>"; };
+		E8F266522A4A43BE00BFC2D5 /* Lists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lists.swift; sourceTree = "<group>"; };
+		E8F266552A4A43BE00BFC2D5 /* ShoppingListsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListsService.swift; sourceTree = "<group>"; };
+		E8F266562A4A43BE00BFC2D5 /* ShoppingListsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListsRepository.swift; sourceTree = "<group>"; };
+		E8F266572A4A43BE00BFC2D5 /* ShoppingListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListViewModel.swift; sourceTree = "<group>"; };
+		E8F266592A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemViewModel.swift; sourceTree = "<group>"; };
+		E8F2665A2A4A43BE00BFC2D5 /* ShoppingItemsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsService.swift; sourceTree = "<group>"; };
+		E8F2665B2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsRepository.swift; sourceTree = "<group>"; };
+		E8F9F6702A7489BA00245FFD /* DictionaryEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryEncodable.swift; sourceTree = "<group>"; };
+		E8F9F6722A748DF700245FFD /* DictionaryDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryDecodable.swift; sourceTree = "<group>"; };
+		E8FDF8B22A4A532400A9E22E /* WatchConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivity.swift; sourceTree = "<group>"; };
+		E8FDF8B52A4A6DF900A9E22E /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
+		E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityListener.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -670,6 +829,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7D5954325D484E000E85F94 /* ShoppingList_Shared.framework in Frameworks */,
+				E89E35F82A4B52D500895250 /* ShoppingList_Connectivity.framework in Frameworks */,
 				A7D5954725D484E000E85F94 /* ShoppingList_ViewModels.framework in Frameworks */,
 				A7D5953625D484E000E85F94 /* Swinject in Frameworks */,
 				A7D5953725D484E000E85F94 /* ShoppingList_Application.framework in Frameworks */,
@@ -739,6 +899,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E89E35B12A4B343200895250 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E89E35EF2A4B52D500895250 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E89E36032A4B5D3D00895250 /* ShoppingList_Domain.framework in Frameworks */,
+				E89E36082A4B5D6700895250 /* ShoppingList_Application.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8F266212A4A424100BFC2D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E83B6C1C2A4E1402009BAAED /* Swinject in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -775,15 +959,16 @@
 		3A392E2B207A5A3C005857E5 = {
 			isa = PBXGroup;
 			children = (
-				3A392E36207A5A3C005857E5 /* ShoppingList */,
-				A7640F4B2569B46A000D882B /* ShoppingList.Views */,
-				A739B3E02569C149000B16E3 /* ShoppingList.Infrastructure */,
-				A739B3A02569BCD7000B16E3 /* ShoppingList.Application */,
-				A7640FC52569BC94000D882B /* ShoppingList.Domain */,
-				A739B5722569DD52000B16E3 /* ShoppingList.Shared */,
-				A73DC8B825E5B6D800C9BA66 /* ShoppingList.Tests */,
 				2C3C88D204B53B68FA2D13E4 /* Frameworks */,
 				3A392E35207A5A3C005857E5 /* Products */,
+				3A392E36207A5A3C005857E5 /* ShoppingList */,
+				E8F266252A4A424200BFC2D5 /* ShoppingList-watchOS Watch App */,
+				A739B3A02569BCD7000B16E3 /* ShoppingList.Application */,
+				A7640FC52569BC94000D882B /* ShoppingList.Domain */,
+				A739B3E02569C149000B16E3 /* ShoppingList.Infrastructure */,
+				A739B5722569DD52000B16E3 /* ShoppingList.Shared */,
+				A73DC8B825E5B6D800C9BA66 /* ShoppingList.Tests */,
+				A7640F4B2569B46A000D882B /* ShoppingList.Views */,
 			);
 			sourceTree = "<group>";
 		};
@@ -798,6 +983,9 @@
 				A739B43D2569C617000B16E3 /* ShoppingList_Persistence.framework */,
 				A739B5712569DD52000B16E3 /* ShoppingList_Shared.framework */,
 				A73DC8B725E5B6D800C9BA66 /* ShoppingList.Tests.xctest */,
+				E8F266242A4A424100BFC2D5 /* ShoppingList-watchOS Watch App.app */,
+				E89E35B42A4B343200895250 /* ShoppingList_DTO.framework */,
+				E89E35F22A4B52D500895250 /* ShoppingList_Connectivity.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1017,6 +1205,7 @@
 				A739B3A22569BCD7000B16E3 /* Info.plist */,
 				A706FE7E25992F0200E79CF5 /* LocalPreferences.swift */,
 				3A4E31992143167200BE1DCD /* Commands */,
+				E89E360E2A4B690600895250 /* Connectivity */,
 				A7CDD3EE25AF773700FF776A /* Events */,
 				A765C04A25DC637B0047172E /* Extensions */,
 				A7941CDA25798B130057B6B4 /* Features */,
@@ -1062,8 +1251,9 @@
 		A739B3E02569C149000B16E3 /* ShoppingList.Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
-				A7640F642569B5FD000D882B /* ShoppingList.ViewModels */,
+				E89E35F32A4B52D500895250 /* ShoppingList.Connectivity */,
 				A739B43E2569C617000B16E3 /* ShoppingList.Persistence */,
+				A7640F642569B5FD000D882B /* ShoppingList.ViewModels */,
 			);
 			path = ShoppingList.Infrastructure;
 			sourceTree = "<group>";
@@ -1283,6 +1473,7 @@
 				A7826349257850CC00E4DA54 /* RemoveList */,
 				A7FE443925E1BF3D00DC7E19 /* RestoreList */,
 				A7B2224B25E059A9008102A9 /* RestoreListItems */,
+				E89E35D82A4B4B4600895250 /* SendListToWatch */,
 				A76CA545258ED41A00C1F878 /* UpdateList */,
 				A77EE6DD25B2395A00A258B4 /* UpdateListsDate */,
 			);
@@ -1640,6 +1831,242 @@
 			path = RestoreList;
 			sourceTree = "<group>";
 		};
+		E83B6C142A4E0E05009BAAED /* Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				E8FDF8B52A4A6DF900A9E22E /* Connectivity.swift */,
+				E83B6C162A4E0E38009BAAED /* ConnectivityGateway.swift */,
+				E8F9F6722A748DF700245FFD /* DictionaryDecodable.swift */,
+			);
+			path = Connectivity;
+			sourceTree = "<group>";
+		};
+		E83B6C152A4E0E0A009BAAED /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				E810B0752A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift */,
+				E83DB64D2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift */,
+				E8F266462A4A43BE00BFC2D5 /* InMemoryShoppingItemsRepository.swift */,
+				E8F266452A4A43BE00BFC2D5 /* InMemoryShoppingListsRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		E83B6C182A4E13CB009BAAED /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E83B6C192A4E13DB009BAAED /* Container.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		E83DB64F2A4FA894009411F9 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				E83DB6502A4FA8C1009411F9 /* CoreData */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		E83DB6502A4FA8C1009411F9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E83DB6542A4FACF7009411F9 /* Extensions */,
+				E83B6C152A4E0E0A009BAAED /* Repositories */,
+				E83DB6512A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E83DB6542A4FACF7009411F9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */,
+				E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E89E35D22A4B386600895250 /* DataTransferObjects */ = {
+			isa = PBXGroup;
+			children = (
+				E89E35D02A4B386300895250 /* ItemDto.swift */,
+				E89E35CE2A4B385D00895250 /* ListDto.swift */,
+				E89E36132A4B6D0800895250 /* UpdateListDto.swift */,
+			);
+			path = DataTransferObjects;
+			sourceTree = "<group>";
+		};
+		E89E35D72A4B429300895250 /* Dto */ = {
+			isa = PBXGroup;
+			children = (
+				E89E35D52A4B428D00895250 /* ShoppingItemDto.swift */,
+				E89E35D32A4B428500895250 /* ShoppingListDto.swift */,
+				E89E36112A4B6BD000895250 /* UpdateListDto.swift */,
+			);
+			path = Dto;
+			sourceTree = "<group>";
+		};
+		E89E35D82A4B4B4600895250 /* SendListToWatch */ = {
+			isa = PBXGroup;
+			children = (
+				E89E35D92A4B4B5E00895250 /* SendListToWatchCommand.swift */,
+				E89E35DB2A4B4BAA00895250 /* SendListToWatchCommandHandler.swift */,
+			);
+			path = SendListToWatch;
+			sourceTree = "<group>";
+		};
+		E89E35F32A4B52D500895250 /* ShoppingList.Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				E89E35F42A4B52D500895250 /* ShoppingList_Connectivity.h */,
+				E89E360C2A4B5D8F00895250 /* ConnectivityGateway.swift */,
+				E8F9F6702A7489BA00245FFD /* DictionaryEncodable.swift */,
+				E8FDF8B22A4A532400A9E22E /* WatchConnectivity.swift */,
+				E89E35D22A4B386600895250 /* DataTransferObjects */,
+			);
+			path = ShoppingList.Connectivity;
+			sourceTree = "<group>";
+		};
+		E89E360E2A4B690600895250 /* Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				E89E360F2A4B691500895250 /* ConnectivitySendRequest.swift */,
+				E89E35FF2A4B5C7900895250 /* ConnectivityService.swift */,
+			);
+			path = Connectivity;
+			sourceTree = "<group>";
+		};
+		E8F266252A4A424200BFC2D5 /* ShoppingList-watchOS Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				E8F266262A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift */,
+				E8F2662A2A4A424200BFC2D5 /* Assets.xcassets */,
+				E8F266532A4A43BE00BFC2D5 /* Application */,
+				E83B6C182A4E13CB009BAAED /* Configuration */,
+				E8F2663E2A4A43BE00BFC2D5 /* Domain */,
+				E8F266442A4A43BE00BFC2D5 /* Infrastructure */,
+				E8F2662C2A4A424200BFC2D5 /* Preview Content */,
+				E8F266472A4A43BE00BFC2D5 /* Views */,
+			);
+			path = "ShoppingList-watchOS Watch App";
+			sourceTree = "<group>";
+		};
+		E8F2662C2A4A424200BFC2D5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E8F2662D2A4A424200BFC2D5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E8F2663E2A4A43BE00BFC2D5 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				E8F2663F2A4A43BE00BFC2D5 /* Entities */,
+				E8F266422A4A43BE00BFC2D5 /* ValueObjects */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		E8F2663F2A4A43BE00BFC2D5 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				E8F266402A4A43BE00BFC2D5 /* ShoppingItem.swift */,
+				E8F266412A4A43BE00BFC2D5 /* ShoppingList.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		E8F266422A4A43BE00BFC2D5 /* ValueObjects */ = {
+			isa = PBXGroup;
+			children = (
+				E8F266432A4A43BE00BFC2D5 /* Id.swift */,
+			);
+			path = ValueObjects;
+			sourceTree = "<group>";
+		};
+		E8F266442A4A43BE00BFC2D5 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				E83DB64F2A4FA894009411F9 /* Persistence */,
+				E83B6C142A4E0E05009BAAED /* Connectivity */,
+				E89E35D72A4B429300895250 /* Dto */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		E8F266472A4A43BE00BFC2D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E8F266522A4A43BE00BFC2D5 /* Lists.swift */,
+				E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */,
+				E8F2664B2A4A43BE00BFC2D5 /* CustomComponents */,
+				E8F2664D2A4A43BE00BFC2D5 /* ShoppingItems */,
+				E8F266482A4A43BE00BFC2D5 /* ShoppingLists */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E8F266482A4A43BE00BFC2D5 /* ShoppingLists */ = {
+			isa = PBXGroup;
+			children = (
+				E8F266492A4A43BE00BFC2D5 /* ShoppingListsViewModel.swift */,
+				E8F2664A2A4A43BE00BFC2D5 /* ShoppingListsView.swift */,
+			);
+			path = ShoppingLists;
+			sourceTree = "<group>";
+		};
+		E8F2664B2A4A43BE00BFC2D5 /* CustomComponents */ = {
+			isa = PBXGroup;
+			children = (
+				E8F2664C2A4A43BE00BFC2D5 /* EmptyListText.swift */,
+			);
+			path = CustomComponents;
+			sourceTree = "<group>";
+		};
+		E8F2664D2A4A43BE00BFC2D5 /* ShoppingItems */ = {
+			isa = PBXGroup;
+			children = (
+				E8F2664E2A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift */,
+				E8F2664F2A4A43BE00BFC2D5 /* ShoppingItemsView.swift */,
+				E8F266502A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift */,
+				E8F266512A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift */,
+			);
+			path = ShoppingItems;
+			sourceTree = "<group>";
+		};
+		E8F266532A4A43BE00BFC2D5 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */,
+				E89E36152A4CF19D00895250 /* EventBus.swift */,
+				E8F266582A4A43BE00BFC2D5 /* ShoppingItems */,
+				E8F266542A4A43BE00BFC2D5 /* ShoppingLists */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E8F266542A4A43BE00BFC2D5 /* ShoppingLists */ = {
+			isa = PBXGroup;
+			children = (
+				E8F266552A4A43BE00BFC2D5 /* ShoppingListsService.swift */,
+				E8F266562A4A43BE00BFC2D5 /* ShoppingListsRepository.swift */,
+				E8F266572A4A43BE00BFC2D5 /* ShoppingListViewModel.swift */,
+			);
+			path = ShoppingLists;
+			sourceTree = "<group>";
+		};
+		E8F266582A4A43BE00BFC2D5 /* ShoppingItems */ = {
+			isa = PBXGroup;
+			children = (
+				E8F266592A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift */,
+				E8F2665A2A4A43BE00BFC2D5 /* ShoppingItemsService.swift */,
+				E8F2665B2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift */,
+			);
+			path = ShoppingItems;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1691,6 +2118,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E89E35AF2A4B343200895250 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E89E35ED2A4B52D500895250 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E89E35F52A4B52D500895250 /* ShoppingList_Connectivity.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1702,6 +2144,7 @@
 				3A392E31207A5A3C005857E5 /* Frameworks */,
 				3A392E32207A5A3C005857E5 /* Resources */,
 				A77DFFC825785804001B7B35 /* Embed Frameworks */,
+				E8F266322A4A424300BFC2D5 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
@@ -1712,6 +2155,8 @@
 				A7D5954625D484E000E85F94 /* PBXTargetDependency */,
 				A7D5954A25D484E000E85F94 /* PBXTargetDependency */,
 				A7D5954E25D484E000E85F94 /* PBXTargetDependency */,
+				E8F266302A4A424200BFC2D5 /* PBXTargetDependency */,
+				E89E35F72A4B52D500895250 /* PBXTargetDependency */,
 			);
 			name = ShoppingList;
 			packageProductDependencies = (
@@ -1863,13 +2308,72 @@
 			productReference = A7640FC42569BC94000D882B /* ShoppingList_Domain.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		E89E35B32A4B343200895250 /* ShoppingList.DTO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E89E35BC2A4B343300895250 /* Build configuration list for PBXNativeTarget "ShoppingList.DTO" */;
+			buildPhases = (
+				E89E35AF2A4B343200895250 /* Headers */,
+				E89E35B02A4B343200895250 /* Sources */,
+				E89E35B12A4B343200895250 /* Frameworks */,
+				E89E35B22A4B343200895250 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShoppingList.DTO;
+			productName = ShoppingList.DTO;
+			productReference = E89E35B42A4B343200895250 /* ShoppingList_DTO.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E89E35F12A4B52D500895250 /* ShoppingList.Connectivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E89E35FA2A4B52D500895250 /* Build configuration list for PBXNativeTarget "ShoppingList.Connectivity" */;
+			buildPhases = (
+				E89E35ED2A4B52D500895250 /* Headers */,
+				E89E35EE2A4B52D500895250 /* Sources */,
+				E89E35EF2A4B52D500895250 /* Frameworks */,
+				E89E35F02A4B52D500895250 /* Resources */,
+				E89E36072A4B5D3E00895250 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E89E36062A4B5D3D00895250 /* PBXTargetDependency */,
+				E89E360B2A4B5D6800895250 /* PBXTargetDependency */,
+			);
+			name = ShoppingList.Connectivity;
+			productName = ShoppingList.Connectivity;
+			productReference = E89E35F22A4B52D500895250 /* ShoppingList_Connectivity.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E8F266232A4A424100BFC2D5 /* ShoppingList-watchOS Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8F266352A4A424300BFC2D5 /* Build configuration list for PBXNativeTarget "ShoppingList-watchOS Watch App" */;
+			buildPhases = (
+				E8F266202A4A424100BFC2D5 /* Sources */,
+				E8F266212A4A424100BFC2D5 /* Frameworks */,
+				E8F266222A4A424100BFC2D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ShoppingList-watchOS Watch App";
+			packageProductDependencies = (
+				E83B6C1B2A4E1402009BAAED /* Swinject */,
+			);
+			productName = "ShoppingList-watchOS Watch App";
+			productReference = E8F266242A4A424100BFC2D5 /* ShoppingList-watchOS Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		3A392E2C207A5A3C005857E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1230;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = "Adrian Świątek";
 				TargetAttributes = {
@@ -1901,6 +2405,15 @@
 					A7640FC32569BC94000D882B = {
 						CreatedOnToolsVersion = 12.2;
 					};
+					E89E35B32A4B343200895250 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					E89E35F12A4B52D500895250 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					E8F266232A4A424100BFC2D5 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 				};
 			};
 			buildConfigurationList = 3A392E2F207A5A3C005857E5 /* Build configuration list for PBXProject "ShoppingList" */;
@@ -1920,13 +2433,16 @@
 			projectRoot = "";
 			targets = (
 				3A392E33207A5A3C005857E5 /* ShoppingList */,
-				A7640F492569B46A000D882B /* ShoppingList.Views */,
-				A7640F622569B5FD000D882B /* ShoppingList.ViewModels */,
-				A739B43C2569C617000B16E3 /* ShoppingList.Persistence */,
 				A739B39E2569BCD7000B16E3 /* ShoppingList.Application */,
+				E89E35F12A4B52D500895250 /* ShoppingList.Connectivity */,
 				A7640FC32569BC94000D882B /* ShoppingList.Domain */,
+				E89E35B32A4B343200895250 /* ShoppingList.DTO */,
+				A739B43C2569C617000B16E3 /* ShoppingList.Persistence */,
 				A739B5702569DD52000B16E3 /* ShoppingList.Shared */,
 				A73DC8B625E5B6D800C9BA66 /* ShoppingList.Tests */,
+				A7640F622569B5FD000D882B /* ShoppingList.ViewModels */,
+				A7640F492569B46A000D882B /* ShoppingList.Views */,
+				E8F266232A4A424100BFC2D5 /* ShoppingList-watchOS Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -1990,6 +2506,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E89E35B22A4B343200895250 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E89E35F02A4B52D500895250 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8F266222A4A424100BFC2D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8F2662E2A4A424200BFC2D5 /* Preview Assets.xcassets in Resources */,
+				E8F2662B2A4A424200BFC2D5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2019,6 +2558,7 @@
 				A7CDD40425AF890800FF776A /* ItemsCategoryRemovedEvent.swift in Sources */,
 				A7AF6B8D25ACFB9300D8A147 /* UpdateItemCommandHandler.swift in Sources */,
 				A7B2F52625B4E7D800E49A76 /* RestoreItemsCategoryCommandHandler.swift in Sources */,
+				E89E36102A4B691500895250 /* ConnectivitySendRequest.swift in Sources */,
 				A739B5262569D22A000B16E3 /* CommandSource.swift in Sources */,
 				A7DE7FD125D87DBA0045CB8C /* UpdateItemsOrderListener.swift in Sources */,
 				A7287E4625C0BDFF0092A781 /* RemoveItemsCommand.swift in Sources */,
@@ -2027,6 +2567,7 @@
 				A7CDD41D25AF8AC400FF776A /* ItemsCategoryAddedEvent.swift in Sources */,
 				A782634C2578517700E4DA54 /* ListRepository.swift in Sources */,
 				A706FE7C259927D800E79CF5 /* UpdateItemsCategoryCommandHandler.swift in Sources */,
+				E89E36002A4B5C7900895250 /* ConnectivityService.swift in Sources */,
 				A7FE444325E1C21500DC7E19 /* RemoveListCommandRefiner.swift in Sources */,
 				A7B2225025E05AB9008102A9 /* RestoreListItemsCommandHandler.swift in Sources */,
 				A7CDD42125AF8AF400FF776A /* ItemsAddedEvent.swift in Sources */,
@@ -2052,6 +2593,8 @@
 				A713C28525ABA68700DD5D33 /* AddItemCommandHandler.swift in Sources */,
 				A739B52C2569D22A000B16E3 /* RemoveListCommand.swift in Sources */,
 				A746C73225967F0A00D3CE30 /* AddItemsCategoryCommandHandler.swift in Sources */,
+				E89E35DC2A4B4BAA00895250 /* SendListToWatchCommandHandler.swift in Sources */,
+				E89E35DA2A4B4B5E00895250 /* SendListToWatchCommand.swift in Sources */,
 				A7287E4A25C0BE0A0092A781 /* RemoveItemsCommandHandler.swift in Sources */,
 				A7CDD3F325AF776B00FF776A /* EventBus.swift in Sources */,
 				A7D3968225A128C40077F10E /* MoveItemsToBasketCommand.swift in Sources */,
@@ -2236,6 +2779,68 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E89E35B02A4B343200895250 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E89E35EE2A4B52D500895250 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E89E35FD2A4B52E800895250 /* WatchConnectivity.swift in Sources */,
+				E8F9F6712A7489BA00245FFD /* DictionaryEncodable.swift in Sources */,
+				E89E360D2A4B5D8F00895250 /* ConnectivityGateway.swift in Sources */,
+				E89E36022A4B5CC000895250 /* ItemDto.swift in Sources */,
+				E89E36142A4B6D0800895250 /* UpdateListDto.swift in Sources */,
+				E89E36012A4B5CC000895250 /* ListDto.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8F266202A4A424100BFC2D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E83B6C1A2A4E13DB009BAAED /* Container.swift in Sources */,
+				E810B0762A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift in Sources */,
+				E8F266612A4A43BE00BFC2D5 /* ShoppingListsViewModel.swift in Sources */,
+				E8F266692A4A43BE00BFC2D5 /* ShoppingListsService.swift in Sources */,
+				E8F266642A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift in Sources */,
+				E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */,
+				E89E36162A4CF19D00895250 /* EventBus.swift in Sources */,
+				E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */,
+				E8F266602A4A43BE00BFC2D5 /* InMemoryShoppingItemsRepository.swift in Sources */,
+				E8F2665E2A4A43BE00BFC2D5 /* Id.swift in Sources */,
+				E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */,
+				E8F266672A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift in Sources */,
+				E8F266632A4A43BE00BFC2D5 /* EmptyListText.swift in Sources */,
+				E83DB64E2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift in Sources */,
+				E83B6C172A4E0E38009BAAED /* ConnectivityGateway.swift in Sources */,
+				E8F2666C2A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift in Sources */,
+				E8F2666D2A4A43BE00BFC2D5 /* ShoppingItemsService.swift in Sources */,
+				E8F266652A4A43BE00BFC2D5 /* ShoppingItemsView.swift in Sources */,
+				E8F2665C2A4A43BE00BFC2D5 /* ShoppingItem.swift in Sources */,
+				E8F266622A4A43BE00BFC2D5 /* ShoppingListsView.swift in Sources */,
+				E8F266682A4A43BE00BFC2D5 /* Lists.swift in Sources */,
+				E8F266662A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift in Sources */,
+				E8F2666E2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift in Sources */,
+				E83DB65B2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift in Sources */,
+				E8F2665F2A4A43BE00BFC2D5 /* InMemoryShoppingListsRepository.swift in Sources */,
+				E8F2665D2A4A43BE00BFC2D5 /* ShoppingList.swift in Sources */,
+				E8F266272A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift in Sources */,
+				E8F2666A2A4A43BE00BFC2D5 /* ShoppingListsRepository.swift in Sources */,
+				E89E35D42A4B428500895250 /* ShoppingListDto.swift in Sources */,
+				E83B6C1E2A4E1759009BAAED /* ViewModelsFactory.swift in Sources */,
+				E8FDF8B62A4A6DF900A9E22E /* Connectivity.swift in Sources */,
+				E8FDF8B92A4A6FE200A9E22E /* ConnectivityListener.swift in Sources */,
+				E89E35D62A4B428D00895250 /* ShoppingItemDto.swift in Sources */,
+				E8F9F6732A748DF700245FFD /* DictionaryDecodable.swift in Sources */,
+				E8F2666B2A4A43BE00BFC2D5 /* ShoppingListViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2328,6 +2933,28 @@
 			isa = PBXTargetDependency;
 			target = A7640F492569B46A000D882B /* ShoppingList.Views */;
 			targetProxy = A7D5954D25D484E000E85F94 /* PBXContainerItemProxy */;
+		};
+		E89E35F72A4B52D500895250 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E89E35F12A4B52D500895250 /* ShoppingList.Connectivity */;
+			targetProxy = E89E35F62A4B52D500895250 /* PBXContainerItemProxy */;
+		};
+		E89E36062A4B5D3D00895250 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = A7640FC32569BC94000D882B /* ShoppingList.Domain */;
+			targetProxy = E89E36052A4B5D3D00895250 /* PBXContainerItemProxy */;
+		};
+		E89E360B2A4B5D6800895250 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = A739B39E2569BCD7000B16E3 /* ShoppingList.Application */;
+			targetProxy = E89E360A2A4B5D6800895250 /* PBXContainerItemProxy */;
+		};
+		E8F266302A4A424200BFC2D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E8F266232A4A424100BFC2D5 /* ShoppingList-watchOS Watch App */;
+			targetProxy = E8F2662F2A4A424200BFC2D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2960,6 +3587,235 @@
 			};
 			name = Release;
 		};
+		E89E35BD2A4B343300895250 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-DTO";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E89E35BE2A4B343300895250 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-DTO";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E89E35FB2A4B52D500895250 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Connectivity";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E89E35FC2A4B52D500895250 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Connectivity";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E8F266332A4A424300BFC2D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"ShoppingList-watchOS Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "ShoppingList-watchOS";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = pl.aswiatek.ShoppingList;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		E8F266342A4A424300BFC2D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"ShoppingList-watchOS Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = Q924VJ4PLT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "ShoppingList-watchOS";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = pl.aswiatek.ShoppingList;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.aswiatek.ShoppingList.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3044,6 +3900,33 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		E89E35BC2A4B343300895250 /* Build configuration list for PBXNativeTarget "ShoppingList.DTO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E89E35BD2A4B343300895250 /* Debug */,
+				E89E35BE2A4B343300895250 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E89E35FA2A4B52D500895250 /* Build configuration list for PBXNativeTarget "ShoppingList.Connectivity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E89E35FB2A4B52D500895250 /* Debug */,
+				E89E35FC2A4B52D500895250 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8F266352A4A424300BFC2D5 /* Build configuration list for PBXNativeTarget "ShoppingList-watchOS Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8F266332A4A424300BFC2D5 /* Debug */,
+				E8F266342A4A424300BFC2D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -3063,6 +3946,11 @@
 			package = A7888B6D257ED0C600D20AE3 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
 		};
+		E83B6C1B2A4E1402009BAAED /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7888B6D257ED0C600D20AE3 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
@@ -3074,6 +3962,16 @@
 			);
 			currentVersion = 3AAC84FA2112390F00FF3B9E /* ShoppingList 0.2.xcdatamodel */;
 			path = ShoppingList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		E83DB6512A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E83DB6522A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodel */,
+			);
+			currentVersion = E83DB6522A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodel */;
+			path = "ShoppingList-watchOS.xcdatamodeld";
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
