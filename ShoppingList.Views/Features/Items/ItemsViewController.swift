@@ -33,7 +33,10 @@ public final class ItemsViewController: UIViewController {
         }
 
     private lazy var basketBarButtonItem: UIBarButtonItem =
-        .init(image: #imageLiteral(resourceName: "EmptyBasket"), primaryAction: .init { [weak self] _ in self?.delegate?.goToBasket() })
+        UIBarButtonItem(
+            image: #imageLiteral(resourceName: "EmptyBasket"),
+            primaryAction: .init { [weak self] _ in self?.delegate?.goToBasket() }
+        )
     
     private lazy var restoreBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Restore"), primaryAction: .init { [weak self] _ in
@@ -254,6 +257,9 @@ public final class ItemsViewController: UIViewController {
 
     private func openShareItemsAlert() {
         let alertController = UIAlertController(title: "Share ...", message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(.init(title: "... to watch", style: .default) { [weak self] _ in
+            self?.viewModel.sendListToWatch()
+        })
         alertController.addAction(.init(title: "... with categories", style: .default) { [weak self] _ in
             guard let formattedItems = self?.viewModel.formattedItemsWithCategories() else { return }
             self?.showActivityController(formattedItems)

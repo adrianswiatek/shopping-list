@@ -1,7 +1,6 @@
 import SwiftUI
 
 @main
-@MainActor
 struct ShoppingList_watchOS_Watch_AppApp: App {
     private let viewModelsFactory = {
         let container = Container()

@@ -2,7 +2,7 @@
 final class ViewModelsFactory {
     private let container: Container
 
-    init(container: Container) {
+    nonisolated init(container: Container) {
         self.container = container
     }
 
