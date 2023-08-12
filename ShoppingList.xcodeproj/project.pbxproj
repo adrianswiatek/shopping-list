@@ -266,6 +266,12 @@
 		E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36112A4B6BD000895250 /* UpdateListDto.swift */; };
 		E89E36142A4B6D0800895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36132A4B6D0800895250 /* UpdateListDto.swift */; };
 		E89E36162A4CF19D00895250 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36152A4CF19D00895250 /* EventBus.swift */; };
+		E8E866DC2A86DBEC00FFC39B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866DB2A86DBEC00FFC39B /* HomeView.swift */; };
+		E8E866DE2A86DD4100FFC39B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866DD2A86DD4100FFC39B /* SettingsView.swift */; };
+		E8E866E02A86E58000FFC39B /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866DF2A86E58000FFC39B /* SettingsViewModel.swift */; };
+		E8E866E32A8702CC00FFC39B /* UserDefaultsSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866E22A8702CC00FFC39B /* UserDefaultsSettingsRepository.swift */; };
+		E8E866E62A8703B800FFC39B /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866E52A8703B800FFC39B /* SettingsRepository.swift */; };
+		E8E866E82A87040000FFC39B /* Settings+Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866E72A87040000FFC39B /* Settings+Option.swift */; };
 		E8F266272A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266262A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift */; };
 		E8F2662B2A4A424200BFC2D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8F2662A2A4A424200BFC2D5 /* Assets.xcassets */; };
 		E8F2662E2A4A424200BFC2D5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8F2662D2A4A424200BFC2D5 /* Preview Assets.xcassets */; };
@@ -282,7 +288,6 @@
 		E8F266652A4A43BE00BFC2D5 /* ShoppingItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2664F2A4A43BE00BFC2D5 /* ShoppingItemsView.swift */; };
 		E8F266662A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266502A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift */; };
 		E8F266672A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266512A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift */; };
-		E8F266682A4A43BE00BFC2D5 /* Lists.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266522A4A43BE00BFC2D5 /* Lists.swift */; };
 		E8F266692A4A43BE00BFC2D5 /* ShoppingListsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266552A4A43BE00BFC2D5 /* ShoppingListsService.swift */; };
 		E8F2666A2A4A43BE00BFC2D5 /* ShoppingListsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266562A4A43BE00BFC2D5 /* ShoppingListsRepository.swift */; };
 		E8F2666B2A4A43BE00BFC2D5 /* ShoppingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266572A4A43BE00BFC2D5 /* ShoppingListViewModel.swift */; };
@@ -793,6 +798,12 @@
 		E89E36112A4B6BD000895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
 		E89E36132A4B6D0800895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
 		E89E36152A4CF19D00895250 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
+		E8E866DB2A86DBEC00FFC39B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E8E866DD2A86DD4100FFC39B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E8E866DF2A86E58000FFC39B /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		E8E866E22A8702CC00FFC39B /* UserDefaultsSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsSettingsRepository.swift; sourceTree = "<group>"; };
+		E8E866E52A8703B800FFC39B /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		E8E866E72A87040000FFC39B /* Settings+Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+Option.swift"; sourceTree = "<group>"; };
 		E8F266242A4A424100BFC2D5 /* ShoppingList-watchOS Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShoppingList-watchOS Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8F266262A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList_watchOSApp.swift; sourceTree = "<group>"; };
 		E8F2662A2A4A424200BFC2D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -809,7 +820,6 @@
 		E8F2664F2A4A43BE00BFC2D5 /* ShoppingItemsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsView.swift; sourceTree = "<group>"; };
 		E8F266502A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsInBasketView.swift; sourceTree = "<group>"; };
 		E8F266512A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsOnListView.swift; sourceTree = "<group>"; };
-		E8F266522A4A43BE00BFC2D5 /* Lists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lists.swift; sourceTree = "<group>"; };
 		E8F266552A4A43BE00BFC2D5 /* ShoppingListsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListsService.swift; sourceTree = "<group>"; };
 		E8F266562A4A43BE00BFC2D5 /* ShoppingListsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListsRepository.swift; sourceTree = "<group>"; };
 		E8F266572A4A43BE00BFC2D5 /* ShoppingListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingListViewModel.swift; sourceTree = "<group>"; };
@@ -1863,6 +1873,7 @@
 		E83DB64F2A4FA894009411F9 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				E8E866E12A87029500FFC39B /* UserDefaults */,
 				E83DB6502A4FA8C1009411F9 /* CoreData */,
 			);
 			path = Persistence;
@@ -1937,6 +1948,32 @@
 			path = Connectivity;
 			sourceTree = "<group>";
 		};
+		E8E866DA2A86DBB100FFC39B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E8E866DD2A86DD4100FFC39B /* SettingsView.swift */,
+				E8E866DF2A86E58000FFC39B /* SettingsViewModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E8E866E12A87029500FFC39B /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				E8E866E22A8702CC00FFC39B /* UserDefaultsSettingsRepository.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		E8E866E42A87034300FFC39B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E8E866E52A8703B800FFC39B /* SettingsRepository.swift */,
+				E8E866E72A87040000FFC39B /* Settings+Option.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		E8F266252A4A424200BFC2D5 /* ShoppingList-watchOS Watch App */ = {
 			isa = PBXGroup;
 			children = (
@@ -1999,9 +2036,10 @@
 		E8F266472A4A43BE00BFC2D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E8F266522A4A43BE00BFC2D5 /* Lists.swift */,
+				E8E866DB2A86DBEC00FFC39B /* HomeView.swift */,
 				E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */,
 				E8F2664B2A4A43BE00BFC2D5 /* CustomComponents */,
+				E8E866DA2A86DBB100FFC39B /* Settings */,
 				E8F2664D2A4A43BE00BFC2D5 /* ShoppingItems */,
 				E8F266482A4A43BE00BFC2D5 /* ShoppingLists */,
 			);
@@ -2041,6 +2079,7 @@
 			children = (
 				E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */,
 				E89E36152A4CF19D00895250 /* EventBus.swift */,
+				E8E866E42A87034300FFC39B /* Settings */,
 				E8F266582A4A43BE00BFC2D5 /* ShoppingItems */,
 				E8F266542A4A43BE00BFC2D5 /* ShoppingLists */,
 			);
@@ -2810,11 +2849,15 @@
 				E8F266642A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift in Sources */,
 				E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */,
 				E89E36162A4CF19D00895250 /* EventBus.swift in Sources */,
+				E8E866E32A8702CC00FFC39B /* UserDefaultsSettingsRepository.swift in Sources */,
+				E8E866E62A8703B800FFC39B /* SettingsRepository.swift in Sources */,
 				E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */,
+				E8E866DC2A86DBEC00FFC39B /* HomeView.swift in Sources */,
 				E8F266602A4A43BE00BFC2D5 /* InMemoryShoppingItemsRepository.swift in Sources */,
 				E8F2665E2A4A43BE00BFC2D5 /* Id.swift in Sources */,
 				E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */,
 				E8F266672A4A43BE00BFC2D5 /* ShoppingItemsOnListView.swift in Sources */,
+				E8E866E02A86E58000FFC39B /* SettingsViewModel.swift in Sources */,
 				E8F266632A4A43BE00BFC2D5 /* EmptyListText.swift in Sources */,
 				E83DB64E2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift in Sources */,
 				E83B6C172A4E0E38009BAAED /* ConnectivityGateway.swift in Sources */,
@@ -2823,7 +2866,7 @@
 				E8F266652A4A43BE00BFC2D5 /* ShoppingItemsView.swift in Sources */,
 				E8F2665C2A4A43BE00BFC2D5 /* ShoppingItem.swift in Sources */,
 				E8F266622A4A43BE00BFC2D5 /* ShoppingListsView.swift in Sources */,
-				E8F266682A4A43BE00BFC2D5 /* Lists.swift in Sources */,
+				E8E866DE2A86DD4100FFC39B /* SettingsView.swift in Sources */,
 				E8F266662A4A43BE00BFC2D5 /* ShoppingItemsInBasketView.swift in Sources */,
 				E8F2666E2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift in Sources */,
 				E83DB65B2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift in Sources */,
@@ -2831,6 +2874,7 @@
 				E8F2665D2A4A43BE00BFC2D5 /* ShoppingList.swift in Sources */,
 				E8F266272A4A424200BFC2D5 /* ShoppingList_watchOSApp.swift in Sources */,
 				E8F2666A2A4A43BE00BFC2D5 /* ShoppingListsRepository.swift in Sources */,
+				E8E866E82A87040000FFC39B /* Settings+Option.swift in Sources */,
 				E89E35D42A4B428500895250 /* ShoppingListDto.swift in Sources */,
 				E83B6C1E2A4E1759009BAAED /* ViewModelsFactory.swift in Sources */,
 				E8FDF8B62A4A6DF900A9E22E /* Connectivity.swift in Sources */,

@@ -23,9 +23,8 @@ struct ShoppingItemsView: View {
                 .tag(ItemsTab.inBasket)
         }
         .navigationTitle(Text(headerTitle))
-        .task {
-            await viewModel.fetchShoppingItems()
-        }
+        .tabViewStyle(.page)
+        .task { await viewModel.fetchShoppingItems() }
     }
 
     private var headerTitle: String {

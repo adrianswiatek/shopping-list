@@ -6,7 +6,11 @@ struct UpdateListDto: Decodable, DictionaryDecodable {
         (list.toShoppingList(), items.map { $0.toShoppingItem(listId: list.id) })
     }
 
-    static func fromDictionary(_ dictionary: [String : Any]) -> UpdateListDto? {
+    func filteringItems(_ isIncluded: (ShoppingItemDto) -> Bool) -> UpdateListDto {
+        UpdateListDto(list: list, items: items.filter(isIncluded))
+    }
+
+    static func fromDictionary(_ dictionary: [String: Any]) -> UpdateListDto? {
         let listDictionary = dictionary["list"] as? [String: Any]
         let list = listDictionary.flatMap(ShoppingListDto.fromDictionary)
 

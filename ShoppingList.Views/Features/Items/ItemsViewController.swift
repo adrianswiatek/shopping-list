@@ -257,7 +257,7 @@ public final class ItemsViewController: UIViewController {
 
     private func openShareItemsAlert() {
         let alertController = UIAlertController(title: "Share ...", message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(.init(title: "... to watch", style: .default) { [weak self] _ in
+        alertController.addAction(.init(title: "... with Apple Watch", style: .default) { [weak self] _ in
             self?.viewModel.sendListToWatch()
         })
         alertController.addAction(.init(title: "... with categories", style: .default) { [weak self] _ in

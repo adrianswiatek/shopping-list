@@ -23,8 +23,11 @@ final class Container {
     }
 
     private func registerDependencies() {
-        container.register(ConnectivityGateway.self) { _ in
-            ConnectivityGateway(connectivity: Connectivity())
+        container.register(ConnectivityGateway.self) {
+            ConnectivityGateway(
+                connectivity: Connectivity(),
+                settingsRepository: $0.resolve(SettingsRepository.self)!
+            )
         }
         .inObjectScope(.container)
 
@@ -61,6 +64,10 @@ final class Container {
             return container
         }
         .inObjectScope(.container)
+
+        container.register(SettingsRepository.self) { _ in
+            UserDefaultsSettingsRepository(userDefaults: .standard)
+        }
 
         container.register(ShoppingItemsRepository.self) {
             CoreDataShoppingItemsRepository(

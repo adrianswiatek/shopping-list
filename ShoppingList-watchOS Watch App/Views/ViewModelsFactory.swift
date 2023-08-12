@@ -20,4 +20,10 @@ final class ViewModelsFactory {
             eventBus: container.resolve()
         )
     }
+
+    func settings() -> SettingsView.ViewModel {
+        SettingsView.ViewModel(
+            settingsRepository: container.resolve()
+        )
+    }
 }

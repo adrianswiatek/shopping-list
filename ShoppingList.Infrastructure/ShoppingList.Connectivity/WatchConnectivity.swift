@@ -21,6 +21,8 @@ public final class WatchConnectivity: NSObject {
             return
         }
 
+//        session.transferUserInfo(dictionary)
+
         do {
             try session.updateApplicationContext(dictionary)
         } catch {

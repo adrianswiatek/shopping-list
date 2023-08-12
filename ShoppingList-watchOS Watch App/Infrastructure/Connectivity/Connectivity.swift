@@ -20,6 +20,10 @@ final class Connectivity: NSObject, WCSessionDelegate {
         publisherSubject.send(applicationContext)
     }
 
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
+        publisherSubject.send(userInfo)
+    }
+
     func session(
         _ session: WCSession,
         activationDidCompleteWith activationState: WCSessionActivationState,
