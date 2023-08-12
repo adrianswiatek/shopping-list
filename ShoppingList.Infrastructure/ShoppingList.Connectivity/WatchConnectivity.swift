@@ -21,10 +21,8 @@ public final class WatchConnectivity: NSObject {
             return
         }
 
-//        session.transferUserInfo(dictionary)
-
         do {
-            try session.updateApplicationContext(dictionary)
+            try session.updateApplicationContext(dictionary.withTimestamp())
         } catch {
             print("@$", Date(), self, #function, error)
         }
@@ -42,5 +40,13 @@ extension WatchConnectivity: WCSessionDelegate {
 
     public func sessionDidDeactivate(_ session: WCSession) {
         session.activate()
+    }
+}
+
+private extension Dictionary where Key == String, Value == Any {
+    func withTimestamp() -> Self {
+        var result = self
+        result["timestamp"] = String(Date().timeIntervalSince1970)
+        return result
     }
 }
