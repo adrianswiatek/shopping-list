@@ -69,6 +69,10 @@ final class Container {
             UserDefaultsSettingsRepository(userDefaults: .standard)
         }
 
+        container.register(SettingsService.self) {
+            SettingsService(repository: $0.resolve(SettingsRepository.self)!)
+        }
+
         container.register(ShoppingItemsRepository.self) {
             CoreDataShoppingItemsRepository(
                 persistenceContainer: $0.resolve(NSPersistentContainer.self)!

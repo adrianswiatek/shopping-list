@@ -266,6 +266,8 @@
 		E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36112A4B6BD000895250 /* UpdateListDto.swift */; };
 		E89E36142A4B6D0800895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36132A4B6D0800895250 /* UpdateListDto.swift */; };
 		E89E36162A4CF19D00895250 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36152A4CF19D00895250 /* EventBus.swift */; };
+		E8D9F10F2A89125E00A3D494 /* Settings+ItemsSortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */; };
+		E8D9F1112A89703E00A3D494 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F1102A89703E00A3D494 /* SettingsService.swift */; };
 		E8E866DC2A86DBEC00FFC39B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866DB2A86DBEC00FFC39B /* HomeView.swift */; };
 		E8E866DE2A86DD4100FFC39B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866DD2A86DD4100FFC39B /* SettingsView.swift */; };
 		E8E866E02A86E58000FFC39B /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866DF2A86E58000FFC39B /* SettingsViewModel.swift */; };
@@ -798,6 +800,8 @@
 		E89E36112A4B6BD000895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
 		E89E36132A4B6D0800895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
 		E89E36152A4CF19D00895250 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
+		E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+ItemsSortingType.swift"; sourceTree = "<group>"; };
+		E8D9F1102A89703E00A3D494 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		E8E866DB2A86DBEC00FFC39B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E8E866DD2A86DD4100FFC39B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E8E866DF2A86E58000FFC39B /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1970,6 +1974,8 @@
 			children = (
 				E8E866E52A8703B800FFC39B /* SettingsRepository.swift */,
 				E8E866E72A87040000FFC39B /* Settings+Option.swift */,
+				E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */,
+				E8D9F1102A89703E00A3D494 /* SettingsService.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -2848,11 +2854,13 @@
 				E8F266692A4A43BE00BFC2D5 /* ShoppingListsService.swift in Sources */,
 				E8F266642A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift in Sources */,
 				E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */,
+				E8D9F10F2A89125E00A3D494 /* Settings+ItemsSortingType.swift in Sources */,
 				E89E36162A4CF19D00895250 /* EventBus.swift in Sources */,
 				E8E866E32A8702CC00FFC39B /* UserDefaultsSettingsRepository.swift in Sources */,
 				E8E866E62A8703B800FFC39B /* SettingsRepository.swift in Sources */,
 				E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */,
 				E8E866DC2A86DBEC00FFC39B /* HomeView.swift in Sources */,
+				E8D9F1112A89703E00A3D494 /* SettingsService.swift in Sources */,
 				E8F266602A4A43BE00BFC2D5 /* InMemoryShoppingItemsRepository.swift in Sources */,
 				E8F2665E2A4A43BE00BFC2D5 /* Id.swift in Sources */,
 				E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */,

@@ -9,18 +9,44 @@ struct SettingsView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("Settings")
-                .fontWeight(.bold)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 8)
-
+        NavigationStack {
             Form {
-                Toggle(isOn: $viewModel.isOn) {
-                    Text("Synchronize basket")
+                Section("Items to buy") {
+                    Toggle(isOn: $viewModel.showCategoriesOfItemsToBuy) {
+                        Text("Show categories")
+                    }
+                    .toggleStyle(.switch)
+
+                    Picker("Sorting", selection: $viewModel.listSortingType) {
+                        listSortingOption(.inAscendingOrder)
+                        listSortingOption(.inDescendingOrder)
+                    }
+                    .pickerStyle(.navigationLink)
                 }
-                .toggleStyle(.switch)
+
+                Section("Items in basket") {
+                    Toggle(isOn: $viewModel.synchronizeBasket) {
+                        Text("Synchronize")
+                    }
+                    .toggleStyle(.switch)
+
+                    Picker("Sorting", selection: $viewModel.basketSortingType) {
+                        basketSortingOption(.inAlphabeticalOrder)
+                        basketSortingOption(.inOrderOfAddition)
+                    }
+                    .pickerStyle(.navigationLink)
+                }
             }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
         }
+    }
+
+    private func listSortingOption(_ sortingType: ListSortingType) -> some View {
+        Text(sortingType.formatted).tag(sortingType)
+    }
+
+    private func basketSortingOption(_ sortingType: BasketSortingType) -> some View {
+        Text(sortingType.formatted).tag(sortingType)
     }
 }

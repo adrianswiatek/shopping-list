@@ -7,8 +7,18 @@ final class UserDefaultsSettingsRepository: SettingsRepository {
         self.userDefaults = userDefaults
     }
 
+    func clearAll() {
+        for key in Settings.Key.allCases {
+            userDefaults.removeObject(forKey: key.rawValue)
+        }
+    }
+
     func get<T>(_ key: Settings.Key) -> T? {
         userDefaults.value(forKey: key.rawValue) as? T
+    }
+
+    func get<T>(_ key: Settings.Key, default: T) -> T {
+        get(key) ?? `default`
     }
 
     func set<T>(_ option: Settings.Option<T>) {

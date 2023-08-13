@@ -4,7 +4,10 @@ enum Settings {
         let value: T
     }
 
-    enum Key: String {
+    enum Key: String, CaseIterable {
+        case basketSortingType
+        case listSortingOrder
+        case showCategoriesOfItemsToBuy
         case synchronizeBasket
     }
 }

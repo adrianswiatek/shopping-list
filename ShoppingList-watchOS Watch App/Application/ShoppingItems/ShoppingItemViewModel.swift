@@ -5,24 +5,15 @@ struct ShoppingItemViewModel: Identifiable {
     let name: String
     let category: String
     let inBasket: Bool
+    let lastChange: Date
 
     static func fromShoppingItem(_ item: ShoppingItem) -> ShoppingItemViewModel {
         ShoppingItemViewModel(
             id: item.id.asString(),
             name: item.name,
             category: item.category,
-            inBasket: item.state == .inBasket
+            inBasket: item.state == .inBasket,
+            lastChange: item.lastChange
         )
-    }
-
-    struct NameSorter: SortComparator {
-        var order: SortOrder = .forward
-
-        func compare(
-            _ lhs: ShoppingItemViewModel,
-            _ rhs: ShoppingItemViewModel
-        ) -> ComparisonResult {
-            lhs.name.localizedCompare(rhs.name)
-        }
     }
 }

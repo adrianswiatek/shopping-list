@@ -7,12 +7,13 @@ extension ShoppingItemEntity {
             let listId = listId.map(Id<ShoppingList>.fromUuid),
             let name = name,
             let category = category,
-            let state = state.flatMap(ShoppingItem.State.init)
+            let state = state.flatMap(ShoppingItem.State.init),
+            let lastChange = lastChange
         else {
             fatalError("Unable to create ShoppingItem")
         }
 
-        return ShoppingItem(id, listId, name, category, state)
+        return ShoppingItem(id, listId, name, category, state, lastChange)
     }
 
     func updateWithItem(_ item: ShoppingItem) {
@@ -20,6 +21,7 @@ extension ShoppingItemEntity {
         name = item.name
         category = item.category
         state = item.state.rawValue
+        lastChange = item.lastChange
     }
 }
 
@@ -31,6 +33,7 @@ extension ShoppingItem {
         entity.name = name
         entity.category = category
         entity.state = state.rawValue
+        entity.lastChange = lastChange
         return entity
     }
 }

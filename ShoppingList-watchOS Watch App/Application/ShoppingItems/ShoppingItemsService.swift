@@ -9,7 +9,6 @@ final class ShoppingItemsService {
         await repository
             .fetch(listId)
             .map(ShoppingItemViewModel.fromShoppingItem)
-            .sorted(using: ShoppingItemViewModel.NameSorter())
     }
 
     func moveItemToList(itemId: Id<ShoppingItem>) async {
