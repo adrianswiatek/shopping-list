@@ -3,23 +3,22 @@ import Foundation
 
 final class ConnectivityListener {
     private let connectivityGateway: ConnectivityGateway
-
     private let listsRepository: ShoppingListsRepository
     private let itemsRepository: ShoppingItemsRepository
-
+    private let settingsService: SettingsService
     private let eventsBus: EventsBus
 
     init(
         connectivityGateway: ConnectivityGateway,
         listsRepository: ShoppingListsRepository,
         itemsRepository: ShoppingItemsRepository,
+        settingsService: SettingsService,
         eventsBus: EventsBus
     ) {
         self.connectivityGateway = connectivityGateway
-
         self.listsRepository = listsRepository
         self.itemsRepository = itemsRepository
-
+        self.settingsService = settingsService
         self.eventsBus = eventsBus
     }
 
@@ -51,20 +50,36 @@ final class ConnectivityListener {
         }
     }
 
-    private func addOrUpdateItems(_ items: [ShoppingItem], onList list: ShoppingList) async {
-        let statesOfExistingItems = Dictionary(
-            uniqueKeysWithValues: await itemsRepository.fetch(list.id).map { ($0.id, $0.state) }
-        )
-
-        let withExistingState: (ShoppingItem) -> ShoppingItem = { item in
-            if let state = statesOfExistingItems[item.id] {
-                return item.updating([.state(to: state)])
-            }
-            return item
-        }
-
-        await itemsRepository.delete(items.map(\.id))
+    private func addOrUpdateItems(
+        _ incomingItems: [ShoppingItem],
+        onList list: ShoppingList
+    ) async {
+        let existingItems = await itemsRepository.fetch(list.id)
+        await itemsRepository.delete(incomingItems.map(\.id))
         await itemsRepository.delete(list.id)
-        await itemsRepository.add(items.map(withExistingState))
+        await itemsRepository.add(itemsToAdd(incomingItems, existingItems))
+    }
+
+    private func itemsToAdd(
+        _ incomingItems: [ShoppingItem],
+        _ existingItems: [ShoppingItem]
+    ) -> [ShoppingItem] {
+        switch settingsService.itemsStateSynchronizationMode() {
+        case .appleWatchFirst:
+            return incomingItems.map(toItemWithExistingState(existingItems))
+        case .iPhoneFirst:
+            return incomingItems
+        }
+    }
+
+    private func toItemWithExistingState(
+        _ existingItems: [ShoppingItem]
+    ) -> (ShoppingItem) -> ShoppingItem {
+        return { incomingItem in
+            let itemWithExistingState = existingItems
+                .first { $0.id == incomingItem.id }
+                .map { incomingItem.updating(.state(to: $0.state)) }
+            return itemWithExistingState ?? incomingItem
+        }
     }
 }

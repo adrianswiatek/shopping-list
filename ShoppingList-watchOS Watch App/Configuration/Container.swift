@@ -36,6 +36,7 @@ final class Container {
                 connectivityGateway: $0.resolve(ConnectivityGateway.self)!,
                 listsRepository: $0.resolve(ShoppingListsRepository.self)!,
                 itemsRepository: $0.resolve(ShoppingItemsRepository.self)!,
+                settingsService: $0.resolve(SettingsService.self)!,
                 eventsBus: $0.resolve(EventsBus.self)!
             )
         }

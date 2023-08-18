@@ -6,6 +6,7 @@ enum Settings {
 
     enum Key: String, CaseIterable {
         case basketSortingType
+        case itemsStateSynchronizationMode
         case listSortingOrder
         case showCategoriesOfItemsToBuy
         case synchronizeBasket
