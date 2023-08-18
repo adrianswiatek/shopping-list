@@ -7,20 +7,20 @@ final class ConnectivityListener {
     private let listsRepository: ShoppingListsRepository
     private let itemsRepository: ShoppingItemsRepository
 
-    private let eventBus: EventBus
+    private let eventsBus: EventsBus
 
     init(
         connectivityGateway: ConnectivityGateway,
         listsRepository: ShoppingListsRepository,
         itemsRepository: ShoppingItemsRepository,
-        eventBus: EventBus
+        eventsBus: EventsBus
     ) {
         self.connectivityGateway = connectivityGateway
 
         self.listsRepository = listsRepository
         self.itemsRepository = itemsRepository
 
-        self.eventBus = eventBus
+        self.eventsBus = eventsBus
     }
 
     func initialize() {
@@ -37,12 +37,14 @@ final class ConnectivityListener {
         await addOrUpdateList(list)
         await addOrUpdateItems(items, onList: list)
 
-        eventBus.publish(.modelUpdated)
+        eventsBus.publish(.modelUpdated)
     }
 
     private func addOrUpdateList(_ list: ShoppingList) async {
         if let existingList = await listsRepository.find(list.id) {
-            let updatedList = existingList.updating(.name(to: list.name))
+            let updatedList = existingList
+                .updating(.name(to: list.name))
+                .updating(.visited(to: false))
             await listsRepository.update(updatedList)
         } else {
             await listsRepository.add(list)

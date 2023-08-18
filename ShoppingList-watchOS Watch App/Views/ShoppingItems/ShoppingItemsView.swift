@@ -24,7 +24,7 @@ struct ShoppingItemsView: View {
         }
         .navigationTitle(Text(headerTitle))
         .tabViewStyle(.page)
-        .task { await viewModel.fetchShoppingItems() }
+        .task { await viewModel.initialize() }
     }
 
     private var headerTitle: String {

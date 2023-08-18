@@ -12,20 +12,21 @@ extension ShoppingListsView {
         }
 
         private let listsService: ShoppingListsService
-        private let eventBus: EventBus
+        private let eventsBus: EventsBus
 
         init(
             listsService: ShoppingListsService,
-            eventBus: EventBus
+            eventsBus: EventsBus
         ) {
             self.listsService = listsService
-            self.eventBus = eventBus
+            self.eventsBus = eventsBus
 
             self.lists = []
 
             self.bindEvents()
         }
 
+        @Sendable
         func fetchShoppingLists() async {
             lists = await listsService.fetchAllLists()
         }
@@ -43,7 +44,7 @@ extension ShoppingListsView {
 
         private func bindEvents() {
             Task {
-                for await event in eventBus.eventsPublisher.values where event == .modelUpdated {
+                for await event in eventsBus.eventsPublisher.values where event == .modelUpdated {
                     await fetchShoppingLists()
                 }
             }

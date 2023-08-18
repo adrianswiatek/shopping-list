@@ -5,11 +5,12 @@ extension ShoppingListEntity {
         guard let id = id, let name = name else {
             fatalError("Unable to create ShoppingList")
         }
-        return ShoppingList(.fromUuid(id), name)
+        return ShoppingList(id: .fromUuid(id), name: name, visited: visited)
     }
 
     func updateWithList(_ list: ShoppingList) {
         name = list.name
+        visited = list.visited
     }
 }
 
@@ -18,6 +19,7 @@ extension ShoppingList {
         let entity = ShoppingListEntity(context: context)
         entity.id = id.asUuid()
         entity.name = name
+        entity.visited = visited
         return entity
     }
 }

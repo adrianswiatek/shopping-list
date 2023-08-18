@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 extension ShoppingItemsView {
@@ -28,30 +29,57 @@ extension ShoppingItemsView {
             settingsService.showCategoriesOfItemsToBuy() ? .withCategories : .withoutCategories
         }
 
+        private var cancellables: Set<AnyCancellable>
+        private var eventsTask: Task<Void, Never>?
+
         private let listViewModel: ShoppingListViewModel
         private let itemsService: ShoppingItemsService
+        private let listsService: ShoppingListsService
         private let settingsService: SettingsService
-        private let eventBus: EventBus
+        private let eventsBus: EventsBus
 
         init(
             list: ShoppingListViewModel,
             itemsService: ShoppingItemsService,
+            listsService: ShoppingListsService,
             settingsService: SettingsService,
-            eventBus: EventBus
+            eventsBus: EventsBus
         ) {
             self.listViewModel = list
             self.itemsService = itemsService
+            self.listsService = listsService
             self.settingsService = settingsService
-            self.eventBus = eventBus
+            self.eventsBus = eventsBus
 
             self.itemsOnListWithCategories = []
             self.itemsOnListWithoutCategories = []
             self.itemsInBasket = []
 
+            self.cancellables = []
+
             self.bindEvents()
         }
 
-        func fetchShoppingItems() async {
+        deinit {
+            eventsTask?.cancel()
+        }
+
+        func initialize() async {
+            await fetchShoppingItems()
+            await markListAsVisited()
+        }
+
+        func moveToList(_ itemId: String) async {
+            await itemsService.moveItemToList(itemId: .fromString(itemId))
+            await fetchShoppingItems()
+        }
+
+        func moveToBasket(_ itemId: String) async {
+            await itemsService.moveItemToBasket(itemId: .fromString(itemId))
+            await fetchShoppingItems()
+        }
+
+        private func fetchShoppingItems() async {
             let items = await itemsService.fetchItems(listId: .fromString(listViewModel.id))
 
             self.itemsOnListWithCategories = prepareItemsOnListWithCategories(items)
@@ -88,20 +116,15 @@ extension ShoppingItemsView {
             return items.filter { $0.inBasket }.sorted(using: comparator)
         }
 
-        func moveToList(_ itemId: String) async {
-            await itemsService.moveItemToList(itemId: .fromString(itemId))
-            await fetchShoppingItems()
-        }
-
-        func moveToBasket(_ itemId: String) async {
-            await itemsService.moveItemToBasket(itemId: .fromString(itemId))
-            await fetchShoppingItems()
+        private func markListAsVisited() async {
+            await listsService.markAsVisitedList(withId: .fromString(listViewModel.id))
         }
 
         private func bindEvents() {
-            Task {
-                for await event in eventBus.eventsPublisher.values where event == .modelUpdated {
-                    await fetchShoppingItems()
+            let eventsPublisher = eventsBus.eventsPublisher.values
+            eventsTask = Task { [weak self, eventsPublisher] in
+                for await event in eventsPublisher where event == .modelUpdated {
+                    await self?.initialize()
                 }
             }
         }

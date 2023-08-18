@@ -1,6 +1,6 @@
 import Combine
 
-final class EventBus {
+final class EventsBus {
     var eventsPublisher: AnyPublisher<Event, Never> {
         eventsSubject.eraseToAnyPublisher()
     }

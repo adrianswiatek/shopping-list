@@ -265,7 +265,7 @@
 		E89E36102A4B691500895250 /* ConnectivitySendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E360F2A4B691500895250 /* ConnectivitySendRequest.swift */; };
 		E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36112A4B6BD000895250 /* UpdateListDto.swift */; };
 		E89E36142A4B6D0800895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36132A4B6D0800895250 /* UpdateListDto.swift */; };
-		E89E36162A4CF19D00895250 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36152A4CF19D00895250 /* EventBus.swift */; };
+		E89E36162A4CF19D00895250 /* EventsBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36152A4CF19D00895250 /* EventsBus.swift */; };
 		E8D9F10F2A89125E00A3D494 /* Settings+ItemsSortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */; };
 		E8D9F1112A89703E00A3D494 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F1102A89703E00A3D494 /* SettingsService.swift */; };
 		E8E866DC2A86DBEC00FFC39B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E866DB2A86DBEC00FFC39B /* HomeView.swift */; };
@@ -799,7 +799,7 @@
 		E89E360F2A4B691500895250 /* ConnectivitySendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivitySendRequest.swift; sourceTree = "<group>"; };
 		E89E36112A4B6BD000895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
 		E89E36132A4B6D0800895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
-		E89E36152A4CF19D00895250 /* EventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
+		E89E36152A4CF19D00895250 /* EventsBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsBus.swift; sourceTree = "<group>"; };
 		E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+ItemsSortingType.swift"; sourceTree = "<group>"; };
 		E8D9F1102A89703E00A3D494 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		E8E866DB2A86DBEC00FFC39B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -2084,7 +2084,7 @@
 			isa = PBXGroup;
 			children = (
 				E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */,
-				E89E36152A4CF19D00895250 /* EventBus.swift */,
+				E89E36152A4CF19D00895250 /* EventsBus.swift */,
 				E8E866E42A87034300FFC39B /* Settings */,
 				E8F266582A4A43BE00BFC2D5 /* ShoppingItems */,
 				E8F266542A4A43BE00BFC2D5 /* ShoppingLists */,
@@ -2855,7 +2855,7 @@
 				E8F266642A4A43BE00BFC2D5 /* ShoppingItemsViewModel.swift in Sources */,
 				E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */,
 				E8D9F10F2A89125E00A3D494 /* Settings+ItemsSortingType.swift in Sources */,
-				E89E36162A4CF19D00895250 /* EventBus.swift in Sources */,
+				E89E36162A4CF19D00895250 /* EventsBus.swift in Sources */,
 				E8E866E32A8702CC00FFC39B /* UserDefaultsSettingsRepository.swift in Sources */,
 				E8E866E62A8703B800FFC39B /* SettingsRepository.swift in Sources */,
 				E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */,

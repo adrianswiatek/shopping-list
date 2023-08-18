@@ -10,15 +10,16 @@ final class ViewModelsFactory {
         ShoppingItemsView.ViewModel(
             list: list,
             itemsService: container.resolve(),
+            listsService: container.resolve(),
             settingsService: container.resolve(),
-            eventBus: container.resolve()
+            eventsBus: container.resolve()
         )
     }
 
     func shoppingLists() -> ShoppingListsView.ViewModel {
         ShoppingListsView.ViewModel(
             listsService: container.resolve(),
-            eventBus: container.resolve()
+            eventsBus: container.resolve()
         )
     }
 

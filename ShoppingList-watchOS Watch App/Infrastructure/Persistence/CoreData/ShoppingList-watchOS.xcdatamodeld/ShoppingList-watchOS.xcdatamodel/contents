@@ -12,6 +12,7 @@
     <entity name="ShoppingListEntity" representedClassName="ShoppingListEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="visited" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="items" toMany="YES" deletionRule="Cascade" destinationEntity="ShoppingItemEntity" inverseName="list" inverseEntity="ShoppingItemEntity"/>
     </entity>
 </model>

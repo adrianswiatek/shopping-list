@@ -3,9 +3,10 @@ import Foundation
 struct ShoppingListViewModel: Hashable, Identifiable {
     let id: String
     let name: String
+    let visited: Bool
 
     static func fromShoppingList(_ list: ShoppingList) -> ShoppingListViewModel {
-        ShoppingListViewModel(id: list.id.asString(), name: list.name)
+        ShoppingListViewModel(id: list.id.asString(), name: list.name, visited: list.visited)
     }
 
     struct NameSorter: SortComparator {

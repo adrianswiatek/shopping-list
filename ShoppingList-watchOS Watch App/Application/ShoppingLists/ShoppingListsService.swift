@@ -17,6 +17,13 @@ final class ShoppingListsService {
             .sorted(using: ShoppingListViewModel.NameSorter())
     }
 
+    func markAsVisitedList(withId listId: Id<ShoppingList>) async {
+        guard let list = await listsRepository.find(listId) else {
+            return
+        }
+        await listsRepository.update(list.visiting())
+    }
+
     func deleteList(withId listId: Id<ShoppingList>) async {
         await itemsRepository.delete(listId)
         await listsRepository.delete(listId)

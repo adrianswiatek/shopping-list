@@ -22,9 +22,6 @@ extension SettingsView {
         init(settingsService: SettingsService) {
             self.settingsService = settingsService
 
-            print("@$", Date(), #function, settingsService.listSortingOptions())
-            print("@$", Date(), #function, settingsService.basketSortingOptions())
-
             self.listSortingType = .init(settingsService.listSortingOptions())
             self.basketSortingType = .init(settingsService.basketSortingOptions())
             self.showCategoriesOfItemsToBuy = settingsService.showCategoriesOfItemsToBuy()

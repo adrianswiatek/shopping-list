@@ -15,6 +15,7 @@ struct ShoppingListsView: View {
                     ForEach(viewModel.lists) { list in
                         NavigationLink(value: list) {
                             Text(list.name)
+                                .fontWeight(list.visited ? .regular : .bold)
                         }
                         .listRowBackground(RoundedRectangle(cornerRadius: 16)
                             .fill(Gradient(colors: [.blue.opacity(0.15), .blue.opacity(0.2)]))
@@ -32,6 +33,6 @@ struct ShoppingListsView: View {
         }
         .background(Gradient(colors: [.clear, .blue.opacity(0.15)]))
         .navigationTitle(Text("Your lists"))
-        .task { await viewModel.fetchShoppingLists() }
+        .task(viewModel.fetchShoppingLists)
     }
 }

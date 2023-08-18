@@ -4,7 +4,7 @@ struct ShoppingListDto: Decodable, DictionaryDecodable {
 
     func toShoppingList() -> ShoppingList {
         let listId: Id<ShoppingList> = .fromString(id)
-        return ShoppingList(listId, name)
+        return ShoppingList(id: listId, name: name, visited: false)
     }
 
     static func fromDictionary(_ dictionary: [String: Any]) -> ShoppingListDto? {

@@ -36,13 +36,13 @@ final class Container {
                 connectivityGateway: $0.resolve(ConnectivityGateway.self)!,
                 listsRepository: $0.resolve(ShoppingListsRepository.self)!,
                 itemsRepository: $0.resolve(ShoppingItemsRepository.self)!,
-                eventBus: $0.resolve(EventBus.self)!
+                eventsBus: $0.resolve(EventsBus.self)!
             )
         }
         .inObjectScope(.container)
 
-        container.register(EventBus.self) { _ in
-            EventBus()
+        container.register(EventsBus.self) { _ in
+            EventsBus()
         }
         .inObjectScope(.container)
 
