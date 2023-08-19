@@ -45,6 +45,12 @@ public final class CoreDataItemRepository: ItemRepository {
         }
     }
 
+    public func itemsInList(with id: Id<List>) -> [Item] {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "list.id == %@", id.toString())
+        return (try? coreData.context.fetch(request).map { $0.toItem() }) ?? []
+    }
+
     public func itemsInCategory(with id: Id<ItemsCategory>) -> [Item] {
         let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category.id == %@", id.toString())

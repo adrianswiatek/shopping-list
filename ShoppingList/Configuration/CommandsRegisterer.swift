@@ -43,6 +43,7 @@ public final class CommandsRegisterer {
                 $0.resolve(RemoveListCommandHandler.self)!,
                 $0.resolve(RestoreListCommandHandler.self)!,
                 $0.resolve(RestoreListItemsCommandHandler.self)!,
+                $0.resolve(SendListToWatchCommandHandler.self)!,
                 $0.resolve(UpdateListCommandHandler.self)!,
                 $0.resolve(UpdateListsDateCommandHandler.self)!,
 
@@ -128,6 +129,16 @@ public final class CommandsRegisterer {
         container.register(RestoreListItemsCommandHandler.self) {
             RestoreListItemsCommandHandler(
                 $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(SendListToWatchCommandHandler.self) {
+            SendListToWatchCommandHandler(
+                $0.resolve(ConnectivityService.self)!,
+                $0.resolve(ListRepository.self)!,
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(ItemsCategoryRepository.self)!,
                 $0.resolve(EventBus.self)!
             )
         }

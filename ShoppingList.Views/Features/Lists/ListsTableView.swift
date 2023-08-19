@@ -84,6 +84,7 @@ extension ListsTableView: UITableViewDelegate {
         .init(identifier: "ListsContextMenu" as NSCopying, previewProvider: nil) { [weak self] _ in
             let actions: [UIAction] = [
                 self?.editActionForList(at: indexPath.row),
+                self?.sendToWatchList(at: indexPath.row),
                 self?.clearItemsToBuyForList(at: indexPath.row),
                 self?.clearBasketForList(at: indexPath.row),
                 self?.removeActionForList(at: indexPath.row)
@@ -98,6 +99,17 @@ extension ListsTableView: UITableViewDelegate {
         let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
         return UIAction(title: "Edit list", image: image, attributes: []) { [weak self] _ in
             self?.onActionSubject.send(.editList(list))
+        }
+    }
+
+    private func sendToWatchList(at index: Int) -> UIAction? {
+        guard let list = listForCell(at: index) else { return nil }
+
+        // TODO: check if there is paired Apple Watch
+
+        let image = UIImage(systemName: "applewatch")?.withRenderingMode(.alwaysTemplate)
+        return UIAction(title: "Send list to Apple Watch", image: image, attributes: []) { [weak self] _ in
+            self?.onActionSubject.send(.sendListToWatch(uuid: list.uuid))
         }
     }
 
@@ -137,5 +149,6 @@ extension ListsTableView {
         case editList(_ list: ListViewModel)
         case removeList(uuid: UUID)
         case selectList(_ list: ListViewModel)
+        case sendListToWatch(uuid: UUID)
     }
 }

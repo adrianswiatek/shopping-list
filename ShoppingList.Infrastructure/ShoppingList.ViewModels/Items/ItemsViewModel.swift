@@ -169,6 +169,10 @@ public final class ItemsViewModel: ViewModel {
         )
     }
 
+    public func sendListToWatch() {
+        commandBus.execute(SendListToWatchCommand(.fromUuid(list.uuid)))
+    }
+
     public func setState(_ state: State) {
         stateSubject.send(state)
     }
