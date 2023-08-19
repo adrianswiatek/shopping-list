@@ -122,6 +122,8 @@ public final class ListsViewController: UIViewController {
             viewModel.removeList(with: uuid)
         case .selectList(let list):
             delegate?.goToItems(from: list)
+        case .sendListToWatch(let uuid):
+            viewModel.sendToWatchList(with: uuid)
         }
     }
 

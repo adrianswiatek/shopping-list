@@ -16,7 +16,7 @@ internal class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = container.resolveRootViewController()
 
         container.initialize()
-        
+
         return true
     }
 }

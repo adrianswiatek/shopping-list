@@ -1,4 +1,5 @@
 import ShoppingList_Application
+import ShoppingList_Connectivity
 import ShoppingList_Domain
 import ShoppingList_ViewModels
 import ShoppingList_Views
@@ -179,6 +180,10 @@ public final class Container {
         container.register(AppCoordinator.self) {
             AppCoordinator($0.resolve(ViewModelsFactory.self)!)
         }.inObjectScope(.container)
+
+        container.register(ConnectivityService.self) { _ in
+            ConnectivityGateway(WatchConnectivity())
+        }
 
         container.register(ViewModelsFactory.self) { resolver in
             ViewModelsFactory(providers: [

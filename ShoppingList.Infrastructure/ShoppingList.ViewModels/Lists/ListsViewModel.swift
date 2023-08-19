@@ -98,6 +98,10 @@ public final class ListsViewModel: ViewModel {
         commandBus.execute(ClearBasketOfListCommand(.fromUuid(uuid)))
     }
 
+    public func sendToWatchList(with uuid: UUID) {
+        commandBus.execute(SendListToWatchCommand(.fromUuid(uuid)))
+    }
+
     public func isEmptyList(with uuid: UUID) -> Bool {
         listsSubject.value.first { $0.id.toUuid() == uuid }?.containsItemsToBuy == false
     }
