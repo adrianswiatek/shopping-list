@@ -1,31 +1,36 @@
 import ShoppingList_Domain
 
-public final class ModelItemService: ModelItemQueries {
+public final class ModelItemService: ModelItemCommands, ModelItemQueries {
     private let modelItemRepository: ModelItemRepository
+    private let itemRepository: ItemRepository
 
-    public init(_ modelItemRepository: ModelItemRepository) {
+    public init(
+        _ modelItemRepository: ModelItemRepository,
+        _ itemRepository: ItemRepository
+    ) {
         self.modelItemRepository = modelItemRepository
+        self.itemRepository = itemRepository
     }
 
-    public func fetchModelItems(_ sortingStrategy: SortingStrategy) -> [ModelItem] {
-        modelItemRepository.allModelItems().sorted(by: sortingStrategy.run)
+    public func fetchModelItems() -> [ModelItem] {
+        modelItemRepository.allModelItems()
     }
-}
 
-extension ModelItemService {
-    public struct SortingStrategy {
-        public let run: (ModelItem, ModelItem) -> Bool
+    public func addFromItems(_ items: [Item]) {
+        let modelItems = modelItemRepository.allModelItems()
 
-        private init(_ run: @escaping (ModelItem, ModelItem) -> Bool) {
-            self.run = run
+        let hasDifferentName: (Item) -> Bool = {
+            !modelItems.map(\.name).contains($0.name)
         }
 
-        public static func inAlphabeticalOrder() -> SortingStrategy {
-            .init { $0.name < $1.name }
-        }
+        let modelItemsToAdd = items
+            .filter(hasDifferentName)
+            .map(ModelItem.newFromItem)
 
-        public static func inReversedAlphabeticalOrder() -> SortingStrategy {
-            .init { $0.name > $1.name }
-        }
+        modelItemRepository.add(modelItemsToAdd)
+    }
+
+    public func addFromExistingItems() {
+        addFromItems(itemRepository.allItems())
     }
 }

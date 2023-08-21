@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -237,6 +237,15 @@
 		A7FE443D25E1BFAD00DC7E19 /* RestoreListCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE443C25E1BFAD00DC7E19 /* RestoreListCommand.swift */; };
 		A7FE444025E1C0D700DC7E19 /* RestoreListCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE443F25E1C0D700DC7E19 /* RestoreListCommandHandler.swift */; };
 		A7FE444325E1C21500DC7E19 /* RemoveListCommandRefiner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE444225E1C21500DC7E19 /* RemoveListCommandRefiner.swift */; };
+		E810B0762A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E810B0752A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift */; };
+		E83B6C172A4E0E38009BAAED /* ConnectivityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C162A4E0E38009BAAED /* ConnectivityGateway.swift */; };
+		E83B6C1A2A4E13DB009BAAED /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C192A4E13DB009BAAED /* Container.swift */; };
+		E83B6C1C2A4E1402009BAAED /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = E83B6C1B2A4E1402009BAAED /* Swinject */; };
+		E83B6C1E2A4E1759009BAAED /* ViewModelsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */; };
+		E83DB64E2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB64D2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift */; };
+		E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6512A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld */; };
+		E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */; };
+		E83DB65B2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */; };
 		E83EB8862916D969005F69A1 /* ManageModelItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */; };
 		E83EB8882916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */; };
 		E83EB88A2916D9E2005F69A1 /* ManageModelItemsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */; };
@@ -250,25 +259,13 @@
 		E8674B7F291EC97900C419E6 /* ModelItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B7E291EC97900C419E6 /* ModelItemService.swift */; };
 		E8674B82291ED72F00C419E6 /* CoreDataModelItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B80291ED71300C419E6 /* CoreDataModelItemRepository.swift */; };
 		E8674B85291EDD4700C419E6 /* ModelItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */; };
-		E8674B87291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */; };
+		E8674B87291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B86291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift */; };
 		E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */; };
 		E899422E292AB9EC00E4D875 /* UpdateModelItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */; };
 		E8994230292ABA1E00E4D875 /* UpdateModelItemHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */; };
 		E89A4F85292993A000AFC47C /* EditModelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A4F832929912E00AFC47C /* EditModelItemViewModel.swift */; };
 		E89A4F872929958500AFC47C /* EditModelItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A4F862929958500AFC47C /* EditModelItemViewController.swift */; };
 		E89A4F892929A06A00AFC47C /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */; };
-		E8F862432924421100924436 /* RemoveModelItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F862422924421100924436 /* RemoveModelItemCommand.swift */; };
-		E8F862452924422600924436 /* RemoveModelItemCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */; };
-		E8F8624829244A7E00924436 /* ModelItemRemovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */; };
-		E810B0762A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E810B0752A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift */; };
-		E83B6C172A4E0E38009BAAED /* ConnectivityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C162A4E0E38009BAAED /* ConnectivityGateway.swift */; };
-		E83B6C1A2A4E13DB009BAAED /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C192A4E13DB009BAAED /* Container.swift */; };
-		E83B6C1C2A4E1402009BAAED /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = E83B6C1B2A4E1402009BAAED /* Swinject */; };
-		E83B6C1E2A4E1759009BAAED /* ViewModelsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */; };
-		E83DB64E2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB64D2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift */; };
-		E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6512A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld */; };
-		E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */; };
-		E83DB65B2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */; };
 		E89E35D42A4B428500895250 /* ShoppingListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D32A4B428500895250 /* ShoppingListDto.swift */; };
 		E89E35D62A4B428D00895250 /* ShoppingItemDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D52A4B428D00895250 /* ShoppingItemDto.swift */; };
 		E89E35DA2A4B4B5E00895250 /* SendListToWatchCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D92A4B4B5E00895250 /* SendListToWatchCommand.swift */; };
@@ -289,6 +286,11 @@
 		E89E36122A4B6BD000895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36112A4B6BD000895250 /* UpdateListDto.swift */; };
 		E89E36142A4B6D0800895250 /* UpdateListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36132A4B6D0800895250 /* UpdateListDto.swift */; };
 		E89E36162A4CF19D00895250 /* EventsBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E36152A4CF19D00895250 /* EventsBus.swift */; };
+		E8A3FE962A928E730009806D /* SearchModelItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A3FE952A928E730009806D /* SearchModelItemView.swift */; };
+		E8A3FE9C2A92C9150009806D /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A3FE9B2A92C9150009806D /* Either.swift */; };
+		E8C5CDA52A941C6200A6DE1E /* SearchModelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5CDA12A94179A00A6DE1E /* SearchModelItemViewModel.swift */; };
+		E8C5CDA62A941DA700A6DE1E /* ItemToSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5CDA32A9417C900A6DE1E /* ItemToSearchViewModel.swift */; };
+		E8C5CDA82A95798C00A6DE1E /* ModelItemCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5CDA72A95798C00A6DE1E /* ModelItemCommands.swift */; };
 		E8D9F10F2A89125E00A3D494 /* Settings+ItemsSortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */; };
 		E8D9F1112A89703E00A3D494 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F1102A89703E00A3D494 /* SettingsService.swift */; };
 		E8DB07D32A8FF4D6000C45E6 /* Settings+ItemsSynchronizationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DB07D22A8FF4D6000C45E6 /* Settings+ItemsSynchronizationMode.swift */; };
@@ -320,6 +322,9 @@
 		E8F2666C2A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F266592A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift */; };
 		E8F2666D2A4A43BE00BFC2D5 /* ShoppingItemsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2665A2A4A43BE00BFC2D5 /* ShoppingItemsService.swift */; };
 		E8F2666E2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F2665B2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift */; };
+		E8F862432924421100924436 /* RemoveModelItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F862422924421100924436 /* RemoveModelItemCommand.swift */; };
+		E8F862452924422600924436 /* RemoveModelItemCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */; };
+		E8F8624829244A7E00924436 /* ModelItemRemovedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */; };
 		E8F9F6712A7489BA00245FFD /* DictionaryEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F9F6702A7489BA00245FFD /* DictionaryEncodable.swift */; };
 		E8F9F6732A748DF700245FFD /* DictionaryDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F9F6722A748DF700245FFD /* DictionaryDecodable.swift */; };
 		E8FDF8B62A4A6DF900A9E22E /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDF8B52A4A6DF900A9E22E /* Connectivity.swift */; };
@@ -801,6 +806,14 @@
 		A7FE443C25E1BFAD00DC7E19 /* RestoreListCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreListCommand.swift; sourceTree = "<group>"; };
 		A7FE443F25E1C0D700DC7E19 /* RestoreListCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestoreListCommandHandler.swift; sourceTree = "<group>"; };
 		A7FE444225E1C21500DC7E19 /* RemoveListCommandRefiner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveListCommandRefiner.swift; sourceTree = "<group>"; };
+		E810B0752A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataShoppingItemsRepository.swift; sourceTree = "<group>"; };
+		E83B6C162A4E0E38009BAAED /* ConnectivityGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityGateway.swift; sourceTree = "<group>"; };
+		E83B6C192A4E13DB009BAAED /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelsFactory.swift; sourceTree = "<group>"; };
+		E83DB64D2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataShoppingListsRepository.swift; sourceTree = "<group>"; };
+		E83DB6522A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShoppingList-watchOS.xcdatamodel"; sourceTree = "<group>"; };
+		E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListEntityExtensions.swift; sourceTree = "<group>"; };
+		E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemEntityExtensions.swift; sourceTree = "<group>"; };
 		E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsViewController.swift; sourceTree = "<group>"; };
 		E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsTableViewCell.swift; sourceTree = "<group>"; };
 		E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsTableView.swift; sourceTree = "<group>"; };
@@ -814,25 +827,13 @@
 		E8674B7E291EC97900C419E6 /* ModelItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemService.swift; sourceTree = "<group>"; };
 		E8674B80291ED71300C419E6 /* CoreDataModelItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModelItemRepository.swift; sourceTree = "<group>"; };
 		E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemEntityExtensions.swift; sourceTree = "<group>"; };
-		E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsMovedToBasketListener.swift; sourceTree = "<group>"; };
+		E8674B86291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAddedToListOrUpdatedListener.swift; sourceTree = "<group>"; };
 		E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModelItemCommand.swift; sourceTree = "<group>"; };
 		E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModelItemHandler.swift; sourceTree = "<group>"; };
 		E89A4F832929912E00AFC47C /* EditModelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModelItemViewModel.swift; sourceTree = "<group>"; };
 		E89A4F862929958500AFC47C /* EditModelItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModelItemViewController.swift; sourceTree = "<group>"; };
 		E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
-		E8F862422924421100924436 /* RemoveModelItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveModelItemCommand.swift; sourceTree = "<group>"; };
-		E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveModelItemCommandHandler.swift; sourceTree = "<group>"; };
-		E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemRemovedEvent.swift; sourceTree = "<group>"; };
-
-		E810B0752A504DA9000E4C60 /* CoreDataShoppingItemsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataShoppingItemsRepository.swift; sourceTree = "<group>"; };
-		E83B6C162A4E0E38009BAAED /* ConnectivityGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityGateway.swift; sourceTree = "<group>"; };
-		E83B6C192A4E13DB009BAAED /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
-		E83B6C1D2A4E1759009BAAED /* ViewModelsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelsFactory.swift; sourceTree = "<group>"; };
-		E83DB64D2A4F2E4F009411F9 /* CoreDataShoppingListsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataShoppingListsRepository.swift; sourceTree = "<group>"; };
-		E83DB6522A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShoppingList-watchOS.xcdatamodel"; sourceTree = "<group>"; };
-		E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListEntityExtensions.swift; sourceTree = "<group>"; };
-		E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemEntityExtensions.swift; sourceTree = "<group>"; };
 		E89E35B42A4B343200895250 /* ShoppingList_DTO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_DTO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E89E35CE2A4B385D00895250 /* ListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDto.swift; sourceTree = "<group>"; };
 		E89E35D02A4B386300895250 /* ItemDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDto.swift; sourceTree = "<group>"; };
@@ -848,6 +849,11 @@
 		E89E36112A4B6BD000895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
 		E89E36132A4B6D0800895250 /* UpdateListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateListDto.swift; sourceTree = "<group>"; };
 		E89E36152A4CF19D00895250 /* EventsBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsBus.swift; sourceTree = "<group>"; };
+		E8A3FE952A928E730009806D /* SearchModelItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModelItemView.swift; sourceTree = "<group>"; };
+		E8A3FE9B2A92C9150009806D /* Either.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
+		E8C5CDA12A94179A00A6DE1E /* SearchModelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModelItemViewModel.swift; sourceTree = "<group>"; };
+		E8C5CDA32A9417C900A6DE1E /* ItemToSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemToSearchViewModel.swift; sourceTree = "<group>"; };
+		E8C5CDA72A95798C00A6DE1E /* ModelItemCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemCommands.swift; sourceTree = "<group>"; };
 		E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+ItemsSortingType.swift"; sourceTree = "<group>"; };
 		E8D9F1102A89703E00A3D494 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		E8DB07D22A8FF4D6000C45E6 /* Settings+ItemsSynchronizationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+ItemsSynchronizationMode.swift"; sourceTree = "<group>"; };
@@ -879,6 +885,9 @@
 		E8F266592A4A43BE00BFC2D5 /* ShoppingItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemViewModel.swift; sourceTree = "<group>"; };
 		E8F2665A2A4A43BE00BFC2D5 /* ShoppingItemsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsService.swift; sourceTree = "<group>"; };
 		E8F2665B2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoppingItemsRepository.swift; sourceTree = "<group>"; };
+		E8F862422924421100924436 /* RemoveModelItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveModelItemCommand.swift; sourceTree = "<group>"; };
+		E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveModelItemCommandHandler.swift; sourceTree = "<group>"; };
+		E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemRemovedEvent.swift; sourceTree = "<group>"; };
 		E8F9F6702A7489BA00245FFD /* DictionaryEncodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryEncodable.swift; sourceTree = "<group>"; };
 		E8F9F6722A748DF700245FFD /* DictionaryDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryDecodable.swift; sourceTree = "<group>"; };
 		E8FDF8B22A4A532400A9E22E /* WatchConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivity.swift; sourceTree = "<group>"; };
@@ -1356,8 +1365,9 @@
 			children = (
 				A739B5732569DD52000B16E3 /* ShoppingList_Shared.h */,
 				A739B5742569DD52000B16E3 /* Info.plist */,
-				A7640F3925699F31000D882B /* configure.swift */,
 				E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */,
+				A7640F3925699F31000D882B /* configure.swift */,
+				E8A3FE9B2A92C9150009806D /* Either.swift */,
 				E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */,
 			);
 			path = ShoppingList.Shared;
@@ -1460,6 +1470,7 @@
 				E89A4F822929911B00AFC47C /* EditModelItem */,
 				A7F4D810259FE26800EDA252 /* Items */,
 				A7640F722569B673000D882B /* Lists */,
+				E8C5CDA02A94177000A6DE1E /* SearchModelItem */,
 				A7813FF2258181C300C70E9C /* Settings */,
 			);
 			path = ShoppingList.ViewModels;
@@ -1494,6 +1505,7 @@
 				E89A4F812929910200AFC47C /* EditModelItem */,
 				A739B48A2569CDB9000B16E3 /* Items */,
 				A7640F592569B47F000D882B /* Lists */,
+				E8A3FE942A928D710009806D /* SearchModelItem */,
 				3A37694A20D1B0B10039DA54 /* Settings */,
 			);
 			path = Features;
@@ -1587,7 +1599,7 @@
 			children = (
 				A7DE7FD025D87DBA0045CB8C /* UpdateItemsOrderListener.swift */,
 				A77EE6DA25B2377700A258B4 /* UpdateListDateListener.swift */,
-				E8674B86291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift */,
+				E8674B86291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift */,
 			);
 			path = Listeners;
 			sourceTree = "<group>";
@@ -1888,99 +1900,6 @@
 			path = RestoreList;
 			sourceTree = "<group>";
 		};
-		E83EB8842916D92F005F69A1 /* ManageModelItems */ = {
-			isa = PBXGroup;
-			children = (
-				E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */,
-				E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */,
-				E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */,
-				E83EB88B2916D9FA005F69A1 /* ManageModelItemsDataSource.swift */,
-			);
-			path = ManageModelItems;
-			sourceTree = "<group>";
-		};
-		E83EB88F2916E437005F69A1 /* ManageModelItems */ = {
-			isa = PBXGroup;
-			children = (
-				E83EB8902916E457005F69A1 /* ManageModelItemsViewModel.swift */,
-				E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */,
-			);
-			path = ManageModelItems;
-			sourceTree = "<group>";
-		};
-		E899422C292AB9D900E4D875 /* UpdateModelItem */ = {
-			isa = PBXGroup;
-			children = (
-				E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */,
-				E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */,
-			);
-			path = UpdateModelItem;
-			sourceTree = "<group>";
-		};
-		E89A4F812929910200AFC47C /* EditModelItem */ = {
-			isa = PBXGroup;
-			children = (
-				E89A4F862929958500AFC47C /* EditModelItemViewController.swift */,
-			);
-			path = EditModelItem;
-			sourceTree = "<group>";
-		};
-		E89A4F822929911B00AFC47C /* EditModelItem */ = {
-			isa = PBXGroup;
-			children = (
-				E89A4F832929912E00AFC47C /* EditModelItemViewModel.swift */,
-			);
-			path = EditModelItem;
-			sourceTree = "<group>";
-		};
-		E8F8623E2924414900924436 /* ItemsCategory */ = {
-			isa = PBXGroup;
-			children = (
-				A70F36082596B4C000279242 /* ItemsCategoryQueries.swift */,
-				A77C971D257859AD00E39DBF /* ItemsCategoryRepository.swift */,
-				A70F360C2596B53600279242 /* ItemsCategoryService.swift */,
-				A7DBFF182591580E00CD6B6D /* Commands */,
-			);
-			path = ItemsCategory;
-			sourceTree = "<group>";
-		};
-		E8F8623F2924414F00924436 /* ModelItem */ = {
-			isa = PBXGroup;
-			children = (
-				E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */,
-				E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */,
-				E8674B7E291EC97900C419E6 /* ModelItemService.swift */,
-				E8F862402924417000924436 /* Commands */,
-			);
-			path = ModelItem;
-			sourceTree = "<group>";
-		};
-		E8F862402924417000924436 /* Commands */ = {
-			isa = PBXGroup;
-			children = (
-				E8F86241292441FE00924436 /* RemoveModelItem */,
-			);
-			path = Commands;
-			sourceTree = "<group>";
-		};
-		E8F86241292441FE00924436 /* RemoveModelItem */ = {
-			isa = PBXGroup;
-			children = (
-				E8F862422924421100924436 /* RemoveModelItemCommand.swift */,
-				E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */,
-			);
-			path = RemoveModelItem;
-			sourceTree = "<group>";
-		};
-		E8F8624629244A6300924436 /* ModelItemEvents */ = {
-			isa = PBXGroup;
-			children = (
-				E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */,
-				E84B5AB5296B297100D4DBA0 /* ModelItemUpdatedEvent.swift */,
-			);
-			path = ModelItemEvents;
-			sourceTree = "<group>";
-		};
 		E83B6C142A4E0E05009BAAED /* Connectivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -2038,6 +1957,51 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E83EB8842916D92F005F69A1 /* ManageModelItems */ = {
+			isa = PBXGroup;
+			children = (
+				E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */,
+				E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */,
+				E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */,
+				E83EB88B2916D9FA005F69A1 /* ManageModelItemsDataSource.swift */,
+			);
+			path = ManageModelItems;
+			sourceTree = "<group>";
+		};
+		E83EB88F2916E437005F69A1 /* ManageModelItems */ = {
+			isa = PBXGroup;
+			children = (
+				E83EB8902916E457005F69A1 /* ManageModelItemsViewModel.swift */,
+				E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */,
+			);
+			path = ManageModelItems;
+			sourceTree = "<group>";
+		};
+		E899422C292AB9D900E4D875 /* UpdateModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */,
+				E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */,
+			);
+			path = UpdateModelItem;
+			sourceTree = "<group>";
+		};
+		E89A4F812929910200AFC47C /* EditModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E89A4F862929958500AFC47C /* EditModelItemViewController.swift */,
+			);
+			path = EditModelItem;
+			sourceTree = "<group>";
+		};
+		E89A4F822929911B00AFC47C /* EditModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E89A4F832929912E00AFC47C /* EditModelItemViewModel.swift */,
+			);
+			path = EditModelItem;
+			sourceTree = "<group>";
+		};
 		E89E35D22A4B386600895250 /* DataTransferObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -2086,6 +2050,23 @@
 				E89E35FF2A4B5C7900895250 /* ConnectivityService.swift */,
 			);
 			path = Connectivity;
+			sourceTree = "<group>";
+		};
+		E8A3FE942A928D710009806D /* SearchModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E8A3FE952A928E730009806D /* SearchModelItemView.swift */,
+			);
+			path = SearchModelItem;
+			sourceTree = "<group>";
+		};
+		E8C5CDA02A94177000A6DE1E /* SearchModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E8C5CDA12A94179A00A6DE1E /* SearchModelItemViewModel.swift */,
+				E8C5CDA32A9417C900A6DE1E /* ItemToSearchViewModel.swift */,
+			);
+			path = SearchModelItem;
 			sourceTree = "<group>";
 		};
 		E8E866DA2A86DBB100FFC39B /* Settings */ = {
@@ -2247,6 +2228,55 @@
 				E8F2665B2A4A43BE00BFC2D5 /* ShoppingItemsRepository.swift */,
 			);
 			path = ShoppingItems;
+			sourceTree = "<group>";
+		};
+		E8F8623E2924414900924436 /* ItemsCategory */ = {
+			isa = PBXGroup;
+			children = (
+				A70F36082596B4C000279242 /* ItemsCategoryQueries.swift */,
+				A77C971D257859AD00E39DBF /* ItemsCategoryRepository.swift */,
+				A70F360C2596B53600279242 /* ItemsCategoryService.swift */,
+				A7DBFF182591580E00CD6B6D /* Commands */,
+			);
+			path = ItemsCategory;
+			sourceTree = "<group>";
+		};
+		E8F8623F2924414F00924436 /* ModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */,
+				E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */,
+				E8674B7E291EC97900C419E6 /* ModelItemService.swift */,
+				E8F862402924417000924436 /* Commands */,
+				E8C5CDA72A95798C00A6DE1E /* ModelItemCommands.swift */,
+			);
+			path = ModelItem;
+			sourceTree = "<group>";
+		};
+		E8F862402924417000924436 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				E8F86241292441FE00924436 /* RemoveModelItem */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
+		E8F86241292441FE00924436 /* RemoveModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E8F862422924421100924436 /* RemoveModelItemCommand.swift */,
+				E8F862442924422600924436 /* RemoveModelItemCommandHandler.swift */,
+			);
+			path = RemoveModelItem;
+			sourceTree = "<group>";
+		};
+		E8F8624629244A6300924436 /* ModelItemEvents */ = {
+			isa = PBXGroup;
+			children = (
+				E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */,
+				E84B5AB5296B297100D4DBA0 /* ModelItemUpdatedEvent.swift */,
+			);
+			path = ModelItemEvents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2555,8 +2585,9 @@
 		3A392E2C207A5A3C005857E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Adrian Świątek";
 				TargetAttributes = {
 					3A392E33207A5A3C005857E5 = {
@@ -2800,6 +2831,7 @@
 				A746C72E25967EB800D3CE30 /* AddItemsCategoryCommand.swift in Sources */,
 				A7FE444025E1C0D700DC7E19 /* RestoreListCommandHandler.swift in Sources */,
 				A7287E5125C0C3530092A781 /* RestoreItemsCommandHandler.swift in Sources */,
+				E8C5CDA82A95798C00A6DE1E /* ModelItemCommands.swift in Sources */,
 				A76CA54A258ED4C800C1F878 /* UpdateListCommandHandler.swift in Sources */,
 				E8F8624829244A7E00924436 /* ModelItemRemovedEvent.swift in Sources */,
 				A79F2DC225E2F5CE0049BC4E /* CommandBus.swift in Sources */,
@@ -2808,7 +2840,7 @@
 				A7CDD3FE25AF888800FF776A /* ItemsRemovedEvent.swift in Sources */,
 				A706FE7F25992F0200E79CF5 /* LocalPreferences.swift in Sources */,
 				A79F2DC625E2F7010049BC4E /* ListNotAddedEvent.swift in Sources */,
-				E8674B87291EEE2B00C419E6 /* ItemsMovedToBasketListener.swift in Sources */,
+				E8674B87291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift in Sources */,
 				A77EE6DF25B2396D00A258B4 /* UpdateListsDateCommand.swift in Sources */,
 				A765C04C25DC638C0047172E /* Publisher+Event.swift in Sources */,
 				A77C972C25785C1A00E39DBF /* ListsService.swift in Sources */,
@@ -2860,6 +2892,7 @@
 				A739B5812569DD5F000B16E3 /* configure.swift in Sources */,
 				E89A4F892929A06A00AFC47C /* OptionalExtensions.swift in Sources */,
 				E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */,
+				E8A3FE9C2A92C9150009806D /* Either.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2891,6 +2924,7 @@
 				A7D3967A25A11C940077F10E /* ItemsTableView.swift in Sources */,
 				A70C677A2580278B00C0846F /* SettingsCoordinator.swift in Sources */,
 				A739B4752569CAE0000B16E3 /* UIViewExtensions.swift in Sources */,
+				E8A3FE962A928E730009806D /* SearchModelItemView.swift in Sources */,
 				A739B5422569D3E5000B16E3 /* ButtonValidatable.swift in Sources */,
 				A739B4D82569CFA1000B16E3 /* EditContextualActionBuilder.swift in Sources */,
 				A79916FA2582D70E001A277A /* AppCoordinator.swift in Sources */,
@@ -2955,10 +2989,12 @@
 				A7640F742569B67A000D882B /* ListsViewModel.swift in Sources */,
 				A79916F72582C106001A277A /* ViewModel.swift in Sources */,
 				E83EB8962916F372005F69A1 /* ModelItemViewModel.swift in Sources */,
+				E8C5CDA52A941C6200A6DE1E /* SearchModelItemViewModel.swift in Sources */,
 				E89A4F85292993A000AFC47C /* EditModelItemViewModel.swift in Sources */,
 				A7F4D815259FE28B00EDA252 /* ItemsViewModel.swift in Sources */,
 				A7739C3F25D09B7400B9D398 /* ItemsSectionViewModel.swift in Sources */,
 				A7813FF4258181D600C70E9C /* SettingsViewModel.swift in Sources */,
+				E8C5CDA62A941DA700A6DE1E /* ItemToSearchViewModel.swift in Sources */,
 				A79916FD2582DBE1001A277A /* ViewModelsFactory.swift in Sources */,
 				A74DA51825B76333003F2B01 /* ItemInBasketViewModel.swift in Sources */,
 				A7B8EF8D25A3C00800495C1E /* EditItemViewModel.swift in Sources */,
@@ -3238,7 +3274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -3296,7 +3332,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -3365,14 +3401,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Application/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Application";
@@ -3399,14 +3438,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Application/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Application";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3432,14 +3474,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.Persistence/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Persistence";
@@ -3466,14 +3511,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.Persistence/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Persistence";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3498,14 +3546,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Shared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Shared";
@@ -3531,14 +3582,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Shared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Shared";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3560,7 +3614,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList.Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3585,7 +3639,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				INFOPLIST_FILE = ShoppingList.Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3612,14 +3666,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Views/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Views";
@@ -3646,14 +3703,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Views/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Views";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3680,14 +3740,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.ViewModels/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-ViewModels";
@@ -3716,14 +3779,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Infrastructure/ShoppingList.ViewModels/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-ViewModels";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3748,14 +3814,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Domain";
@@ -3781,14 +3850,17 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = ShoppingList.Domain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "pl.aswiatek.ShoppingList-Domain";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3806,9 +3878,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3818,7 +3891,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -3850,9 +3923,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q924VJ4PLT;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3862,7 +3936,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -3893,7 +3967,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3905,7 +3979,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3931,7 +4005,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3943,7 +4017,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Adrian Świątek. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -4,6 +4,7 @@ import Combine
 public protocol ItemRepository {
     func item(with id: Id<Item>) -> Item?
 
+    func allItems() -> [Item]
     func itemsInList(with id: Id<List>) -> [Item]
     func itemsInCategory(with id: Id<ItemsCategory>) -> [Item]
     func itemsWithState(_ state: ItemState, inListWithId id: Id<List>) -> [Item]

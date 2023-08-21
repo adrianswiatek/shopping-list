@@ -14,6 +14,11 @@ public final class CoreDataItemRepository: ItemRepository {
         request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? coreData.context.fetch(request).first?.toItem()
     }
+
+    public func allItems() -> [Item] {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        return (try? coreData.context.fetch(request).map { $0.toItem() }) ?? []
+    }
     
     public func itemsWithState(_ state: ItemState, inListWithId id: Id<List>) -> [Item] {
         let itemsRequest: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()

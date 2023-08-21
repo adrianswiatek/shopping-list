@@ -16,12 +16,13 @@ public final class Container {
 
         CommandsRegisterer(container).register()
 
+        registerCommands()
+        registerListeners()
+        registerOtherObjects()
         registerQueries()
         registerRepositories()
         registerServices()
-        registerListeners()
         registerViewModels()
-        registerOtherObjects()
     }
 
     public func resolveRootViewController() -> UIViewController {
@@ -37,8 +38,14 @@ public final class Container {
         container.resolve(AppCoordinator.self)!.start()
         container.resolve(UpdateListDateListener.self)!.start()
         container.resolve(UpdateItemsOrderListener.self)!.start()
-        container.resolve(ItemsMovedToBasketListener.self)!.start()
+        container.resolve(ItemAddedToListOrUpdatedListener.self)!.start()
 //        container.resolve(ConsoleEventListener.self)!.start()
+    }
+
+    private func registerCommands() {
+        container.register(ModelItemCommands.self) {
+            $0.resolve(ModelItemService.self)!
+        }
     }
 
     private func registerQueries() {
@@ -94,7 +101,10 @@ public final class Container {
         }
 
         container.register(ModelItemService.self) {
-            ModelItemService($0.resolve(ModelItemRepository.self)!)
+            ModelItemService(
+                $0.resolve(ModelItemRepository.self)!,
+                $0.resolve(ItemRepository.self)!
+            )
         }
     }
 
@@ -119,8 +129,9 @@ public final class Container {
             )
         }.inObjectScope(.container)
 
-        container.register(ItemsMovedToBasketListener.self) {
-            ItemsMovedToBasketListener(
+        container.register(ItemAddedToListOrUpdatedListener.self) {
+            ItemAddedToListOrUpdatedListener(
+                modelItemCommands: $0.resolve(ModelItemCommands.self)!,
                 modelItemRepository: $0.resolve(ModelItemRepository.self)!,
                 itemRepository: $0.resolve(ItemRepository.self)!,
                 eventBus: $0.resolve(EventBus.self)!
@@ -158,7 +169,6 @@ public final class Container {
 
         container.register(EditModelItemViewModel.self) {
             EditModelItemViewModel(
-                categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
@@ -186,6 +196,12 @@ public final class Container {
                 itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(SearchModelItemViewModel.self) {
+            SearchModelItemViewModel(
+                modelItemQueries: $0.resolve(ModelItemQueries.self)!
             )
         }
 
@@ -235,6 +251,7 @@ public final class Container {
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
                 .manageItems: { resolver.resolve(ManageModelItemsViewModel.self)! },
+                .searchModelItems: { resolver.resolve(SearchModelItemViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])
         }

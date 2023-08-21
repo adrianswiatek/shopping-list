@@ -38,11 +38,6 @@ public final class RemoveItemsCategoryCommandHandler: CommandHandler {
             toCategory: defaultCategory.id
         )
 
-        modelItemRepository.updateCategoryOfModelItemsWithIds(
-            modelItemRepository.modelItemsInCategoryWithId(category.id).map(\.id),
-            toCategory: defaultCategory.id
-        )
-
         categoryRepository.remove(by: category.id)
         eventBus.send(ItemsCategoryRemovedEvent(category))
     }

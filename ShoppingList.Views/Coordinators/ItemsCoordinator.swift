@@ -1,4 +1,6 @@
 import ShoppingList_ViewModels
+
+import SwiftUI
 import UIKit
 
 public final class ItemsCoordinator: Coordinator {
@@ -74,7 +76,16 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
     }
 
     public func goToSearchItem() {
-        print("@$", Date(), self, #function)
+        let viewModel = viewModelsFactory.searchModelItemsViewModel()
+        let view = SearchModelItemView(viewModel: viewModel)
+
+        let hostingController = UIHostingController(rootView: view)
+        hostingController.modalPresentationStyle = .overFullScreen
+
+        self.navigationController.viewControllers.last?.present(
+            hostingController,
+            animated: true
+        )
     }
 
     public func didDismiss() {

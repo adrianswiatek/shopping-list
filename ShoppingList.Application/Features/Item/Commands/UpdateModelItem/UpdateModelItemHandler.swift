@@ -24,8 +24,7 @@ public final class UpdateModelItemCommandHandler: CommandHandler {
 
         let modelItemAfterUpdate = ModelItem(
             id: command.modelItemId,
-            name: command.name,
-            categoryId: command.categoryId
+            name: command.name
         )
 
         modelItemRepository.update(modelItemAfterUpdate)

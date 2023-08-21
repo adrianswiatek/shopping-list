@@ -43,9 +43,7 @@ public final class ManageModelItemsViewModel: ViewModel {
     }
 
     public func fetchModelItems() {
-        modelItemsSubject.send(
-            modelItemQueries.fetchModelItems(.inAlphabeticalOrder())
-        )
+        modelItemsSubject.send(modelItemQueries.fetchModelItems())
     }
 
     public func removeModelItem(withUuid uuid: UUID) {
@@ -67,9 +65,7 @@ public final class ManageModelItemsViewModel: ViewModel {
     }
 
     private func mapModelItemsToViewModels(_ modelItems: [ModelItem]) -> [ModelItemViewModel] {
-        let categories = itemsCategoryQueries.fetchCategories()
-        let viewModelFrom = ModelItemViewModel.Factory.fromModelItem
-        return modelItems.compactMap { viewModelFrom($0, categories) }
+        modelItems.compactMap(ModelItemViewModel.Factory.fromModelItem)
     }
 }
 

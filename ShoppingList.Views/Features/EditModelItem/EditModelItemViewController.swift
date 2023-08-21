@@ -37,9 +37,7 @@ public final class EditModelItemViewController: UIViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
         self.setupView()
-        self.viewModel.fetchCategories()
     }
 
     private func setupView() {
@@ -61,14 +59,6 @@ public final class EditModelItemViewController: UIViewController {
             itemNameView.heightAnchor.constraint(equalToConstant: 70)
         ])
 
-        view.addSubview(categoriesView)
-        NSLayoutConstraint.activate([
-            categoriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categoriesView.topAnchor.constraint(equalTo: itemNameView.bottomAnchor),
-            categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            categoriesView.heightAnchor.constraint(equalToConstant: 100)
-        ])
-
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
         tapGesture.cancelsTouchesInView = false
         tapGesture.delegate = self
@@ -76,37 +66,13 @@ public final class EditModelItemViewController: UIViewController {
     }
 
     private func bind() {
-        viewModel.modelItem
+        viewModel.modelItemPublisher
             .sink { [weak self] in self?.itemNameView.text = $0.name }
             .store(in: &cancellables)
 
-        viewModel.categories
-            .combineLatest(viewModel.selectedCategory)
-            .sink { [weak self] in
-                self?.categoriesView.setCategories($0)
-                self?.categoriesView.selectCategory($1)
-            }
-            .store(in: &cancellables)
-
-        viewModel.dismiss
+        viewModel.dismissPublisher
             .sink { [weak self] in self?.dismiss(animated: true) }
             .store(in: &cancellables)
-
-        categoriesView.onAction
-            .sink { [weak self] in self?.handleAction($0) }
-            .store(in: &cancellables)
-    }
-
-    private func handleAction(_ action: CategoriesForEditItem.Action) {
-        switch action {
-        case .addCategory(let name):
-            viewModel.addCategoryWithName(name)
-        case .selectCategory(let uuid):
-            viewModel.selectCategoryWithUuid(uuid)
-        case .showViewController(let viewController):
-            itemNameView.resignFirstResponder()
-            present(viewController, animated: true)
-        }
     }
 
     @objc

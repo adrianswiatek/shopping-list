@@ -18,14 +18,8 @@ public struct ModelItemViewModel: Hashable {
 
 extension ModelItemViewModel {
     public enum Factory {
-        static func fromModelItem(
-            _ modelItem: ModelItem,
-            categories: [ItemsCategory]
-        ) -> ModelItemViewModel? {
-            categories
-                .first { $0.id == modelItem.categoryId }
-                .map { (modelItem.id.toUuid(), modelItem.name, $0.name)}
-                .map(ModelItemViewModel.init)
+        static func fromModelItem(_ modelItem: ModelItem) -> ModelItemViewModel {
+            .init(uuid: modelItem.id.toUuid(), name: modelItem.name, categoryName: modelItem.name)
         }
     }
 }
