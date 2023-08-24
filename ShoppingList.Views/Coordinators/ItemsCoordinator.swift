@@ -1,5 +1,7 @@
+import ShoppingList_Domain
 import ShoppingList_ViewModels
 
+import Combine
 import SwiftUI
 import UIKit
 
@@ -75,9 +77,9 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         )
     }
 
-    public func goToSearchItem() {
-        let viewModel = viewModelsFactory.searchModelItemsViewModel()
-        let view = SearchModelItemView(viewModel: viewModel)
+    public func goToSearchItemForList(_ list: ListViewModel) {
+        let viewModel = viewModelsFactory.createItemFromModelViewModel(for: list)
+        let view = CreateItemFromModelView(viewModel: viewModel)
 
         let hostingController = UIHostingController(rootView: view)
         hostingController.modalPresentationStyle = .overFullScreen

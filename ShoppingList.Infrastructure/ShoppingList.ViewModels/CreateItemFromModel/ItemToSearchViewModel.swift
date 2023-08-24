@@ -1,25 +1,21 @@
 import ShoppingList_Domain
 
-public struct ItemToSearchViewModel: Comparable, Hashable {
+import Foundation
+
+public struct ItemToSearchViewModel: Comparable, Hashable, Identifiable {
+    public let id: UUID
     public let name: String
     public let foundName: FoundName?
 
-    public init(item: ModelItem) {
-        self.init(name: item.name, foundName: nil)
-    }
-
-    public init(name: String) {
-        self.init(name: name, foundName: nil)
-    }
-
-    private init(name: String, foundName: FoundName?) {
+    private init(id: UUID, name: String, foundName: FoundName?) {
+        self.id = id
         self.name = name
         self.foundName = foundName
     }
 
     public func applyingQuery(_ query: String) -> ItemToSearchViewModel? {
         FoundName.tryMaking(name: name, query: query).map {
-            ItemToSearchViewModel(name: name, foundName: $0)
+            ItemToSearchViewModel(id: id, name: name, foundName: $0)
         }
     }
 
@@ -35,9 +31,19 @@ public struct ItemToSearchViewModel: Comparable, Hashable {
             return lhsFoundName < rhsFoundName
         }
     }
+
+    public func toModelItem() -> ModelItem {
+        .init(id: .fromUuid(id), name: name)
+    }
 }
 
 extension ItemToSearchViewModel {
+    public enum Factory {
+        public static func fromModelItem(_ item: ModelItem) -> ItemToSearchViewModel {
+            .init(id: item.id.toUuid(), name: item.name, foundName: nil)
+        }
+    }
+
     public struct FoundName: Comparable, Hashable {
         public let fullName: String
         public let prefix: String

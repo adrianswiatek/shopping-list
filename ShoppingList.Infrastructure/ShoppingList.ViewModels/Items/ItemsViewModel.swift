@@ -31,10 +31,11 @@ public final class ItemsViewModel: ViewModel {
         sectionsSubject.value.first { !$0.items.isEmpty } != nil
     }
 
+    private let isRestoreButtonEnabledSubject: CurrentValueSubject<Bool, Never>
+    private let itemsMovedSubject: PassthroughSubject<(fromSection: Int, toSection: Int), Never>
     private let sectionsSubject: CurrentValueSubject<[ItemsSectionViewModel], Never>
     private let stateSubject: CurrentValueSubject<State, Never>
-    private let itemsMovedSubject: PassthroughSubject<(fromSection: Int, toSection: Int), Never>
-    private let isRestoreButtonEnabledSubject: CurrentValueSubject<Bool, Never>
+
     private var cancellables: Set<AnyCancellable>
 
     private let itemQueries: ItemQueries
@@ -56,10 +57,11 @@ public final class ItemsViewModel: ViewModel {
         self.commandBus = commandBus
         self.eventBus = eventBus
 
+        self.isRestoreButtonEnabledSubject = .init(false)
+        self.itemsMovedSubject = .init()
         self.sectionsSubject = .init([])
         self.stateSubject = .init(.regular)
-        self.itemsMovedSubject = .init()
-        self.isRestoreButtonEnabledSubject = .init(false)
+
         self.cancellables = []
 
         self.bind()

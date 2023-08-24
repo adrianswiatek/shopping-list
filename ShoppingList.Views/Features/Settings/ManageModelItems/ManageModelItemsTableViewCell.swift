@@ -6,7 +6,6 @@ public final class ManageModelItemsTableViewCell: UITableViewCell {
     public var viewModel: ModelItemViewModel? {
         didSet {
             itemNameLabel.text = viewModel?.name
-            categoryNameLabel.text = viewModel?.categoryName
         }
     }
 
@@ -14,13 +13,6 @@ public final class ManageModelItemsTableViewCell: UITableViewCell {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textColor = .textPrimary
         $0.font = .systemFont(ofSize: 18, weight: .semibold)
-        $0.numberOfLines = 0
-    }
-
-    private let categoryNameLabel: UILabel = configure(.init()) {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = .textSecondary
-        $0.font = .systemFont(ofSize: 14)
         $0.numberOfLines = 0
     }
 
@@ -59,15 +51,8 @@ public final class ManageModelItemsTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             itemNameLabel.topAnchor.constraint(equalTo: marginsGuide.topAnchor),
             itemNameLabel.leadingAnchor.constraint(lessThanOrEqualTo: marginsGuide.leadingAnchor),
+            itemNameLabel.bottomAnchor.constraint(equalTo: marginsGuide.bottomAnchor),
             itemNameLabel.trailingAnchor.constraint(equalTo: marginsGuide.trailingAnchor),
-        ])
-
-        contentView.addSubview(categoryNameLabel)
-        NSLayoutConstraint.activate([
-            categoryNameLabel.topAnchor.constraint(equalTo: itemNameLabel.bottomAnchor, constant: 4),
-            categoryNameLabel.leadingAnchor.constraint(equalTo: itemNameLabel.leadingAnchor),
-            categoryNameLabel.bottomAnchor.constraint(equalTo: marginsGuide.bottomAnchor),
-            categoryNameLabel.trailingAnchor.constraint(equalTo: itemNameLabel.trailingAnchor)
         ])
     }
 }

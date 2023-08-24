@@ -1,4 +1,5 @@
 import ShoppingList_Application
+import ShoppingList_Domain
 
 import Combine
 
@@ -21,13 +22,14 @@ public final class SearchModelItemViewModel: ObservableObject, ViewModel {
 
     private let modelItemQueries: ModelItemQueries
 
-    public init(modelItemQueries: ModelItemQueries) {
+    public init(_ modelItemQueries: ModelItemQueries) {
         self.modelItemQueries = modelItemQueries
 
         self.searchTerm = ""
         self.selectedItem = nil
         self.items = []
         self.allItems = []
+
         self.cancellables = []
 
         self.fetchItems()
@@ -42,7 +44,7 @@ public final class SearchModelItemViewModel: ObservableObject, ViewModel {
     private func fetchItems() {
         self.allItems = modelItemQueries
             .fetchModelItems()
-            .map(ItemToSearchViewModel.init)
+            .map(ItemToSearchViewModel.Factory.fromModelItem)
         self.updateItems(withQuery: "")
     }
 
@@ -55,9 +57,7 @@ public final class SearchModelItemViewModel: ObservableObject, ViewModel {
 
     private func bind() {
         $searchTerm
-            .sink { [weak self] in
-                self?.updateItems(withQuery: $0)
-            }
+            .sink { [weak self] in self?.updateItems(withQuery: $0) }
             .store(in: &cancellables)
     }
 }

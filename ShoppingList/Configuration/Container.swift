@@ -199,9 +199,11 @@ public final class Container {
             )
         }
 
-        container.register(SearchModelItemViewModel.self) {
-            SearchModelItemViewModel(
-                modelItemQueries: $0.resolve(ModelItemQueries.self)!
+        container.register(CreateItemFromModelViewModel.self) {
+            CreateItemFromModelViewModel(
+                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
+                itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!
             )
         }
 
@@ -245,13 +247,13 @@ public final class Container {
         container.register(ViewModelsFactory.self) { resolver in
             ViewModelsFactory(providers: [
                 .basket: { resolver.resolve(BasketViewModel.self)! },
+                .createItemFromModel: { resolver.resolve(CreateItemFromModelViewModel.self)! },
                 .editItem: { resolver.resolve(EditItemViewModel.self)! },
                 .editModelItem: { resolver.resolve(EditModelItemViewModel.self)! },
                 .items: { resolver.resolve(ItemsViewModel.self)! },
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
                 .manageItems: { resolver.resolve(ManageModelItemsViewModel.self)! },
-                .searchModelItems: { resolver.resolve(SearchModelItemViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])
         }

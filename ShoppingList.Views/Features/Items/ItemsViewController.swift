@@ -8,7 +8,7 @@ public protocol ItemsViewControllerDelegate: AnyObject {
     func goToBasket()
     func goToCreateItem()
     func goToEditItem(_ item: ItemToBuyViewModel)
-    func goToSearchItem()
+    func goToSearchItemForList(_ list: ListViewModel)
     func didDismiss()
 }
 
@@ -236,7 +236,7 @@ public final class ItemsViewController: UIViewController {
             let selectedItems = tableView.selectedItems()
             viewModel.removeItems(with: selectedItems.map { $0.uuid })
         case .search:
-            delegate?.goToSearchItem()
+            delegate?.goToSearchItemForList(viewModel.list)
         }
     }
 

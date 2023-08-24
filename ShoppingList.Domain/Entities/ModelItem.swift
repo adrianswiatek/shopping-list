@@ -19,10 +19,6 @@ public struct ModelItem {
         .init(id: id, name: name)
     }
 
-    public func withChanged(categoryId: Id<ItemsCategory>) -> ModelItem {
-        .init(id: id, name: name)
-    }
-
     public func toItem(inListWithId listId: Id<List>) -> Item {
         .toBuy(name: name, info: nil, listId: listId)
     }
