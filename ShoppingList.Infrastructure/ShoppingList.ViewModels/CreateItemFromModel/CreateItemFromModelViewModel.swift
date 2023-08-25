@@ -2,6 +2,7 @@ import ShoppingList_Application
 import ShoppingList_Domain
 
 import Combine
+import SwiftUI
 
 public final class CreateItemFromModelViewModel: ObservableObject, ViewModel {
     @Published
@@ -21,6 +22,7 @@ public final class CreateItemFromModelViewModel: ObservableObject, ViewModel {
     public let selectItemsCategoryViewModel: SelectItemsCategoryViewModel
 
     private var list: ListViewModel!
+
     private let commandBus: CommandBus
     private var cancellables: Set<AnyCancellable>
 
@@ -42,6 +44,19 @@ public final class CreateItemFromModelViewModel: ObservableObject, ViewModel {
 
     public func setList(_ list: ListViewModel) {
         self.list = list
+    }
+
+    public func saveItemFromSelection() {
+        let itemName: String? = selectedItem?.name
+        let categoryId: Id<ItemsCategory>? = selectedCategory.map { .fromUuid($0.uuid) }
+
+        guard let itemName, let categoryId else {
+            return
+        }
+
+        commandBus.execute(
+            AddItemCommand(itemName, categoryId, .fromUuid(list.uuid))
+        )
     }
 
     private func bind() {

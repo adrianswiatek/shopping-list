@@ -3,9 +3,6 @@ import ShoppingList_ViewModels
 import SwiftUI
 
 struct SelectItemsCategoryView: View {
-    @Environment(\.dismiss)
-    private var dismiss: DismissAction
-
     @ObservedObject
     private var viewModel: SelectItemsCategoryViewModel
 
@@ -39,6 +36,6 @@ struct SelectItemsCategoryView: View {
     }
 
     private func backgroundForCategory(_ category: ItemsCategoryViewModel) -> Color {
-        category == viewModel.selectedCategory ? .gray.opacity(0.25) : .white
+        category == viewModel.selectedCategory ? .secondary.opacity(0.25) : .clear
     }
 }

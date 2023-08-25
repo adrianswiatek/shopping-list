@@ -61,6 +61,6 @@ struct SearchModelItemView: View {
     }
     
     private func backgroundForItem(_ item: ItemToSearchViewModel) -> Color {
-        item == viewModel.selectedItem ? .gray.opacity(0.25) : .white
+        item == viewModel.selectedItem ? .secondary.opacity(0.25) : .clear
     }
 }

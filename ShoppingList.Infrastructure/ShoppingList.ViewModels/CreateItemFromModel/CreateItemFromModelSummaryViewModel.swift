@@ -21,6 +21,6 @@ public final class CreateItemFromModelSummaryViewModel: ObservableObject {
     }
 
     public func confirmSelection() {
-
+        parentViewModel.saveItemFromSelection()
     }
 }

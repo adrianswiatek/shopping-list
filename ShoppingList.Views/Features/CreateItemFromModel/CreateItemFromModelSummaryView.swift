@@ -3,6 +3,9 @@ import ShoppingList_ViewModels
 import SwiftUI
 
 struct CreateItemFromModelSummaryView: View {
+    @Environment(\.dismiss)
+    private var dismiss: DismissAction
+
     private let viewModel: CreateItemFromModelSummaryViewModel
 
     init(viewModel: CreateItemFromModelSummaryViewModel) {
@@ -10,10 +13,9 @@ struct CreateItemFromModelSummaryView: View {
     }
 
     var body: some View {
-        GeometryReader { geometryReaderProxy in
+        GeometryReader { proxy in
             VStack(spacing: 48) {
                 Text("Summary")
-                    .foregroundColor(.black.opacity(0.75))
                     .font(.system(size: 40, weight: .bold))
                     .padding(.top, 24)
 
@@ -31,14 +33,17 @@ struct CreateItemFromModelSummaryView: View {
 
                 Divider()
 
-                Button(action: viewModel.confirmSelection) {
+                Button {
+                    viewModel.confirmSelection()
+                    dismiss()
+                } label: {
                     Label("Add to list", systemImage: "checkmark.circle.fill")
-                        .frame(width: geometryReaderProxy.size.width / 1.5, height: 44)
-                        .background(Color.gray.opacity(0.2).cornerRadius(8))
+                        .frame(width: proxy.size.width / 1.5, height: 44)
+                        .background(Color.secondary.opacity(0.15).cornerRadius(8))
                 }
                 .padding(.bottom, 24)
             }
-            .frame(height: geometryReaderProxy.size.height)
+            .frame(height: proxy.size.height)
         }
         .padding()
     }
@@ -50,13 +55,12 @@ struct CreateItemFromModelSummaryView: View {
     ) -> some View {
         HStack(spacing: 24) {
             Rectangle()
-                .fill(.black.opacity(0.6))
+                .fill(.secondary.opacity(0.4))
                 .frame(width: 5, height: 64)
                 .padding(.leading, 32)
 
             VStack(alignment: .leading, spacing: 12) {
                 Text(title)
-                    .foregroundColor(.black.opacity(0.75))
 
                 Button(action: action) {
                     Text(value)
