@@ -41,6 +41,7 @@ public final class EditModelItemViewController: UIViewController {
     }
 
     private func setupView() {
+        navigationItem.title = "Edit"
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         view.isOpaque = false
 
