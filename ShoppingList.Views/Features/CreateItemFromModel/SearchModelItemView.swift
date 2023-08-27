@@ -5,6 +5,9 @@ import SwiftUI
 struct SearchModelItemView: View {
     @ObservedObject
     private var viewModel: SearchModelItemViewModel
+
+    @FocusState
+    private var focusedTextField: Bool
     
     init(viewModel: SearchModelItemViewModel) {
         self.viewModel = viewModel
@@ -16,6 +19,7 @@ struct SearchModelItemView: View {
                 TextField("Enter item name...", text: $viewModel.searchTerm)
                     .textFieldStyle(.plain)
                     .foregroundColor(.gray)
+                    .focused($focusedTextField)
                 
                 if viewModel.canShowClearSearchTermButton {
                     Button {
@@ -50,6 +54,7 @@ struct SearchModelItemView: View {
         }
         .navigationTitle("Search Item")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear { focusedTextField = true }
         .onDisappear { viewModel.searchTerm = "" }
     }
     
