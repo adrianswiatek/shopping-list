@@ -1,6 +1,9 @@
 import Combine
 
 public final class CreateItemFromModelSummaryViewModel: ObservableObject {
+    @Published
+    public var skipSummaryScreen: Bool
+
     public let selectedItem: ItemToSearchViewModel?
     public let selectedCategory: ItemsCategoryViewModel?
 
@@ -8,19 +11,23 @@ public final class CreateItemFromModelSummaryViewModel: ObservableObject {
 
     public init(_ parentViewModel: CreateItemFromModelViewModel) {
         self.parentViewModel = parentViewModel
-        self.selectedItem = parentViewModel.selectedItem
-        self.selectedCategory = parentViewModel.selectedCategory
+        self.selectedItem = parentViewModel.searchModelItemViewModel.selectedItem
+        self.selectedCategory = parentViewModel.selectItemsCategoryViewModel.selectedCategory
+        self.skipSummaryScreen = false
     }
 
     public func switchItem() {
-        parentViewModel.selectedItem = nil
+        parentViewModel.searchModelItemViewModel.selectedItem = nil
     }
 
     public func switchCategory() {
-        parentViewModel.selectedCategory = nil
+        parentViewModel.selectItemsCategoryViewModel.selectedCategory = nil
     }
 
     public func confirmSelection() {
-        parentViewModel.saveItemFromSelection()
+        if skipSummaryScreen {
+            parentViewModel.skipSummaryScreen()
+        }
+        parentViewModel.saveItem(item: selectedItem, category: selectedCategory)
     }
 }

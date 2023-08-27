@@ -40,6 +40,7 @@ public final class Container {
         container.resolve(UpdateItemsOrderListener.self)!.start()
         container.resolve(ItemAddedToListOrUpdatedListener.self)!.start()
 //        container.resolve(ConsoleEventListener.self)!.start()
+        container.resolve(LocalPreferences.self)!.shouldSkipSearchSummaryView = false
     }
 
     private func registerCommands() {
@@ -203,6 +204,7 @@ public final class Container {
             CreateItemFromModelViewModel(
                 modelItemQueries: $0.resolve(ModelItemQueries.self)!,
                 itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                localPreferences: $0.resolve(LocalPreferences.self)!,
                 commandBus: $0.resolve(CommandBus.self)!
             )
         }

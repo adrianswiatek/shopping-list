@@ -6,36 +6,36 @@ import SwiftUI
 
 public final class CreateItemFromModelViewModel: ObservableObject, ViewModel {
     @Published
-    public var selectedItem: ItemToSearchViewModel?
-
-    @Published
-    public var selectedCategory: ItemsCategoryViewModel?
-
-    @Published
     public var viewMode: ViewMode
 
     public var summaryViewModel: CreateItemFromModelSummaryViewModel {
-        .init(self)
+        CreateItemFromModelSummaryViewModel(self)
     }
 
     public let searchModelItemViewModel: SearchModelItemViewModel
     public let selectItemsCategoryViewModel: SelectItemsCategoryViewModel
 
     private var list: ListViewModel!
+    private var dismiss: () -> Void
 
+    private let localPreferences: LocalPreferences
     private let commandBus: CommandBus
+
     private var cancellables: Set<AnyCancellable>
 
     public init(
         modelItemQueries: ModelItemQueries,
         itemsCategoryQueries: ItemsCategoryQueries,
+        localPreferences: LocalPreferences,
         commandBus: CommandBus
     ) {
+        self.localPreferences = localPreferences
         self.commandBus = commandBus
 
         self.searchModelItemViewModel = .init(modelItemQueries)
         self.selectItemsCategoryViewModel = .init(itemsCategoryQueries)
 
+        self.dismiss = { }
         self.viewMode = .searchItem
         self.cancellables = []
 
@@ -46,9 +46,13 @@ public final class CreateItemFromModelViewModel: ObservableObject, ViewModel {
         self.list = list
     }
 
-    public func saveItemFromSelection() {
-        let itemName: String? = selectedItem?.name
-        let categoryId: Id<ItemsCategory>? = selectedCategory.map { .fromUuid($0.uuid) }
+    public func setDismiss(_ dismiss: @escaping () -> Void) {
+        self.dismiss = dismiss
+    }
+
+    public func saveItem(item: ItemToSearchViewModel?, category: ItemsCategoryViewModel?) {
+        let itemName: String? = item?.name
+        let categoryId: Id<ItemsCategory>? = category.map { .fromUuid($0.uuid) }
 
         guard let itemName, let categoryId else {
             return
@@ -59,25 +63,25 @@ public final class CreateItemFromModelViewModel: ObservableObject, ViewModel {
         )
     }
 
+    public func skipSummaryScreen() {
+        localPreferences.shouldSkipSearchSummaryView = true
+    }
+
     private func bind() {
-        searchModelItemViewModel
-            .$selectedItem
-            .sink { [weak self] in self?.selectedItem = $0 }
-            .store(in: &cancellables)
-
-        selectItemsCategoryViewModel
-            .$selectedCategory
-            .sink { [weak self] in self?.selectedCategory = $0 }
-            .store(in: &cancellables)
-
         Publishers
-            .CombineLatest($selectedItem, $selectedCategory)
+            .CombineLatest(
+                searchModelItemViewModel.$selectedItem,
+                selectItemsCategoryViewModel.$selectedCategory
+            )
             .sink { [weak self] item, category in
                 switch (item, category) {
                 case (nil, _):
                     self?.viewMode = .searchItem
                 case (_, nil):
                     self?.viewMode = .selectCategory
+                case (_, _) where self?.localPreferences.shouldSkipSearchSummaryView == true:
+                    self?.saveItem(item: item, category: category)
+                    self?.dismiss()
                 default:
                     self?.viewMode = .summary
                 }

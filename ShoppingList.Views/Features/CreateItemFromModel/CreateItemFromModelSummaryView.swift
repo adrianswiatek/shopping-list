@@ -6,7 +6,8 @@ struct CreateItemFromModelSummaryView: View {
     @Environment(\.dismiss)
     private var dismiss: DismissAction
 
-    private let viewModel: CreateItemFromModelSummaryViewModel
+    @ObservedObject
+    private var viewModel: CreateItemFromModelSummaryViewModel
 
     init(viewModel: CreateItemFromModelSummaryViewModel) {
         self.viewModel = viewModel
@@ -33,15 +34,25 @@ struct CreateItemFromModelSummaryView: View {
 
                 Divider()
 
-                Button {
-                    viewModel.confirmSelection()
-                    dismiss()
-                } label: {
-                    Label("Add to list", systemImage: "checkmark.circle.fill")
-                        .frame(width: proxy.size.width / 1.5, height: 44)
-                        .background(Color.secondary.opacity(0.15).cornerRadius(8))
+                VStack(spacing: 24) {
+                    Button {
+                        viewModel.confirmSelection()
+                        dismiss()
+                    } label: {
+                        Label("Add to list", systemImage: "checkmark.circle.fill")
+                            .frame(width: proxy.size.width / 1.25, height: 44)
+                            .background(Color.secondary.opacity(0.15).cornerRadius(8))
+                    }
+
+                    Toggle("Skip this screen next time", isOn: $viewModel.skipSummaryScreen)
+                        .font(.callout)
+                        .foregroundColor(.secondary)
+                        .toggleStyle(.switch)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .frame(width: proxy.size.width / 1.25)
+                        .padding(.bottom, 24)
                 }
-                .padding(.bottom, 24)
             }
             .frame(height: proxy.size.height)
         }

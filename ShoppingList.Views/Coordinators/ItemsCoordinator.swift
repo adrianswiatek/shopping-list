@@ -88,6 +88,10 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
             hostingController,
             animated: true
         )
+
+        viewModel.setDismiss { [weak hostingController] in
+            hostingController?.dismiss(animated: true)
+        }
     }
 
     public func didDismiss() {

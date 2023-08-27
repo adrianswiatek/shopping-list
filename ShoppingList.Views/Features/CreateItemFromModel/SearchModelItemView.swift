@@ -50,6 +50,7 @@ struct SearchModelItemView: View {
         }
         .navigationTitle("Search Item")
         .navigationBarTitleDisplayMode(.inline)
+        .onDisappear { viewModel.searchTerm = "" }
     }
     
     private func textView(_ text: String, bold: Bool = false) -> some View {
