@@ -17,6 +17,7 @@ struct SearchModelItemView: View {
         VStack {
             HStack {
                 TextField("Enter item name...", text: $viewModel.searchTerm)
+                    .textInputAutocapitalization(.never)
                     .textFieldStyle(.plain)
                     .foregroundColor(.gray)
                     .focused($focusedTextField)
