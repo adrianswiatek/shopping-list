@@ -22,6 +22,7 @@ public extension ViewModelsFactory {
         case createItemFromModel
         case editItem
         case editModelItem
+        case generalSettings
         case items
         case lists
         case manageCategories
@@ -53,6 +54,10 @@ public extension ViewModelsFactory {
         configure(create(for: .editModelItem) as! EditModelItemViewModel) {
             $0.setModelItem(modelItem)
         }
+    }
+
+    func generalSettingsViewModel() -> GeneralSettingsViewModel {
+        create(for: .generalSettings) as! GeneralSettingsViewModel
     }
 
     func itemsViewModel(for list: ListViewModel) -> ItemsViewModel {

@@ -4,7 +4,7 @@ public final class SettingsViewModel: ViewModel {
     private let settings: [Settings]
 
     public init() {
-        settings = [.manageCategories, .manageItems]
+        settings = [.generalSettings, .manageCategories, .manageItems]
         numberOfSettings = settings.count
     }
 
@@ -15,6 +15,7 @@ public final class SettingsViewModel: ViewModel {
 
 public extension SettingsViewModel {
     enum Settings: String, CaseIterable {
+        case generalSettings = "General Settings"
         case manageCategories = "Manage Categories"
         case manageItems = "Manage Items"
 

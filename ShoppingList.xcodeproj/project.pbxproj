@@ -335,6 +335,8 @@
 		E8F9F6732A748DF700245FFD /* DictionaryDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F9F6722A748DF700245FFD /* DictionaryDecodable.swift */; };
 		E8FDF8B62A4A6DF900A9E22E /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDF8B52A4A6DF900A9E22E /* Connectivity.swift */; };
 		E8FDF8B92A4A6FE200A9E22E /* ConnectivityListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */; };
+		E8FF7FCC2AA2B1A3006D5E54 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FF7FCB2AA2B1A3006D5E54 /* GeneralSettingsView.swift */; };
+		E8FF7FD02AA2B607006D5E54 /* GeneralSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FF7FCE2AA2B455006D5E54 /* GeneralSettingsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -905,6 +907,8 @@
 		E8FDF8B22A4A532400A9E22E /* WatchConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivity.swift; sourceTree = "<group>"; };
 		E8FDF8B52A4A6DF900A9E22E /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityListener.swift; sourceTree = "<group>"; };
+		E8FF7FCB2AA2B1A3006D5E54 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		E8FF7FCE2AA2B455006D5E54 /* GeneralSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1022,6 +1026,7 @@
 			children = (
 				A79917002582E0BE001A277A /* SettingsTableView.swift */,
 				3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */,
+				E8FF7FCA2AA2B186006D5E54 /* General */,
 				3A37694F20D1BA730039DA54 /* ManageCategories */,
 				E83EB8842916D92F005F69A1 /* ManageModelItems */,
 			);
@@ -1629,6 +1634,7 @@
 			isa = PBXGroup;
 			children = (
 				A7813FF3258181D600C70E9C /* SettingsViewModel.swift */,
+				E8FF7FCD2AA2B446006D5E54 /* GeneralSettings */,
 				A748C8132593F58D0071343C /* ManageCategories */,
 				E83EB88F2916E437005F69A1 /* ManageModelItems */,
 			);
@@ -2297,6 +2303,22 @@
 			path = ModelItemEvents;
 			sourceTree = "<group>";
 		};
+		E8FF7FCA2AA2B186006D5E54 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				E8FF7FCB2AA2B1A3006D5E54 /* GeneralSettingsView.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		E8FF7FCD2AA2B446006D5E54 /* GeneralSettings */ = {
+			isa = PBXGroup;
+			children = (
+				E8FF7FCE2AA2B455006D5E54 /* GeneralSettingsViewModel.swift */,
+			);
+			path = GeneralSettings;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2951,6 +2973,7 @@
 				A7640F812569B88F000D882B /* ListsViewController.swift in Sources */,
 				A70B2EEE257AE09C0082AAB2 /* UITableViewCell.swift in Sources */,
 				A739B4CD2569CF55000B16E3 /* ItemsToolbar.swift in Sources */,
+				E8FF7FCC2AA2B1A3006D5E54 /* GeneralSettingsView.swift in Sources */,
 				A739B5412569D3E5000B16E3 /* ValidationButtonRule.swift in Sources */,
 				E89A4F872929958500AFC47C /* EditModelItemViewController.swift in Sources */,
 				A739B4B02569CEB4000B16E3 /* InfoForEditItem.swift in Sources */,
@@ -3019,6 +3042,7 @@
 				A7813FF4258181D600C70E9C /* SettingsViewModel.swift in Sources */,
 				E8C5CDB82A96C63600A6DE1E /* CreateItemFromModelViewModel.swift in Sources */,
 				E8C5CDA62A941DA700A6DE1E /* ItemToSearchViewModel.swift in Sources */,
+				E8FF7FD02AA2B607006D5E54 /* GeneralSettingsViewModel.swift in Sources */,
 				A79916FD2582DBE1001A277A /* ViewModelsFactory.swift in Sources */,
 				A74DA51825B76333003F2B01 /* ItemInBasketViewModel.swift in Sources */,
 				A7B8EF8D25A3C00800495C1E /* EditItemViewModel.swift in Sources */,

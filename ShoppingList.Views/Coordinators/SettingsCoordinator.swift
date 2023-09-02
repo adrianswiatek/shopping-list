@@ -1,6 +1,8 @@
 import ShoppingList_Shared
 import ShoppingList_ViewModels
+
 import UIKit
+import SwiftUI
 
 public final class SettingsCoordinator: Coordinator {
     public let navigationController: UINavigationController
@@ -39,6 +41,12 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         let viewController: UIViewController
 
         switch settings {
+        case .generalSettings:
+            viewController = UIHostingController(
+                rootView: GeneralSettingsView(
+                    viewModel: viewModelsFactory.generalSettingsViewModel()
+                )
+            )
         case .manageCategories:
             viewController = ManageCategoriesViewController(
                 viewModel: viewModelsFactory.manageCategoriesViewModel()

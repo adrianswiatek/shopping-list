@@ -40,7 +40,6 @@ public final class Container {
         container.resolve(UpdateItemsOrderListener.self)!.start()
         container.resolve(ItemAddedToListOrUpdatedListener.self)!.start()
 //        container.resolve(ConsoleEventListener.self)!.start()
-        container.resolve(LocalPreferences.self)!.shouldSkipSearchSummaryView = false
     }
 
     private func registerCommands() {
@@ -175,6 +174,12 @@ public final class Container {
             )
         }
 
+        container.register(GeneralSettingsViewModel.self) {
+            GeneralSettingsViewModel(
+                localPreferences: $0.resolve(LocalPreferences.self)!
+            )
+        }
+
         container.register(BasketViewModel.self) {
             BasketViewModel(
                 itemQueries: $0.resolve(ItemQueries.self)!,
@@ -252,6 +257,7 @@ public final class Container {
                 .createItemFromModel: { resolver.resolve(CreateItemFromModelViewModel.self)! },
                 .editItem: { resolver.resolve(EditItemViewModel.self)! },
                 .editModelItem: { resolver.resolve(EditModelItemViewModel.self)! },
+                .generalSettings: { resolver.resolve(GeneralSettingsViewModel.self)! },
                 .items: { resolver.resolve(ItemsViewModel.self)! },
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
