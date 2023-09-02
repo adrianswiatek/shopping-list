@@ -90,13 +90,22 @@ struct ManageItemsNamesView: View {
             .listStyle(.inset)
             .shadow(color: .gray.opacity(0.5), radius: 2)
         }
-        .navigationTitle("Manage Items Names")
-        .navigationBarTitleDisplayMode(.inline)
         .alert("Edit Item Name", isPresented: $viewModel.isEditItemNamePresented) {
             TextField("Enter item name", text: $viewModel.editItemNameViewModel.newName)
                 .textInputAutocapitalization(.never)
             Button("OK", action: viewModel.confirmItemNameChange)
             Button("Cancel", role: .cancel) { }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    viewModel.restore()
+                } label: {
+                    Image("Restore")
+                        .renderingMode(.template)
+                }
+                .disabled(!viewModel.isRestoreButtonEnabled)
+            }
         }
         .onAppear { focusedTextField = true }
         .onDisappear { viewModel.searchTerm = "" }

@@ -289,6 +289,9 @@
 		E8C5CDBD2A96C70200A6DE1E /* SelectItemsCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5CDBB2A96C6FF00A6DE1E /* SelectItemsCategoryViewModel.swift */; };
 		E8C5CDBF2A97F9E600A6DE1E /* CreateItemFromModelSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5CDBE2A97F9E600A6DE1E /* CreateItemFromModelSummaryView.swift */; };
 		E8C5CDC12A98048D00A6DE1E /* CreateItemFromModelSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C5CDC02A98048D00A6DE1E /* CreateItemFromModelSummaryViewModel.swift */; };
+		E8CE3FBA2AA3C8F7006963A7 /* AddModelItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CE3FB92AA3C8F7006963A7 /* AddModelItemCommand.swift */; };
+		E8CE3FBC2AA3C93F006963A7 /* AddModelItemCommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CE3FBB2AA3C93F006963A7 /* AddModelItemCommandHandler.swift */; };
+		E8CE3FBE2AA3C9F9006963A7 /* ModelItemAddedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CE3FBD2AA3C9F9006963A7 /* ModelItemAddedEvent.swift */; };
 		E8D9F10F2A89125E00A3D494 /* Settings+ItemsSortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */; };
 		E8D9F1112A89703E00A3D494 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D9F1102A89703E00A3D494 /* SettingsService.swift */; };
 		E8DB07D32A8FF4D6000C45E6 /* Settings+ItemsSynchronizationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DB07D22A8FF4D6000C45E6 /* Settings+ItemsSynchronizationMode.swift */; };
@@ -855,6 +858,9 @@
 		E8C5CDBB2A96C6FF00A6DE1E /* SelectItemsCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectItemsCategoryViewModel.swift; sourceTree = "<group>"; };
 		E8C5CDBE2A97F9E600A6DE1E /* CreateItemFromModelSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemFromModelSummaryView.swift; sourceTree = "<group>"; };
 		E8C5CDC02A98048D00A6DE1E /* CreateItemFromModelSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateItemFromModelSummaryViewModel.swift; sourceTree = "<group>"; };
+		E8CE3FB92AA3C8F7006963A7 /* AddModelItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddModelItemCommand.swift; sourceTree = "<group>"; };
+		E8CE3FBB2AA3C93F006963A7 /* AddModelItemCommandHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddModelItemCommandHandler.swift; sourceTree = "<group>"; };
+		E8CE3FBD2AA3C9F9006963A7 /* ModelItemAddedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemAddedEvent.swift; sourceTree = "<group>"; };
 		E8D9F10E2A89125E00A3D494 /* Settings+ItemsSortingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+ItemsSortingType.swift"; sourceTree = "<group>"; };
 		E8D9F1102A89703E00A3D494 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		E8DB07D22A8FF4D6000C45E6 /* Settings+ItemsSynchronizationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+ItemsSynchronizationMode.swift"; sourceTree = "<group>"; };
@@ -1820,7 +1826,6 @@
 				A7287E4C25C0C3230092A781 /* RestoreItems */,
 				A704F9A025D32A90009D0D9F /* SetItemsOrder */,
 				A7AF6B8825ACFB1200D8A147 /* UpdateItem */,
-				E899422C292AB9D900E4D875 /* UpdateModelItem */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -2045,6 +2050,15 @@
 			path = CreateItemFromModel;
 			sourceTree = "<group>";
 		};
+		E8CE3FB82AA3C8EB006963A7 /* AddModelItem */ = {
+			isa = PBXGroup;
+			children = (
+				E8CE3FB92AA3C8F7006963A7 /* AddModelItemCommand.swift */,
+				E8CE3FBB2AA3C93F006963A7 /* AddModelItemCommandHandler.swift */,
+			);
+			path = AddModelItem;
+			sourceTree = "<group>";
+		};
 		E8E866DA2A86DBB100FFC39B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2220,11 +2234,11 @@
 		E8F8623F2924414F00924436 /* ModelItem */ = {
 			isa = PBXGroup;
 			children = (
+				E8C5CDA72A95798C00A6DE1E /* ModelItemCommands.swift */,
 				E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */,
 				E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */,
 				E8674B7E291EC97900C419E6 /* ModelItemService.swift */,
 				E8F862402924417000924436 /* Commands */,
-				E8C5CDA72A95798C00A6DE1E /* ModelItemCommands.swift */,
 			);
 			path = ModelItem;
 			sourceTree = "<group>";
@@ -2232,7 +2246,9 @@
 		E8F862402924417000924436 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				E8CE3FB82AA3C8EB006963A7 /* AddModelItem */,
 				E8F86241292441FE00924436 /* RemoveModelItem */,
+				E899422C292AB9D900E4D875 /* UpdateModelItem */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -2251,6 +2267,7 @@
 			children = (
 				E8F8624729244A7E00924436 /* ModelItemRemovedEvent.swift */,
 				E84B5AB5296B297100D4DBA0 /* ModelItemUpdatedEvent.swift */,
+				E8CE3FBD2AA3C9F9006963A7 /* ModelItemAddedEvent.swift */,
 			);
 			path = ModelItemEvents;
 			sourceTree = "<group>";
@@ -2776,6 +2793,7 @@
 				A781E9F725783E7000367FCF /* RemoveListCommandHandler.swift in Sources */,
 				A777F44025B8B53000A2DDB3 /* MoveItemsToListCommand.swift in Sources */,
 				A704F9A625D32AF6009D0D9F /* SetItemsOrderCommandHandler.swift in Sources */,
+				E8CE3FBE2AA3C9F9006963A7 /* ModelItemAddedEvent.swift in Sources */,
 				A7AF6B8A25ACFB2000D8A147 /* UpdateItemCommand.swift in Sources */,
 				A7CDD40425AF890800FF776A /* ItemsCategoryRemovedEvent.swift in Sources */,
 				A7AF6B8D25ACFB9300D8A147 /* UpdateItemCommandHandler.swift in Sources */,
@@ -2834,6 +2852,7 @@
 				E8674B7B291EC89E00C419E6 /* ModelItemQueries.swift in Sources */,
 				A704F9AF25D33CD3009D0D9F /* ItemsReorderedEvent.swift in Sources */,
 				A7D3968625A128EB0077F10E /* MoveItemsToBasketCommandHandler.swift in Sources */,
+				E8CE3FBC2AA3C93F006963A7 /* AddModelItemCommandHandler.swift in Sources */,
 				A781E9F425783E4D00367FCF /* CommandHandler.swift in Sources */,
 				A7CDD40B25AF89CA00FF776A /* ListUpdatedEvent.swift in Sources */,
 				A77EE6DB25B2377700A258B4 /* UpdateListDateListener.swift in Sources */,
@@ -2866,6 +2885,7 @@
 				A704F9A225D32AA8009D0D9F /* SetItemsOrderCommand.swift in Sources */,
 				A781E9F025783DCF00367FCF /* AddListCommand.swift in Sources */,
 				A777F44425B8B65600A2DDB3 /* MoveItemsToListCommandHandler.swift in Sources */,
+				E8CE3FBA2AA3C8F7006963A7 /* AddModelItemCommand.swift in Sources */,
 				E84B5AB6296B297100D4DBA0 /* ModelItemUpdatedEvent.swift in Sources */,
 				A7B2225C25E071AD008102A9 /* ClearBasketOfListCommandRefiner.swift in Sources */,
 				A727CCA525BA0CDA00D53866 /* RemoveItemsFromBasketCommandHandler.swift in Sources */,

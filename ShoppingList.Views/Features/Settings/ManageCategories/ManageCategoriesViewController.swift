@@ -55,7 +55,6 @@ public final class ManageCategoriesViewController: UIViewController {
     }
 
     private func setupView() {
-        title = "Manage Categories"
         view.backgroundColor = .background
 
         navigationItem.largeTitleDisplayMode = .never

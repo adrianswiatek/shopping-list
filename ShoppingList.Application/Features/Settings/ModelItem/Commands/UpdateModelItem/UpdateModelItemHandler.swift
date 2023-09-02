@@ -10,7 +10,7 @@ public final class UpdateModelItemCommandHandler: CommandHandler {
     }
 
     public func canExecute(_ command: Command) -> Bool {
-        (command as? UpdateModelItemCommand)?.name.isEmpty == false
+        (command as? UpdateModelItemCommand)?.newName.isEmpty == false
     }
 
     public func execute(_ command: Command) {
@@ -24,7 +24,7 @@ public final class UpdateModelItemCommandHandler: CommandHandler {
 
         let modelItemAfterUpdate = ModelItem(
             id: command.modelItemId,
-            name: command.name
+            name: command.newName
         )
 
         modelItemRepository.update(modelItemAfterUpdate)

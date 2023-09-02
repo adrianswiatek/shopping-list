@@ -20,6 +20,10 @@ public final class ManageItemsNamesViewModel: ViewModel, ObservableObject {
         searchTerm.isEmpty == false
     }
 
+    public var isRestoreButtonEnabled: Bool {
+        commandBus.canUndo(.modelItems)
+    }
+
     private var cancellables: Set<AnyCancellable>
     private var allItems: [ItemToSearchViewModel]
 
@@ -54,8 +58,12 @@ public final class ManageItemsNamesViewModel: ViewModel, ObservableObject {
             return
         }
 
+        let itemId: Id<ModelItem> = .fromUuid(item.id)
+        let currentName: String = item.name
+        let newName: String = editItemNameViewModel.newName
+
         commandBus.execute(
-            UpdateModelItemCommand(.fromUuid(item.id), editItemNameViewModel.newName)
+            UpdateModelItemCommand(itemId, currentName, newName)
         )
     }
 
@@ -66,6 +74,12 @@ public final class ManageItemsNamesViewModel: ViewModel, ObservableObject {
 
     public func clearSearchTerm() {
         searchTerm = ""
+    }
+
+    public func restore() {
+        if commandBus.canUndo(.modelItems) {
+            commandBus.undo(.modelItems)
+        }
     }
 
     public func removeItemName(_ item: ItemToSearchViewModel) {
@@ -91,6 +105,7 @@ public final class ManageItemsNamesViewModel: ViewModel, ObservableObject {
     private func bind() {
         eventBus.events
             .filterType(
+                ModelItemAddedEvent.self,
                 ModelItemRemovedEvent.self,
                 ModelItemUpdatedEvent.self
             )
@@ -105,6 +120,6 @@ public final class ManageItemsNamesViewModel: ViewModel, ObservableObject {
 
 private extension ModelItem {
     static func fromItemToSearch(_ item: ItemToSearchViewModel) -> ModelItem {
-        .init(id: .fromUuid(item.id), name: item.name)
+        ModelItem(id: .fromUuid(item.id), name: item.name)
     }
 }

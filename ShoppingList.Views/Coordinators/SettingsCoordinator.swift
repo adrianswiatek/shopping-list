@@ -47,16 +47,19 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
                     viewModel: viewModelsFactory.generalSettingsViewModel()
                 )
             )
+            viewController.title = "General Settings"
         case .manageCategories:
             viewController = ManageCategoriesViewController(
                 viewModel: viewModelsFactory.manageCategoriesViewModel()
             )
+            viewController.title = "Manage Categories"
         case .manageItemsNames:
             viewController = UIHostingController(
                 rootView: ManageItemsNamesView(
                     viewModel: viewModelsFactory.manageItemsNamesViewModel()
                 )
             )
+            viewController.title = "Manage Items Names"
         }
 
         navigationController.pushViewController(viewController, animated: true)
