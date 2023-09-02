@@ -27,6 +27,7 @@ public extension ViewModelsFactory {
         case lists
         case manageCategories
         case manageItems
+        case manageItemsNames
         case settings
     }
 }
@@ -76,6 +77,10 @@ public extension ViewModelsFactory {
 
     func manageModelItemsViewModel() -> ManageModelItemsViewModel {
         create(for: .manageItems) as! ManageModelItemsViewModel
+    }
+
+    func manageItemsNamesViewModel() -> ManageItemsNamesViewModel {
+        create(for: .manageItemsNames) as! ManageItemsNamesViewModel
     }
 
     func settingsViewModel() -> SettingsViewModel {

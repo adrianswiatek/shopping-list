@@ -140,21 +140,20 @@ public final class Container {
     }
 
     private func registerViewModels() {
-        container.register(ListsViewModel.self) {
-            ListsViewModel(
-                listQueries: $0.resolve(ListQueries.self)!,
+        container.register(BasketViewModel.self) {
+            BasketViewModel(
+                itemQueries: $0.resolve(ItemQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
         }
 
-        container.register(ItemsViewModel.self) {
-            ItemsViewModel(
-                itemQueries: $0.resolve(ItemQueries.self)!,
-                categoryQuries: $0.resolve(ItemsCategoryQueries.self)!,
-                sharedItemsFormatter: $0.resolve(SharedItemsFormatter.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
+        container.register(CreateItemFromModelViewModel.self) {
+            CreateItemFromModelViewModel(
+                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
+                itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                localPreferences: $0.resolve(LocalPreferences.self)!,
+                commandBus: $0.resolve(CommandBus.self)!
             )
         }
 
@@ -180,9 +179,19 @@ public final class Container {
             )
         }
 
-        container.register(BasketViewModel.self) {
-            BasketViewModel(
+        container.register(ItemsViewModel.self) {
+            ItemsViewModel(
                 itemQueries: $0.resolve(ItemQueries.self)!,
+                categoryQuries: $0.resolve(ItemsCategoryQueries.self)!,
+                sharedItemsFormatter: $0.resolve(SharedItemsFormatter.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(ListsViewModel.self) {
+            ListsViewModel(
+                listQueries: $0.resolve(ListQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
@@ -196,21 +205,20 @@ public final class Container {
             )
         }
 
+        container.register(ManageItemsNamesViewModel.self) {
+            ManageItemsNamesViewModel(
+                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
         container.register(ManageModelItemsViewModel.self) {
             ManageModelItemsViewModel(
                 modelItemQueries: $0.resolve(ModelItemQueries.self)!,
                 itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
-            )
-        }
-
-        container.register(CreateItemFromModelViewModel.self) {
-            CreateItemFromModelViewModel(
-                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
-                itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
-                localPreferences: $0.resolve(LocalPreferences.self)!,
-                commandBus: $0.resolve(CommandBus.self)!
             )
         }
 
@@ -262,6 +270,7 @@ public final class Container {
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
                 .manageItems: { resolver.resolve(ManageModelItemsViewModel.self)! },
+                .manageItemsNames: { resolver.resolve(ManageItemsNamesViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])
         }

@@ -337,6 +337,9 @@
 		E8FDF8B92A4A6FE200A9E22E /* ConnectivityListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */; };
 		E8FF7FCC2AA2B1A3006D5E54 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FF7FCB2AA2B1A3006D5E54 /* GeneralSettingsView.swift */; };
 		E8FF7FD02AA2B607006D5E54 /* GeneralSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FF7FCE2AA2B455006D5E54 /* GeneralSettingsViewModel.swift */; };
+		E8FF7FD22AA2BF6E006D5E54 /* ManageItemsNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FF7FD12AA2BF6E006D5E54 /* ManageItemsNamesView.swift */; };
+		E8FF7FD72AA2C45E006D5E54 /* ManageItemsNamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FF7FD52AA2C457006D5E54 /* ManageItemsNamesViewModel.swift */; };
+		E8FF7FDA2AA2D6B9006D5E54 /* EditItemNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FF7FD82AA2D6A7006D5E54 /* EditItemNameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -909,6 +912,9 @@
 		E8FDF8B82A4A6FE200A9E22E /* ConnectivityListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityListener.swift; sourceTree = "<group>"; };
 		E8FF7FCB2AA2B1A3006D5E54 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		E8FF7FCE2AA2B455006D5E54 /* GeneralSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewModel.swift; sourceTree = "<group>"; };
+		E8FF7FD12AA2BF6E006D5E54 /* ManageItemsNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageItemsNamesView.swift; sourceTree = "<group>"; };
+		E8FF7FD52AA2C457006D5E54 /* ManageItemsNamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageItemsNamesViewModel.swift; sourceTree = "<group>"; };
+		E8FF7FD82AA2D6A7006D5E54 /* EditItemNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemNameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1028,6 +1034,7 @@
 				3A37694B20D1B27D0039DA54 /* SettingsViewController.swift */,
 				E8FF7FCA2AA2B186006D5E54 /* General */,
 				3A37694F20D1BA730039DA54 /* ManageCategories */,
+				E8FF7FD32AA2C424006D5E54 /* ManageItemNames */,
 				E83EB8842916D92F005F69A1 /* ManageModelItems */,
 			);
 			path = Settings;
@@ -1636,6 +1643,7 @@
 				A7813FF3258181D600C70E9C /* SettingsViewModel.swift */,
 				E8FF7FCD2AA2B446006D5E54 /* GeneralSettings */,
 				A748C8132593F58D0071343C /* ManageCategories */,
+				E8FF7FD42AA2C442006D5E54 /* ManageItemNames */,
 				E83EB88F2916E437005F69A1 /* ManageModelItems */,
 			);
 			path = Settings;
@@ -1978,10 +1986,10 @@
 		E83EB8842916D92F005F69A1 /* ManageModelItems */ = {
 			isa = PBXGroup;
 			children = (
+				E83EB88B2916D9FA005F69A1 /* ManageModelItemsDataSource.swift */,
 				E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */,
 				E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */,
 				E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */,
-				E83EB88B2916D9FA005F69A1 /* ManageModelItemsDataSource.swift */,
 			);
 			path = ManageModelItems;
 			sourceTree = "<group>";
@@ -2317,6 +2325,23 @@
 				E8FF7FCE2AA2B455006D5E54 /* GeneralSettingsViewModel.swift */,
 			);
 			path = GeneralSettings;
+			sourceTree = "<group>";
+		};
+		E8FF7FD32AA2C424006D5E54 /* ManageItemNames */ = {
+			isa = PBXGroup;
+			children = (
+				E8FF7FD12AA2BF6E006D5E54 /* ManageItemsNamesView.swift */,
+			);
+			path = ManageItemNames;
+			sourceTree = "<group>";
+		};
+		E8FF7FD42AA2C442006D5E54 /* ManageItemNames */ = {
+			isa = PBXGroup;
+			children = (
+				E8FF7FD52AA2C457006D5E54 /* ManageItemsNamesViewModel.swift */,
+				E8FF7FD82AA2D6A7006D5E54 /* EditItemNameViewModel.swift */,
+			);
+			path = ManageItemNames;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2986,6 +3011,7 @@
 				A739B4A22569CE70000B16E3 /* EditItemViewController.swift in Sources */,
 				A739B5502569D4F8000B16E3 /* BasketViewController.swift in Sources */,
 				A7888B77257ED65500D20AE3 /* ListsCoordinator.swift in Sources */,
+				E8FF7FD22AA2BF6E006D5E54 /* ManageItemsNamesView.swift in Sources */,
 				A739B48F2569CE69000B16E3 /* ItemsViewController.swift in Sources */,
 				A76C1BDF257C53DE0066DB21 /* ListsTableView.swift in Sources */,
 				E83EB88C2916D9FA005F69A1 /* ManageModelItemsDataSource.swift in Sources */,
@@ -3024,6 +3050,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8FF7FDA2AA2D6B9006D5E54 /* EditItemNameViewModel.swift in Sources */,
 				A746C72A25967DBF00D3CE30 /* CategoryViewModel.swift in Sources */,
 				E8C5CDBD2A96C70200A6DE1E /* SelectItemsCategoryViewModel.swift in Sources */,
 				A79305E92579B52600A3865D /* ListViewModel.swift in Sources */,
@@ -3039,6 +3066,7 @@
 				E89A4F85292993A000AFC47C /* EditModelItemViewModel.swift in Sources */,
 				A7F4D815259FE28B00EDA252 /* ItemsViewModel.swift in Sources */,
 				A7739C3F25D09B7400B9D398 /* ItemsSectionViewModel.swift in Sources */,
+				E8FF7FD72AA2C45E006D5E54 /* ManageItemsNamesViewModel.swift in Sources */,
 				A7813FF4258181D600C70E9C /* SettingsViewModel.swift in Sources */,
 				E8C5CDB82A96C63600A6DE1E /* CreateItemFromModelViewModel.swift in Sources */,
 				E8C5CDA62A941DA700A6DE1E /* ItemToSearchViewModel.swift in Sources */,

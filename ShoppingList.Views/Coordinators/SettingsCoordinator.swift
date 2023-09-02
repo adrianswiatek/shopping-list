@@ -57,6 +57,12 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
             )
             manageModelItemsViewController.delegate = self
             viewController = manageModelItemsViewController
+        case .manageItemsNames:
+            viewController = UIHostingController(
+                rootView: ManageItemsNamesView(
+                    viewModel: viewModelsFactory.manageItemsNamesViewModel()
+                )
+            )
         }
 
         navigationController.pushViewController(viewController, animated: true)
