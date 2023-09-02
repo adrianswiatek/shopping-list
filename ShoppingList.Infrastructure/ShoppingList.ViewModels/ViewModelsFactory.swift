@@ -21,12 +21,10 @@ public extension ViewModelsFactory {
         case basket
         case createItemFromModel
         case editItem
-        case editModelItem
         case generalSettings
         case items
         case lists
         case manageCategories
-        case manageItems
         case manageItemsNames
         case settings
     }
@@ -51,12 +49,6 @@ public extension ViewModelsFactory {
         }
     }
 
-    func editModelItemViewModel(for modelItem: ModelItemViewModel) -> EditModelItemViewModel {
-        configure(create(for: .editModelItem) as! EditModelItemViewModel) {
-            $0.setModelItem(modelItem)
-        }
-    }
-
     func generalSettingsViewModel() -> GeneralSettingsViewModel {
         create(for: .generalSettings) as! GeneralSettingsViewModel
     }
@@ -73,10 +65,6 @@ public extension ViewModelsFactory {
 
     func manageCategoriesViewModel() -> ManageCategoriesViewModel {
         create(for: .manageCategories) as! ManageCategoriesViewModel
-    }
-
-    func manageModelItemsViewModel() -> ManageModelItemsViewModel {
-        create(for: .manageItems) as! ManageModelItemsViewModel
     }
 
     func manageItemsNamesViewModel() -> ManageItemsNamesViewModel {

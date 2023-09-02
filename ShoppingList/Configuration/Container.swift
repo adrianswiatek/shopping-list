@@ -166,13 +166,6 @@ public final class Container {
             )
         }
 
-        container.register(EditModelItemViewModel.self) {
-            EditModelItemViewModel(
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
-            )
-        }
-
         container.register(GeneralSettingsViewModel.self) {
             GeneralSettingsViewModel(
                 localPreferences: $0.resolve(LocalPreferences.self)!
@@ -208,15 +201,6 @@ public final class Container {
         container.register(ManageItemsNamesViewModel.self) {
             ManageItemsNamesViewModel(
                 modelItemQueries: $0.resolve(ModelItemQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
-            )
-        }
-
-        container.register(ManageModelItemsViewModel.self) {
-            ManageModelItemsViewModel(
-                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
-                itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
                 commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
@@ -264,12 +248,10 @@ public final class Container {
                 .basket: { resolver.resolve(BasketViewModel.self)! },
                 .createItemFromModel: { resolver.resolve(CreateItemFromModelViewModel.self)! },
                 .editItem: { resolver.resolve(EditItemViewModel.self)! },
-                .editModelItem: { resolver.resolve(EditModelItemViewModel.self)! },
                 .generalSettings: { resolver.resolve(GeneralSettingsViewModel.self)! },
                 .items: { resolver.resolve(ItemsViewModel.self)! },
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
-                .manageItems: { resolver.resolve(ManageModelItemsViewModel.self)! },
                 .manageItemsNames: { resolver.resolve(ManageItemsNamesViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])

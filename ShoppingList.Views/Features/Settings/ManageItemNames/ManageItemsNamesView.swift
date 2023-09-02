@@ -48,6 +48,25 @@ struct ManageItemsNamesView: View {
                         textView(item.name)
                     }
                 }
+                .contextMenu {
+                    Button {
+                        viewModel.showEditItem(item)
+                    } label: {
+                        HStack {
+                            Text("Edit name")
+                            Image("Edit").renderingMode(.template)
+                        }
+                    }
+
+                    Button(role: .destructive) {
+                        viewModel.removeItemName(item)
+                    } label: {
+                        HStack {
+                            Text("Remove name")
+                            Image("Trash").renderingMode(.template)
+                        }
+                    }
+                }
                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                     Button {
                         viewModel.showEditItem(item)
@@ -64,7 +83,7 @@ struct ManageItemsNamesView: View {
                     } label: {
                         Image("Trash")
                             .renderingMode(.template)
-                            .foregroundColor(Color.white)
+                            .tint(Color.white)
                     }
                 }
             }

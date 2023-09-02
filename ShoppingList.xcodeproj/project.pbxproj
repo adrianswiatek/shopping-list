@@ -246,13 +246,7 @@
 		E83DB6532A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6512A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodeld */; };
 		E83DB6562A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */; };
 		E83DB65B2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */; };
-		E83EB8862916D969005F69A1 /* ManageModelItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */; };
-		E83EB8882916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */; };
-		E83EB88A2916D9E2005F69A1 /* ManageModelItemsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */; };
-		E83EB88C2916D9FA005F69A1 /* ManageModelItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB88B2916D9FA005F69A1 /* ManageModelItemsDataSource.swift */; };
 		E83EB88E2916DCC5005F69A1 /* ModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB88D2916DCC5005F69A1 /* ModelItem.swift */; };
-		E83EB8922916E46E005F69A1 /* ManageModelItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8902916E457005F69A1 /* ManageModelItemsViewModel.swift */; };
-		E83EB8962916F372005F69A1 /* ModelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */; };
 		E84B5AB6296B297100D4DBA0 /* ModelItemUpdatedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B5AB5296B297100D4DBA0 /* ModelItemUpdatedEvent.swift */; };
 		E8674B7B291EC89E00C419E6 /* ModelItemQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */; };
 		E8674B7D291EC8CE00C419E6 /* ModelItemRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */; };
@@ -263,8 +257,6 @@
 		E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */; };
 		E899422E292AB9EC00E4D875 /* UpdateModelItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */; };
 		E8994230292ABA1E00E4D875 /* UpdateModelItemHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */; };
-		E89A4F85292993A000AFC47C /* EditModelItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A4F832929912E00AFC47C /* EditModelItemViewModel.swift */; };
-		E89A4F872929958500AFC47C /* EditModelItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A4F862929958500AFC47C /* EditModelItemViewController.swift */; };
 		E89A4F892929A06A00AFC47C /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */; };
 		E89E35D42A4B428500895250 /* ShoppingListDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D32A4B428500895250 /* ShoppingListDto.swift */; };
 		E89E35D62A4B428D00895250 /* ShoppingItemDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89E35D52A4B428D00895250 /* ShoppingItemDto.swift */; };
@@ -825,13 +817,7 @@
 		E83DB6522A4FA8DA009411F9 /* ShoppingList-watchOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ShoppingList-watchOS.xcdatamodel"; sourceTree = "<group>"; };
 		E83DB6552A4FAD1F009411F9 /* ShoppingListEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListEntityExtensions.swift; sourceTree = "<group>"; };
 		E83DB65A2A4FAE92009411F9 /* ShoppingItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingItemEntityExtensions.swift; sourceTree = "<group>"; };
-		E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsViewController.swift; sourceTree = "<group>"; };
-		E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsTableViewCell.swift; sourceTree = "<group>"; };
-		E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsTableView.swift; sourceTree = "<group>"; };
-		E83EB88B2916D9FA005F69A1 /* ManageModelItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsDataSource.swift; sourceTree = "<group>"; };
 		E83EB88D2916DCC5005F69A1 /* ModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItem.swift; sourceTree = "<group>"; };
-		E83EB8902916E457005F69A1 /* ManageModelItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageModelItemsViewModel.swift; sourceTree = "<group>"; };
-		E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemViewModel.swift; sourceTree = "<group>"; };
 		E84B5AB5296B297100D4DBA0 /* ModelItemUpdatedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemUpdatedEvent.swift; sourceTree = "<group>"; };
 		E8674B7A291EC89E00C419E6 /* ModelItemQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemQueries.swift; sourceTree = "<group>"; };
 		E8674B7C291EC8CE00C419E6 /* ModelItemRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemRepository.swift; sourceTree = "<group>"; };
@@ -842,8 +828,6 @@
 		E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModelItemCommand.swift; sourceTree = "<group>"; };
 		E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModelItemHandler.swift; sourceTree = "<group>"; };
-		E89A4F832929912E00AFC47C /* EditModelItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModelItemViewModel.swift; sourceTree = "<group>"; };
-		E89A4F862929958500AFC47C /* EditModelItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModelItemViewController.swift; sourceTree = "<group>"; };
 		E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
 		E89E35B42A4B343200895250 /* ShoppingList_DTO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShoppingList_DTO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E89E35CE2A4B385D00895250 /* ListDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDto.swift; sourceTree = "<group>"; };
@@ -1035,7 +1019,6 @@
 				E8FF7FCA2AA2B186006D5E54 /* General */,
 				3A37694F20D1BA730039DA54 /* ManageCategories */,
 				E8FF7FD32AA2C424006D5E54 /* ManageItemNames */,
-				E83EB8842916D92F005F69A1 /* ManageModelItems */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1492,7 +1475,6 @@
 				A7A7931D25B7599C00E8BDFE /* Basket */,
 				E8C5CDA02A94177000A6DE1E /* CreateItemFromModel */,
 				A7B8EF8B25A3BFF000495C1E /* EditItem */,
-				E89A4F822929911B00AFC47C /* EditModelItem */,
 				A7F4D810259FE26800EDA252 /* Items */,
 				A7640F722569B673000D882B /* Lists */,
 				A7813FF2258181C300C70E9C /* Settings */,
@@ -1527,7 +1509,6 @@
 				3A82DC54207D7524006B3885 /* Basket */,
 				E8A3FE942A928D710009806D /* CreateItemFromModel */,
 				A739B48B2569CDE5000B16E3 /* EditItem */,
-				E89A4F812929910200AFC47C /* EditModelItem */,
 				A739B48A2569CDB9000B16E3 /* Items */,
 				A7640F592569B47F000D882B /* Lists */,
 				3A37694A20D1B0B10039DA54 /* Settings */,
@@ -1644,7 +1625,6 @@
 				E8FF7FCD2AA2B446006D5E54 /* GeneralSettings */,
 				A748C8132593F58D0071343C /* ManageCategories */,
 				E8FF7FD42AA2C442006D5E54 /* ManageItemNames */,
-				E83EB88F2916E437005F69A1 /* ManageModelItems */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1983,26 +1963,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		E83EB8842916D92F005F69A1 /* ManageModelItems */ = {
-			isa = PBXGroup;
-			children = (
-				E83EB88B2916D9FA005F69A1 /* ManageModelItemsDataSource.swift */,
-				E83EB8892916D9E2005F69A1 /* ManageModelItemsTableView.swift */,
-				E83EB8872916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift */,
-				E83EB8852916D969005F69A1 /* ManageModelItemsViewController.swift */,
-			);
-			path = ManageModelItems;
-			sourceTree = "<group>";
-		};
-		E83EB88F2916E437005F69A1 /* ManageModelItems */ = {
-			isa = PBXGroup;
-			children = (
-				E83EB8902916E457005F69A1 /* ManageModelItemsViewModel.swift */,
-				E83EB8932916F340005F69A1 /* ModelItemViewModel.swift */,
-			);
-			path = ManageModelItems;
-			sourceTree = "<group>";
-		};
 		E899422C292AB9D900E4D875 /* UpdateModelItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -2010,22 +1970,6 @@
 				E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */,
 			);
 			path = UpdateModelItem;
-			sourceTree = "<group>";
-		};
-		E89A4F812929910200AFC47C /* EditModelItem */ = {
-			isa = PBXGroup;
-			children = (
-				E89A4F862929958500AFC47C /* EditModelItemViewController.swift */,
-			);
-			path = EditModelItem;
-			sourceTree = "<group>";
-		};
-		E89A4F822929911B00AFC47C /* EditModelItem */ = {
-			isa = PBXGroup;
-			children = (
-				E89A4F832929912E00AFC47C /* EditModelItemViewModel.swift */,
-			);
-			path = EditModelItem;
 			sourceTree = "<group>";
 		};
 		E89E35D22A4B386600895250 /* DataTransferObjects */ = {
@@ -2985,7 +2929,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A70B2EF1257AE1310082AAB2 /* ReuseIdentifiable.swift in Sources */,
-				E83EB8882916D9C6005F69A1 /* ManageModelItemsTableViewCell.swift in Sources */,
 				A7D3967A25A11C940077F10E /* ItemsTableView.swift in Sources */,
 				A70C677A2580278B00C0846F /* SettingsCoordinator.swift in Sources */,
 				A739B4752569CAE0000B16E3 /* UIViewExtensions.swift in Sources */,
@@ -3000,12 +2943,10 @@
 				A739B4CD2569CF55000B16E3 /* ItemsToolbar.swift in Sources */,
 				E8FF7FCC2AA2B1A3006D5E54 /* GeneralSettingsView.swift in Sources */,
 				A739B5412569D3E5000B16E3 /* ValidationButtonRule.swift in Sources */,
-				E89A4F872929958500AFC47C /* EditModelItemViewController.swift in Sources */,
 				A739B4B02569CEB4000B16E3 /* InfoForEditItem.swift in Sources */,
 				A7F4D80C259FD7E900EDA252 /* ItemsCoordinator.swift in Sources */,
 				A739B3C42569BFA6000B16E3 /* BottomShadowAnimations.swift in Sources */,
 				A739B54D2569D4F8000B16E3 /* BasketTableViewCell.swift in Sources */,
-				E83EB88A2916D9E2005F69A1 /* ManageModelItemsTableView.swift in Sources */,
 				E8C5CDBF2A97F9E600A6DE1E /* CreateItemFromModelSummaryView.swift in Sources */,
 				E8C5CDBA2A96C6C500A6DE1E /* SelectItemsCategoryView.swift in Sources */,
 				A739B4A22569CE70000B16E3 /* EditItemViewController.swift in Sources */,
@@ -3014,7 +2955,6 @@
 				E8FF7FD22AA2BF6E006D5E54 /* ManageItemsNamesView.swift in Sources */,
 				A739B48F2569CE69000B16E3 /* ItemsViewController.swift in Sources */,
 				A76C1BDF257C53DE0066DB21 /* ListsTableView.swift in Sources */,
-				E83EB88C2916D9FA005F69A1 /* ManageModelItemsDataSource.swift in Sources */,
 				A739B4EF2569CFB1000B16E3 /* SettingsViewController.swift in Sources */,
 				A739B3C52569BFA6000B16E3 /* TextFieldWithCancelDelegate.swift in Sources */,
 				E8C5CDB52A96C62000A6DE1E /* CreateItemFromModelView.swift in Sources */,
@@ -3034,7 +2974,6 @@
 				A7295DF5258038DD001B5963 /* Coordinator.swift in Sources */,
 				A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */,
 				A79917012582E0BE001A277A /* SettingsTableView.swift in Sources */,
-				E83EB8862916D969005F69A1 /* ManageModelItemsViewController.swift in Sources */,
 				A7517811259410D800757672 /* ManageCategoriesDataSource.swift in Sources */,
 				A739B4722569CAE0000B16E3 /* UIButtonExtensions.swift in Sources */,
 				A739B5392569D3DE000B16E3 /* TextFieldWithWarning.swift in Sources */,
@@ -3057,13 +2996,10 @@
 				A7DBFF15259157AF00CD6B6D /* ManageCategoriesViewModel.swift in Sources */,
 				A7B8EF9125A3C82C00495C1E /* ItemToBuyViewModel.swift in Sources */,
 				E8C5CDC12A98048D00A6DE1E /* CreateItemFromModelSummaryViewModel.swift in Sources */,
-				E83EB8922916E46E005F69A1 /* ManageModelItemsViewModel.swift in Sources */,
 				A7A7931F25B759B500E8BDFE /* BasketViewModel.swift in Sources */,
 				A7640F742569B67A000D882B /* ListsViewModel.swift in Sources */,
 				A79916F72582C106001A277A /* ViewModel.swift in Sources */,
-				E83EB8962916F372005F69A1 /* ModelItemViewModel.swift in Sources */,
 				E8C5CDA52A941C6200A6DE1E /* SearchModelItemViewModel.swift in Sources */,
-				E89A4F85292993A000AFC47C /* EditModelItemViewModel.swift in Sources */,
 				A7F4D815259FE28B00EDA252 /* ItemsViewModel.swift in Sources */,
 				A7739C3F25D09B7400B9D398 /* ItemsSectionViewModel.swift in Sources */,
 				E8FF7FD72AA2C45E006D5E54 /* ManageItemsNamesViewModel.swift in Sources */,

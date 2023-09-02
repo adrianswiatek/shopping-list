@@ -4,7 +4,7 @@ public final class SettingsViewModel: ViewModel {
     private let settings: [Settings]
 
     public init() {
-        settings = [.generalSettings, .manageCategories, .manageItemsNames, .manageItems]
+        settings = [.generalSettings, .manageCategories, .manageItemsNames]
         numberOfSettings = settings.count
     }
 
@@ -18,7 +18,6 @@ public extension SettingsViewModel {
         case generalSettings = "General Settings"
         case manageCategories = "Manage Categories"
         case manageItemsNames = "Manage Items Names"
-        case manageItems = "Manage Items"
 
         public static func fromIndex(_ index: Int) -> Settings? {
             allCasesIndexed[index]
