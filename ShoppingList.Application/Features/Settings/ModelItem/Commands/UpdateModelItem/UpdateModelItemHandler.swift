@@ -13,13 +13,22 @@ public final class UpdateModelItemCommandHandler: CommandHandler {
         (command as? UpdateModelItemCommand)?.newName.isEmpty == false
     }
 
-    public func execute(_ command: Command) {
+    public func execute(_ command: Command) throws {
         guard
             canExecute(command),
             let command = command as? UpdateModelItemCommand,
             let modelItemBeforeUpdate = modelItemRepository.modelItemWithId(command.modelItemId)
         else {
-            return
+            preconditionFailure("Cannot execute given command.")
+        }
+
+        let givenNameAlreadyExists = modelItemRepository
+            .allModelItems()
+            .map(\.name.localizedLowercase)
+            .contains(command.newName.localizedLowercase)
+
+        guard !givenNameAlreadyExists else {
+            throw CommandError.executionError
         }
 
         let modelItemAfterUpdate = ModelItem(

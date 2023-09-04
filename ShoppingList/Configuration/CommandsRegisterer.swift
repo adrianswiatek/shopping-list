@@ -68,7 +68,8 @@ public final class CommandsRegisterer {
                 $0.resolve(UpdateItemsCategoryCommandHandler.self)!,
 
                 // ModelItems
-                $0.resolve(AddModelItemCommandHandler.self)!,
+                $0.resolve(AddModelItemsCommandHandler.self)!,
+                $0.resolve(AddModelItemsFromExistingItemsCommandHandler.self)!,
                 $0.resolve(RemoveModelItemCommandHandler.self)!,
                 $0.resolve(UpdateModelItemCommandHandler.self)!
             )
@@ -268,9 +269,17 @@ public final class CommandsRegisterer {
     }
 
     private func registerModelItemCommandHandlers() {
-        container.register(AddModelItemCommandHandler.self) {
-            AddModelItemCommandHandler(
+        container.register(AddModelItemsCommandHandler.self) {
+            AddModelItemsCommandHandler(
                 $0.resolve(ModelItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(AddModelItemsFromExistingItemsCommandHandler.self) {
+            AddModelItemsFromExistingItemsCommandHandler(
+                $0.resolve(ModelItemRepository.self)!,
+                $0.resolve(ItemRepository.self)!,
                 $0.resolve(EventBus.self)!
             )
         }

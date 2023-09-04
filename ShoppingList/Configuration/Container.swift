@@ -16,7 +16,6 @@ public final class Container {
 
         CommandsRegisterer(container).register()
 
-        registerCommands()
         registerListeners()
         registerOtherObjects()
         registerQueries()
@@ -34,18 +33,15 @@ public final class Container {
     }
 
     public func initialize() {
-        container.resolve(CommandBus.self)!.execute(AddDefaultItemsCategoryCommand())
+        let commandBus = container.resolve(CommandBus.self)!
+        commandBus.execute(AddDefaultItemsCategoryCommand())
+//        commandBus.execute(AddModelItemsFromExistingItemsCommand())
+
         container.resolve(AppCoordinator.self)!.start()
         container.resolve(UpdateListDateListener.self)!.start()
         container.resolve(UpdateItemsOrderListener.self)!.start()
         container.resolve(ItemAddedToListOrUpdatedListener.self)!.start()
 //        container.resolve(ConsoleEventListener.self)!.start()
-    }
-
-    private func registerCommands() {
-        container.register(ModelItemCommands.self) {
-            $0.resolve(ModelItemService.self)!
-        }
     }
 
     private func registerQueries() {
@@ -102,8 +98,7 @@ public final class Container {
 
         container.register(ModelItemService.self) {
             ModelItemService(
-                $0.resolve(ModelItemRepository.self)!,
-                $0.resolve(ItemRepository.self)!
+                $0.resolve(ModelItemRepository.self)!
             )
         }
     }
@@ -131,9 +126,7 @@ public final class Container {
 
         container.register(ItemAddedToListOrUpdatedListener.self) {
             ItemAddedToListOrUpdatedListener(
-                modelItemCommands: $0.resolve(ModelItemCommands.self)!,
-                modelItemRepository: $0.resolve(ModelItemRepository.self)!,
-                itemRepository: $0.resolve(ItemRepository.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
                 eventBus: $0.resolve(EventBus.self)!
             )
         }.inObjectScope(.container)

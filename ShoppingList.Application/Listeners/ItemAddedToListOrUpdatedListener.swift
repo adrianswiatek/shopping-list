@@ -3,22 +3,13 @@ import ShoppingList_Domain
 import Combine
 
 public final class ItemAddedToListOrUpdatedListener {
-    private let modelItemCommands: ModelItemCommands
-    private let modelItemRepository: ModelItemRepository
-    private let itemRepository: ItemRepository
+    private let commandBus: CommandBus
     private let eventBus: EventBus
 
     private var cancellables: Set<AnyCancellable>
 
-    public init(
-        modelItemCommands: ModelItemCommands,
-        modelItemRepository: ModelItemRepository,
-        itemRepository: ItemRepository,
-        eventBus: EventBus
-    ) {
-        self.modelItemCommands = modelItemCommands
-        self.modelItemRepository = modelItemRepository
-        self.itemRepository = itemRepository
+    public init(commandBus: CommandBus, eventBus: EventBus) {
+        self.commandBus = commandBus
         self.eventBus = eventBus
 
         self.cancellables = []
@@ -29,7 +20,8 @@ public final class ItemAddedToListOrUpdatedListener {
             .filterType(ItemsAddedEvent.self)
             .map { $0 as! ItemsAddedEvent }
             .sink { [weak self] in
-                self?.modelItemCommands.addFromItems($0.items)
+                let command = AddModelItemsCommand($0.items)
+                self?.commandBus.execute(command)
             }
             .store(in: &cancellables)
 
@@ -37,7 +29,8 @@ public final class ItemAddedToListOrUpdatedListener {
             .filterType(ItemUpdatedEvent.self)
             .map { $0 as! ItemUpdatedEvent }
             .sink { [weak self] in
-                self?.modelItemCommands.addFromItems([$0.itemAfterUpdate])
+                let command = AddModelItemsCommand([$0.itemAfterUpdate])
+                self?.commandBus.execute(command)
             }
             .store(in: &cancellables)
     }

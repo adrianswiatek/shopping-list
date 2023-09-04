@@ -11,6 +11,6 @@ public struct RemoveModelItemCommand: Command {
     }
 
     public func reversed() -> Command? {
-        AddModelItemCommand(modelItem)
+        AddModelItemsCommand([modelItem])
     }
 }
