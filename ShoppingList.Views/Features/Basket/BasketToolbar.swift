@@ -15,7 +15,7 @@ public final class BasketToolbar: UIView {
         })
     
     private lazy var actionButton: UIBarButtonItem =
-        .init(systemItem: .action, primaryAction: .init { [weak self] _ in
+        .init(image: UIImage(systemName: "ellipsis.circle"), primaryAction: .init { [weak self] _ in
             self?.onActionSubject.send(.action)
         })
     

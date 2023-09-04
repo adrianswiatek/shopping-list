@@ -55,7 +55,6 @@ public final class ManageCategoriesViewController: UIViewController {
     }
 
     private func setupView() {
-        title = "Manage Categories"
         view.backgroundColor = .background
 
         navigationItem.largeTitleDisplayMode = .never
@@ -118,6 +117,8 @@ public final class ManageCategoriesViewController: UIViewController {
 
     private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {
         switch action {
+        case .change:
+            return // Do nothing
         case let .confirm(text):
             viewModel.addCategory(with: text)
         case let .validationError(text):

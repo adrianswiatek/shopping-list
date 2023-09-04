@@ -12,4 +12,8 @@ public struct ItemsCategoryViewModel: Hashable {
         isDefault = itemsCategory.isDefault
         itemsInCategory = itemsCategory.itemsCount
     }
+
+    public static var empty: ItemsCategoryViewModel {
+        .init(.default)
+    }
 }

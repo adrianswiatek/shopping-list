@@ -12,9 +12,15 @@ public final class CommandBus {
     public func execute(_ command: Command) {
         let command = refined(command) ?? command
 
-        if commandHandler.canExecute(command) {
+        guard commandHandler.canExecute(command) else {
+            return
+        }
+
+        do {
+            try commandHandler.execute(command)
             storeIfCanBeReversed(command)
-            commandHandler.execute(command)
+        } catch {
+            print(error)
         }
     }
 
@@ -30,7 +36,11 @@ public final class CommandBus {
             return
         }
 
-        commandHandler.execute(command)
+        do {
+            try commandHandler.execute(command)
+        } catch {
+            print(error)
+        }
     }
 
     @discardableResult

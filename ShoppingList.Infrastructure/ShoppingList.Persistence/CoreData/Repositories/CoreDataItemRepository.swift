@@ -14,6 +14,11 @@ public final class CoreDataItemRepository: ItemRepository {
         request.predicate = NSPredicate(format: "id == %@", id.toString())
         return try? coreData.context.fetch(request).first?.toItem()
     }
+
+    public func allItems() -> [Item] {
+        let request: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
+        return (try? coreData.context.fetch(request).map { $0.toItem() }) ?? []
+    }
     
     public func itemsWithState(_ state: ItemState, inListWithId id: Id<List>) -> [Item] {
         let itemsRequest: NSFetchRequest<ItemEntity> = ItemEntity.fetchRequest()
@@ -142,7 +147,7 @@ public final class CoreDataItemRepository: ItemRepository {
         coreData.save()
     }
     
-    public func updateCategory(ofItems itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>) {
+    public func updateCategoryOfItemsWithIds(_ itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>) {
         let categoryEntity = self.categoryEntity(with: categoryId)
 
         for itemEntity in itemEntities(with: itemIds) {

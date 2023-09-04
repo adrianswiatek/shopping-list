@@ -142,7 +142,7 @@ public final class EditItemViewModel: ViewModel {
             .store(in: &cancellables)
 
         state
-            .compactMap { $0.item }
+            .compactMap(\.item)
             .removeDuplicates()
             .combineLatest(categories)
             .compactMap { item, categories in categories.first { $0.name == item.categoryName } }

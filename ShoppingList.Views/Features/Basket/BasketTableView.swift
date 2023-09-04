@@ -40,8 +40,8 @@ public final class BasketTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         allowsSelection = false
         allowsMultipleSelectionDuringEditing = true
-        rowHeight = 56
-        estimatedRowHeight = 56
+        rowHeight = UITableView.automaticDimension
+        estimatedRowHeight = UITableView.automaticDimension
         tableFooterView = UIView()
         delegate = self
     }

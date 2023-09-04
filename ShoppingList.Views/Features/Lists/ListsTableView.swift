@@ -124,7 +124,7 @@ extension ListsTableView: UITableViewDelegate {
     private func clearBasketForList(at index: Int) -> UIAction? {
         guard let list = listForCell(at: index) else { return nil }
         let attributes: UIMenuElement.Attributes = list.hasItemsInBasket ? .destructive : .hidden
-        return UIAction(title: "Clear items in the basket", image: nil, attributes: attributes) { [weak self] _ in
+        return UIAction(title: "Clear items in basket", image: nil, attributes: attributes) { [weak self] _ in
             self?.onActionSubject.send(.clearBasket(uuid: list.uuid))
         }
     }

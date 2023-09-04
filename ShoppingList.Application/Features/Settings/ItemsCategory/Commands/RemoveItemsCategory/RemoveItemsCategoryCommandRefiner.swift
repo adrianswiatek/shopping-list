@@ -17,6 +17,6 @@ public final class RemoveItemsCategoryCommandRefiner: CommandRefiner {
         }
 
         let items = itemRepository.itemsInCategory(with: command.itemsCategory.id)
-        return command.withItemIds(items.map { $0.id })
+        return command.withItemIds(items.map(\.id))
     }
 }

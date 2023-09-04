@@ -39,7 +39,7 @@ public final class UpdateItemsCategoryCommandHandler: CommandHandler {
         let categoryAfterUpdate = categoryBeforeUpdate.withName(command.name)
 
         if categoryBeforeUpdate.isDefault {
-            localPreferences.setDefaultCategoryName(categoryAfterUpdate.name)
+            localPreferences.defaultCategoryName = categoryAfterUpdate.name
         } else {
             categoryRepository.update(categoryAfterUpdate)
         }

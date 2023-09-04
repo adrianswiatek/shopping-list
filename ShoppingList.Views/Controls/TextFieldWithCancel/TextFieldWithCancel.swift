@@ -208,6 +208,7 @@ extension TextFieldWithCancel: UITextFieldDelegate {
 
 extension TextFieldWithCancel {
     public enum Action {
+        case change(_ text: String)
         case confirm(_ text: String)
         case validationError(_ text: String)
     }

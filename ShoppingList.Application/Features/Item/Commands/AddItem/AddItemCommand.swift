@@ -10,6 +10,14 @@ public struct AddItemCommand: Command {
 
     public init(
         _ name: String,
+        _ categoryId: Id<ItemsCategory>,
+        _ listId: Id<List>
+    ) {
+        self.init(name, "", categoryId, listId)
+    }
+
+    public init(
+        _ name: String,
         _ info: String,
         _ categoryId: Id<ItemsCategory>,
         _ listId: Id<List>

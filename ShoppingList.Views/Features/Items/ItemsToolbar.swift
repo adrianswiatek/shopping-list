@@ -18,15 +18,24 @@ public final class ItemsToolbar: UIView {
         .init(systemItem: .add, primaryAction: .init { [weak self] _ in
             self?.onActionSubject.send(.add)
         })
+
+    private lazy var searchButton: UIBarButtonItem =
+        .init(systemItem: .search, primaryAction: .init { [weak self] _ in
+            self?.onActionSubject.send(.search)
+        })
     
     private lazy var actionButton: UIBarButtonItem =
-        .init(systemItem: .action, primaryAction: .init { [weak self] _ in
+        .init(image: UIImage(systemName: "ellipsis.circle"), primaryAction: .init { [weak self] _ in
             self?.onActionSubject.send(.action)
         })
     
     private lazy var regularToolbar: UIToolbar = configure(.init(frame: Metrics.toolbarsFrame)) {
+        let items = [
+            editButton, .flexibleSpace(), addButton, .fixedSpace(32) , searchButton, .flexibleSpace(), actionButton
+        ]
+
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setItems([editButton, .flexibleSpace(), addButton, .flexibleSpace(), actionButton], animated: true)
+        $0.setItems(items, animated: true)
         $0.barTintColor = .background
         $0.isTranslucent = false
     }
@@ -57,11 +66,12 @@ public final class ItemsToolbar: UIView {
         cancelButton.style = .done
         
         return configure(.init(frame: Metrics.toolbarsFrame)) {
+            let items = [
+                cancelButton, .flexibleSpace(), removeButton, .fixedSpace(16), addToBasketButton
+            ]
+
             $0.translatesAutoresizingMaskIntoConstraints = false
-
-            let items = [cancelButton, .flexibleSpace(), removeButton, .fixedSpace(16), addToBasketButton]
             $0.setItems(items, animated: true)
-
             $0.alpha = 0
             $0.barTintColor = .background
             $0.isTranslucent = false
@@ -148,6 +158,7 @@ public extension ItemsToolbar {
         case edit
         case moveToList
         case remove
+        case search
     }
 }
 

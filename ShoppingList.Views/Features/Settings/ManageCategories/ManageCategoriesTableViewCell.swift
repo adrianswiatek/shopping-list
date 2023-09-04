@@ -37,7 +37,7 @@ public final class ManageCategoriesTableViewCell: UITableViewCell {
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setupview()
+        self.setupView()
     }
 
     @available(*, unavailable)
@@ -45,30 +45,31 @@ public final class ManageCategoriesTableViewCell: UITableViewCell {
         fatalError("Not supported")
     }
 
-    private func setupview() {
+    private func setupView() {
         backgroundColor = .background
+
+        let marginsGuide = contentView.layoutMarginsGuide
 
         contentView.addSubview(defaultCategoryImageView)
         NSLayoutConstraint.activate([
-            defaultCategoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            defaultCategoryImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            defaultCategoryImageView.trailingAnchor.constraint(equalTo: marginsGuide.trailingAnchor),
+            defaultCategoryImageView.centerYAnchor.constraint(equalTo: marginsGuide.centerYAnchor),
             defaultCategoryImageView.heightAnchor.constraint(equalToConstant: 24),
-            defaultCategoryImageView.widthAnchor.constraint(equalToConstant: 24)
         ])
 
         contentView.addSubview(categoryNameLabel)
         NSLayoutConstraint.activate([
-            categoryNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            categoryNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            categoryNameLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.leadingAnchor, constant: -8),
-            categoryNameLabel.heightAnchor.constraint(equalToConstant: 20)
+            categoryNameLabel.topAnchor.constraint(equalTo: marginsGuide.topAnchor),
+            categoryNameLabel.leadingAnchor.constraint(lessThanOrEqualTo: marginsGuide.leadingAnchor),
+            categoryNameLabel.trailingAnchor.constraint(equalTo: defaultCategoryImageView.leadingAnchor),
+            categoryNameLabel.heightAnchor.constraint(equalToConstant: 24)
         ])
 
         contentView.addSubview(numberOfItemsInCategoryLabel)
         NSLayoutConstraint.activate([
-            numberOfItemsInCategoryLabel.topAnchor.constraint(equalTo: categoryNameLabel.bottomAnchor, constant: 4),
+            numberOfItemsInCategoryLabel.topAnchor.constraint(equalTo: categoryNameLabel.bottomAnchor),
             numberOfItemsInCategoryLabel.leadingAnchor.constraint(equalTo: categoryNameLabel.leadingAnchor),
-            numberOfItemsInCategoryLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            numberOfItemsInCategoryLabel.bottomAnchor.constraint(equalTo: marginsGuide.bottomAnchor)
         ])
     }
 }

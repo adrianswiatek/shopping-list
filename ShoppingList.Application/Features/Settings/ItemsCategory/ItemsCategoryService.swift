@@ -24,7 +24,7 @@ public final class ItemsCategoryService: ItemsCategoryQueries {
         let category = categories.enumerated().first { $0.element.id == ItemsCategory.default.id }
         precondition(category != nil, "Default category must be persisted.")
 
-        let categoryName = localPreferences.defaultCategoryName()
+        let categoryName = localPreferences.defaultCategoryName
         return (category!.element.withName(categoryName), category!.offset)
     }
 }

@@ -18,6 +18,7 @@ public final class CommandsRegisterer {
         registerItemsInListCommandHandlers()
         registerItemsInBasketCommandHandlers()
         registerItemsCategoryCommandHandlers()
+        registerModelItemCommandHandlers()
 
         registerListCommandRefiners()
         registerItemsCategoryCommandRefiners()
@@ -64,7 +65,13 @@ public final class CommandsRegisterer {
                 $0.resolve(AddItemsCategoryCommandHandler.self)!,
                 $0.resolve(RestoreItemsCategoryCommandHandler.self)!,
                 $0.resolve(RemoveItemsCategoryCommandHandler.self)!,
-                $0.resolve(UpdateItemsCategoryCommandHandler.self)!
+                $0.resolve(UpdateItemsCategoryCommandHandler.self)!,
+
+                // ModelItems
+                $0.resolve(AddModelItemsCommandHandler.self)!,
+                $0.resolve(AddModelItemsFromExistingItemsCommandHandler.self)!,
+                $0.resolve(RemoveModelItemCommandHandler.self)!,
+                $0.resolve(UpdateModelItemCommandHandler.self)!
             )
         }
     }
@@ -239,6 +246,7 @@ public final class CommandsRegisterer {
             RemoveItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
                 $0.resolve(ItemRepository.self)!,
+                $0.resolve(ModelItemRepository.self)!,
                 $0.resolve(EventBus.self)!
             )
         }
@@ -255,6 +263,37 @@ public final class CommandsRegisterer {
             UpdateItemsCategoryCommandHandler(
                 $0.resolve(ItemsCategoryRepository.self)!,
                 $0.resolve(LocalPreferences.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+    }
+
+    private func registerModelItemCommandHandlers() {
+        container.register(AddModelItemsCommandHandler.self) {
+            AddModelItemsCommandHandler(
+                $0.resolve(ModelItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(AddModelItemsFromExistingItemsCommandHandler.self) {
+            AddModelItemsFromExistingItemsCommandHandler(
+                $0.resolve(ModelItemRepository.self)!,
+                $0.resolve(ItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(RemoveModelItemCommandHandler.self) {
+            RemoveModelItemCommandHandler(
+                $0.resolve(ModelItemRepository.self)!,
+                $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(UpdateModelItemCommandHandler.self) {
+            UpdateModelItemCommandHandler(
+                $0.resolve(ModelItemRepository.self)!,
                 $0.resolve(EventBus.self)!
             )
         }

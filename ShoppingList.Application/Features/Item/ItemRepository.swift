@@ -4,6 +4,7 @@ import Combine
 public protocol ItemRepository {
     func item(with id: Id<Item>) -> Item?
 
+    func allItems() -> [Item]
     func itemsInList(with id: Id<List>) -> [Item]
     func itemsInCategory(with id: Id<ItemsCategory>) -> [Item]
     func itemsWithState(_ state: ItemState, inListWithId id: Id<List>) -> [Item]
@@ -21,7 +22,7 @@ public protocol ItemRepository {
     func updateState(of item: Item, to state: ItemState)
     func updateItem(_ item: Item)
     func updateCategory(ofItem itemId: Id<Item>, toCategory categoryId: Id<ItemsCategory>)
-    func updateCategory(ofItems itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>)
+    func updateCategoryOfItemsWithIds(_ itemIds: [Id<Item>], toCategory categoryId: Id<ItemsCategory>)
 
     func setItemsOrder(with itemIds: [Id<Item>], inListWithId listId: Id<List>, forState state: ItemState)
 }

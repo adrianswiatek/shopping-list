@@ -1,5 +1,8 @@
+import ShoppingList_Shared
 import ShoppingList_ViewModels
+
 import UIKit
+import SwiftUI
 
 public final class SettingsCoordinator: Coordinator {
     public let navigationController: UINavigationController
@@ -34,10 +37,31 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         }
     }
 
-    public func openSetting() {
-        let viewController = ManageCategoriesViewController(
-            viewModel: viewModelsFactory.manageCategoriesViewModel()
-        )
+    public func openSetting(_ settings: SettingsViewModel.Settings) {
+        let viewController: UIViewController
+
+        switch settings {
+        case .generalSettings:
+            viewController = UIHostingController(
+                rootView: GeneralSettingsView(
+                    viewModel: viewModelsFactory.generalSettingsViewModel()
+                )
+            )
+            viewController.title = "General Settings"
+        case .manageCategories:
+            viewController = ManageCategoriesViewController(
+                viewModel: viewModelsFactory.manageCategoriesViewModel()
+            )
+            viewController.title = "Manage Categories"
+        case .manageItemsNames:
+            viewController = UIHostingController(
+                rootView: ManageItemsNamesView(
+                    viewModel: viewModelsFactory.manageItemsNamesViewModel()
+                )
+            )
+            viewController.title = "Manage Items Names"
+        }
+
         navigationController.pushViewController(viewController, animated: true)
     }
 }

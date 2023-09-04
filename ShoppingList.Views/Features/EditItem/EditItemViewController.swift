@@ -1,4 +1,3 @@
-import ShoppingList_Domain
 import ShoppingList_Shared
 import ShoppingList_ViewModels
 import Combine
@@ -19,15 +18,12 @@ public final class EditItemViewController: UIViewController {
         })
     
     private lazy var saveBarButtonItem: UIBarButtonItem =
-        .init(systemItem: .save, primaryAction: .init { [weak self] _ in self?.save() })
-    
-    @objc
-    private func save() {
-        guard let itemName = itemNameView.text else { return }
-        guard itemNameView.isValid() else { return }
-
-        viewModel.saveItem(name: itemName, info: infoView.text ?? "")
-    }
+        .init(systemItem: .save, primaryAction: .init { [weak self] _ in
+            self.map { ($0.itemNameView, $0.infoView) }
+                .guard { itemNameView, _ in itemNameView.text != nil && itemNameView.isValid() }
+                .map { (itemNameText: $0.text ?? "", infoViewText: $1.text ?? "") }
+                .do { self?.viewModel.saveItem(name: $0.itemNameText, info: $0.infoViewText) }
+        })
 
     private let viewModel: EditItemViewModel
     private var cancellables: Set<AnyCancellable>
@@ -66,7 +62,7 @@ public final class EditItemViewController: UIViewController {
         navigationItem.rightBarButtonItem = saveBarButtonItem
         navigationController?.navigationBar.backgroundColor = .background
         navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.darkGray,
+            .foregroundColor: UIColor.darkGray
         ]
 
         view.addSubview(itemNameView)

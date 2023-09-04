@@ -9,9 +9,9 @@ public final class CommmandHandlers: CommandHandler {
         handlers.first { $0.canExecute(command) } != nil
     }
 
-    public func execute(_ command: Command) {
+    public func execute(_ command: Command) throws {
         let handler = handlers.first { $0.canExecute(command) }
         precondition(handler != nil, "Cannot execute given command.")
-        handler!.execute(command)
+        try handler!.execute(command)
     }
 }

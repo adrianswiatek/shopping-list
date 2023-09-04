@@ -23,7 +23,7 @@ public final class RestoreItemsCategoryCommandHandler: CommandHandler {
         }
 
         categoryRepository.add(command.itemsCategory)
-        itemRepository.updateCategory(ofItems: command.itemIds, toCategory: command.itemsCategory.id)
+        itemRepository.updateCategoryOfItemsWithIds(command.itemIds, toCategory: command.itemsCategory.id)
         eventBus.send(ItemsCategoryAddedEvent(command.itemsCategory))
     }
 }

@@ -16,11 +16,12 @@ public final class Container {
 
         CommandsRegisterer(container).register()
 
-        registerQueries()
-        registerRepositories()
-        registerViewModels()
         registerListeners()
         registerOtherObjects()
+        registerQueries()
+        registerRepositories()
+        registerServices()
+        registerViewModels()
     }
 
     public func resolveRootViewController() -> UIViewController {
@@ -32,10 +33,14 @@ public final class Container {
     }
 
     public func initialize() {
-        container.resolve(CommandBus.self)!.execute(AddDefaultItemsCategoryCommand())
+        let commandBus = container.resolve(CommandBus.self)!
+        commandBus.execute(AddDefaultItemsCategoryCommand())
+//        commandBus.execute(AddModelItemsFromExistingItemsCommand())
+
         container.resolve(AppCoordinator.self)!.start()
         container.resolve(UpdateListDateListener.self)!.start()
         container.resolve(UpdateItemsOrderListener.self)!.start()
+        container.resolve(ItemAddedToListOrUpdatedListener.self)!.start()
 //        container.resolve(ConsoleEventListener.self)!.start()
     }
 
@@ -51,6 +56,10 @@ public final class Container {
         container.register(ItemsCategoryQueries.self) {
             $0.resolve(ItemsCategoryService.self)!
         }
+
+        container.register(ModelItemQueries.self) {
+            $0.resolve(ModelItemService.self)!
+        }
     }
 
     private func registerRepositories() {
@@ -65,54 +74,32 @@ public final class Container {
         container.register(ItemRepository.self) {
             CoreDataItemRepository($0.resolve(CoreDataStack.self)!)
         }
+
+        container.register(ModelItemRepository.self) {
+            CoreDataModelItemRepository($0.resolve(CoreDataStack.self)!)
+        }
     }
 
-    private func registerViewModels() {
-        container.register(ListsViewModel.self) {
-            ListsViewModel(
-                listQueries: $0.resolve(ListQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
+    private func registerServices() {
+        container.register(ListsService.self) {
+            ListsService(listRepository: $0.resolve(ListRepository.self)!)
+        }
+
+        container.register(ItemsService.self) {
+            ItemsService(itemRepository: $0.resolve(ItemRepository.self)!)
+        }
+
+        container.register(ItemsCategoryService.self) {
+            ItemsCategoryService(
+                $0.resolve(ItemsCategoryRepository.self)!,
+                $0.resolve(LocalPreferences.self)!
             )
         }
 
-        container.register(ItemsViewModel.self) {
-            ItemsViewModel(
-                itemQueries: $0.resolve(ItemQueries.self)!,
-                categoryQuries: $0.resolve(ItemsCategoryQueries.self)!,
-                sharedItemsFormatter: $0.resolve(SharedItemsFormatter.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
+        container.register(ModelItemService.self) {
+            ModelItemService(
+                $0.resolve(ModelItemRepository.self)!
             )
-        }
-
-        container.register(EditItemViewModel.self) {
-            EditItemViewModel(
-                listQueries: $0.resolve(ListQueries.self)!,
-                categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
-            )
-        }
-
-        container.register(BasketViewModel.self) {
-            BasketViewModel(
-                itemQueries: $0.resolve(ItemQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
-            )
-        }
-
-        container.register(ManageCategoriesViewModel.self) {
-            ManageCategoriesViewModel(
-                categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
-                commandBus: $0.resolve(CommandBus.self)!,
-                eventBus: $0.resolve(EventBus.self)!
-            )
-        }
-
-        container.register(SettingsViewModel.self) { _ in
-            SettingsViewModel()
         }
     }
 
@@ -136,6 +123,85 @@ public final class Container {
                 eventBus: $0.resolve(EventBus.self)!
             )
         }.inObjectScope(.container)
+
+        container.register(ItemAddedToListOrUpdatedListener.self) {
+            ItemAddedToListOrUpdatedListener(
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }.inObjectScope(.container)
+    }
+
+    private func registerViewModels() {
+        container.register(BasketViewModel.self) {
+            BasketViewModel(
+                itemQueries: $0.resolve(ItemQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(CreateItemFromModelViewModel.self) {
+            CreateItemFromModelViewModel(
+                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
+                itemsCategoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                localPreferences: $0.resolve(LocalPreferences.self)!,
+                commandBus: $0.resolve(CommandBus.self)!
+            )
+        }
+
+        container.register(EditItemViewModel.self) {
+            EditItemViewModel(
+                listQueries: $0.resolve(ListQueries.self)!,
+                categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(GeneralSettingsViewModel.self) {
+            GeneralSettingsViewModel(
+                localPreferences: $0.resolve(LocalPreferences.self)!
+            )
+        }
+
+        container.register(ItemsViewModel.self) {
+            ItemsViewModel(
+                itemQueries: $0.resolve(ItemQueries.self)!,
+                categoryQuries: $0.resolve(ItemsCategoryQueries.self)!,
+                sharedItemsFormatter: $0.resolve(SharedItemsFormatter.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(ListsViewModel.self) {
+            ListsViewModel(
+                listQueries: $0.resolve(ListQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(ManageCategoriesViewModel.self) {
+            ManageCategoriesViewModel(
+                categoryQueries: $0.resolve(ItemsCategoryQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(ManageItemsNamesViewModel.self) {
+            ManageItemsNamesViewModel(
+                modelItemQueries: $0.resolve(ModelItemQueries.self)!,
+                commandBus: $0.resolve(CommandBus.self)!,
+                eventBus: $0.resolve(EventBus.self)!
+            )
+        }
+
+        container.register(SettingsViewModel.self) { _ in
+            SettingsViewModel()
+        }
     }
 
     private func registerOtherObjects() {
@@ -153,21 +219,6 @@ public final class Container {
                 ? InMemoryCoreDataStack(modelFactory)
                 : SQLiteCoreDataStack(modelFactory)
         }.inObjectScope(.container)
-
-        container.register(ListsService.self) {
-            ListsService(listRepository: $0.resolve(ListRepository.self)!)
-        }
-
-        container.register(ItemsService.self) {
-            ItemsService(itemRepository: $0.resolve(ItemRepository.self)!)
-        }
-
-        container.register(ItemsCategoryService.self) {
-            ItemsCategoryService(
-                $0.resolve(ItemsCategoryRepository.self)!,
-                $0.resolve(LocalPreferences.self)!
-            )
-        }
 
         container.register(SharedItemsFormatter.self) { _ in
             SharedItemsFormatter()
@@ -188,10 +239,13 @@ public final class Container {
         container.register(ViewModelsFactory.self) { resolver in
             ViewModelsFactory(providers: [
                 .basket: { resolver.resolve(BasketViewModel.self)! },
+                .createItemFromModel: { resolver.resolve(CreateItemFromModelViewModel.self)! },
                 .editItem: { resolver.resolve(EditItemViewModel.self)! },
+                .generalSettings: { resolver.resolve(GeneralSettingsViewModel.self)! },
                 .items: { resolver.resolve(ItemsViewModel.self)! },
                 .lists: { resolver.resolve(ListsViewModel.self)! },
                 .manageCategories: { resolver.resolve(ManageCategoriesViewModel.self)! },
+                .manageItemsNames: { resolver.resolve(ManageItemsNamesViewModel.self)! },
                 .settings: { resolver.resolve(SettingsViewModel.self)! }
             ])
         }

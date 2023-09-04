@@ -1,4 +1,8 @@
+import ShoppingList_Domain
 import ShoppingList_ViewModels
+
+import Combine
+import SwiftUI
 import UIKit
 
 public final class ItemsCoordinator: Coordinator {
@@ -44,6 +48,20 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         navigationController.pushViewController(basketViewController, animated: true)
     }
 
+    public func goToCreateItem() {
+        let viewController = EditItemViewController(
+            viewModel: viewModelsFactory.editItemViewModel(for: currentList)
+        )
+
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .overFullScreen
+
+        self.navigationController.viewControllers.last?.present(
+            navigationController,
+            animated: true
+        )
+    }
+
     public func goToEditItem(_ item: ItemToBuyViewModel) {
         let viewModel = viewModelsFactory.editItemViewModel(for: currentList)
         viewModel.setItem(item)
@@ -59,18 +77,21 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         )
     }
 
-    public func goToCreateItem() {
-        let viewController = EditItemViewController(
-            viewModel: viewModelsFactory.editItemViewModel(for: currentList)
-        )
+    public func goToSearchItemForList(_ list: ListViewModel) {
+        let viewModel = viewModelsFactory.createItemFromModelViewModel(for: list)
+        let view = CreateItemFromModelView(viewModel: viewModel)
 
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .overFullScreen
+        let hostingController = UIHostingController(rootView: view)
+        hostingController.modalPresentationStyle = .overFullScreen
 
         self.navigationController.viewControllers.last?.present(
-            navigationController,
+            hostingController,
             animated: true
         )
+
+        viewModel.setDismiss { [weak hostingController] in
+            hostingController?.dismiss(animated: true)
+        }
     }
 
     public func didDismiss() {

@@ -1,1 +1,1 @@
-public protocol ViewModel {}
+ public protocol ViewModel {}

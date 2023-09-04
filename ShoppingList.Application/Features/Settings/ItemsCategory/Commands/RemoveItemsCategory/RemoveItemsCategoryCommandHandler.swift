@@ -3,15 +3,18 @@ import ShoppingList_Domain
 public final class RemoveItemsCategoryCommandHandler: CommandHandler {
     private let categoryRepository: ItemsCategoryRepository
     private let itemRepository: ItemRepository
+    private let modelItemRepository: ModelItemRepository
     private let eventBus: EventBus
 
     public init(
         _ categoryRepository: ItemsCategoryRepository,
         _ itemRepository: ItemRepository,
+        _ modelItemRepository: ModelItemRepository,
         _ eventBus: EventBus
     ) {
         self.categoryRepository = categoryRepository
         self.itemRepository = itemRepository
+        self.modelItemRepository = modelItemRepository
         self.eventBus = eventBus
     }
 
@@ -27,10 +30,15 @@ public final class RemoveItemsCategoryCommandHandler: CommandHandler {
             preconditionFailure("Cannot execute given command.")
         }
 
-        let items = itemRepository.itemsInCategory(with: command.itemsCategory.id)
-        itemRepository.updateCategory(ofItems: items.map { $0.id }, toCategory: ItemsCategory.default.id)
+        let category: ItemsCategory = command.itemsCategory
+        let defaultCategory: ItemsCategory = ItemsCategory.default
 
-        categoryRepository.remove(by: command.itemsCategory.id)
-        eventBus.send(ItemsCategoryRemovedEvent(command.itemsCategory))
+        itemRepository.updateCategoryOfItemsWithIds(
+            itemRepository.itemsInCategory(with: category.id).map(\.id),
+            toCategory: defaultCategory.id
+        )
+
+        categoryRepository.remove(by: category.id)
+        eventBus.send(ItemsCategoryRemovedEvent(category))
     }
 }

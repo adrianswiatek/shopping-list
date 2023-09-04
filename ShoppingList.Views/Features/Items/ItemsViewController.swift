@@ -6,8 +6,9 @@ import UIKit
 
 public protocol ItemsViewControllerDelegate: AnyObject {
     func goToBasket()
-    func goToEditItem(_ item: ItemToBuyViewModel)
     func goToCreateItem()
+    func goToEditItem(_ item: ItemToBuyViewModel)
+    func goToSearchItemForList(_ list: ListViewModel)
     func didDismiss()
 }
 
@@ -184,6 +185,8 @@ public final class ItemsViewController: UIViewController {
 
     private func handleAddListTextFieldAction(_ action: TextFieldWithCancel.Action) {
         switch action {
+        case .change:
+            return // Do nothing
         case let .confirm(text):
             viewModel.addItem(with: text)
         case let .validationError(text):
@@ -232,6 +235,8 @@ public final class ItemsViewController: UIViewController {
         case .remove:
             let selectedItems = tableView.selectedItems()
             viewModel.removeItems(with: selectedItems.map { $0.uuid })
+        case .search:
+            delegate?.goToSearchItemForList(viewModel.list)
         }
     }
 
@@ -244,7 +249,7 @@ public final class ItemsViewController: UIViewController {
             })
         }
 
-        alertController.addAction(.init(title: "Add all to the basket", style: .default) { [weak self] _ in
+        alertController.addAction(.init(title: "Add all to basket", style: .default) { [weak self] _ in
             self?.viewModel.addToBasketAllItems()
         })
         alertController.addAction(.init(title: "Remove all", style: .destructive) { [weak self] _ in
