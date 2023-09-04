@@ -14,10 +14,9 @@ public final class AppCoordinator: Coordinator {
     }
 
     public func start() {
-        let listsCoordinator = ListsCoordinator(viewModelsFactory)
+        let listsCoordinator = ListsCoordinator(viewModelsFactory, navigationController)
         listsCoordinator.start()
 
         childCoordinators.append(listsCoordinator)
-        navigationController.present(listsCoordinator.navigationController, animated: false)
     }
 }

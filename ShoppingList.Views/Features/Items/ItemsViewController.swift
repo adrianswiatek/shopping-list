@@ -87,6 +87,7 @@ public final class ItemsViewController: UIViewController {
     private func setupView() {
         navigationItem.title = viewModel.list.name
         navigationItem.rightBarButtonItems = [basketBarButtonItem, restoreBarButtonItem]
+        view.backgroundColor = .background
 
         view.addSubview(addItemTextField)
         NSLayoutConstraint.activate([

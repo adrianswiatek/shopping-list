@@ -63,6 +63,7 @@ public final class BasketViewController: UIViewController {
         title = "Basket"
 
         navigationItem.rightBarButtonItem = restoreBarButtonItem
+        view.backgroundColor = .background
 
         view.addSubview(toolbar)
         NSLayoutConstraint.activate([

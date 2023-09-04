@@ -40,9 +40,8 @@ public final class SettingsViewController: UIViewController {
     
     private func setupView() {
         title = "Settings"
-
-        navigationController?.navigationBar.backgroundColor = .background
         navigationItem.leftBarButtonItem = closeBarButtonItem
+        view.backgroundColor = .background
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([

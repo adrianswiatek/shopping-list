@@ -11,6 +11,13 @@ public final class EditItemViewController: UIViewController {
     private let infoView: InfoForEditItem = .init()
     private let categoriesView: CategoriesForEditItem = .init()
     private let listsView: ListsForEditItem = .init()
+
+    private lazy var backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .background
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var cancelBarButtonItem: UIBarButtonItem =
         .init(systemItem: .cancel, primaryAction: .init { [weak self] _ in
@@ -65,19 +72,27 @@ public final class EditItemViewController: UIViewController {
             .foregroundColor: UIColor.darkGray
         ]
 
+        view.addSubview(backgroundView)
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
         view.addSubview(itemNameView)
         NSLayoutConstraint.activate([
-            itemNameView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            itemNameView.topAnchor.constraint(equalTo: view.topAnchor),
-            itemNameView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            itemNameView.heightAnchor.constraint(equalToConstant: 70)
+            itemNameView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            itemNameView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            itemNameView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            itemNameView.heightAnchor.constraint(equalToConstant: 70),
+            backgroundView.bottomAnchor.constraint(equalTo: itemNameView.bottomAnchor)
         ])
 
         view.addSubview(infoView)
         NSLayoutConstraint.activate([
-            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            infoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             infoView.topAnchor.constraint(equalTo: itemNameView.bottomAnchor),
-            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            infoView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             infoView.heightAnchor.constraint(equalToConstant: 70)
         ])
 
@@ -91,9 +106,9 @@ public final class EditItemViewController: UIViewController {
 
         view.addSubview(listsView)
         NSLayoutConstraint.activate([
-            listsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            listsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             listsView.topAnchor.constraint(equalTo: categoriesView.bottomAnchor),
-            listsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            listsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             listsView.heightAnchor.constraint(equalToConstant: 100)
         ])
 

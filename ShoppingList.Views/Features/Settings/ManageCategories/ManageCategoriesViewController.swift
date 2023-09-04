@@ -61,17 +61,17 @@ public final class ManageCategoriesViewController: UIViewController {
 
         view.addSubview(addCategoryTextField)
         NSLayoutConstraint.activate([
-            addCategoryTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addCategoryTextField.topAnchor.constraint(equalTo: view.topAnchor),
-            addCategoryTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addCategoryTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            addCategoryTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            addCategoryTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             addCategoryTextField.heightAnchor.constraint(equalToConstant: 50)
         ])
 
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: addCategoryTextField.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }

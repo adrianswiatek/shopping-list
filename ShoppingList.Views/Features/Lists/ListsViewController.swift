@@ -71,20 +71,21 @@ public final class ListsViewController: UIViewController {
 
     private func setupView() {
         navigationItem.title = "My lists"
+        view.backgroundColor = .background
 
         view.addSubview(addListTextField)
         NSLayoutConstraint.activate([
-            addListTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addListTextField.topAnchor.constraint(equalTo: view.topAnchor),
-            addListTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addListTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            addListTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            addListTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             addListTextField.heightAnchor.constraint(equalToConstant: 50),
         ])
 
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.topAnchor.constraint(equalTo: addListTextField.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
