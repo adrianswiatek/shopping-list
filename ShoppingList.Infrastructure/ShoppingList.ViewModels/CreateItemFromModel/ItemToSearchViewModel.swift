@@ -51,15 +51,26 @@ extension ItemToSearchViewModel {
         public let suffix: String
 
         public static func tryMaking(name: String, query: String) -> FoundName? {
-            if let range = name.localizedLowercase.range(of: query.localizedLowercase) {
-                return FoundName(
-                    fullName: name,
-                    prefix: String(name.prefix(upTo: range.lowerBound)),
-                    foundPart: String(name[range.lowerBound ..< range.upperBound]),
-                    suffix: String(name.suffix(from: range.upperBound))
-                )
+            let lowercasedName = name.localizedLowercase
+
+            guard let range = lowercasedName.range(of: query.localizedLowercase) else {
+                return nil
             }
-            return nil
+
+            let indexFrom: (String.Index) -> String.Index = {
+                let distance = lowercasedName.distance(from: lowercasedName.startIndex, to: $0)
+                return name.index(name.startIndex, offsetBy: distance)
+            }
+
+            let lowerBoundIndex = indexFrom(range.lowerBound)
+            let upperBoundIndex = indexFrom(range.upperBound)
+
+            return FoundName(
+                fullName: name,
+                prefix: String(name.prefix(upTo: lowerBoundIndex)),
+                foundPart: String(name[lowerBoundIndex ..< upperBoundIndex]),
+                suffix: String(name.suffix(from: upperBoundIndex))
+            )
         }
 
         private init(fullName: String, prefix: String, foundPart: String, suffix: String) {
