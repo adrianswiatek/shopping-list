@@ -2,11 +2,11 @@ import UIKit
 
 extension UIColor {
     internal static var textPrimary: UIColor {
-        systemGray
+        UIColor { $0.userInterfaceStyle == .dark ? .white : .black }.withAlphaComponent(0.75)
     }
 
     internal static var textSecondary: UIColor {
-        systemGray2
+        systemGray
     }
 
     internal static var background: UIColor {

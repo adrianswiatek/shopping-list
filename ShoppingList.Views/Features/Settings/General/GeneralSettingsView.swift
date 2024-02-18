@@ -14,7 +14,7 @@ struct GeneralSettingsView: View {
         Form {
             Section("Search Items") {
                 Toggle("Skip summary screen", isOn: $viewModel.skipSearchSummaryView)
-                    .toggleStyle(.switch)
+                    .toggleStyle(SwitchToggleStyle(tint: .accentColor))
             }
         }
     }

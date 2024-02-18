@@ -47,7 +47,7 @@ struct CreateItemFromModelSummaryView: View {
                     Toggle("Skip this screen next time", isOn: $viewModel.skipSummaryScreen)
                         .font(.callout)
                         .foregroundColor(.secondary)
-                        .toggleStyle(.switch)
+                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .frame(width: proxy.size.width / 1.25)
