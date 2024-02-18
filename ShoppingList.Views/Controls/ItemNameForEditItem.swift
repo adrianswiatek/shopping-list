@@ -42,7 +42,6 @@ public final class ItemNameForEditItem: UIView {
         super.init(frame: .zero)
 
         self.setupView()
-        self.bind()
     }
 
     @available(*, unavailable)
@@ -85,10 +84,6 @@ public final class ItemNameForEditItem: UIView {
             textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             textField.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-    }
-
-    private func bind() {
-
     }
 }
 

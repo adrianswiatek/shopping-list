@@ -173,6 +173,15 @@ public final class EditItemViewController: UIViewController {
             }
             .store(in: &cancellables)
 
+        urlView.onAction
+            .sink { [weak self] action in
+                guard case .showViewController(let viewController) = action else {
+                    return
+                }
+                self?.present(viewController, animated: true)
+            }
+            .store(in: &cancellables)
+
         categoriesView.onAction
             .sink { [weak self] in self?.handleAction($0) }
             .store(in: &cancellables)

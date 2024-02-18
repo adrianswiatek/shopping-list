@@ -1,7 +1,19 @@
 import ShoppingList_Shared
+import Combine
 import UIKit
 
 public final class UrlForEditItem: UIView {
+    public var onAction: AnyPublisher<Action, Never> {
+        textField.onAction
+            .compactMap { action -> Action? in
+                guard case .showValidationPopup(let alertController) = action else {
+                    return nil
+                }
+                return .showViewController(alertController)
+            }
+            .eraseToAnyPublisher()
+    }
+
     public var text: String? {
         get { textField.text }
         set { textField.text = newValue }
@@ -69,6 +81,12 @@ public final class UrlForEditItem: UIView {
     @discardableResult
     public override func resignFirstResponder() -> Bool {
         textField.resignFirstResponder()
+    }
+}
+
+extension UrlForEditItem {
+    public enum Action {
+        case showViewController(_ viewController: UIViewController)
     }
 }
 
