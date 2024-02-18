@@ -109,6 +109,7 @@ extension ItemsTableView: UITableViewDelegate {
             let actions: [UIAction] = [
                 self?.moveToListActionForItem(at: indexPath),
                 self?.editActionForItem(at: indexPath),
+                self?.openExternalUrlActionForItem(at: indexPath),
                 self?.removeActionForItem(at: indexPath)
             ].compactMap { $0 }
 
@@ -129,6 +130,16 @@ extension ItemsTableView: UITableViewDelegate {
             let image = #imageLiteral(resourceName: "Edit").withRenderingMode(.alwaysTemplate)
             return UIAction(title: "Edit item", image: image, attributes: []) { [weak self] _ in
                 self?.onActionSubject.send(.editItem(item))
+            }
+        }
+    }
+
+    private func openExternalUrlActionForItem(at indexPath: IndexPath) -> UIAction? {
+        itemForCell(at: indexPath).flatMap { item in
+            guard let externalUrl = item.externalUrl else { return nil }
+            let image = UIImage(systemName: "link")
+            return UIAction(title: "Open link", image: image, attributes: []) { [weak self] _ in
+                self?.onActionSubject.send(.openExternalUrl(externalUrl))
             }
         }
     }
@@ -192,6 +203,7 @@ extension ItemsTableView {
     public enum Action {
         case addItemToBasket(uuid: UUID)
         case editItem(_ item: ItemToBuyViewModel)
+        case openExternalUrl(_ url: String)
         case moveItem(fromIndexPath: IndexPath, toIndexPath: IndexPath)
         case removeItem(uuid: UUID)
         case rowTapped

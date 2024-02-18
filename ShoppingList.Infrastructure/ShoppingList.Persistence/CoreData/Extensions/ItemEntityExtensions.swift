@@ -19,7 +19,8 @@ extension ItemEntity {
             info: info,
             state: state,
             categoryId: category?.map().id,
-            listId: .fromUuid(listUuid)
+            listId: .fromUuid(listUuid),
+            externalUrl: externalUrl
         )
     }
 
@@ -44,7 +45,12 @@ extension ItemEntity {
             state = Int32(item.state.rawValue)
             hasBeenUpdated = true
         }
-        
+
+        if externalUrl != item.externalUrl {
+            externalUrl = item.externalUrl
+            hasBeenUpdated = true
+        }
+
         if category?.id != item.categoryId.toUuid() {
             category = categoryEntity(from: item, context: context)
             hasBeenUpdated = true
@@ -54,7 +60,7 @@ extension ItemEntity {
             list = listEntity(from: item, context: context)
             hasBeenUpdated = true
         }
-        
+
         if hasBeenUpdated {
             list?.updateDate = Date()
         }

@@ -8,6 +8,7 @@ public protocol ItemsViewControllerDelegate: AnyObject {
     func goToBasket()
     func goToCreateItem()
     func goToEditItem(_ item: ItemToBuyViewModel)
+    func goToExternalUrl(_ externalUrl: String)
     func goToSearchItemForList(_ list: ListViewModel)
     func didDismiss()
 }
@@ -201,6 +202,8 @@ public final class ItemsViewController: UIViewController {
             viewModel.addToBasketItems(with: [uuid])
         case .editItem(let item):
             delegate?.goToEditItem(item)
+        case .openExternalUrl(let url):
+            delegate?.goToExternalUrl(url)
         case .moveItem(let fromIndexPath, let toIndexPath):
             viewModel.moveItem(
                 fromPosition: (fromIndexPath.section, fromIndexPath.row),
@@ -217,6 +220,8 @@ public final class ItemsViewController: UIViewController {
         switch action {
         case .addItemToBasket(let uuid):
             viewModel.addToBasketItems(with: [uuid])
+        case .openExternalUrl(let url):
+            delegate?.goToExternalUrl(url)
         }
     }
 

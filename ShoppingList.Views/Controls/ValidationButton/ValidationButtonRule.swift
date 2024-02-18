@@ -41,8 +41,14 @@ public final class ValidationButtonRuleLeaf: ValidationButtonRule {
     public static var notEmptyItemRule: ValidationButtonRule {
         notEmptyRule(message: "Please provide name for the Item")
     }
-    
+
+    public static var validUrlOrEmptyRule: ValidationButtonRule {
+        let predicate: (String) -> Bool = { $0.isEmpty || URL(string: $0)?.host() != nil }
+        return ValidationButtonRuleLeaf(message: "Please provide valid URL", predicate: predicate)
+    }
+
     private static func notEmptyRule(message: String) -> ValidationButtonRule {
-        ValidationButtonRuleLeaf(message: message, predicate: { $0 != "" })
+        let predicate: (String) -> Bool = { $0.isNotEmpty }
+        return ValidationButtonRuleLeaf(message: message, predicate: predicate)
     }
 }

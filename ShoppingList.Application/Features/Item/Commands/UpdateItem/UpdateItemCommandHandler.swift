@@ -28,7 +28,8 @@ public final class UpdateItemCommandHandler: CommandHandler {
             info: command.info,
             state: itemBeforeUpdate.state,
             categoryId: command.categoryId,
-            listId: command.listId
+            listId: command.listId,
+            externalUrl: command.externalUrl.flatMap(URL.init)
         )
 
         itemRepository.updateItem(itemAfterUpdate)

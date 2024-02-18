@@ -59,7 +59,7 @@ public final class CreateItemFromModelViewModel: ObservableObject, ViewModel {
         }
 
         commandBus.execute(
-            AddItemCommand(itemName, categoryId, .fromUuid(list.uuid))
+            AddItemCommand(itemName, categoryId, .fromUuid(list.uuid), nil)
         )
     }
 

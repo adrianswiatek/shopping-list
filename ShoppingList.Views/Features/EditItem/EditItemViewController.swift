@@ -9,6 +9,7 @@ public final class EditItemViewController: UIViewController {
 
     private let itemNameView: ItemNameForEditItem = .init()
     private let infoView: InfoForEditItem = .init()
+    private let urlView: UrlForEditItem = .init()
     private let categoriesView: CategoriesForEditItem = .init()
     private let listsView: ListsForEditItem = .init()
 
@@ -26,10 +27,10 @@ public final class EditItemViewController: UIViewController {
     
     private lazy var saveBarButtonItem: UIBarButtonItem =
         .init(systemItem: .save, primaryAction: .init { [weak self] _ in
-            self.map { ($0.itemNameView, $0.infoView) }
-                .guard { itemNameView, _ in itemNameView.text != nil && itemNameView.isValid() }
-                .map { (itemNameText: $0.text ?? "", infoViewText: $1.text ?? "") }
-                .do { self?.viewModel.saveItem(name: $0.itemNameText, info: $0.infoViewText) }
+            self.map { ($0.itemNameView, $0.infoView, $0.urlView) }
+                .guard { $0.text != nil && $0.isValid() && $2.isValid() }
+                .map { (itemName: $0.text ?? "", info: $1.text ?? "", url: $2.text ?? "") }
+                .do { self?.viewModel.saveItem(name: $0.itemName, info: $0.info, externalUrl: $0.url) }
         })
 
     private let viewModel: EditItemViewModel
@@ -96,10 +97,18 @@ public final class EditItemViewController: UIViewController {
             infoView.heightAnchor.constraint(equalToConstant: 70)
         ])
 
+        view.addSubview(urlView)
+        NSLayoutConstraint.activate([
+            urlView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            urlView.topAnchor.constraint(equalTo: infoView.bottomAnchor),
+            urlView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            urlView.heightAnchor.constraint(equalToConstant: 70)
+        ])
+
         view.addSubview(categoriesView)
         NSLayoutConstraint.activate([
             categoriesView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            categoriesView.topAnchor.constraint(equalTo: infoView.bottomAnchor),
+            categoriesView.topAnchor.constraint(equalTo: urlView.bottomAnchor),
             categoriesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesView.heightAnchor.constraint(equalToConstant: 100)
         ])
@@ -129,6 +138,7 @@ public final class EditItemViewController: UIViewController {
                 case .edit(let item):
                     self?.itemNameView.text = item.name
                     self?.infoView.text = item.info
+                    self?.urlView.text = item.externalUrl
                     self?.navigationItem.title = "Edit Item"
                 }
             }

@@ -8,13 +8,15 @@ public struct UpdateItemCommand: Command {
     internal let info: String
     internal let categoryId: Id<ItemsCategory>
     internal let listId: Id<List>
+    internal let externalUrl: String?
 
     public init(
         _ itemId: Id<Item>,
         _ name: String,
         _ info: String,
         _ categoryId: Id<ItemsCategory>,
-        _ listId: Id<List>
+        _ listId: Id<List>,
+        _ externalUrl: String?
     ) {
         self.itemId = itemId
         self.name = name
@@ -22,5 +24,6 @@ public struct UpdateItemCommand: Command {
         self.categoryId = categoryId
         self.listId = listId
         self.source = .items
+        self.externalUrl = externalUrl
     }
 }

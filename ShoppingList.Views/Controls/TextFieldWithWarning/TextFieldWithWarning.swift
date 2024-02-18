@@ -7,9 +7,19 @@ public final class TextFieldWithWarning: UIView {
         onActionSubject.eraseToAnyPublisher()
     }
 
+    public var autocapitalizationType: UITextAutocapitalizationType {
+        get { textField.autocapitalizationType }
+        set { textField.autocapitalizationType = newValue }
+    }
+
     public var font: UIFont? {
         get { textField.font }
         set { textField.font = newValue }
+    }
+
+    public var placeholder: String? {
+        get { textField.placeholder }
+        set { textField.placeholder = newValue }
     }
 
     public var textColor: UIColor? {
@@ -22,9 +32,9 @@ public final class TextFieldWithWarning: UIView {
         set { textField.text = newValue }
     }
 
-    public var placeholder: String? {
-        get { textField.placeholder }
-        set { textField.placeholder = newValue }
+    public var textContentType: UITextContentType {
+        get { textField.textContentType }
+        set { textField.textContentType = newValue }
     }
 
     private lazy var textField: UITextField = configure(.init()) {

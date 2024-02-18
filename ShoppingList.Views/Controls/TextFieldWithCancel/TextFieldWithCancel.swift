@@ -81,7 +81,7 @@ public final class TextFieldWithCancel: UIView {
     
     private func setupView() {
         backgroundColor = .background
-        
+
         addSubview(cancelButton)
         NSLayoutConstraint.activate([
             cancelButton.topAnchor.constraint(equalTo: topAnchor),

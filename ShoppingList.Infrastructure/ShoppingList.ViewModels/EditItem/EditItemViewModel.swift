@@ -82,15 +82,16 @@ public final class EditItemViewModel: ViewModel {
         stateSubject.send(.edit(item: item))
     }
 
-    public func saveItem(name: String, info: String) {
+    public func saveItem(name: String, info: String, externalUrl: String) {
         let categoryId: Id<ItemsCategory> = .fromUuid(selectedCategorySubject.value.uuid)
         let listId: Id<List> = .fromUuid(selectedListSubject.value.uuid)
+        let externalUrl: String? = externalUrl.isEmpty ? nil : externalUrl
 
         if case .edit(let item) = stateSubject.value {
             let itemId: Id<Item> = .fromUuid(item.uuid)
-            commandBus.execute(UpdateItemCommand(itemId, name, info, categoryId, listId))
+            commandBus.execute(UpdateItemCommand(itemId, name, info, categoryId, listId, externalUrl))
         } else {
-            commandBus.execute(AddItemCommand(name, info, categoryId, listId))
+            commandBus.execute(AddItemCommand(name, info, categoryId, listId, externalUrl))
         }
     }
 

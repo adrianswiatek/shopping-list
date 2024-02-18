@@ -53,6 +53,7 @@ public final class ItemsDataSource {
 public extension ItemsDataSource {
     enum Action {
         case addItemToBasket(uuid: UUID)
+        case openExternalUrl(externalUrl: String)
     }
 }
 
@@ -81,5 +82,12 @@ extension ItemsDataSource: ItemsTableViewCellDelegate {
         didMoveItemToBasket item: ItemToBuyViewModel
     ) {
         onActionSubject.send(.addItemToBasket(uuid: item.uuid))
+    }
+
+    public func itemsTableViewCell(
+        _ itemsTableViewCell: ItemsTableViewCell,
+        didOpenExternalUrl externalUrl: String
+    ) {
+        onActionSubject.send(.openExternalUrl(externalUrl: externalUrl))
     }
 }

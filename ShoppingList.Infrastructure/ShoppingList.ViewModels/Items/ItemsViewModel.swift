@@ -99,7 +99,7 @@ public final class ItemsViewModel: ViewModel {
 
     public func addItem(with name: String) {
         commandBus.execute(
-            AddItemCommand.withDefaultCategory(name, "", .fromUuid(list.uuid))
+            AddItemCommand.withDefaultCategory(name, "", .fromUuid(list.uuid), nil)
         )
     }
 
@@ -167,7 +167,7 @@ public final class ItemsViewModel: ViewModel {
         let listId: Id<List> = .fromUuid(list.uuid)
 
         commandBus.execute(
-            UpdateItemCommand(itemId, item.name, item.info, categoryId, listId)
+            UpdateItemCommand(itemId, item.name, item.info, categoryId, listId, item.externalUrl)
         )
     }
 
@@ -221,7 +221,8 @@ public final class ItemsViewModel: ViewModel {
                 info: item.info,
                 state: .toBuy,
                 categoryId: .fromUuid(section.category.uuid),
-                listId: .fromUuid(list.uuid)
+                listId: .fromUuid(list.uuid),
+                externalUrl: item.externalUrl.flatMap(URL.init)
             )
         }
     }

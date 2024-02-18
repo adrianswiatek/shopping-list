@@ -255,6 +255,8 @@
 		E8674B85291EDD4700C419E6 /* ModelItemEntityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */; };
 		E8674B87291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B86291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift */; };
 		E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */; };
+		E881FE672B8134F3000DC89A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FE662B8134F3000DC89A /* StringExtensions.swift */; };
+		E881FE692B815626000DC89A /* UrlForEditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E881FE682B815626000DC89A /* UrlForEditItem.swift */; };
 		E899422E292AB9EC00E4D875 /* UpdateModelItemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */; };
 		E8994230292ABA1E00E4D875 /* UpdateModelItemHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */; };
 		E89A4F892929A06A00AFC47C /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */; };
@@ -832,6 +834,8 @@
 		E8674B83291ED92700C419E6 /* ModelItemEntityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelItemEntityExtensions.swift; sourceTree = "<group>"; };
 		E8674B86291EEE2B00C419E6 /* ItemAddedToListOrUpdatedListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAddedToListOrUpdatedListener.swift; sourceTree = "<group>"; };
 		E8674B8A291EF58F00C419E6 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		E881FE662B8134F3000DC89A /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		E881FE682B815626000DC89A /* UrlForEditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlForEditItem.swift; sourceTree = "<group>"; };
 		E899422D292AB9EC00E4D875 /* UpdateModelItemCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModelItemCommand.swift; sourceTree = "<group>"; };
 		E899422F292ABA1E00E4D875 /* UpdateModelItemHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModelItemHandler.swift; sourceTree = "<group>"; };
 		E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
@@ -1315,15 +1319,16 @@
 		A739B3BD2569BF87000B16E3 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */,
 				3ADFCD2F20E9295C00E49C17 /* CategoriesForEditItem.swift */,
 				3AB80FD42110FCE7002DDC4C /* InfoForEditItem.swift */,
 				3ADFCD2520E91AF800E49C17 /* ItemNameForEditItem.swift */,
 				3ADFCD3C20E9503E00E49C17 /* ListsForEditItem.swift */,
-				3A6752592132B18D008CD3E4 /* ButtonWithHighlight.swift */,
 				3A992240212E042800A6A2F9 /* PopupWithTextFieldController.swift */,
 				3AC6211B20C0541600A16F0E /* TextFieldWithCancel */,
 				3A67525D2132C0D6008CD3E4 /* TextFieldWithWarning */,
 				3A603F3A212B8152002D0640 /* ValidationButton */,
+				E881FE682B815626000DC89A /* UrlForEditItem.swift */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -1389,6 +1394,7 @@
 				A7640F3925699F31000D882B /* configure.swift */,
 				E8A3FE9B2A92C9150009806D /* Either.swift */,
 				E89A4F882929A06A00AFC47C /* OptionalExtensions.swift */,
+				E881FE662B8134F3000DC89A /* StringExtensions.swift */,
 			);
 			path = ShoppingList.Shared;
 			sourceTree = "<group>";
@@ -2940,6 +2946,7 @@
 			files = (
 				A739B5812569DD5F000B16E3 /* configure.swift in Sources */,
 				E89A4F892929A06A00AFC47C /* OptionalExtensions.swift in Sources */,
+				E881FE672B8134F3000DC89A /* StringExtensions.swift in Sources */,
 				E8674B8B291EF58F00C419E6 /* ArrayExtensions.swift in Sources */,
 				E8A3FE9C2A92C9150009806D /* Either.swift in Sources */,
 			);
@@ -3011,6 +3018,7 @@
 				A777F43A25B8A8D700A2DDB3 /* BasketDataSource.swift in Sources */,
 				A739B3C32569BFA6000B16E3 /* CancelButtonAnimations.swift in Sources */,
 				A739B5312569D386000B16E3 /* PopupWithTextFieldController.swift in Sources */,
+				E881FE692B815626000DC89A /* UrlForEditItem.swift in Sources */,
 				A7295DF5258038DD001B5963 /* Coordinator.swift in Sources */,
 				A739B4912569CE69000B16E3 /* ItemsTableViewHeaderCell.swift in Sources */,
 				A79917012582E0BE001A277A /* SettingsTableView.swift in Sources */,

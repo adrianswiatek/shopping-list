@@ -77,6 +77,12 @@ extension ItemsCoordinator: ItemsViewControllerDelegate {
         )
     }
 
+    public func goToExternalUrl(_ externalUrl: String) {
+        if let url = URL(string: externalUrl) {
+            UIApplication.shared.open(url)
+        }
+    }
+
     public func goToSearchItemForList(_ list: ListViewModel) {
         let viewModel = viewModelsFactory.createItemFromModelViewModel(for: list)
         let view = CreateItemFromModelView(viewModel: viewModel)

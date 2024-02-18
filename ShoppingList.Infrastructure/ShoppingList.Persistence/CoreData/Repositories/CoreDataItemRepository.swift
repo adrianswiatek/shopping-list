@@ -98,6 +98,7 @@ public final class CoreDataItemRepository: ItemRepository {
             entity.name = item.name
             entity.info = item.info
             entity.state = Int32(item.state.rawValue)
+            entity.externalUrl = item.externalUrl
             entity.list = listEntities.first { $0.id == item.listId.toUuid() }
             entity.category = categoryEntities.first { $0.id == item.categoryId.toUuid() }
             coreData.context.insert(entity)
